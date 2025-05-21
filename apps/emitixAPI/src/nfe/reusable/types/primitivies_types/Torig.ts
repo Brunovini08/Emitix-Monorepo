@@ -1,0 +1,5 @@
+export enum TorigEnum {
+  NACIONAL = '0',
+  ESTRANGEIRA_IMPORTACAO_DIRETA = '1',
+  ESTRANGEIRA_IMPORTACAO_INTERNA = '2',
+}

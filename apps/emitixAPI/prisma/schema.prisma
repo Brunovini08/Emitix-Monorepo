@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Issuer    Issuer[]
+}
+
+model Issuer {
+  id          String     @id @default(uuid())
+  cnpj        String     @unique @db.VarChar(14)
+  razaoSocial String     @db.VarChar(255)
+  emission    Emission[]
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum EmissionType {
+  NFE
+  CTE
+  MDF
+}
+
+model Emission {
+  id              String       @id @default(uuid())
+  type            EmissionType
+  uf              String       @db.VarChar(2)
+  valor           Float
+  issuerId        String
+  issuer          Issuer       @relation(fields: [issuerId], references: [id])
+  numeroDocumento String       @db.VarChar(20)
+  chaveAcesso     String       @unique @db.VarChar(44)
+  dataEmissao     DateTime
+  xml             String       @db.Text
+  status          String       @db.VarChar(20)
+  pdf             String       @db.Text
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}

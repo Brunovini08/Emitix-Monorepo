@@ -1,0 +1,15 @@
+export type Estado =
+  | 'AM'
+  | 'BA'
+  | 'GO'
+  | 'MG'
+  | 'MS'
+  | 'MT'
+  | 'PE'
+  | 'PR'
+  | 'RS'
+  | 'SP'
+  | 'SVAN'
+  | 'SVC_AN'
+  | 'SVC_RS'
+  | 'AN';
