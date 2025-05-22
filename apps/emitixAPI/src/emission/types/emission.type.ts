@@ -10,3 +10,9 @@ export default interface ICreateEmission {
   status: string
   pdf: string
 }
+
+export enum EmissionType {
+  NFE,
+  CTE,
+  MDF,
+}

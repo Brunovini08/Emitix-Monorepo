@@ -2,27 +2,27 @@ import { NFeBuilderService } from './nfe-builder.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { validateCertificate } from '../reusable/utils/validate/validateCertificate.util';
 import { loadCertificate } from '../reusable/utils/validate/processCertificate.util';
-import { signedXml } from '../reusable/utils/common/signedXml.util';
+import { signedXml } from '../../common/utils/common/signedXml.util';
 import { validateXmlXsd } from '../reusable/utils/validate/validateXmlXsd.util';
 import type { Base64 } from 'node-forge';
-import { enviNFeGen } from '../reusable/utils/generate/enviNFeGen.util';
+import { enviNFeGen } from '../../common/utils/generate/enviNFeGen.util';
 import { PrismaService } from 'src/prisma.service';
 import { IdLoteService } from './idLote.service';
 import type { NFeDto } from '../reusable/types/complex_types/TNFe/NFe.dto';
 import { extractCNPJFromSubject } from '../reusable/utils/validate/getCnpjFromCertificate.util';
-import { sendSefazRequest } from '../reusable/utils/common/buildSoapEnvelop.util';
+import { sendSefazRequest } from '../../common/utils/common/buildSoapEnvelop.util';
 import { EmissionService } from 'src/emission/emission.service';
 import { TEnviConsReciNFe } from '../reusable/types/complex_types/TCons/TEnviConsReciNFe';
 import TEnvInutNfe from '../reusable/types/complex_types/TInut/TEnvInutNfe';
-import { generateAccessKeyToEvent, generateAccessKeyToInutNfe } from '../reusable/utils/generate/generateAccessKey.util';
+import { generateAccessKeyToEvent, generateAccessKeyToInutNfe } from '../../common/utils/generate/generateAccessKey.util';
 import TEnvConsSitNfe from '../reusable/types/complex_types/TCons/TEnvConsSitNfe';
 import TEnvConsStatServ from '../reusable/types/complex_types/TCons/TEnvConsStatServ';
 import { TEnvConsCad } from '../reusable/types/complex_types/TCons/TEnvConsCad';
 import { TEnvDistDFeInt } from '../reusable/types/complex_types/TDist/TEnvDistDFeInt';
 import { convert } from 'xmlbuilder2'
 import type { TEnvEvento } from '../reusable/types/complex_types/TEvento/TEnvEvento';
-import { logOperation } from '../reusable/utils/common/logOperation.util';
-import { signedEventXml } from '../reusable/utils/common/signedEvent.util';
+import { logOperation } from '../../common/utils/common/logOperation.util';
+import { signedEventXml } from '../../common/utils/common/signedEvent.util';
 
 @Injectable()
 export class NfeService {

@@ -1,12 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { cleanObject } from '../reusable/utils/clean/cleanObject.util';
+import { cleanObject } from '../../common/utils/clean/cleanObject.util';
 import {
   ExpandObject,
   XMLBuilderCreateOptions,
 } from 'xmlbuilder2/lib/interfaces';
 import { create } from 'xmlbuilder2';
-import { generateCNF } from '../reusable/utils/generate/generate-cNfe.util';
-import { generateAccessKey, generateAccessKeyToEvent } from '../reusable/utils/generate/generateAccessKey.util';
+import { generateCNF } from '../../common/utils/generate/generate-cNfe.util';
+import { generateAccessKey, generateAccessKeyToEvent } from '../../common/utils/generate/generateAccessKey.util';
 import type { NFeDto } from '../reusable/types/complex_types/TNFe/NFe.dto';
 import type { TEnviConsReciNFe } from '../reusable/types/complex_types/TCons/TEnviConsReciNFe';
 import type TEnvInutNfe from '../reusable/types/complex_types/TInut/TEnvInutNfe';
