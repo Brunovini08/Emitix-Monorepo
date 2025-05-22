@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import type ICreateEmission from './types/emission.type';
 import { PrismaService } from 'src/prisma.service';
-import type { EmissionType } from '@prisma/client';
+import { EmissionType } from '@prisma/client';
 
 @Injectable()
 export class EmissionService {

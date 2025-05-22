@@ -1,12 +1,12 @@
 import { BadRequestException } from '@nestjs/common';
-import { TCnpj } from '../../types/primitivies_types/TCnpj';
-import { TCodUfIBGE } from '../../types/primitivies_types/TCodUfIBGE';
-import type { TDateTimeUTC } from '../../types/primitivies_types/TDateTimeUTC';
-import { TMod } from '../../types/primitivies_types/TMod';
-import { TNF } from '../../types/primitivies_types/TNF';
-import { TSerie } from '../../types/primitivies_types/TSerie';
-import type { TString } from '../../types/primitivies_types/TString';
-import type { TUf } from '../../types/primitivies_types/TUf';
+import { TCnpj } from '../../../nfe/reusable/types/primitivies_types/TCnpj';
+import { TCodUfIBGE } from '../../../nfe/reusable/types/primitivies_types/TCodUfIBGE';
+import type { TDateTimeUTC } from '../../../nfe/reusable/types/primitivies_types/TDateTimeUTC';
+import { TMod } from '../../../nfe/reusable/types/primitivies_types/TMod';
+import { TNF } from '../../../nfe/reusable/types/primitivies_types/TNF';
+import { TSerie } from '../../../nfe/reusable/types/primitivies_types/TSerie';
+import type { TString } from '../../../nfe/reusable/types/primitivies_types/TString';
+import type { TUf } from '../../../nfe/reusable/types/primitivies_types/TUf';
 import { calculateVerificadorDigite } from './calculateVerificatorDigite.util';
 
 export function generateAccessKey(

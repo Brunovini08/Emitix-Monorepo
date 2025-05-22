@@ -8,7 +8,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { TUf } from '../primitivies_types/TUf';
+import { TUf } from './TUf';
 
 export class TLocal {
   @IsString()
