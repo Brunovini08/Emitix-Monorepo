@@ -11,10 +11,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import DescriptionIcon from "@mui/icons-material/Description";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
+import logo from "../../public/logo.png"
+import Menu from "@mui/icons-material/Menu"
 
 export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
@@ -50,13 +51,6 @@ export function Navbar() {
               }}
               onClick={() => handleDrawer(open)}
             >
-              <MenuIcon />
-              <DescriptionIcon
-                fontSize="large"
-                sx={{
-                  color: "rgb(16 185 129)",
-                }}
-              />
               <Drawer
                 anchor="left"
                 open={open}
@@ -124,9 +118,8 @@ export function Navbar() {
                   </Box>
                 </Box>
               </Drawer>
-              <Typography variant="h4" color="black">
-                Emitix
-              </Typography>
+              <Menu />
+              <Image src={logo} width={70} height={66} alt="logo" quality={100}/>
             </IconButton>
           ) : (
             <IconButton
@@ -140,15 +133,7 @@ export function Navbar() {
                 },
               }}
             >
-              <DescriptionIcon
-                fontSize="large"
-                sx={{
-                  color: "rgb(16 185 129)",
-                }}
-              />
-              <Typography variant="h4" color="black">
-                Emitix
-              </Typography>
+              <Image src={logo} width={80} height={70} alt="logo" quality={100}/>
             </IconButton>
           )}
           <Box

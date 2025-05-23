@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip, Container, Typography } from "@mui/material";
+import { Chip, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { CardResources } from "../CardResources/CardResources";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -11,20 +11,29 @@ export function ResourcesSection() {
       sx={{
         display: "flex",
         justifyContent: "center",
+        marginTop: "3%",
         paddingTop: "5%",
         width: {
-          xs: "568px",
+          xs: "100%",
           sm: "100%",
           md: "100%",
           lg: "100%",
-          xl: "100%"
+          xl: "100%",
         },
+        height: "100%",
         flexDirection: "column",
         textAlign: {
           xs: "center",
         },
         gap: "10px",
-        paddingBottom: "5%",
+        paddingBottom: {
+          xs: "5%",
+          sm: "5%",
+          md: "0%",
+          lg: "0%",
+          xl: "0%",
+        },
+        backgroundColor: "rgb(16 185 129)",
       }}
     >
       <Box
@@ -38,29 +47,54 @@ export function ResourcesSection() {
             sm: "center",
             md: "center",
           },
+          gap: "4px",
         }}
       >
-        <Chip
-          sx={{
-            backgroundColor: "rgb(16 185 129)",
-            color: "white",
-            width: "5rem",
+        <Typography
+          variant="h4"
+          fontWeight={"bold"}
+          style={{
+            color: "#f1f1f1",
+            textDecoration: "underline",
+            textUnderlineOffset: "8px",
           }}
-          size="medium"
-          label="Recursos"
-        />
-        <Typography variant="h4" fontWeight={"bold"}>
+        >
           Tudo que você precisa para gerenciar suas notas fiscais
         </Typography>
-        <Typography variant="h6" color="textSecondary">
+        <Typography
+          variant="h6"
+          style={{
+            color: "#e6e6e6",
+          }}
+        >
           Emitix oferece uma solução completa para emissão e gerenciamento de
           documentos fiscais
         </Typography>
       </Box>
-      <Box  
+      <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
+          height: "100%",
+          paddingBottom: {
+            xs: "5%",
+            sm: "5%",
+            md: "5%",
+            lg: "5%",
+            xl: "0%",
+          },
+          paddingTop: {
+            xs: "5%",
+            sm: "5%",
+            md: "0%",
+            lg: "0%",
+            xl: "0%",
+          },
+          justifyContent: {
+            xs: "space-around",
+            sm: "space-around",
+            md: "space-around",
+            lg: "center",
+          },
           width: "100%",
           alignItems: {
             xs: "center",
@@ -69,11 +103,11 @@ export function ResourcesSection() {
             lg: "center",
           },
           gap: {
-            xs: "5%",
-            sm: "5%",
-            md: "5%",
-            lg: "5%",
-            xl: "5%",
+            xs: "30px",
+            sm: "30px",
+            md: "30px",
+            lg: "30px",
+            xl: "30px",
           },
           flexDirection: {
             xs: "column",

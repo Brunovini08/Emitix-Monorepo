@@ -10,26 +10,43 @@ export function Section() {
       spacing={2}
       sx={{
         paddingTop: "5%",
+        paddingBottom: "5%",
+        width: "100%",
       }}
     >
       <Grid
         size={{
           xl: 6,
-          lg: 6,
+          lg: 5,
           md: 12,
           sm: 12,
         }}
         sx={{
-          paddingLeft: "2rem",
+          paddingBottom: "2rem",
         }}
       >
-        <div
-          style={{
+        <Box
+          sx={{
             display: "flex",
             flexDirection: "column",
             width: "100%",
             justifyContent: "center",
+            textAlign: {
+              xs: "center",
+              sm: "center",
+              md: "center",
+              lg: "start",
+              xl: "start",
+            },
             height: "100%",
+            paddingLeft: {
+              xs: "",
+              sm: "0",
+              md: "0",
+              lg: "30px",
+              xl: "30px",
+            },
+            gap: "10px",
           }}
         >
           <Typography variant="h3" fontWeight={"bold"}>
@@ -48,17 +65,17 @@ export function Section() {
               justifyContent: {
                 xs: "center",
                 sm: "center",
-                md: "start",
+                md: "center",
                 lg: "start",
-                xl: "start"
+                xl: "start",
               },
               textAlign: {
                 xs: "center",
                 sm: "center",
                 md: "start",
                 lg: "start",
-                xl: "start"
-              }
+                xl: "start",
+              },
             }}
           >
             <Button
@@ -68,7 +85,7 @@ export function Section() {
                 marginLeft: "3px",
               }}
             >
-              Experimente
+              Ver Emitix em Ação
             </Button>
             <Button
               sx={{
@@ -80,34 +97,39 @@ export function Section() {
               Agendar Demonstração
             </Button>
           </Box>
-        </div>
+        </Box>
       </Grid>
       <Grid
         size={{
           xl: 6,
-          lg: 6,
+          lg: 7,
           md: 12,
           sm: 12,
         }}
         sx={{
-          display: "flex",
-          paddingLeft: "1.6rem",
-          placeContent: {
-            sm: "center",
-            md: "center"
-          }
+          width: "100%"
         }}
       >
-        <Image
-          src={imageSection}
-          alt="Nota Fiscal"
-          width={500}
-          height={400}
-          quality={100}
-          style={{
-            borderRadius: "10px",
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
           }}
-        />
+        >
+          <Image
+            src={imageSection}
+            alt="Nota Fiscal"
+            width={500}
+            height={400}
+            quality={100}
+            style={{
+              borderRadius: "10px",
+              width: "50vw",
+              height: "100%",
+            }}
+          />
+        </Box>
       </Grid>
     </Grid>
   );
