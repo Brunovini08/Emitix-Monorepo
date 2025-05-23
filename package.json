@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "@nestjs/mapped-types": "*",
+    "@react-spring/web": "^10.0.1",
     "fast-xml-parser": "^5.2.3"
   }
 }

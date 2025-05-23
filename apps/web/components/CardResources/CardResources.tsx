@@ -18,14 +18,19 @@ export function CardResources({
         sx={{
           maxWidth: "300px",
           minHeight: "200px",
-          border: "1px solid #e1e1e1",
+          borderRadius: '6px',
           display: "flex",
           padding: "4px",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          
+          cursor: "pointer",
+          ":hover": {
+            transform: "translateY(-5px)",
+            boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+            transition: "all 0.3s ease"
+          }
         }}
       >
         {icon}
