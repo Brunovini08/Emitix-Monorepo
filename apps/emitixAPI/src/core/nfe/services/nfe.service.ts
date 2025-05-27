@@ -9,7 +9,7 @@ import TEnvConsStatServ from '../reusable/types/complex_types/TCons/TEnvConsStat
 import { TEnvConsCad } from '../reusable/types/complex_types/TCons/TEnvConsCad';
 import { TEnvDistDFeInt } from '../reusable/types/complex_types/TDist/TEnvDistDFeInt';
 import type { TEnvEvento } from '../reusable/types/complex_types/TEvento/TEnvEvento';
-import type { NotaService } from 'src/resources/middlewares/nota/nota.service';
+import { NotaService } from 'src/resources/middlewares/nota/nota.service';
 
 @Injectable()
 export class NfeService {

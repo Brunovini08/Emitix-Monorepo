@@ -3,7 +3,7 @@ import { Base64 } from "node-forge";
 import { NFeDto } from "src/core/nfe/reusable/types/complex_types/TNFe/NFe.dto";
 import { IdLoteService } from "src/core/nfe/services/idLote.service";
 import { NFeBuilderService } from "src/core/nfe/services/nfe-builder.service";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "src/resources/common/prismaConfig/prisma.service";
 import { sendSefazRequest } from "src/resources/common/utils/common/buildSoapEnvelop.util";
 import { logOperation } from "src/resources/common/utils/common/logOperation.util";
 import { signedXml } from "src/resources/common/utils/common/signedXml.util";

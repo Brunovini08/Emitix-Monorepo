@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RedisService } from 'src/resources/middlewares/is-unique-day/redis/redis.service';
+import { RedisService } from 'src/resources/middlewares/redis/redis.service';
 
 @Injectable()
 export class IdLoteService {

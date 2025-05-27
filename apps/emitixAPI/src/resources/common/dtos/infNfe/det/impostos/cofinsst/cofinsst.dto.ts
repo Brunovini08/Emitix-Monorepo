@@ -6,7 +6,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { validOne } from 'src/resources/middlewares/is-unique-day/valid-one/valid-one.decorator';
+import { validOne } from 'src/resources/middlewares/valid-one/valid-one.decorator';
 import { baseCalcDto } from './baseCalc.dto';
 import { quantDto } from '../pisst/quant.dto';
 import { TDec_1302 } from 'src/core/nfe/reusable/types/primitivies_types/TDec_1302';

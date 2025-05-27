@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/resources/common/prismaConfig/prisma.service';
 import { SignInDto } from './dto/signInDto';
 import { SignUpDto } from './dto/signUpDto';
 import {
@@ -14,7 +14,6 @@ import {
 import { CreateToken } from 'src/resources/common/utils/auth-utils/createToken';
 import { RefreshToken } from 'src/resources/common/utils/auth-utils/refreshToken';
 import { verifyRefreshToken } from 'src/resources/common/utils/auth-utils/verifyRefreshToken';
-import { RedisService } from 'src/resources/middlewares/is-unique-day/redis/redis.service';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}

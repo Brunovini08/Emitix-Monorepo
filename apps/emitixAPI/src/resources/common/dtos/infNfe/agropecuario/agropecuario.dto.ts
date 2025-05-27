@@ -7,7 +7,7 @@ import {
 import { defensivoDto } from './defensivo.dto';
 import { Type } from 'class-transformer';
 import { guiaTransitoDto } from './guiaTransito.dto';
-import { validOne } from 'src/resources/middlewares/is-unique-day/valid-one/valid-one.decorator';
+import { validOne } from 'src/resources/middlewares/valid-one/valid-one.decorator';
 
 @validOne(['defensivo', 'guiaTransito'])
 export class agropecuarioDto {

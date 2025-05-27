@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import type ICreateIssuerInvoice from './types/issuer.type';
-import { RedisService } from 'src/resources/middlewares/is-unique-day/redis/redis.service';
-import { PrismaService } from 'src/prisma.service';
+import { RedisService } from 'src/resources/middlewares/redis/redis.service';
+import { PrismaService } from 'src/resources/common/prismaConfig/prisma.service';
 
 @Injectable()
 export class IssuerService {
