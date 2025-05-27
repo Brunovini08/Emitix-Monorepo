@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { NfeModule } from './nfe/nfe.module';
-import { CertificateController } from './certificate/certificate.controller';
-import { RedisService } from './redis/redis.service';
-import { IssuerInvoiceModule } from './issuer/issuer.module';
-import { EmissionModule } from './emission/emission.module';
+import { AuthModule } from './core/auth/auth.module';
+import { NfeModule } from './core/nfe/nfe.module';
+import { CertificateController } from './resources/middlewares/certificate/certificate.controller';
+import { RedisService } from './resources/middlewares/redis/redis.service';
+import { IssuerInvoiceModule } from './core/issuer/issuer.module';
+import { EmissionModule } from './resources/middlewares/emission/emission.module';
+import { NotasModule } from './resources/middlewares/nota/nota.module';
+import { PrismaModule } from './resources/common/prismaConfig/prisma.module';
 
 @Module({
-  imports: [AuthModule, NfeModule, IssuerInvoiceModule, EmissionModule],
+  imports: [AuthModule, NfeModule, IssuerInvoiceModule, EmissionModule, NotasModule, PrismaModule],
   controllers: [CertificateController],
   providers: [RedisService],
 })
