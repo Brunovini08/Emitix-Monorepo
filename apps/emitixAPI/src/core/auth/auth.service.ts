@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -48,13 +49,27 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException('Usuário não encontrado');
+       throw new HttpException(
+              {
+                statusCode: HttpStatus.BAD_REQUEST,
+                message: 'Usuário não encontrado',
+                error: 'Bad Request',
+              },
+              HttpStatus.BAD_REQUEST,
+            );
     }
 
     const match = await comparePassword(signInDto.password, user.password);
 
     if (!match) {
-      throw new BadRequestException('Informações inválidas');
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'Informações inválidas',
+          error: 'Bad Request',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const token = await CreateToken({
@@ -77,11 +92,25 @@ export class AuthService {
 
   async refreshToken(refreshToken: string) {
     if (!refreshToken) {
-      throw new NotFoundException('Refresh token não encontrado');
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'Refresh Token não encontrado',
+          error: 'Bad Request',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const token = await verifyRefreshToken(refreshToken);
     if (!token) {
-      throw new HttpException('Token inválido', 498);
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: 'Token inválido',
+          error: 'Bad Request',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const newToken = await CreateToken({
       sub: token.sub,

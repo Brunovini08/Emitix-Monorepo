@@ -14,8 +14,9 @@ import {
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import logo from "../../public/logo.png"
-import Menu from "@mui/icons-material/Menu"
+import logo from "../../public/logo.png";
+import Menu from "@mui/icons-material/Menu";
+import Link from "next/link";
 
 export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
@@ -119,7 +120,13 @@ export function Navbar() {
                 </Box>
               </Drawer>
               <Menu />
-              <Image src={logo} width={70} height={66} alt="logo" quality={100}/>
+              <Image
+                src={logo}
+                width={70}
+                height={66}
+                alt="logo"
+                quality={100}
+              />
             </IconButton>
           ) : (
             <IconButton
@@ -133,7 +140,13 @@ export function Navbar() {
                 },
               }}
             >
-              <Image src={logo} width={80} height={70} alt="logo" quality={100}/>
+              <Image
+                src={logo}
+                width={80}
+                height={70}
+                alt="logo"
+                quality={100}
+              />
             </IconButton>
           )}
           <Box
@@ -149,8 +162,8 @@ export function Navbar() {
               sx={{
                 display: matches ? "none" : "flex",
                 width: "100%",
-                justifyContent: 'center',
-                gap: '2%',
+                justifyContent: "center",
+                gap: "2%",
               }}
             >
               <Typography
@@ -195,7 +208,10 @@ export function Navbar() {
               marginRight: "3px",
             }}
           >
-            Login
+            <Link href="/login" style={{
+              textDecoration: 'none',
+              color: 'rgb(16 185 129)'
+            }}>Login</Link>
           </Button>
           <Button
             sx={{
@@ -204,7 +220,10 @@ export function Navbar() {
               marginLeft: "3px",
             }}
           >
-            REGISTRAR
+            <Link href="/register" style={{
+              textDecoration: 'none',
+              color: 'white'
+            }}>REGISTRAR</Link>
           </Button>
         </Toolbar>
       </AppBar>
