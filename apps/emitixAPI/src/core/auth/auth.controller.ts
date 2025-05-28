@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly service: AuthService) {}
+  constructor(private readonly service: AuthService) { }
 
   @Post('user/signup')
   async signUp(@Body() signUpDto: SignUpDto) {
@@ -32,9 +32,6 @@ export class AuthController {
     @Res() res: Response,
     @Req() req: Request,
   ) {
-    console.log({
-      cookie: req.cookies,
-    })
     if (req.cookies.token) {
       return res.status(400).send('Usuário já está logado');
     }
@@ -44,10 +41,25 @@ export class AuthController {
       });
     }
     await this.service.signIn(signInDto).then((data) => {
-      res.cookie('token', data.token, { httpOnly: true });
-      res.cookie('refreshToken', data.refreshToken, { httpOnly: true });
+      res.cookie('token', data.token, {
+        httpOnly: true,
+        sameSite: 'lax',
+        maxAge: 1000 * 60 * 60 * 24, 
+      });
+      res.cookie('refreshtoken', data.refreshToken, {
+        httpOnly: true,
+        sameSite: 'lax',
+        maxAge: 1000 * 60 * 60 * 480, 
+      });
+      return res.status(200).json({
+        user: {
+          name: data.name,
+          email: data.email,
+          token: data.token 
+        }
+      })
     });
-    return res.status(200).send('Usuário logado');
+
   }
 
   @Post('user/signout')
@@ -57,9 +69,9 @@ export class AuthController {
       req.cookies.refreshToken = null;
       res.clearCookie('token');
       res.clearCookie('refreshToken');
-      return res.status(200).send('Usuário deslogado');
+      return res.status(200).json('Usuário deslogado');
     }
-    return res.status(400).send('Usuário não está logado');
+    return res.status(400).json('Usuário não está logado');
   }
 
   @Post('user/refreshtoken')
@@ -67,12 +79,12 @@ export class AuthController {
     const refreshToken = (req.cookies as { refreshToken?: string })
       .refreshToken;
     if (!refreshToken) {
-      return res.status(400).send('Refresh token não encontrado');
+      return res.status(400).json('Refresh token não encontrado');
     }
     await this.service.refreshToken(refreshToken).then((data) => {
       res.cookie('token', data.token, { httpOnly: true });
       res.cookie('refreshToken', data.refreshToken, { httpOnly: true });
     });
-    return res.status(200).send('Token atualizado');
+    return res.status(200).json('Token atualizado');
   }
 }
