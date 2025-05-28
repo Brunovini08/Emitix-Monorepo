@@ -17,15 +17,18 @@ import Image from "next/image";
 import logo from "../../public/logo.png";
 import Menu from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { useAuth } from "../../context/AuthContext";
 
 export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
   const [open, setOpen] = useState(false);
 
+  const {user} = useAuth()
   const handleDrawer = (prev: any) => {
     setOpen(!prev);
   };
 
+  console.log(user)
   return (
     <Box>
       <AppBar

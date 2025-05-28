@@ -9,7 +9,7 @@ import { GlobalExceptionFilter } from './resources/common/utils/format-error/for
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: '*',
+    origin: 'http://89.116.74.203:3032',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   })

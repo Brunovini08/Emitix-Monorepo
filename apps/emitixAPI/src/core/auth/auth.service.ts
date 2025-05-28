@@ -75,11 +75,13 @@ export class AuthService {
     const token = await CreateToken({
       sub: user.id,
       username: user.name,
+      email: user.email
     });
 
     const refreshToken = await RefreshToken({
       sub: user.id,
       username: user.name,
+      email: user.email
     });
 
     return {
@@ -115,10 +117,12 @@ export class AuthService {
     const newToken = await CreateToken({
       sub: token.sub,
       username: token.username,
+      email: token.email
     });
     const newRefreshToken = await RefreshToken({
       sub: token.sub,
       username: token.username,
+      email: token.email
     });
 
     return { token: newToken, refreshToken: newRefreshToken };
