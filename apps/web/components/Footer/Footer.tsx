@@ -6,9 +6,12 @@ export function Footer() {
   const getYear = new Date().getFullYear();
 
   return (
+    
     <Box
       sx={{
         display: "flex",
+        position:  'fixed',
+        bottom  : '0',
         width: "100%",
         justifyContent: "space-between",
         alignItems: "center",

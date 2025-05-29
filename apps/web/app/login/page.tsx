@@ -33,7 +33,7 @@ export default function Login() {
     }
 
     setMessages(newMessages);
-    state?.success ? window.location.href = "/" : null
+    state?.success ? window.location.href = "/inicio" : null
   }, [state]);
 
 

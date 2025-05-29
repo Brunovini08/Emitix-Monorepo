@@ -10,7 +10,7 @@ import { generateAccessKey } from 'src/resources/common/utils/generate/generateA
 
 import { XMLBuilder } from 'fast-xml-parser';
 import { BuildService } from 'src/resources/middlewares/build/build.service';
-import type { IdLoteService } from 'src/core/nfe/services/idLote.service';
+import { IdLoteService } from 'src/core/nfe/services/idLote.service';
 import type { NFeDto } from 'src/core/nfe/reusable/types/complex_types/TNFe/NFe.dto';
 import type { TEnviConsReciNFe } from 'src/core/nfe/reusable/types/complex_types/TCons/TEnviConsReciNFe';
 import type TEnvInutNfe from 'src/core/nfe/reusable/types/complex_types/TInut/TEnvInutNfe';

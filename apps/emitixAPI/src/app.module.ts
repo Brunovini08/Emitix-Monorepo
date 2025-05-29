@@ -7,9 +7,10 @@ import { IssuerInvoiceModule } from './core/issuer/issuer.module';
 import { EmissionModule } from './resources/middlewares/emission/emission.module';
 import { NotasModule } from './resources/middlewares/nota/nota.module';
 import { PrismaModule } from './resources/common/prismaConfig/prisma.module';
+import { NfceModule } from './core/nfce/nfce.module';
 
 @Module({
-  imports: [AuthModule, NfeModule, IssuerInvoiceModule, EmissionModule, NotasModule, PrismaModule],
+  imports: [AuthModule, NfeModule, NfceModule, IssuerInvoiceModule, EmissionModule, NotasModule, PrismaModule],
   controllers: [CertificateController],
   providers: [RedisService],
 })
