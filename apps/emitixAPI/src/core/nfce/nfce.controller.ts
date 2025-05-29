@@ -8,20 +8,20 @@ import {
   BadRequestException,
   UseGuards,
 } from '@nestjs/common';
-import type { Base64 } from 'node-forge';
+import { Base64 } from 'node-forge';
 import { Response } from 'express';
 import { AuthGuard } from 'src/core/auth/jwt-auth.guard';
 import { IssuerService } from 'src/core/issuer/issuer.service';
 import { NfceService } from './services/nfce.service';
-import type { NFeDto } from '../nfe/reusable/types/complex_types/TNFe/NFe.dto';
-import type { TEnviConsReciNFe } from '../nfe/reusable/types/complex_types/TCons/TEnviConsReciNFe';
-import type TEnvInutNfe from '../nfe/reusable/types/complex_types/TInut/TEnvInutNfe';
-import type TEnvConsSitNfe from '../nfe/reusable/types/complex_types/TCons/TEnvConsSitNfe';
-import type TEnvConsStatServ from '../nfe/reusable/types/complex_types/TCons/TEnvConsStatServ';
-import type { TEnvDistDFeInt } from '../nfe/reusable/types/complex_types/TDist/TEnvDistDFeInt';
-import type { TEnvEvento } from '../nfe/reusable/types/complex_types/TEvento/TEnvEvento';
+import { NFeDto } from '../nfe/reusable/types/complex_types/TNFe/NFe.dto';
+import { TEnviConsReciNFe } from '../nfe/reusable/types/complex_types/TCons/TEnviConsReciNFe';
+import TEnvInutNfe from '../nfe/reusable/types/complex_types/TInut/TEnvInutNfe';
+import TEnvConsSitNfe from '../nfe/reusable/types/complex_types/TCons/TEnvConsSitNfe';
+import TEnvConsStatServ from '../nfe/reusable/types/complex_types/TCons/TEnvConsStatServ';
+import { TEnvDistDFeInt } from '../nfe/reusable/types/complex_types/TDist/TEnvDistDFeInt';
+import { TEnvEvento } from '../nfe/reusable/types/complex_types/TEvento/TEnvEvento';
 
-@Controller('nfe')
+@Controller('nfce')
 export class NfceController {
   constructor(private nfceService: NfceService, private issuerInvoiceService: IssuerService) { }
 
@@ -58,6 +58,7 @@ export class NfceController {
         issuerInvoice,
         "65"
       );
+      console.log("oi")
       res.send(xml)
     } catch (error) {
       throw new BadRequestException(error);

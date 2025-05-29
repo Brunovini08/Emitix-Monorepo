@@ -1,14 +1,14 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { loadCertificate } from 'src/resources/common/utils/validate/processCertificate.util';
-import type { Base64 } from 'node-forge';
+import { Base64 } from 'node-forge';
 import { NotaService } from 'src/resources/middlewares/nota/nota.service';
-import type { NFeDto } from 'src/core/nfe/reusable/types/complex_types/TNFe/NFe.dto';
-import type { TEnviConsReciNFe } from 'src/core/nfe/reusable/types/complex_types/TCons/TEnviConsReciNFe';
-import type TEnvInutNfe from 'src/core/nfe/reusable/types/complex_types/TInut/TEnvInutNfe';
-import type TEnvConsSitNfe from 'src/core/nfe/reusable/types/complex_types/TCons/TEnvConsSitNfe';
-import type TEnvConsStatServ from 'src/core/nfe/reusable/types/complex_types/TCons/TEnvConsStatServ';
-import type { TEnvDistDFeInt } from 'src/core/nfe/reusable/types/complex_types/TDist/TEnvDistDFeInt';
-import type { TEnvEvento } from 'src/core/nfe/reusable/types/complex_types/TEvento/TEnvEvento';
+import { NFeDto } from 'src/core/nfe/reusable/types/complex_types/TNFe/NFe.dto';
+import { TEnviConsReciNFe } from 'src/core/nfe/reusable/types/complex_types/TCons/TEnviConsReciNFe';
+import TEnvInutNfe from 'src/core/nfe/reusable/types/complex_types/TInut/TEnvInutNfe';
+import TEnvConsSitNfe from 'src/core/nfe/reusable/types/complex_types/TCons/TEnvConsSitNfe';
+import TEnvConsStatServ from 'src/core/nfe/reusable/types/complex_types/TCons/TEnvConsStatServ';
+import { TEnvDistDFeInt } from 'src/core/nfe/reusable/types/complex_types/TDist/TEnvDistDFeInt';
+import { TEnvEvento } from 'src/core/nfe/reusable/types/complex_types/TEvento/TEnvEvento';
 
 @Injectable()
 export class NfceService {
