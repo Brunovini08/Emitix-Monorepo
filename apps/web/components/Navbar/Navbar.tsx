@@ -26,6 +26,13 @@ const menuItems = [
   { label: "Preços", href: "/pricing" },
 ];
 
+const menuItemsLogged = [
+  { label: "Serviços", href: "/services" }, // Added a valid href
+  { label: "Minhas Notas", href: "/notas" },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Documentação", href: "/documentation" },
+];
+
 export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
   const [open, setOpen] = useState(false);
@@ -110,23 +117,57 @@ export function Navbar() {
               gap: "30px",
             }}
           >
-            {menuItems.map((item) => (
-              <Typography
-                key={item.href}
-                variant="h6"
-                component={Link}
-                href={item.href}
-                sx={{
-                  textDecoration: "none",
-                  color: "black",
-                  ":hover": {
-                    borderBottom: "1px solid black",
-                  },
-                }}
-              >
-                {item.label}
-              </Typography>
-            ))}
+          {user === null
+            ? menuItems.map((item) => (
+                <Typography
+                  key={item.href}
+                  variant="h6"
+                  component={Link}
+                  href={item.href}
+                  sx={{
+                    textDecoration: "none",
+                    color: "black",
+                    ":hover": {
+                      borderBottom: "1px solid black",
+                    },
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              ))
+            : menuItemsLogged.map((item) =>
+                item.href ? (
+                  <Typography
+                    key={item.href}
+                    variant="h6"
+                    component={Link}
+                    href={item.href}
+                    sx={{
+                      textDecoration: "none",
+                      color: "black",
+                      ":hover": {
+                        borderBottom: "1px solid black",
+                      },
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                ) : (
+                  <Typography
+                    key={item.label}
+                    variant="h6"
+                    sx={{
+                      textDecoration: "none",
+                      color: "black",
+                      ":hover": {
+                        borderBottom: "1px solid black",
+                      },
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                )
+              )}
           </Box>
 
           {/* Auth Buttons */}

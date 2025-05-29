@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
   const res = await response.json();
   const nextRes = NextResponse.json(res);
 
-  // Copiar cookies do backend para o frontend
   const cookies = response.headers.getSetCookie();
   cookies?.forEach((cookie) => nextRes.headers.append('Set-Cookie', cookie));
 
