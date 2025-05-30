@@ -8,12 +8,16 @@ import {
   Divider,
   Drawer,
   IconButton,
+  Input,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -36,6 +40,15 @@ const menuItemsLogged = [
 export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
   const [open, setOpen] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openAvatar = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const { user, loading, Signout } = useAuth();
 
@@ -117,26 +130,8 @@ export function Navbar() {
               gap: "30px",
             }}
           >
-          {user === null
-            ? menuItems.map((item) => (
-                <Typography
-                  key={item.href}
-                  variant="h6"
-                  component={Link}
-                  href={item.href}
-                  sx={{
-                    textDecoration: "none",
-                    color: "black",
-                    ":hover": {
-                      borderBottom: "1px solid black",
-                    },
-                  }}
-                >
-                  {item.label}
-                </Typography>
-              ))
-            : menuItemsLogged.map((item) =>
-                item.href ? (
+            {user === null
+              ? menuItems.map((item) => (
                   <Typography
                     key={item.href}
                     variant="h6"
@@ -152,29 +147,38 @@ export function Navbar() {
                   >
                     {item.label}
                   </Typography>
-                ) : (
-                  <Typography
-                    key={item.label}
-                    variant="h6"
-                    sx={{
-                      textDecoration: "none",
-                      color: "black",
-                      ":hover": {
-                        borderBottom: "1px solid black",
-                      },
-                    }}
-                  >
-                    {item.label}
-                  </Typography>
-                )
-              )}
+                ))
+              : null}
           </Box>
 
           {/* Auth Buttons */}
           {user ? (
-            <Button variant="contained" color="error" onClick={Signout}>
-              Sair
-            </Button>
+            <>
+              <Avatar>
+                <Button
+                  onClick={handleClick}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <Typography color="success">{user.name.charAt(0)}</Typography>
+                </Button>
+              </Avatar>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openAvatar}
+                onClose={handleClose}
+              >
+                <MenuItem>
+                  <Button variant="contained" color="error" onClick={Signout}>
+                    Sair
+                  </Button>
+                </MenuItem>
+              </Menu>
+            </>
           ) : (
             <Box display="flex" gap={1}>
               <Button

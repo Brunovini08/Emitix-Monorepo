@@ -10,9 +10,10 @@ export function Footer() {
     <Box
       sx={{
         display: "flex",
-        position:  'fixed',
+        position:  'static',
         bottom  : '0',
         width: "100%",
+        borderTop: '1px solid #e4e4e4',
         justifyContent: "space-between",
         alignItems: "center",
         paddingLeft: "15px",
