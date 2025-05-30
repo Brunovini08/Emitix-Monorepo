@@ -28,7 +28,7 @@ export class NfceController {
   @UseGuards(AuthGuard)
   @Post('emitir')
   async create(
-    @Body() nfe: NFeDto,
+    @Body() nfce: NFeDto,
     @Res() res: Response,
     @Request() req,
     @Headers('password') password: string,
@@ -36,8 +36,8 @@ export class NfceController {
     @Headers('indSinc') indSinc: string,
   ) {
     const issuerInvoice = await this.issuerInvoiceService.create({
-      cnpj: String(nfe?.NFe?.infNFe?.emit?.CNPJ),
-      razaoSocial: String(nfe?.NFe?.infNFe?.emit?.xNome),
+      cnpj: String(nfce?.NFe?.infNFe?.emit?.CNPJ),
+      razaoSocial: String(nfce?.NFe?.infNFe?.emit?.xNome),
       userId: req.user?.sub,
     })
     if (!issuerInvoice) {
@@ -49,7 +49,7 @@ export class NfceController {
     const userId = req.user?.sub;
     try {
       const xml = await this.nfceService.create(
-        nfe,
+        nfce,
         certificate,
         password,
         userId,
@@ -58,7 +58,6 @@ export class NfceController {
         issuerInvoice,
         "65"
       );
-      console.log("oi")
       res.send(xml)
     } catch (error) {
       throw new BadRequestException(error);
