@@ -4,10 +4,11 @@ import { Box, Button, Input, Typography } from "@mui/material";
 import { useActionState, useEffect, useState } from "react";
 import { signin } from "../actions/auth";
 import { InfoMessage } from "../../components/InfoMessage/InfoMessage";
+import { green500 } from "../../utils/colors";
 
 export default function Login() {
   const [state, action, pending] = useActionState(signin, undefined);
-  
+
   const [messages, setMessages] = useState<
     { id: string; text: string | undefined }[]
   >([]);
@@ -33,9 +34,8 @@ export default function Login() {
     }
 
     setMessages(newMessages);
-    state?.success ? window.location.href = "/inicio" : null
+    state?.success ? (window.location.href = "/") : null;
   }, [state]);
-
 
   return (
     <div
@@ -82,7 +82,7 @@ export default function Login() {
           }}
           action={action}
         >
-          <Typography variant="h2" color="success">
+          <Typography variant="h2" sx={{ color: green500 }}>
             Emitix Login
           </Typography>
           <Input
@@ -98,16 +98,16 @@ export default function Login() {
             name="password"
             placeholder="Senha"
             sx={{
-              width: "40%",
+              width: "40%"
             }}
-            type={"password"}
             color="success"
+            type={"password"}
           />
           <Button
             variant="contained"
-            color="success"
             sx={{
               width: "30%",
+              backgroundColor: green500,
             }}
             type="submit"
             disabled={pending}

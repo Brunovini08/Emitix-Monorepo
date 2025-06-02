@@ -2,27 +2,30 @@
 
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
+  CircularProgress,
   Divider,
   Drawer,
   IconButton,
   Input,
-  Menu,
-  MenuItem,
+  TextField,
   Toolbar,
   Typography,
   useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import SearchIcon from "@mui/icons-material/Search";
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
+import { ButtonsNoAuthorization } from "./ButtonsNoAuthorization";
+import { ButtonAuthorization } from "./ButtonAuthorization";
+import { green500 } from "../../utils/colors";
+import { Search } from "@mui/icons-material";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const menuItems = [
   { label: "Início", href: "/" },
@@ -54,10 +57,23 @@ export function Navbar() {
 
   const handleDrawerToggle = () => setOpen((prev) => !prev);
 
-  if (loading) return null; // ou um Skeleton/Spinner se preferir
+  if (loading) return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress color="success"/>
+    </Box>
+  )
 
   return (
-    <Box>
+    <Box sx={{
+      display: loading ? "none" : "flex",
+    }}>
       <AppBar
         position="static"
         sx={{
@@ -121,7 +137,6 @@ export function Navbar() {
             </IconButton>
           )}
 
-          {/* Desktop Menu */}
           <Box
             sx={{
               flexGrow: 1,
@@ -151,54 +166,49 @@ export function Navbar() {
               : null}
           </Box>
 
-          {/* Auth Buttons */}
           {user ? (
-            <>
-              <Avatar>
-                <Button
-                  onClick={handleClick}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "50%",
-                  }}
-                >
-                  <Typography color="success">{user.name.charAt(0)}</Typography>
-                </Button>
-              </Avatar>
-              <Menu
-                id="basic-menu"
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "34%",
+                justifyContent: "space-between",
+                padding: "0 10px",
+              }}
+            >
+              <Input
+                placeholder="Pesquisar..."
+                color="success"
+                sx={{
+                  width: "320px",
+                }}
+                endAdornment={<Search sx={{ color: green500 }} />}
+              />
+              <NotificationsIcon
+                sx={{
+                  backgroundColor: green500,
+                  color: "white",
+                  width: "39px",
+                  height: "39px",
+                  padding: "5px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: '#0f9c6e',
+                  },
+                }}
+              />
+              <ButtonAuthorization
+                Signout={Signout}
                 anchorEl={anchorEl}
-                open={openAvatar}
-                onClose={handleClose}
-              >
-                <MenuItem>
-                  <Button variant="contained" color="error" onClick={Signout}>
-                    Sair
-                  </Button>
-                </MenuItem>
-              </Menu>
-            </>
+                handleClick={handleClick}
+                handleClose={handleClose}
+                openAvatar={openAvatar}
+                user={user}
+              />
+            </div>
           ) : (
-            <Box display="flex" gap={1}>
-              <Button
-                color="inherit"
-                variant="outlined"
-                component={Link}
-                href="/login"
-                sx={{ borderColor: "#e2e2e2", color: "rgb(16 185 129)" }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="contained"
-                component={Link}
-                href="/register"
-                sx={{ backgroundColor: "rgb(16 185 129)", color: "white" }}
-              >
-                Registrar
-              </Button>
-            </Box>
+            <ButtonsNoAuthorization />
           )}
         </Toolbar>
       </AppBar>
