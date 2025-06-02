@@ -1,0 +1,1 @@
+export const green500 = 'rgb(16 185 129)'

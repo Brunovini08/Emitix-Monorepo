@@ -1,12 +1,9 @@
-"use client";
-
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Navbar } from "../components/Navbar/Navbar";
-import { Footer } from "../components/Footer/Footer";
-import { usePathname } from "next/navigation";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider, useAuth } from "../context/AuthContext";
+import { ClientWrapper } from "../components/ClientWrapper/ClientWrapper";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -21,7 +18,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = usePathname();
 
   const metadata: Metadata = {
     title: "Emitix",
@@ -32,9 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AuthProvider>
-          {router !== "/login" && router !== "/register" ? <Navbar /> : null}
-          {children}
-          {router !== "/login" && router !== "/register" ? <Footer /> : null}
+          <ClientWrapper children={children} />
         </AuthProvider>
       </body>
     </html>

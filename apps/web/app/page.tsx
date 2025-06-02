@@ -1,17 +1,10 @@
-import { Box } from "@mui/material";
-import { ResourcesSection } from "../components/ResourcesSection/ResourcesSection";
-import { Section } from "../components/Section/Section";
+"use client";
+
 
 export default function Home() {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        alignItems: "center"
-      }}
-    >
-      <Section />
-      <ResourcesSection />
-    </Box>
+    <div>
+      <h1>Welcome to Emitix</h1>
+    </div>
   );
 }

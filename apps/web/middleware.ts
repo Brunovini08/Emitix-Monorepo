@@ -15,6 +15,10 @@ export const config = {
     '/dashboard/:path*',
     '/admin/:path*',
     '/perfil/:path*',
-    '/inicio'
+    '/inicio',
+    '/nfe/:path*',
+    '/nfce/:path*',
+    '/cte/:path*',
+    '/mdfe/:path*',
   ],
 };

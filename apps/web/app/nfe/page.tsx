@@ -1,13 +1,8 @@
-import Link from "next/link";
-
-export default function Nfe() {
-  return(
+export default function NfePage() {
+  return (
     <div>
-      <button>
-        <Link href="/doc">
-          DOC
-        </Link>
-      </button>
+      <h1>NFe Page</h1>
+      <p>This is the NFe page content.</p>
     </div>
-  )
+  );
 }

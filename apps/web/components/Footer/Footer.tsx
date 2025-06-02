@@ -1,80 +1,74 @@
 import Description from "@mui/icons-material/Description";
-
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
 
 export function Footer() {
-  const getYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
   return (
-    
     <Box
+      component="footer"
       sx={{
-        display: "flex",
-        position:  'fixed',
-        bottom  : '0',
         width: "100%",
+        borderTop: "1px solid #e4e4e4",
+        paddingY: 2,
+        paddingX: 3,
+        backgroundColor: "#fff",
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          md: "row",
+        },
         justifyContent: "space-between",
-        alignItems: "center",
-        paddingLeft: "15px",
-        paddingRight: "15px",
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+        gap: {
+          xs: 1,
+          md: 0,
+        },
       }}
     >
+      {/* Esquerda */}
       <Box
         sx={{
           display: "flex",
-          width: "50%",
-          height: "10vh",
           alignItems: "center",
-          flexDirection: {
-            xs: "row",
-            sm: "row",
-            md: "row",
-            lg: "row",
-            xl: "row",
-          },
+          gap: 1,
         }}
       >
-        <Description
-          sx={{
-            color: "rgb(16 185 129)",
-          }}
-        />
-        <Typography>{getYear} Emitix. Todos direitos reservados.</Typography>
+        <Description sx={{ color: "rgb(16 185 129)" }} />
+        <Typography variant="body2" color="text.secondary">
+          © {currentYear} Emitix. Todos os direitos reservados.
+        </Typography>
       </Box>
+
+      {/* Direita */}
       <Box
         sx={{
           display: "flex",
-          paddingTop: {
-            xs: "3%",
-            sm: "3%",
-            md: "0%",
-            lg: "0%",
-            xl: "0%"
-          },
-          width: "50%",
           flexDirection: {
             xs: "column",
-            sm: "column",
-            md: "row",
-            lg: "row",
-            xl: "row",
+            sm: "row",
           },
-          justifyContent: "end",
+          gap: 2,
           alignItems: {
-            xs: "end"
+            xs: "flex-start",
+            sm: "center",
           },
-          gap: "5%",
         }}
       >
-        <Typography variant="subtitle2" color="textSecondary">
-          Termos de Serviço
-        </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
-          Política de Privacidade
-        </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
-          Contato
-        </Typography>
+        {["Termos de Serviço", "Política de Privacidade", "Contato"].map((text, i) => (
+          <MuiLink
+            key={i}
+            href="#"
+            variant="body2"
+            underline="hover"
+            color="text.secondary"
+          >
+            {text}
+          </MuiLink>
+        ))}
       </Box>
     </Box>
   );

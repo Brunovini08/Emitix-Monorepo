@@ -1,14 +1,9 @@
-'use client'
-
-import { Typography } from "@mui/material";
-import { useAuth } from "../../context/AuthContext";
-
-export default function Inicio() {
-  const { user } = useAuth();
-
+export default function InicioPage() {
   return (
     <div>
-      <Typography>{user?.name}</Typography>
+      <h1>Início Page</h1>
+      <p>Bem-vindo à página inicial do aplicativo!</p>
+      <p>Esta é a página de início onde você pode encontrar informações gerais.</p>
     </div>
   );
 }

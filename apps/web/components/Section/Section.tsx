@@ -1,10 +1,12 @@
-"use client";
+"use client"
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import imageSection from "../../public/section.jpg";
 
 export function Section() {
+
   return (
+
     <Grid
       container
       spacing={2}

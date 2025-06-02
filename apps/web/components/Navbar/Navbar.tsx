@@ -2,12 +2,14 @@
 
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
+  CircularProgress,
   Divider,
   Drawer,
   IconButton,
+  Input,
+  TextField,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -19,6 +21,11 @@ import logo from "../../public/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
+import { ButtonsNoAuthorization } from "./ButtonsNoAuthorization";
+import { ButtonAuthorization } from "./ButtonAuthorization";
+import { green500 } from "../../utils/colors";
+import { Search } from "@mui/icons-material";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const menuItems = [
   { label: "Início", href: "/" },
@@ -37,14 +44,36 @@ export function Navbar() {
   const matches = useMediaQuery("(max-width: 600px)");
   const [open, setOpen] = useState(false);
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openAvatar = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const { user, loading, Signout } = useAuth();
 
   const handleDrawerToggle = () => setOpen((prev) => !prev);
 
-  if (loading) return null; // ou um Skeleton/Spinner se preferir
+  if (loading) return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress color="success"/>
+    </Box>
+  )
 
   return (
-    <Box>
+    <Box sx={{
+      display: loading ? "none" : "flex",
+    }}>
       <AppBar
         position="static"
         sx={{
@@ -108,7 +137,6 @@ export function Navbar() {
             </IconButton>
           )}
 
-          {/* Desktop Menu */}
           <Box
             sx={{
               flexGrow: 1,
@@ -117,26 +145,8 @@ export function Navbar() {
               gap: "30px",
             }}
           >
-          {user === null
-            ? menuItems.map((item) => (
-                <Typography
-                  key={item.href}
-                  variant="h6"
-                  component={Link}
-                  href={item.href}
-                  sx={{
-                    textDecoration: "none",
-                    color: "black",
-                    ":hover": {
-                      borderBottom: "1px solid black",
-                    },
-                  }}
-                >
-                  {item.label}
-                </Typography>
-              ))
-            : menuItemsLogged.map((item) =>
-                item.href ? (
+            {user === null
+              ? menuItems.map((item) => (
                   <Typography
                     key={item.href}
                     variant="h6"
@@ -152,49 +162,53 @@ export function Navbar() {
                   >
                     {item.label}
                   </Typography>
-                ) : (
-                  <Typography
-                    key={item.label}
-                    variant="h6"
-                    sx={{
-                      textDecoration: "none",
-                      color: "black",
-                      ":hover": {
-                        borderBottom: "1px solid black",
-                      },
-                    }}
-                  >
-                    {item.label}
-                  </Typography>
-                )
-              )}
+                ))
+              : null}
           </Box>
 
-          {/* Auth Buttons */}
           {user ? (
-            <Button variant="contained" color="error" onClick={Signout}>
-              Sair
-            </Button>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "34%",
+                justifyContent: "space-between",
+                padding: "0 10px",
+              }}
+            >
+              <Input
+                placeholder="Pesquisar..."
+                color="success"
+                sx={{
+                  width: "320px",
+                }}
+                endAdornment={<Search sx={{ color: green500 }} />}
+              />
+              <NotificationsIcon
+                sx={{
+                  backgroundColor: green500,
+                  color: "white",
+                  width: "39px",
+                  height: "39px",
+                  padding: "5px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: '#0f9c6e',
+                  },
+                }}
+              />
+              <ButtonAuthorization
+                Signout={Signout}
+                anchorEl={anchorEl}
+                handleClick={handleClick}
+                handleClose={handleClose}
+                openAvatar={openAvatar}
+                user={user}
+              />
+            </div>
           ) : (
-            <Box display="flex" gap={1}>
-              <Button
-                color="inherit"
-                variant="outlined"
-                component={Link}
-                href="/login"
-                sx={{ borderColor: "#e2e2e2", color: "rgb(16 185 129)" }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="contained"
-                component={Link}
-                href="/register"
-                sx={{ backgroundColor: "rgb(16 185 129)", color: "white" }}
-              >
-                Registrar
-              </Button>
-            </Box>
+            <ButtonsNoAuthorization />
           )}
         </Toolbar>
       </AppBar>
