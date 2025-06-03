@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { green500 } from "../../utils/colors";
+
 interface SidebarItemProps {
   url: string;
   icon: React.ReactNode;
@@ -17,56 +18,42 @@ export default function SidebarItem({
   return (
     <Box
       sx={{
-        display: "flex",
-        gap: "5px",
         width: "100%",
+        display: "flex",
         justifyContent: "center",
-        marginBottom: "10px",
+        alignItems: "center",
+        mb: 1,
       }}
     >
-      <Button
-        sx={{
-          width: "90%",
-          color: { green500 },
-          textTransform: "none",
-          borderRadius: "8px",
-          fontSize: "16px",
-          fontWeight: "bold",
-          border: "none",
-          cursor: "pointer",
-          height: "50px",
-          display: "flex",
-          backgroundColor: isActive ? "#e1e1e1" : "transparent",
-          justifyContent: "start",
-          padding: "10px 15px",
-          alignItems: "center",
-          ":hover": {
-            backgroundColor: "#e1e1e1",
-          },
-        }}
-      >
-        <Link
-          href={url}
-          style={{
-            textDecoration: "none",
-            width: "100%",
-            height: "100%",
-            display: "flex",
+      <Link href={url} passHref style={{ textDecoration: "none", width: "100%" }}>
+        <Button
+          sx={{
+            width: "100%", 
+            maxWidth: "250px", 
+            minWidth: "150px", 
+            textTransform: "none",
+            borderRadius: 2,
+            fontSize: "1rem", 
+            fontWeight: "bold",
+            height: "48px",
+            padding: "10px 16px",
+            justifyContent: "flex-start",
             alignItems: "center",
+            gap: "8px",
+            backgroundColor: isActive ? "#e1e1e1" : "transparent",
             color: green500,
+            ":hover": {
+              backgroundColor: "#e1e1e1",
+            },
           }}
+          aria-current={isActive ? "page" : undefined}
         >
           {icon}
-          <Typography
-            sx={{
-              fontSize: "16px",
-              marginLeft: "10px",
-            }}
-          >
+          <Typography component="span" noWrap>
             {label}
           </Typography>
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </Box>
   );
 }
