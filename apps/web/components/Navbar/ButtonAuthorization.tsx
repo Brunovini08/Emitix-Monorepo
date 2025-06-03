@@ -1,5 +1,14 @@
-import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
-import { Button } from "@mui/material";
+'use client';
+
+import {
+  Avatar,
+  Menu,
+  MenuItem,
+  Typography,
+  Button,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { green500 } from "../../utils/colors";
 
 interface IButtonAuthorization {
@@ -19,29 +28,59 @@ export function ButtonAuthorization({
   openAvatar,
   user,
 }: IButtonAuthorization) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <>
-      <Avatar>
+      <Avatar
+        sx={{
+          width: isMobile ? 36 : 40,
+          height: isMobile ? 36 : 40,
+          bgcolor: green500,
+        }}
+      >
         <Button
           onClick={handleClick}
           sx={{
             width: "100%",
             height: "100%",
             borderRadius: "50%",
+            minWidth: 0,
+            padding: 0,
             backgroundColor: green500,
+            "&:hover": {
+              backgroundColor: "#0f9c6e",
+            },
           }}
         >
-          <Typography color="white">{user?.name?.charAt(0)}</Typography>
+          <Typography color="white" fontSize={isMobile ? 14 : 16}>
+            {user?.name?.charAt(0)}
+          </Typography>
         </Button>
       </Avatar>
+
       <Menu
-        id="basic-menu"
+        id="user-menu"
         anchorEl={anchorEl}
-        open={openAvatar}
+        open={Boolean(anchorEl)}
         onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
       >
         <MenuItem>
-          <Button variant="contained" color="error" onClick={Signout}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={Signout}
+            fullWidth
+          >
             Sair
           </Button>
         </MenuItem>

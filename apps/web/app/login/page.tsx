@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Input, Typography } from "@mui/material";
+import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import { useActionState, useEffect, useState } from "react";
 import { signin } from "../actions/auth";
 import { InfoMessage } from "../../components/InfoMessage/InfoMessage";
@@ -8,12 +8,9 @@ import { green500 } from "../../utils/colors";
 
 export default function Login() {
   const [state, action, pending] = useActionState(signin, undefined);
+  const [messages, setMessages] = useState<{ id: string; text: string | undefined }[]>([]);
+  const isMobile = useMediaQuery("(max-width:600px)");
 
-  const [messages, setMessages] = useState<
-    { id: string; text: string | undefined }[]
-  >([]);
-
-  // Quando houver erros, atualize `messages`
   useEffect(() => {
     const newMessages = [];
 
@@ -34,18 +31,18 @@ export default function Login() {
     }
 
     setMessages(newMessages);
-    state?.success ? (window.location.href = "/") : null;
+    if (state?.success) window.location.href = "/";
   }, [state]);
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         width: "100%",
         height: "100vh",
-        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        px: 2,
       }}
     >
       {messages.map((msg) => (
@@ -59,55 +56,62 @@ export default function Login() {
           }
         />
       ))}
+
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
+          width: isMobile ? "100%" : "50%",
+          maxWidth: 500,
+          height: "auto",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          border: "1px solid black",
+          border: "1px solid #ccc",
+          borderRadius: 2,
+          p: 4,
+          boxShadow: 3,
+          backgroundColor: "#fff",
         }}
       >
         <form
           style={{
-            width: "75%",
-            height: "75%",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "15px",
+            gap: "20px",
           }}
           action={action}
         >
-          <Typography variant="h2" sx={{ color: green500 }}>
+          <Typography
+            variant={isMobile ? "h4" : "h3"}
+            align="center"
+            sx={{ color: green500 }}
+          >
             Emitix Login
           </Typography>
+
           <Input
             name="email"
             placeholder="Email"
-            sx={{
-              width: "40%",
-            }}
+            fullWidth
+            type="email"
             color="success"
-            type={"email"}
           />
+
           <Input
             name="password"
             placeholder="Senha"
-            sx={{
-              width: "40%"
-            }}
+            fullWidth
+            type="password"
             color="success"
-            type={"password"}
           />
+
           <Button
             variant="contained"
+            fullWidth
             sx={{
-              width: "30%",
               backgroundColor: green500,
+              mt: 1,
             }}
             type="submit"
             disabled={pending}
@@ -116,6 +120,6 @@ export default function Login() {
           </Button>
         </form>
       </Box>
-    </div>
+    </Box>
   );
 }

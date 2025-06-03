@@ -1,5 +1,6 @@
-"use client";
+'use client';
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import { Footer } from "../Footer/Footer";
@@ -7,8 +8,7 @@ import Inicio from "../InicioComponent/Inicio";
 import { Navbar } from "../Navbar/Navbar";
 import { ResourcesSection } from "../ResourcesSection/ResourcesSection";
 import { Section } from "../Section/Section";
-
-
+import { CircularProgress } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
@@ -17,13 +17,21 @@ interface Props {
 export function ClientWrapper({ children }: Props) {
   const pathname = usePathname();
   const { user } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null // Previna hydration issues
 
   const isAuthPage = pathname === "/login" || pathname === "/register";
 
-  if(isAuthPage) return <>{children}</>
+  if (isAuthPage) return <>{children}</>;
+
   return (
     <>
-      {!isAuthPage && <Navbar />}
+      <Navbar />
 
       {!user ? (
         <>
@@ -34,7 +42,7 @@ export function ClientWrapper({ children }: Props) {
         <Inicio>{children}</Inicio>
       )}
 
-      {!isAuthPage && <Footer />}
+      <Footer />
     </>
   );
 }

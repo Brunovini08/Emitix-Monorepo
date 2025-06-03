@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import SidebarMenu from "../Sidebar/SidebarMenu";
 import { green500 } from "../../utils/colors";
@@ -13,6 +13,8 @@ interface InicioProps {
 
 export default function Inicio({ children }: InicioProps) {
   const { user } = useAuth();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return !user ? (
     <>
@@ -23,20 +25,20 @@ export default function Inicio({ children }: InicioProps) {
     <Grid container>
       <Grid
         container
-        size={2}
+        size={isMobile ? 0 : 2}
         sx={{
-          borderRight: "1px solid #e4e4e4",
-          display: {
-            xs: "none",
-            md: "block",
-          },
+          display: { xs: "fixed", md: "flex", lg: "block" },
+          position: { xs: "absolute", md: "static", lg: "static" },
+          top: 0,
+          left: 0,
         }}
       >
         <SidebarMenu />
       </Grid>
 
+      {/* Conteúdo principal */}
       <Grid
-        size={10}
+        size={isMobile ? 12 : 10}
         sx={{
           backgroundColor: "#f6f6f6",
           padding: 2,
@@ -45,6 +47,9 @@ export default function Inicio({ children }: InicioProps) {
         <Box sx={{ marginBottom: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: "bold", color: green500 }}>
             Bem-vindo, {user?.name || "Usuário"}!
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#555" }}>
+            Gerencie suas emissões fiscais de forma simples e eficiente.
           </Typography>
         </Box>
 
@@ -56,7 +61,7 @@ export default function Inicio({ children }: InicioProps) {
             backgroundColor: "#fff",
             borderRadius: "8px",
             padding: 3,
-            minHeight: "calc(100vh - 120px)", // ajuste conforme altura do topo e footer
+            minHeight: "calc(100vh - 120px)",
             boxShadow: "0px 1px 3px rgba(0,0,0,0.05)",
           }}
         >
