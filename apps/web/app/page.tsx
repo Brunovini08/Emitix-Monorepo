@@ -8,9 +8,11 @@ import {
   LocalShipping,
   LocationOn,
 } from "@mui/icons-material";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, useMediaQuery } from "@mui/material";
 import { green500 } from "../utils/colors";
 import { DatagridCustom } from "../components/Datagrid/DatagridCustom";
+import { useTheme } from "@mui/material";
+import Link from "next/link";
 
 const items = [
   {
@@ -41,7 +43,8 @@ const tiposNotas = [
     description: "Nota Fiscal Eletrônica",
     icon: <Description />,
     button: (
-      <Button
+      <Link href={"/nfe-emitir"} passHref>
+          <Button
         variant="outlined"
         sx={{
           backgroundColor: green500,
@@ -53,6 +56,7 @@ const tiposNotas = [
       >
         Emitir Nota
       </Button>
+      </Link>
     ),
   },
   {
@@ -60,7 +64,8 @@ const tiposNotas = [
     description: "Nota Fiscal de Consumidor Eletrônica",
     icon: <LocalAtm />,
     button: (
-      <Button
+      <Link href={"/nfce-emitir"} passHref>
+        <Button
         variant="outlined"
         sx={{
           backgroundColor: green500,
@@ -71,6 +76,7 @@ const tiposNotas = [
       >
         Emitir NFCe
       </Button>
+      </Link>
     ),
   },
   {
@@ -78,17 +84,19 @@ const tiposNotas = [
     description: "Conhecimento de Transporte Eletrônico",
     icon: <LocalShipping />,
     button: (
-      <Button
-        variant="outlined"
-        sx={{
-          backgroundColor: green500,
-          color: "white",
-          borderColor: green500,
-          width: "100%",
-        }}
-      >
-        Emitix CTe
-      </Button>
+      <Link href="/cte-emitir" passHref>
+        <Button
+          variant="outlined"
+          sx={{
+            backgroundColor: green500,
+            color: "white",
+            borderColor: green500,
+            width: "100%",
+          }}
+        >
+          Emitix CTe
+        </Button>
+      </Link>
     ),
   },
   {
@@ -96,27 +104,32 @@ const tiposNotas = [
     description: "Manifesto Eletrônico de Documentos Fiscais",
     icon: <LocationOn />,
     button: (
-      <Button
-        variant="outlined"
-        sx={{
-          backgroundColor: green500,
-          color: "white",
-          borderColor: green500,
-          width: "100%",
-        }}
-      >
-        Emitir MDFe
-      </Button>
+      <Link href="/mdfe-emitir" passHref>
+        <Button
+          variant="outlined"
+          sx={{
+            backgroundColor: green500,
+            color: "white",
+            borderColor: green500,
+            width: "100%",
+          }}
+        >
+          Emitir MDF-e
+        </Button>
+      </Link>
     ),
   },
 ];
 
 export default function Home() {
+  const theme = useTheme();
+  const matcher = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box>
       <Grid container spacing={2} sx={{ padding: 2 }}>
         {items.map((item, index) => (
-          <Grid size={3} key={index}>
+          <Grid size={matcher ? 6 : 3} key={index}>
             <Box
               sx={{
                 display: "flex",
@@ -156,10 +169,11 @@ export default function Home() {
       </Grid>
       <Grid container spacing={2} sx={{ padding: 2 }}>
         {tiposNotas.map((nota, index) => (
-          <Grid size={3} key={index}>
+          <Grid size={matcher ? 6 : 3} key={index}>
             <Box
               sx={{
                 display: "flex",
+                width: "100%",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
@@ -191,7 +205,7 @@ export default function Home() {
               >
                 {nota.description}
               </Typography>
-              {nota.button}
+             {nota.button}  
             </Box>
           </Grid>
         ))}
@@ -219,25 +233,33 @@ export default function Home() {
             marginRight: 1,
           }}
         >
-          <Typography sx={{
-            fontWeight: "bold",
-            color: green500,
-            fontSize: "1.5rem",
-            marginBottom: 0.5,
-            marginTop: 0,
-          }}>Documentos Recentes</Typography>
-          <Typography sx={{
-            color: "#555",
-            fontSize: "0.9rem",
-            marginBottom: 0,
-            marginTop: 0,
-            fontWeight: "normal",
-            lineHeight: 1.5,
-            maxWidth: "600px",
-            textAlign: "left",
-            marginLeft: 1,
-            marginRight: 1,
-          }}>Últimas emissões realizadas</Typography>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              color: green500,
+              fontSize: "1.5rem",
+              marginBottom: 0.5,
+              marginTop: 0,
+            }}
+          >
+            Documentos Recentes
+          </Typography>
+          <Typography
+            sx={{
+              color: "#555",
+              fontSize: "0.9rem",
+              marginBottom: 0,
+              marginTop: 0,
+              fontWeight: "normal",
+              lineHeight: 1.5,
+              maxWidth: "600px",
+              textAlign: "left",
+              marginLeft: 1,
+              marginRight: 1,
+            }}
+          >
+            Últimas emissões realizadas
+          </Typography>
         </Box>
         <DatagridCustom />
       </Box>

@@ -1,29 +1,45 @@
-import { SigninFormSchema, FormState } from '../lib/definitions'
+import { SigninFormSchema, type FormState } from "../lib/definitions";
 
 export async function signin(state: FormState, formData: FormData) {
   const validatedFields = SigninFormSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
-  })
+  });
 
-  // If any form fields are invalid, return early
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: validatedFields.error.flatten().fieldErrors,
-    }
+    };
   }
 
-  const response = await fetch('/api/signin', {  
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(validatedFields.data),
-    credentials: 'include'
-  })
+  try {
+    const response = await fetch('/api/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(validatedFields.data),
+      credentials: 'include',
+    });
 
-  return {
-    success: true,
-    user: response
-  };
+    const res = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        errors: typeof res.error === 'string' ? [{ message: res?.error?.message }] : res?.error,
+      };
+    }
+
+    return {
+      success: true,
+      user: res,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      errors: [{ message: 'Erro de rede ou servidor fora do ar.' }],
+    };
+  }
 }

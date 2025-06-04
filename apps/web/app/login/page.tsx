@@ -3,36 +3,80 @@
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import { useActionState, useEffect, useState } from "react";
 import { signin } from "../actions/auth";
+import type { FormState } from "../lib/definitions";
 import { InfoMessage } from "../../components/InfoMessage/InfoMessage";
 import { green500 } from "../../utils/colors";
+import { useRouter} from "next/navigation";
 
 export default function Login() {
-  const [state, action, pending] = useActionState(signin, undefined);
-  const [messages, setMessages] = useState<{ id: string; text: string | undefined }[]>([]);
+  const [state, action, pending] = useActionState<FormState, FormData>(
+    async (state, formData) => {
+      const result = await signin(state, formData);
+      return {
+        ...state,
+        errors: result.errors || ({} as Record<string, string[]>),
+        success: result.success || false,
+        user: result.user || undefined,
+      };
+    },
+    undefined
+  );
+
+  const router = useRouter();
+  const [messages, setMessages] = useState<{ id: string; text?: string }[]>([]);
+  const [count, setCount] = useState(0);
+  const incrementCount = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+  const generateId = () => {
+    incrementCount();
+    return `message-${count}`;
+  };
   const isMobile = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
-    const newMessages = [];
+    if (!state?.errors) return;
 
-    if (state?.errors?.email) {
-      newMessages.push({
-        id: "email",
-        text: state.errors.email[0],
-      });
-    }
+    const newMessages: { id: string; text: string }[] = [];
 
-    if (Array.isArray(state?.errors?.password)) {
-      state.errors.password.forEach((msg, idx) => {
+    if (typeof state.errors === "object" && !Array.isArray(state.errors)) {
+      for (const [key, value] of Object.entries(state.errors)) {
+        if (key === "message") {
+          newMessages.push({
+            id: generateId(),
+            text: String(value),
+          });
+        }
+      }
+    } else if (Array.isArray(state.errors)) {
+      state.errors.forEach((msg, i) => {
         newMessages.push({
-          id: `password-${idx}`,
-          text: msg,
+          id: `msg-${i}`,
+          text: String(msg),
         });
+      });
+    } else if (typeof state.errors === "string") {
+      // Se for string direta
+      newMessages.push({
+        id: `error-string`,
+        text: state.errors,
+      });
+    } else {
+      // Fallback defensivo
+      newMessages.push({
+        id: "unknown-error",
+        text: "Ocorreu um erro desconhecido.",
       });
     }
 
     setMessages(newMessages);
-    if (state?.success) window.location.href = "/";
-  }, [state]);
+  }, [state?.errors]);
+
+  useEffect(() => {
+    if (state?.success) {
+      router.push("/");
+    }
+  }, [state?.success]);
 
   return (
     <Box
@@ -50,7 +94,7 @@ export default function Login() {
           key={msg.id}
           error="Erro"
           open={true}
-          message={msg.text ? msg.text.replace(/""/g, " ") : ""}
+          message={msg.text || ""}
           onClose={() =>
             setMessages((prev) => prev.filter((m) => m.id !== msg.id))
           }

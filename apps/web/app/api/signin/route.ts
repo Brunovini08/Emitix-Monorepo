@@ -12,6 +12,12 @@ export async function POST(req: NextRequest) {
   const res = await response.json();
   const nextRes = NextResponse.json(res);
 
+  if (!response.ok) {
+    return NextResponse.json({ error: res.error || 'Erro desconhecido' }, { status: response.status });
+  }
+  
+
+
   const cookies = response.headers.getSetCookie();
   cookies?.forEach((cookie) => nextRes.headers.append('Set-Cookie', cookie));
 
