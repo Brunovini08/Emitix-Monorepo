@@ -25,8 +25,15 @@ export function ClientWrapper({ children }: Props) {
 
   if (!mounted) return null // Previna hydration issues
 
-  const isAuthPage = pathname === "/login" || pathname === "/register";
-
+  const isAuthPage = 
+    pathname === "/login" || 
+    pathname === "/register" ||
+    pathname === "/forgot-password" || 
+    pathname === "/nfe-emitir" ||
+    pathname === "/nfce-emitir";
+    pathname === "/cte-emitir" ||
+    pathname === "/mdfe-emitir";
+    
   if (isAuthPage) return <>{children}</>;
 
   return (
