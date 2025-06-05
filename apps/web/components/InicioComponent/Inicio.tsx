@@ -16,6 +16,8 @@ export default function Inicio({ children }: InicioProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  
+
   return !user ? (
     <>
       <Section />

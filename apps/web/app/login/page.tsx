@@ -7,8 +7,11 @@ import type { FormState } from "../lib/definitions";
 import { InfoMessage } from "../../components/InfoMessage/InfoMessage";
 import { green500 } from "../../utils/colors";
 import { useRouter} from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
+  const {setUser} = useAuth()
+
   const [state, action, pending] = useActionState<FormState, FormData>(
     async (state, formData) => {
       const result = await signin(state, formData);
@@ -73,10 +76,12 @@ export default function Login() {
   }, [state?.errors]);
 
   useEffect(() => {
-    if (state?.success) {
-      router.push("/");
+    if (state?.success && state.user) {
+      setUser(state.user); 
+      router.push("/"); 
     }
-  }, [state?.success]);
+  }, [state?.success, state?.user]);
+  
 
   return (
     <Box

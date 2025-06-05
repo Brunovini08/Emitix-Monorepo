@@ -12,7 +12,8 @@ export type FormState =
   | {
       errors?: []
       message?: string,
-      success?: boolean
+      success?: boolean,
+      user: any
     }
   | undefined
 

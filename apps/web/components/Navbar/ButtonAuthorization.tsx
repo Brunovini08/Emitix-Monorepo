@@ -25,7 +25,6 @@ export function ButtonAuthorization({
   anchorEl,
   handleClick,
   handleClose,
-  openAvatar,
   user,
 }: IButtonAuthorization) {
   const theme = useTheme();
