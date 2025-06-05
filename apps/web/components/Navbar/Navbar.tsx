@@ -184,6 +184,8 @@ export function Navbar() {
                 gap: "30px",
                 width: "100%",
                 justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
               }}
             >
               <Link href="/">
@@ -211,6 +213,7 @@ export function Navbar() {
                     gap: "30px",
                     justifyContent: "center",
                     width: "67%",
+                    height: "100%",
                     paddingLeft: "16%",
                   }}
                 >

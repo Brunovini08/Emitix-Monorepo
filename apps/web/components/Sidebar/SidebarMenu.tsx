@@ -61,18 +61,6 @@ export default function SidebarMenu() {
         height: "100%",
       }}
     >
-      {urls.map((item) => (
-        <SidebarItem
-          key={item.label}
-          url={item.url}
-          icon={item.icon}
-          label={item.label}
-          isActive={item.url === pathname}
-        />
-      ))}
-
-      <Divider sx={{ width: "100%", my: 2, borderColor: "#e4e4e4" }} />
-
       {isMobile && (
         <Input
           placeholder="Pesquisar"
@@ -90,6 +78,18 @@ export default function SidebarMenu() {
           }
         />
       )}
+      
+      {urls.map((item) => (
+        <SidebarItem
+          key={item.label}
+          url={item.url}
+          icon={item.icon}
+          label={item.label}
+          isActive={item.url === pathname}
+        />
+      ))}
+
+      <Divider sx={{ width: "100%", my: 2, borderColor: "#e4e4e4" }} />
     </Box>
   );
 

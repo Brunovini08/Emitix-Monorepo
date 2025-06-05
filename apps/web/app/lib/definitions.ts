@@ -10,18 +10,10 @@ export const SigninFormSchema = z.object({
  
 export type FormState =
   | {
-      errors?: {
-        email?: string[]
-        password?: string[]
-      }
-      message?: string
+      errors?: []
+      message?: string,
+      success?: boolean,
+      user: any
     }
   | undefined
 
-
-  // .min(8, { message: 'A senha deve conter no mínimo 8 caracters' })
-  //   .regex(/[a-zA-Z]/, { message: 'Deve conter uma letra maiúscula.' })
-  //   .regex(/[0-9]/, { message: 'Deve contar pelo menos um número.' })
-  //   .regex(/[^a-zA-Z0-9]/, {
-  //     message: 'Deve conter pelo menos um caracter especial.',
-  //   })
