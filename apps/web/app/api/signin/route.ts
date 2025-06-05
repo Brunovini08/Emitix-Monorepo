@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify(body),
   });
 
+  
   const res = await response.json();
+
   const nextRes = NextResponse.json(res);
 
   if (!response.ok) {

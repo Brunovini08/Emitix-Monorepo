@@ -24,7 +24,7 @@ export async function signin(state: FormState, formData: FormData) {
     });
 
     const res = await response.json();
-
+    await localStorage.setItem('access_token', res?.user?.token)
     if (!response.ok) {
       return {
         success: false,

@@ -1,105 +1,78 @@
-'use client'
+// components/CustomTabs.tsx
+"use client";
 
-import { Box, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
-import { green500 } from "../../../utils/colors";
+import React, { useState } from "react";
+import { Tabs, Tab, Box, useMediaQuery, useTheme } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
-interface CustomTabsProps {
-  quantity?: number;
-  value?: number;
-  onChange?: (event: React.SyntheticEvent, newValue: number) => void;
-  labels: string[]
-}
+type TabItem = {
+  label: string;
+  content: React.ReactNode;
+};
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+type CustomTabsProps = {
+  tabs: TabItem[];
+};
 
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+export function CustomTabs({ tabs }: CustomTabsProps) {
+  const [value, setValue] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
-
-export function CustomTabs({onChange, quantity, value, labels}: CustomTabsProps) {
-
-  const [valueProp, setValueProp] = useState(value || 0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValueProp(newValue);
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
   };
 
-  function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
-
   return (
-    <Box 
-      sx={{
-        
-      }}
-    >
-     <Box>
-      <Tabs value={valueProp} onChange={handleChange}
-        scrollButtons
+    <Box sx={{ backgroundColor: "transparent", px: 2 }}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        variant={isMobile ? "scrollable" : "standard"}
+        scrollButtons={isMobile ? "auto" : false}
+        allowScrollButtonsMobile
         sx={{
-          backgroundColor: '#f5f5f5',
-          p: 1,
+          backgroundColor: grey[200],
+          borderRadius: 1,
+          display: "flex",
+          justifyContent: isMobile ? "flex-start" : "center",
+          alignItems: "center",
           '& .MuiTab-root': {
-            color: 'black',
+            color: grey[600],
             textTransform: 'none',
+            minWidth: isMobile ? 100 : 120,
+            flexShrink: 0, // importante para scroll horizontal
           },
           '& .Mui-selected': {
-            color: 'black', // remove texto azul
-            backgroundColor: 'white', // opcional: fundo ao selecionar
+            color: '#000',
+            backgroundColor: 'white',
           },
           '& .MuiTabs-indicator': {
-            backgroundColor: 'transparent', // remove a linha azul inferior
+            backgroundColor: 'transparent',
           },
           '& .MuiTouchRipple-root': {
-            display: 'none', // remove o ripple azul ao clicar
+            display: 'none',
           },
           '& .MuiTab-root:focus': {
-            outline: 'none', // remove contorno de foco
+            outline: 'none',
           },
         }}
       >
-        {quantity && Array.from({ length: quantity }, (_, i) => (
+        {tabs.map((tab, index) => (
           <Tab
-            key={i}
-            label={labels[i] || `Tab ${i + 1}`}
-            {...a11yProps(i)}
+            key={index}
+            label={tab.label}
             sx={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: green500,
-              textTransform: "none",
-              minWidth: "120px",
+              m: 0.5,
+              borderRadius: 1,
             }}
           />
         ))}
       </Tabs>
-      {Array.from({ length: quantity || 0 }, (_, i) => (
-        <CustomTabPanel key={i} value={valueProp} index={i}>
-          {`Content for ${labels[i] || `Tab ${i + 1}`}`}
-        </CustomTabPanel>
-      ))}
-     </Box>
+
+      <Box mt={2}>
+        {tabs[value]?.content}
+      </Box>
     </Box>
-  )
+  );
 }

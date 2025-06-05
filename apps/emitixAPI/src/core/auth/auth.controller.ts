@@ -44,18 +44,20 @@ export class AuthController {
       res.cookie('token', data.token, {
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 1000 * 60 * 60 * 24, 
+        maxAge: 1000 * 60 * 60 * 24,
+        secure: false
       });
       res.cookie('refreshtoken', data.refreshToken, {
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 1000 * 60 * 60 * 480, 
+        maxAge: 1000 * 60 * 60 * 480,
+        secure: false
       });
       return res.status(200).json({
         user: {
           name: data.name,
           email: data.email,
-          token: data.token 
+          token: data.token
         }
       })
     });
@@ -65,8 +67,6 @@ export class AuthController {
   @Post('user/signout')
   signOut(@Req() req: Request, @Res() res: Response) {
     if (req.cookies.token) {
-      req.cookies.token = null;
-      req.cookies.refreshToken = null;
       res.clearCookie('token');
       res.clearCookie('refreshToken');
       return res.status(200).json('Usuário deslogado');
@@ -78,13 +78,18 @@ export class AuthController {
   async refreshToken(@Req() req: Request, @Res() res: Response) {
     const refreshToken = (req.cookies as { refreshToken?: string })
       .refreshToken;
+    console.log(req.cookies)
     if (!refreshToken) {
       return res.status(400).json('Refresh token não encontrado');
     }
     await this.service.refreshToken(refreshToken).then((data) => {
-      res.cookie('token', data.token, { httpOnly: true });
-      res.cookie('refreshToken', data.refreshToken, { httpOnly: true });
+      res.cookie('token', data.token, { httpOnly: true, secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24, });
+      res.cookie('refreshToken', data.refreshToken, { httpOnly: true, secure: false, sameSite: 'lax', maxAge: 1000 * 60 * 60 * 480 });
+      return res.status(200).json({
+        token: data?.token,
+        refreshToken: data?.refreshToken,
+        user: data?.user
+      });
     });
-    return res.status(200).json('Token atualizado');
   }
 }

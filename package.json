@@ -25,6 +25,7 @@
     "@mui/x-data-grid": "^8.5.0",
     "@nestjs/mapped-types": "*",
     "@react-spring/web": "^10.0.1",
-    "fast-xml-parser": "^5.2.3"
+    "fast-xml-parser": "^5.2.3",
+    "jwt-decode": "^4.0.0"
   }
 }
