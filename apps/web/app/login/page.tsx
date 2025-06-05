@@ -73,6 +73,7 @@ export default function Login() {
     }
 
     setMessages(newMessages);
+    console.log(newMessages)
   }, [state?.errors]);
 
   useEffect(() => {
@@ -145,6 +146,7 @@ export default function Login() {
             fullWidth
             type="email"
             color="success"
+            disabled={pending}
           />
 
           <Input
@@ -153,6 +155,7 @@ export default function Login() {
             fullWidth
             type="password"
             color="success"
+            disabled={pending}
           />
 
           <Button

@@ -9,6 +9,7 @@ import { Navbar } from "../Navbar/Navbar";
 import { ResourcesSection } from "../ResourcesSection/ResourcesSection";
 import { Section } from "../Section/Section";
 import { CircularProgress } from "@mui/material";
+import { SessionExpiredModal } from "../SessionExpiredModal/SessionExpiredModal";
 
 interface Props {
   children: React.ReactNode;
@@ -46,9 +47,11 @@ export function ClientWrapper({ children }: Props) {
           <ResourcesSection />
         </>
       ) : (
-        <Inicio>{children}</Inicio>
+        <>
+          <SessionExpiredModal />
+          <Inicio>{children}</Inicio>
+        </>
       )}
-
       <Footer />
     </>
   );

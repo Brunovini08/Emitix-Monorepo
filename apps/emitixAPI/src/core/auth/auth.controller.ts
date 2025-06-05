@@ -44,18 +44,18 @@ export class AuthController {
       res.cookie('token', data.token, {
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 1000 * 60 * 60 * 24, 
+        maxAge: 1000 * 60 * 60 * 24,
       });
       res.cookie('refreshtoken', data.refreshToken, {
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 1000 * 60 * 60 * 480, 
+        maxAge: 1000 * 60 * 60 * 480,
       });
       return res.status(200).json({
         user: {
           name: data.name,
           email: data.email,
-          token: data.token 
+          token: data.token
         }
       })
     });
@@ -84,7 +84,11 @@ export class AuthController {
     await this.service.refreshToken(refreshToken).then((data) => {
       res.cookie('token', data.token, { httpOnly: true });
       res.cookie('refreshToken', data.refreshToken, { httpOnly: true });
+      return res.status(200).json({
+        token: data?.token,
+        refreshToken: data?.refreshToken,
+        user: data?.user
+      });
     });
-    return res.status(200).json('Token atualizado');
   }
 }

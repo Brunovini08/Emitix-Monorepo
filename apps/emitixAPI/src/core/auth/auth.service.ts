@@ -104,6 +104,7 @@ export class AuthService {
       );
     }
     const token = await verifyRefreshToken(refreshToken);
+    const user = await this.prisma.user.findUnique(token.email)
     if (!token) {
       throw new HttpException(
         {
@@ -125,6 +126,6 @@ export class AuthService {
       email: token.email
     });
 
-    return { token: newToken, refreshToken: newRefreshToken };
+    return { token: newToken, refreshToken: newRefreshToken, user: user};
   }
 }
