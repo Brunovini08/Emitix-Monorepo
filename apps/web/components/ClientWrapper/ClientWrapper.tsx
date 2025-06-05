@@ -48,7 +48,6 @@ export function ClientWrapper({ children }: Props) {
         </>
       ) : (
         <>
-          <SessionExpiredModal />
           <Inicio>{children}</Inicio>
         </>
       )}

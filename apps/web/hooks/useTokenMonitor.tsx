@@ -18,9 +18,9 @@ export function useTokenMonitor() {
     window.addEventListener('click', updateActivity)
     
     return () => {
-      window.addEventListener('mousemove', updateActivity)
-      window.addEventListener('keydown', updateActivity)
-      window.addEventListener('click', updateActivity)
+      window.removeEventListener("mousemove", updateActivity);
+      window.removeEventListener("keydown", updateActivity);
+      window.removeEventListener("click", updateActivity);
     }
   }, [])
 
@@ -72,7 +72,7 @@ export function useTokenMonitor() {
             .then((res) => res.json())
             .then((data) => {
               if (data?.accessToken) {
-                localStorage.setItem("access_token", data.accessToken);
+                localStorage.setItem("access_token", data.token);
                 setUser(data.user);
               } else {
                 setSessionExpired(true);

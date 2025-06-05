@@ -1,20 +1,22 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = await fetch('http://localhost:3030/auth/user/refreshToken', {
+  const backendRes = await fetch('http://localhost:3030/auth/user/refreshtoken', {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-  })
+    credentials: "include",
+  });
 
-  console.log("Fez refresh")
+  const data = await backendRes.json();
 
-  const res = await response.json();
-  const nextRes = NextResponse.json(res);
+  const response = NextResponse.json(data, {
+    status: backendRes.status,
+  });
 
-  if (!response.ok) {
-    return NextResponse.json({ error: res.error || 'Erro desconhecido' }, { status: response.status });
+  // Repassa cookies se tiver
+  const setCookie = backendRes.headers.get("set-cookie");
+  if (setCookie) {
+    response.headers.set("set-cookie", setCookie);
   }
 
-  return nextRes
+  return response;
 }
