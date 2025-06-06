@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
-import { GlobalExceptionFilter } from './resources/common/utils/format-error/format-error.interceptor';
+import { HttpExceptionFilter } from './resources/common/filters/http-exeception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
@@ -13,7 +13,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   })
-  app.useGlobalFilters(new GlobalExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }));
   app.use(cookieParser());
   app.use(helmet());

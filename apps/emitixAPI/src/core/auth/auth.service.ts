@@ -3,7 +3,6 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/resources/common/prismaConfig/prisma.service';
 import { SignInDto } from './dto/signInDto';
@@ -104,7 +103,11 @@ export class AuthService {
       );
     }
     const token = await verifyRefreshToken(refreshToken);
-    const user = await this.prisma.user.findUnique(token.email)
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: token?.email
+      }
+    })
     if (!token) {
       throw new HttpException(
         {
@@ -126,6 +129,9 @@ export class AuthService {
       email: token.email
     });
 
-    return { token: newToken, refreshToken: newRefreshToken, user: user};
+    return { token: newToken, refreshToken: newRefreshToken, user: {
+      ...user,
+      password: null
+    }};
   }
 }

@@ -1,5 +1,6 @@
 import {
   CanActivate,
+  ConsoleLogger,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
@@ -15,6 +16,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
+    console.log(token)
     if (!token) {
       throw new Error();
     }
@@ -22,6 +24,7 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
+      new ConsoleLogger(payload)
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException();

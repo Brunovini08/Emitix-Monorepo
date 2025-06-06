@@ -8,9 +8,13 @@ import { EmissionModule } from './resources/middlewares/emission/emission.module
 import { NotasModule } from './resources/middlewares/nota/nota.module';
 import { PrismaModule } from './resources/common/prismaConfig/prisma.module';
 import { NfceModule } from './core/nfce/nfce.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, NfeModule, NfceModule, IssuerInvoiceModule, EmissionModule, NotasModule, PrismaModule],
+  imports: [AuthModule, NfeModule, NfceModule, IssuerInvoiceModule, EmissionModule, NotasModule, PrismaModule, ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: '.env'
+  })],
   controllers: [CertificateController],
   providers: [RedisService],
 })

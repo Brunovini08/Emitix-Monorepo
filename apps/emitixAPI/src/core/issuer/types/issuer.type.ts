@@ -2,6 +2,7 @@ export default interface ICreateIssuerInvoice {
   cnpj: string
   razaoSocial: string
   userId: string
+  
 }
 
 export interface IIssueInvoice {

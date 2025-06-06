@@ -68,6 +68,8 @@ export class NotaService {
         cleanJson
       );
 
+      console.log(createXML)
+
       const sign = signedXml(
         createXML.xml,
         file,
@@ -100,28 +102,29 @@ export class NotaService {
               xml: xmlSend,
               status: 'Emitido',
               issueId: issuerInvoice.id,
-              emissionType: 'NFE',
+              emissionType: 'NFCR',
               uf: String(createNfeDto.NFe.infNFe.ide.cUF),
               valor: Number(createNfeDto.NFe.infNFe.total.ICMSTot.vNF),
               numeroDocumento: String(createNfeDto.NFe.infNFe.ide.nNF),
               dataEmissao: new Date(String(createNfeDto.NFe.infNFe.ide.dhEmi)),
               pdf: ''
             })
+
             if (!emissionRegister) throw new BadRequestException('Erro ao registrar emissão')
             logOperation(
               createNfeDto.NFe.infNFe.emit.CNPJ,
               userId,
-              'Emissão de NFe',
-              `NFe ${createNfeDto.NFe.infNFe.ide.nNF} emitida com sucesso`,
+              'Emissão de NFCe',
+              `NFCe ${createNfeDto.NFe.infNFe.ide.nNF} emitida com sucesso`,
             )
             return envNfe?.data
           } else {
             const emissionRegister = await this.emissionService.create({
               chaveAcesso: createXML.chave_acesso ?? (() => { throw new BadRequestException('Chave de acesso não foi gerada'); })(),
               xml: xmlSend,
-              status: `${cStat | xMotivo}`,
+              status: `${cStat}`,
               issueId: issuerInvoice.id,
-              emissionType: 'NFE',
+              emissionType: 'NFCE',
               uf: String(createNfeDto.NFe.infNFe.ide.cUF),
               valor: Number(createNfeDto.NFe.infNFe.total.ICMSTot.vNF),
               numeroDocumento: String(createNfeDto.NFe.infNFe.ide.nNF),
@@ -131,8 +134,8 @@ export class NotaService {
             logOperation(
               createNfeDto.NFe.infNFe.emit.CNPJ,
               userId,
-              'Emissão de NFe',
-              `NFe ${createNfeDto.NFe.infNFe.ide.nNF} emitida com erro: ${cStat} - ${xMotivo}`,
+              'Emissão de NFCe',
+              `NFCe ${createNfeDto.NFe.infNFe.ide.nNF} emitida com erro: ${cStat} - ${xMotivo}`,
             )
             return envNfe?.data
           }

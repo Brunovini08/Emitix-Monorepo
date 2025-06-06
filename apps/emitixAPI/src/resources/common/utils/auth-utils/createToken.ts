@@ -6,5 +6,5 @@ export async function CreateToken(payload: ITokenPayload) {
   const jwt = new JwtService({
     secret: jwtConstants.secret,
   });
-  return await jwt.signAsync(payload, { expiresIn: '6m' });
+  return await jwt.signAsync(payload, { expiresIn: '1h' });
 }
