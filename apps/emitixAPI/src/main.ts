@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
-import { HttpExceptionFilter } from './resources/common/filters/http-exeception.filter';
+import { HttpExceptionFilter } from './shared/common/filters/http-exeception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
