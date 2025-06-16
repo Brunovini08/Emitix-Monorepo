@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
-import { IssuerService } from './issuer.service';
-import { RedisService } from 'src/resources/middlewares/redis/redis.service';
-import { PrismaService } from 'src/resources/common/prismaConfig/prisma.service';
+import { IssuerService } from './application/issuer.service';
+import { PrismaService } from 'src/shared/common/prismaConfig/prisma.service';
+import { RedisService } from '../redis/application/redis.service';
 
 @Global()
 @Module({

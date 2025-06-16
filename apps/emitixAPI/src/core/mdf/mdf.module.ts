@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MdfService } from './mdf.service';
-import { MdfController } from './mdf.controller';
+import { MdfService } from './application/mdf.service';
+import { MdfController } from './presentation/mdf.controller';
 
 @Module({
   controllers: [MdfController],

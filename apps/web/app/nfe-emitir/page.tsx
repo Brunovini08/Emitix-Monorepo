@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
 import { HeaderNfeForms } from "../../components/Nfe/HeaderNfeForms/HeaderNfeForms";
 import { CustomTabs } from "../../components/Nfe/CustomTabs/CustomTabs";
+import { IdentifierForm } from "../../components/Nfe/Forms/Identifier/Identifier";
 
 const itensTabs = [
   {
     label: "Identificação",
-    content: <div>oi</div>
+    content: <IdentifierForm />
   },
   {
     label: "Emitente",

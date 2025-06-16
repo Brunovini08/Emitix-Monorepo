@@ -26,6 +26,7 @@ export function CustomTabs({ tabs }: CustomTabsProps) {
   return (
     <Box sx={{ backgroundColor: "transparent", px: 2 }}>
       <Tabs
+      textColor="inherit"
         value={value}
         onChange={handleChange}
         variant={isMobile ? "scrollable" : "standard"}
