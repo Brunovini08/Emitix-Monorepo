@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { NotaService } from './application/nota.service';
-import { NFeBuilderService } from 'src/core/nfe/application/services/nfe-builder.service';
+import { NFeBuilderService } from 'src/core/nfe/infrastructure/services/nfe-builder.service';
 import { IdLoteService } from 'src/core/nfe/application/services/idLote.service';
 import { EmissionService } from '../emission/application/emission.service';
 import { NfceModule } from 'src/core/nfce/nfce.module';

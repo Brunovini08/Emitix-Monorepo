@@ -28,17 +28,17 @@ export class ideDto {
   @Type(() => TCodUfIBGE)
   cUF: TCodUfIBGE; // Código da UF do emitente. Ex: 35=SP, 33=RJ, etc.
 
-  @IsNotEmpty({ message: 'natOp is required' })
+  @IsNotEmpty({ message: 'natOp é obrigatório' })
   @MinLength(1)
   @MaxLength(60)
   @Type(() => TString)
   natOp: TString; // Descrição da operação. Ex: Venda, Devolução, etc.
 
-  @IsNotEmpty({ message: 'mod is required' })
+  @IsNotEmpty({ message: 'mod é obrigatório' })
   @Type(() => TMod)
   mod: TMod; // Modelo do documento fiscal. Ex: 55=NF-e, 65=NFC-e, etc.
 
-  @IsNotEmpty({ message: 'serie is required' })
+  @IsNotEmpty({ message: 'serie é obrigatório' })
   @Type(() => TSerie)
   @Matches(/^0$|^[1-9]\d{0,2}$/, {
     message: 'A série deve ser 0 ou entre 1 e 999, sem zeros à esquerda',
@@ -46,11 +46,11 @@ export class ideDto {
   @Length(3)
   serie: TSerie;
 
-  @IsNotEmpty({ message: 'nNF is required' })
+  @IsNotEmpty({ message: 'nNF é obrigatório' })
   @Type(() => TNF)
   nNF: TNF; // Número da NF-e. O número deve ser gerado aleatoriamente e deve ser único para cada NF-e emitida.
 
-  @IsNotEmpty({ message: 'dhEmi is required' })
+  @IsNotEmpty({ message: 'dhEmi é obrigatório' })
   @Type(() => TDateTimeUTC)
   dhEmi: TDateTimeUTC; // Data e hora de emissão da NF-e. O formato deve ser UTC (Coordinated Universal Time). Ex: 2023-10-01T12:00:00Z
 
@@ -58,32 +58,32 @@ export class ideDto {
   @Type(() => TDateTimeUTC)
   dhSaiEnt: TDateTimeUTC; // Data e hora de saída ou entrada da NF-e. O formato deve ser UTC (Coordinated Universal Time). Ex: 2023-10-01T12:00:00Z
 
-  @IsNotEmpty({ message: 'tpNF is required' })
-  @IsIn(['0', '1'], { message: 'tpNF must be either 0 (Entrada) or 1 (Saída)' })
+  @IsNotEmpty({ message: 'tpNF é obrigatório' })
+  @IsIn(['0', '1'], { message: 'tpNF deve ser 0 (Entrada) ou 1 (Saída)' })
   tpNF: string;
 
-  @IsNotEmpty({ message: 'idDest is required' })
+  @IsNotEmpty({ message: 'idDest é obrigatório' })
   @IsIn(['1', '2', '3'], {
     message:
-      'idDest must be either 1 (Operação interna), 2 (Operação interestadual), or 3 (Operação com exterior)',
+      'idDest deve ser 1 (Operação interna), 2 (Operação interestadual), ou 3 (Operação com exterior)',
   })
   idDest: string; // 1=Operação interna; 2=Operação interestadual; 3=Operação com exterior
 
-  @IsNotEmpty({ message: 'cMunFG is required' })
+  @IsNotEmpty({ message: 'cMunFG é obrigatório' })
   @Type(() => TCodMunIBGE)
   cMunFG: TCodMunIBGE;
 
-  @IsNotEmpty({ message: 'tpImp is required' })
+  @IsNotEmpty({ message: 'tpImp é obrigatório' })
   @IsIn(['0', '1', '2', '3', '4', '5'], {
-    message: 'tpImp must be a valid value',
+    message: 'tpImp deve ser um valor válido',
   })
   tpImp: string;
   // 0=sem DANFE; 1=DANFe Retrato; 2=DANFe Paisagem
   // 3=DANFe Simplificado; 4=DANFe NFC-e; 5=DANFe NFC-e e mensagem eletrônica
 
-  @IsNotEmpty({ message: 'tpEmis is required' })
+  @IsNotEmpty({ message: 'tpEmis é obrigatório' })
   @IsIn(['1', '2', '3', '4', '5', '6', '7', '8', '9'], {
-    message: 'tpEmis must be a valid value',
+    message: 'tpEmis deve ser um valor válido',
   })
   tpEmis: string;
   // 1=Emissão normal; 2=Contingência FS;
@@ -94,45 +94,45 @@ export class ideDto {
   @IsOptional()
   cDV: string; // Dígito verificador da chave de acesso da NF-e.
 
-  @IsNotEmpty({ message: 'tpAmb is required' })
+  @IsNotEmpty({ message: 'tpAmb é obrigatório' })
   @Type(() => TAmb)
   tpAmb: TAmb; // 1=Produção; 2=Homologação
 
-  @IsNotEmpty({ message: 'finNFe is required' })
+  @IsNotEmpty({ message: 'finNFe é obrigatório' })
   @IsIn(['1', '2', '3', '4'], {
     message:
-      'finNFe must be a valid value: Finalidade da emissão da NF-e = 1; NFe normal = 2; NFe complementar = 3; NFe de ajuste 4 - Devolução/Retorno',
+      'finNFe deve ser um valor válido: Finalidade da emissão da NF-e = 1; NFe normal = 2; NFe complementar = 3; NFe de ajuste 4 - Devolução/Retorno',
   })
   finNFe: string; // 1=NF-e normal; 2=NF-e complementar; 3=NF-e de ajuste; 4=NF-e de devolução
 
-  @IsNotEmpty({ message: 'indFinal is required' })
+  @IsNotEmpty({ message: 'indFinal é obrigatório' })
   @IsIn(['0', '1'], {
-    message: 'indFinal must be either 0 (Normal) or 1 (Consumidor final)',
+    message: 'indFinal deve ser 0 (Normal) ou 1 (Consumidor final)',
   })
   indFinal: string; // 0=Normal; 1=Consumidor final
 
-  @IsNotEmpty({ message: 'indPres is required' })
+  @IsNotEmpty({ message: 'indPres é obrigatório' })
   @IsIn(['0', '1', '2', '3', '4', '5', '9'], {
     message:
-      'indPres must be a valid value: Indicador de presença do comprador no estabelecimento comercial no momento da oepração(0- Não se aplica(ex.: Nota Fiscal complementar ou de ajuste; 1-Operação presencial; 2 - Não presencial, internet; 3 - Não presencial, teleatendimento; 4 - NFC - e entrega em domicílio; 5 - Operação presencial, fora do estabelecimento;9 - Não presencial, outros) ',
+      'indPres deve ser um valor válido: Indicador de presença do comprador no estabelecimento comercial no momento da oepração(0- Não se aplica(ex.: Nota Fiscal complementar ou de ajuste; 1-Operação presencial; 2 - Não presencial, internet; 3 - Não presencial, teleatendimento; 4 - NFC - e entrega em domicílio; 5 - Operação presencial, fora do estabelecimento;9 - Não presencial, outros) ',
   })
   indPres: string; // 0=Não se aplica; 1=Presencial; 2=Não presencial; 3=Internet; 4=Telefone; 5=Fax; 9=Outros
 
   @IsOptional()
   @IsIn(['0', '1'], {
     message:
-      'indIntermed must be either 0 or 1: Indicador de intermediador/marketplace 0=Operação sem intermediador (em site ou plataforma própria) 1=Operação em site ou plataforma de terceiros (intermediadores/marketplace)',
+      'indIntermed deve ser 0 ou 1: Indicador de intermediador/marketplace 0=Operação sem intermediador (em site ou plataforma própria) 1=Operação em site ou plataforma de terceiros (intermediadores/marketplace)',
   })
   indIntermed: string; // 0=Normal; 1=Intermediário
 
-  @IsNotEmpty({ message: 'procEmi is required' })
+  @IsNotEmpty({ message: 'procEmi é obrigatório' })
   @IsIn(['0', '1', '2'], {
     message:
-      'procEmi must be a valid value: Processo de emissão utilizado com a seguinte codificação: 0 - emissão de NF-e com aplicativo do contribuinte; 1 - emissão de NF-e avulsa pelo Fisco; 2 - emissão de NF-e avulsa, pelo contribuinte com seu certificado digital, através do site do Fisco; 3- emissão de NF-e pelo contribuinte com aplicativo fornecido pelo Fisco.',
+      'procEmi deve ser uma valor válido: Processo de emissão utilizado com a seguinte codificação: 0 - emissão de NF-e com aplicativo do contribuinte; 1 - emissão de NF-e avulsa pelo Fisco; 2 - emissão de NF-e avulsa, pelo contribuinte com seu certificado digital, através do site do Fisco; 3- emissão de NF-e pelo contribuinte com aplicativo fornecido pelo Fisco.',
   })
   procEmi: string; // 0=Aplicativo do contribuinte; 1=Aplicativo da SEF; 2=Aplicativo de terceiros; 3=Aplicativo do contribuinte com aplicativo da sefaz
 
-  @IsNotEmpty({ message: 'verProc is required' })
+  @IsNotEmpty({ message: 'verProc é obrigatório' })
   @Type(() => TString)
   @MinLength(1)
   @MaxLength(20)

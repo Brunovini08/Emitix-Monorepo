@@ -94,7 +94,7 @@ const tiposNotas = [
             width: "100%",
           }}
         >
-          Emitix CTe
+          Emitir CTe
         </Button>
       </Link>
     ),

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { NfeController } from './presentation/nfe.controller';
-import { NFeBuilderService } from './application/services/nfe-builder.service';
+import { NFeBuilderService } from './infrastructure/services/nfe-builder.service';
 import { IdLoteService } from './application/services/idLote.service';
 import { NfeService } from './application/services/nfe.service';
 

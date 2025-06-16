@@ -15,13 +15,6 @@ export class impostosDto {
   @Type(() => TDec_1302)
   vTotTrib: TDec_1302; // Valor Total dos Tributos
 
-  @IsNotEmpty({
-    message: 'Um tipo de ICMS deve ser enviado',
-  })
-  @ValidateNested()
-  @Type(() => ICMSDto)
-  ICMS: ICMSDto;
-
   @IsOptional()
   @ValidateNested()
   @Type(() => produtoDto)

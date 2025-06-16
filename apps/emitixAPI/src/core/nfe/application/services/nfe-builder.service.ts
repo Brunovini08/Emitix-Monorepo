@@ -1,16 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { cleanObject } from 'src/shared/common/utils/clean/cleanObject.util';
-import {
-  ExpandObject,
-  XMLBuilderCreateOptions,
-} from 'xmlbuilder2/lib/interfaces';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { create } from 'xmlbuilder2';
+import { XMLBuilder } from 'fast-xml-parser';
+import { cleanObject } from 'src/shared/common/utils/clean/cleanObject.util';
 import { generateCNF } from 'src/shared/common/utils/generate/generate-cNfe.util';
 import { generateAccessKey } from 'src/shared/common/utils/generate/generateAccessKey.util';
-import { IdLoteService } from './idLote.service';
-import { XMLBuilder } from 'fast-xml-parser';
 import { BuildService } from 'src/shared/middlewares/build/build.service';
-import { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
+import {
+  XMLBuilderCreateOptions,
+  ExpandObject,
+} from 'xmlbuilder2/lib/interfaces';
 import { TEnvConsCad } from '../../domain/types/complex_types/TCons/TEnvConsCad';
 import TEnvConsSitNfe from '../../domain/types/complex_types/TCons/TEnvConsSitNfe';
 import TEnvConsStatServ from '../../domain/types/complex_types/TCons/TEnvConsStatServ';
@@ -18,9 +16,11 @@ import { TEnviConsReciNFe } from '../../domain/types/complex_types/TCons/TEnviCo
 import { TEnvDistDFeInt } from '../../domain/types/complex_types/TDist/TEnvDistDFeInt';
 import { TEnvEvento } from '../../domain/types/complex_types/TEvento/TEnvEvento';
 import TEnvInutNfe from '../../domain/types/complex_types/TInut/TEnvInutNfe';
+import { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
+import { IdLoteService } from './idLote.service';
 
 @Injectable()
-export class NFeBuilderService {
+export class NFeBuilderService implements INFeSerializer{
   constructor(
     public idLoteService: IdLoteService,
     public buildService: BuildService,

@@ -16,7 +16,7 @@ import { validateXmlXsd } from 'src/shared/common/utils/validate/validateXmlXsd.
 import { convert } from 'xmlbuilder2';
 import { EmissionService } from '../../emission/application/emission.service';
 import { IdLoteService } from '../../nfe/application/services/idLote.service';
-import { NFeBuilderService } from '../../nfe/application/services/nfe-builder.service';
+import { NFeBuilderService } from 'src/core/nfe/application/services/nfe-builder.service';
 import { TEnvConsCad } from '../../nfe/domain/types/complex_types/TCons/TEnvConsCad';
 import TEnvConsSitNfe from '../../nfe/domain/types/complex_types/TCons/TEnvConsSitNfe';
 import TEnvConsStatServ from '../../nfe/domain/types/complex_types/TCons/TEnvConsStatServ';
@@ -25,6 +25,7 @@ import { TEnvDistDFeInt } from '../../nfe/domain/types/complex_types/TDist/TEnvD
 import { TEnvEvento } from '../../nfe/domain/types/complex_types/TEvento/TEnvEvento';
 import TEnvInutNfe from '../../nfe/domain/types/complex_types/TInut/TEnvInutNfe';
 import { NFeDto } from '../../nfe/domain/types/complex_types/TNFe/NFe.dto';
+import type { ValidateCertificate } from './validate.service';
 
 @Injectable()
 export class NotaService {
@@ -33,6 +34,7 @@ export class NotaService {
     private readonly prisma: PrismaService,
     private readonly idLoteService: IdLoteService,
     private readonly emissionService: EmissionService,
+    private readonly validateCert: ValidateCertificate
   ) {}
 
   async emitir(
@@ -47,7 +49,7 @@ export class NotaService {
     cert: any,
     privateKey: any,
   ) {
-    const valide = validateCertificate(cert);
+    const valide = await this.validateCert.execute(cert)
     if (valide === 'Certificado ainda não é válido.')
       throw new BadRequestException('Certificado ainda não é válido.');
     else if (valide === 'Certificado expirado.')
@@ -120,7 +122,7 @@ export class NotaService {
               xml: xmlSend,
               status: 'Emitido',
               issueId: issuerInvoice.id,
-              emissionType: 'NFCR',
+              emissionType: 'NFCE',
               uf: String(createNfeDto.NFe.infNFe.ide.cUF),
               valor: Number(createNfeDto.NFe.infNFe.total.ICMSTot.vNF),
               numeroDocumento: String(createNfeDto.NFe.infNFe.ide.nNF),

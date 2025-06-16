@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { AuthProvider, useAuth } from "../context/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 import { ClientWrapper } from "../components/ClientWrapper/ClientWrapper";
+import { ThemeProvider } from "@mui/material";
+import ThemeRegistry from "../components/Theme/ThemeRegistry";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,7 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const metadata: Metadata = {
     title: "Emitix",
     description: "Emitix",
@@ -27,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthProvider>
-          <ClientWrapper children={children} />
-        </AuthProvider>
+          <AuthProvider>
+            <ThemeRegistry>
+              <ClientWrapper children={children} />
+            </ThemeRegistry>
+          </AuthProvider>
       </body>
     </html>
   );

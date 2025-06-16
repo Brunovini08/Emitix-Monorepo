@@ -15,7 +15,7 @@ import  { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
 export class NfeService {
 
   constructor(
-    private notaService: NotaService
+    private notaService: NotaService,
   ) { }
 
   async create(
@@ -29,7 +29,7 @@ export class NfeService {
     typeDocument: string
   ) {
     try {
-      const { cert, privateKey } = loadCertificate(file, certPassword);
+      const { cert, privateKey } = loadCertificate(file, certPassword)
       if (!cert || !privateKey)
         throw new BadRequestException('Certificado inválido');
       else {
