@@ -10,7 +10,7 @@ import type { Med } from "./med.vo";
 import type { Rastro } from "./rastro.vo";
 import type { VeicProd } from "./veicProd.vo";
 
-export class NFeItemProd {
+export class Prod {
   public readonly cProd: string;
   public readonly cEAN: string;
   public readonly cBarra?: string;
@@ -240,5 +240,91 @@ export class NFeItemProd {
 
   public getValorTotalLiquido(): number {
     return this.vProd - (this.vDesc || 0) + (this.vFrete || 0) + (this.vSeg || 0) + (this.vOutro || 0);
+  }
+
+  public equals(other: Prod): boolean {
+    return this.cProd === other.cProd &&
+      this.cEAN === other.cEAN &&
+      this.cBarra === other.cBarra &&
+      this.xProd === other.xProd &&
+      this.NCM === other.NCM &&
+      this.NVE === other.NVE &&
+      this.CEST === other.CEST &&
+      this.indEscala === other.indEscala &&
+      this.CNPJFab === other.CNPJFab &&
+      this.cBenef === other.cBenef &&
+      this.gCred === other.gCred &&
+      this.EXTIPI === other.EXTIPI &&
+      this.CFOP === other.CFOP &&
+      this.uCom === other.uCom &&
+      this.qCom === other.qCom &&
+      this.vUnCom === other.vUnCom &&
+      this.vProd === other.vProd &&
+      this.cEANTrib === other.cEANTrib &&
+      this.cBarraTrib === other.cBarraTrib &&
+      this.uTrib === other.uTrib &&
+      this.qTrib === other.qTrib &&
+      this.vUnTrib === other.vUnTrib &&
+      this.vFrete === other.vFrete &&
+      this.vSeg === other.vSeg &&
+      this.vDesc === other.vDesc &&
+      this.vOutro === other.vOutro &&
+      this.indTot === other.indTot &&
+      this.detExport === other.detExport &&
+      this.xPed === other.xPed &&
+      this.nItemPed === other.nItemPed &&
+      this.nFCI === other.nFCI &&
+      this.rastro === other.rastro &&
+      this.infProdNFF === other.infProdNFF &&
+      this.infProdEmb === other.infProdEmb &&
+      this.veicProd === other.veicProd &&
+      this.med === other.med &&
+      this.arma === other.arma &&
+      this.comb === other.comb &&
+      this.nRECOPI === other.nRECOPI
+  }
+
+  public toJSON() {
+    return {
+      cProd: this.cProd,
+      cEAN: this.cEAN,
+      cBarra: this.cBarra,
+      xProd: this.xProd,
+      NCM: this.NCM,
+      NVE: this.NVE,
+      CEST: this.CEST,
+      indEscala: this.indEscala,
+      CNPJFab: this.CNPJFab,
+      cBenef: this.cBenef,
+      gCred: this.gCred,
+      EXTIPI: this.EXTIPI,
+      CFOP: this.CFOP,
+      uCom: this.uCom,
+      qCom: this.qCom,
+      vUnCom: this.vUnCom,
+      vProd: this.vProd,
+      cEANTrib: this.cEANTrib,
+      cBarraTrib: this.cBarraTrib,
+      uTrib: this.uTrib,
+      qTrib: this.qTrib,
+      vUnTrib: this.vUnTrib,
+      vFrete: this.vFrete,
+      vSeg: this.vSeg,
+      vDesc: this.vDesc,
+      vOutro: this.vOutro,
+      indTot: this.indTot,
+      detExport: this.detExport,
+      xPed: this.xPed,
+      nItemPed: this.nItemPed,
+      nFCI: this.nFCI,
+      rastro: this.rastro,
+      infProdNFF: this.infProdNFF,
+      infProdEmb: this.infProdEmb,
+      veicProd: this.veicProd,
+      med: this.med,
+      arma: this.arma,
+      comb: this.comb,
+      nRECOPI: this.nRECOPI,
+    }
   }
 }

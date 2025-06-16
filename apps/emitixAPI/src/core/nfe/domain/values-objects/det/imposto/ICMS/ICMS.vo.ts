@@ -110,4 +110,54 @@ export class ICMS {
       throw new Error(`Apenas um tipo de ICMS pode ser definido. Tipos encontrados: ${definedTypes.join(', ')}`)
     }
   }
+
+  public equals(other: ICMS): boolean {
+    return this.ICMS00 === other.ICMS00 &&
+      this.ICMS02 === other.ICMS02 &&
+      this.ICMS10 === other.ICMS10 &&
+      this.ICMS15 === other.ICMS15 &&
+      this.ICMS20 === other.ICMS20 &&
+      this.ICMS30 === other.ICMS30 &&
+      this.ICMS40 === other.ICMS40 &&
+      this.ICMS51 === other.ICMS51 &&
+      this.ICMS53 === other.ICMS53 &&
+      this.ICMS60 === other.ICMS60 &&
+      this.ICMS61 === other.ICMS61 &&
+      this.ICMS70 === other.ICMS70 &&
+      this.ICMS90 === other.ICMS90 &&
+      this.ICMSPart === other.ICMSPart &&
+      this.ICMSST === other.ICMSST &&
+      this.ICMSSN101 === other.ICMSSN101 &&
+      this.ICMSSN102 === other.ICMSSN102 &&
+      this.ICMSSN201 === other.ICMSSN201 &&
+      this.ICMSSN202 === other.ICMSSN202 &&
+      this.ICMSSN500 === other.ICMSSN500 &&
+      this.ICMSSN900 === other.ICMSSN900
+  }
+
+  public toJSON(): Record<string, any> {
+    return {
+      ICMS00: this.ICMS00,
+      ICMS02: this.ICMS02,
+      ICMS10: this.ICMS10,
+      ICMS15: this.ICMS15,
+      ICMS20: this.ICMS20,
+      ICMS30: this.ICMS30,
+      ICMS40: this.ICMS40,
+      ICMS51: this.ICMS51,
+      ICMS53: this.ICMS53,
+      ICMS60: this.ICMS60,
+      ICMS61: this.ICMS61,
+      ICMS70: this.ICMS70,
+      ICMS90: this.ICMS90,
+      ICMSPart: this.ICMSPart,
+      ICMSST: this.ICMSST,
+      ICMSSN101: this.ICMSSN101,
+      ICMSSN102: this.ICMSSN102,
+      ICMSSN201: this.ICMSSN201,
+      ICMSSN202: this.ICMSSN202,
+      ICMSSN500: this.ICMSSN500,
+      ICMSSN900: this.ICMSSN900
+    }
+  }
 }
