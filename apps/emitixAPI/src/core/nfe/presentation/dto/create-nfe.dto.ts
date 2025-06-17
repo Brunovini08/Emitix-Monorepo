@@ -12,7 +12,7 @@ import { autXMLDto } from '../../../../shared/common/dtos/infNfe/autXML/autXML.d
 import { avulsaDto } from '../../../../shared/common/dtos/infNfe/avulsa/avulsa.dto';
 import { canaDto } from '../../../../shared/common/dtos/infNfe/cana/cana.dto';
 import { cobrDto } from '../../../../shared/common/dtos/infNfe/cobr/cobr.dto';
-import { compraDto } from '../../../../shared/common/dtos/infNfe/det/compra/compra.dto';
+import { compraDto } from '../../../../shared/common/dtos/infNfe/compra/compra.dto';
 import { destDto } from '../../../../shared/common/dtos/infNfe/det/dest/dest.dto';
 import { detDto } from '../../../../shared/common/dtos/infNfe/det/det.dto';
 import { emitDto } from '../../../../shared/common/dtos/infNfe/emit/emit.dto';

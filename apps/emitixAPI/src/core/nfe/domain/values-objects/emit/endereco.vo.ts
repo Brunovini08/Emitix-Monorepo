@@ -38,13 +38,9 @@ export class Endereco {
     this.fone = data.fone;
     this.cpl = data.cpl;
 
-    this.validateOrThrow(); // Valida na construção
+    this.validateOrThrow();
   }
 
-  /**
-   * Valida as regras de negócio para o Value Object Endereco.
-   * Lança um erro específico se alguma validação falhar.
-   */
   public validateOrThrow(): void {
     if (!this.xLgr || this.xLgr.trim() === '') {
       throw new Error('Logradouro (xLgr) é obrigatório.');
@@ -70,10 +66,8 @@ export class Endereco {
     if (this.cPais !== '1058' || this.xPais !== 'Brasil') {
         throw new Error('País inválido. Apenas Brasil (código 1058) é permitido.');
     }
-    // Adicionar validações de formato para fone, se necessário
   }
 
-  // Você pode adicionar métodos úteis aqui, como formatar CEP, obter cidade/estado, etc.
   public getCepFormatado(): string {
     if (!this.CEP) return '';
     return this.CEP.replace(/(\d{5})(\d{3})/, '$1-$2');

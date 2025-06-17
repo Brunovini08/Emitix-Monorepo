@@ -1,5 +1,5 @@
 // src/nfe/domain/mappers/nfe.mapper.ts
-import { infNFeDto } from '../../dto/infNFe.dto';
+import type { infNFeDto } from '../../presentation/dto/create-nfe.dto';
 import { NFe } from '../entities/nfe.entity';
 
 export class NFeMapper {

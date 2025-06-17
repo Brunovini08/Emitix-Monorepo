@@ -44,7 +44,7 @@ export class Ide {
       procEmi: string;
       verProc: string;
       dhSaiEnt?: Date;
-      dhCont?: Date; // Espera um Date aqui para melhor tipagem
+      dhCont?: Date; 
       xJust?: string;
     },
   ) {
@@ -70,7 +70,6 @@ export class Ide {
     this.dhCont = data.dhCont;
     this.xJust = data.xJust;
 
-    // A validação de consistência será feita no método validateOrThrow
     this.validateOrThrow();
   }
 
@@ -78,10 +77,6 @@ export class Ide {
     return `${this.serie}-${this.nNF}`;
   }
 
-  /**
-   * Valida as regras de negócio para o Value Object Ide.
-   * Lança um erro específico se alguma validação falhar.
-   */
   public validateOrThrow(): void {
     if (this.cUF.length !== 2) {
       throw new Error('Código da UF (cUF) inválido. Deve ter 2 dígitos.');
@@ -89,9 +84,7 @@ export class Ide {
     if (this.tpNF !== '0' && this.tpNF !== '1') {
       throw new Error('Tipo de Operação (tpNF) inválido. Deve ser "0" (Entrada) ou "1" (Saída).');
     }
-    // Adicione outras validações básicas aqui, se houver
 
-    // --- Regra condicional: dhCont e xJust devem ser informados se tpEmis for diferente de 1 ---
     if (this.tpEmis !== '1') {
       if (!this.dhCont) {
         throw new Error('Data e Hora de Entrada em Contingência (dhCont) é obrigatório quando tpEmis for diferente de "1".');
@@ -99,12 +92,10 @@ export class Ide {
       if (!this.xJust || this.xJust.trim() === '') {
         throw new Error('Justificativa da Entrada em Contingência (xJust) é obrigatória quando tpEmis for diferente de "1".');
       }
-      // Você também pode adicionar validações de tamanho/formato para xJust aqui
       if (this.xJust.length < 15 || this.xJust.length > 256) {
           throw new Error('Justificativa (xJust) deve ter entre 15 e 256 caracteres.');
       }
     } else {
-      // Se tpEmis for '1' (Normal), esses campos NÃO DEVEM ser informados
       if (this.dhCont) {
         throw new Error('Data e Hora de Entrada em Contingência (dhCont) não deve ser informada quando tpEmis for "1" (Normal).');
       }
@@ -112,5 +103,31 @@ export class Ide {
         throw new Error('Justificativa (xJust) não deve ser informada quando tpEmis for "1" (Normal).');
       }
     }
+  }
+
+  toJSON() {
+    return {
+      cUF: this.cUF,
+      cNF: this.cNF,
+      natOp: this.natOp,
+      mod: this.mod,
+      serie: this.serie,
+      nNF: this.nNF,
+      dhEmi: this.dhEmi,
+      tpNF: this.tpNF,
+      idDest: this.idDest,
+      cMunFG: this.cMunFG,
+      tpImp: this.tpImp,
+      tpEmis: this.tpEmis,
+      tpAmb: this.tpAmb,
+      finNFe: this.finNFe,
+      indFinal: this.indFinal,
+      indPres: this.indPres,
+      procEmi: this.procEmi,
+      verProc: this.verProc,
+      dhSaiEnt: this.dhSaiEnt,
+      dhCont: this.dhCont,
+      xJust: this.xJust,
+    };
   }
 }

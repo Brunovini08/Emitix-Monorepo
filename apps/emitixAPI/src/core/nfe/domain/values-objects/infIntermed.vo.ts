@@ -1,0 +1,36 @@
+export class infIntermed {
+
+  CNPJ
+  idCadIntTran
+
+  constructor(
+    CNPJ,
+    idCadIntTran
+  ) {
+    this.CNPJ = CNPJ;
+    this.idCadIntTran = idCadIntTran;
+  }
+
+  validateOrThrow() {
+    const requiredFields = ['CNPJ', 'idCadIntTran'];
+
+    for (const field of requiredFields) {
+      if (this[field] === undefined || this[field] === null) {
+        throw new Error(`O campo ${field} é obrigatório`);
+      }
+    }
+
+    if (this.idCadIntTran !== undefined && this.idCadIntTran !== null) {
+      if (this.idCadIntTran.length < 2 || this.idCadIntTran.length > 60) {
+        throw new Error('O campo idCadIntTran deve ter entre 2 e 60 caracteres.');
+      }
+    }
+  }
+
+  toJson() {
+    return {
+      CNPJ: this.CNPJ,
+      idCadIntTran: this.idCadIntTran,
+    };
+  }
+}
