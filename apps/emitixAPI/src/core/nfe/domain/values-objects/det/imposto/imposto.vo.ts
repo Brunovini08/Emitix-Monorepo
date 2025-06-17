@@ -17,15 +17,24 @@ export class Impostos {
   public readonly COFINSST: COFINSST;
   public readonly ICMSUFDest: ICMSUFDest;
 
-  constructor(data) {
-    this.vTotTrib = data.vTotTrib ?? null;
-    this.produto = data.produto 
-    this.servico = data.servico 
-    this.PIS = data.PIS 
-    this.PISST = data.PISST 
-    this.COFINS = data.COFINS 
-    this.COFINSST = data.COFINSST 
-    this.ICMSUFDest = data.ICMSUFDest 
+  constructor(data: {
+    vTotTrib: number;
+    produto: Produto;
+    servico: Servico;
+    PIS: PIS;
+    PISST: PISST;
+    COFINS: COFINS;
+    COFINSST: COFINSST;
+    ICMSUFDest: ICMSUFDest;
+  }) {
+    this.vTotTrib = data.vTotTrib   
+    this.produto = data.produto   
+    this.servico = data.servico;
+    this.PIS = data.PIS;
+    this.PISST = data.PISST;
+    this.COFINS = data.COFINS;
+    this.COFINSST = data.COFINSST;
+    this.ICMSUFDest = data.ICMSUFDest;
 
     this.validateOrThrow();
     Object.freeze(this);

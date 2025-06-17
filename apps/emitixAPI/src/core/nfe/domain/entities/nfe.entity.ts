@@ -40,7 +40,28 @@ export class NFe {
   infSolicNFF?: infSolicNFF;
   agropecuario?: agropecuario;
 
-  
+  constructor(data: NFe) {
+    this.ide = data.ide;
+    this.emit = data.emit;
+    this.avulsa = data.avulsa;
+    this.dest = data.dest;
+    this.retirada = data.retirada;
+    this.entrega = data.entrega;
+    this.authXML = data.authXML;
+    this.det = data.det;
+    this.total = data.total;
+    this.transp = data.transp;
+    this.cobr = data.cobr;
+    this.pag = data.pag;
+    this.infIntermed = data.infIntermed;
+    this.infAdic = data.infAdic;
+    this.exporta = data.exporta;
+    this.compra = data.compra;
+    this.cana = data.cana;
+    this.infRespTec = data.infRespTec;
+    this.infSolicNFF = data.infSolicNFF;
+    this.agropecuario = data.agropecuario;
+  }
 
   public clean() {
     

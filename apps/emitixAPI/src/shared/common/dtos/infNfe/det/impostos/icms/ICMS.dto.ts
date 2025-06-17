@@ -57,12 +57,12 @@ export class ICMSDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => ICMS201Dto)
-  ICMS201: ICMS201Dto;
+  ICMSSN201: ICMS201Dto;
 
   @IsOptional()
   @ValidateNested()
   @Type(() => ICMS202Dto)
-  ICMS202: ICMS202Dto;
+  ICMSSN202: ICMS202Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -107,7 +107,7 @@ export class ICMSDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => ICMS900Dto)
-  ICMS900: ICMS900Dto;
+  ICMSSN900: ICMS900Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -118,6 +118,11 @@ export class ICMSDto {
   @ValidateNested()
   @Type(() => ICMSSN102Dto)
   ICMSSN102: ICMSSN102Dto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ICMS101Dto)
+  ICMSSN101: ICMS101Dto;
 
   @IsOptional()
   @ValidateNested()

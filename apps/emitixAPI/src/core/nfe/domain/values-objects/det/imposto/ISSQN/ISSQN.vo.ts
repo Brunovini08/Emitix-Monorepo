@@ -16,7 +16,24 @@ export class ISSQN {
   public readonly nProcesso;
   public readonly indIncentivo;
 
-  constructor(data) {
+  constructor(data: {
+    vBC: number
+    vAliq: number
+    vISSQN: number
+    cMunFG: string
+    cListServ: string
+    vDeducao: number
+    vOutro: number
+    vDescIncond: number
+    vDescCond: number
+    vISSRet: number
+    indISS: string
+    cServico: string
+    cMun: string
+    cPais: string
+    nProcesso: string
+    indIncentivo: string
+  }) {
     this.vBC = data.vBC;
     this.vAliq = data.vAliq;
     this.vISSQN = data.vISSQN;

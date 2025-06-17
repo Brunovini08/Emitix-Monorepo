@@ -28,6 +28,10 @@ export class ideDto {
   @Type(() => TCodUfIBGE)
   cUF: TCodUfIBGE; // Código da UF do emitente. Ex: 35=SP, 33=RJ, etc.
 
+  @IsOptional()
+  @Type(() => TString)
+  cNF: TString;
+
   @IsNotEmpty({ message: 'natOp é obrigatório' })
   @MinLength(1)
   @MaxLength(60)

@@ -7,7 +7,11 @@ export class Produto {
   public readonly IPI: IPI;
   public readonly II: II;
 
-  constructor(data) {
+  constructor(data: {
+    ICMS: ICMS;
+    IPI: IPI;
+    II: II;
+  }) {
     this.ICMS = data.ICMS 
     this.IPI = data.IPI 
     this.II = data.II 

@@ -39,7 +39,7 @@ export class Prod {
   public readonly vOutro?: number;
   public readonly indTot?: string;
   public readonly DI?: DI
-  public readonly detExport?: DetExport[]
+  public readonly detExport?: DetExport
   public readonly xPed?: string;
   public readonly nItemPed?: string;
   public readonly nFCI?: string;
@@ -58,7 +58,7 @@ export class Prod {
     gCred?: GCred[]; EXTIPI?: string; CFOP: string; uCom: string; qCom: number;
     vUnCom: number; vProd: number; cEANTrib: string; cBarraTrib?: string; uTrib?: string;
     qTrib?: number; vUnTrib?: number; vFrete?: number; vSeg?: number; vDesc?: number;
-    vOutro?: number; indTot?: string; detExport?: DetExport[]; xPed?: string; nItemPed?: string;
+    vOutro?: number; indTot?: string; detExport?: DetExport; xPed?: string; nItemPed?: string;
     nFCI?: string; rastro?: Rastro[]; infProdNFF?: InfProdNFF; infProdEmb?: InfProdEmb; veicProd?: VeicProd;
     med?: Med; arma?: Arma[]; comb?: any; nRECOPI?: string;
   }) {

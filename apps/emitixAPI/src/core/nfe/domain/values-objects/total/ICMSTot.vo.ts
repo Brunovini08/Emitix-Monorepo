@@ -30,65 +30,67 @@ export class ICMSTot {
   vTotTrib
 
   constructor(
-    vBC,
-    vICMS,
-    vICMSDeson,
-    vFCP,
-    vBCST,
-    vST,
-    vFCPST,
-    vFCPSTRet,
-    vProd,
-    vFrete,
-    vSeg,
-    vDesc,
-    vII,
-    vIPI,
-    vIPIDevol,
-    vPIS,
-    vCOFINS,
-    vOutro,
-    vNF,
-    vFCPUFDest,
-    vICMSUFDest,
-    vICMSUFRemet,
-    qBCMono,
-    vICMSMono,
-    qBCMonoReten,
-    vICMSMonoReten,
-    qBCMonoRet,
-    vICMSMonoRet,
-    vTotTrib
+    data: {
+      vBC,
+      vICMS,
+      vICMSDeson,
+      vFCP,
+      vBCST,
+      vST,
+      vFCPST,
+      vFCPSTRet,
+      vProd,
+      vFrete,
+      vSeg,
+      vDesc,
+      vII,
+      vIPI,
+      vIPIDevol,
+      vPIS,
+      vCOFINS,
+      vOutro,
+      vNF,
+      vFCPUFDest,
+      vICMSUFDest,
+      vICMSUFRemet,
+      qBCMono,
+      vICMSMono,
+      qBCMonoReten,
+      vICMSMonoReten,
+      qBCMonoRet,
+      vICMSMonoRet,
+      vTotTrib
+    }
   ) {
-    this.vBC = vBC;
-    this.vICMS = vICMS;
-    this.vICMSDeson = vICMSDeson;
-    this.vFCP = vFCP;
-    this.vBCST = vBCST;
-    this.vST = vST;
-    this.vFCPST = vFCPST;
-    this.vFCPSTRet = vFCPSTRet;
-    this.vProd = vProd;
-    this.vFrete = vFrete;
-    this.vSeg = vSeg;
-    this.vDesc = vDesc;
-    this.vII = vII;
-    this.vIPI = vIPI;
-    this.vIPIDevol = vIPIDevol;
-    this.vPIS = vPIS;
-    this.vCOFINS = vCOFINS;
-    this.vOutro = vOutro;
-    this.vNF = vNF;
-    this.vFCPUFDest = vFCPUFDest;
-    this.vICMSUFDest = vICMSUFDest;
-    this.vICMSUFRemet = vICMSUFRemet;
-    this.qBCMono = qBCMono;
-    this.vICMSMono = vICMSMono;
-    this.qBCMonoReten = qBCMonoReten;
-    this.vICMSMonoReten = vICMSMonoReten;
-    this.qBCMonoRet = qBCMonoRet;
-    this.vICMSMonoRet = vICMSMonoRet;
-    this.vTotTrib = vTotTrib;
+    this.vBC = data.vBC;
+    this.vICMS = data.vICMS;
+    this.vICMSDeson = data.vICMSDeson;
+    this.vFCP = data.vFCP;
+    this.vBCST = data.vBCST;
+    this.vST = data.vST;
+    this.vFCPST = data.vFCPST;
+    this.vFCPSTRet = data.vFCPSTRet;
+    this.vProd = data.vProd;
+    this.vFrete = data.vFrete;
+    this.vSeg = data.vSeg;
+    this.vDesc = data.vDesc;
+    this.vII = data.vII;
+    this.vIPI = data.vIPI;
+    this.vIPIDevol = data.vIPIDevol;
+    this.vPIS = data.vPIS;
+    this.vCOFINS = data.vCOFINS;
+    this.vOutro = data.vOutro;
+    this.vNF = data.vNF;
+    this.vFCPUFDest = data.vFCPUFDest;
+    this.vICMSUFDest = data.vICMSUFDest;
+    this.vICMSUFRemet = data.vICMSUFRemet;
+    this.qBCMono = data.qBCMono;
+    this.vICMSMono = data.vICMSMono;
+    this.qBCMonoReten = data.qBCMonoReten;
+    this.vICMSMonoReten = data.vICMSMonoReten;
+    this.qBCMonoRet = data.qBCMonoRet;
+    this.vICMSMonoRet = data.vICMSMonoRet;
+    this.vTotTrib = data.vTotTrib;
   }
 
   validateOrThrow() {

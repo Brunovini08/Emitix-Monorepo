@@ -1,6 +1,6 @@
-import type { retTransp } from "./retTransp.vo"
-import type { transporta } from "./transporta.vo"
-import type { veiculoComReboque } from "./veicComReboque.vo"
+import { retTransp } from "./retTransp.vo"
+import { transporta } from "./transporta.vo"
+import { veiculoComReboque } from "./veicComReboque.vo"
 import type { vol } from "./vol/vol.vo"
 
 export class transp {
@@ -15,23 +15,25 @@ export class transp {
   vol: vol[]
 
   constructor(
-    modFrete,
-    transporta,
-    retTrasp,
-    veicTransp,
-    reboque,
-    vagao,
-    balsa,
-    vol = []
+    data: {
+      modFrete: string,
+      transporta: transporta,
+      retTrasp: retTransp,
+      veicTransp: veiculoComReboque,
+      reboque: veiculoComReboque,
+      vagao: string,
+      balsa: string,
+      vol: vol[]
+    }
   ) {
-    this.modFrete = modFrete;
-    this.transporta = transporta;
-    this.retTrasp = retTrasp;
-    this.veicTransp = veicTransp;
-    this.reboque = reboque;
-    this.vagao = vagao;
-    this.balsa = balsa;
-    this.vol = vol;
+    this.modFrete = data.modFrete;
+    this.transporta = data.transporta;
+    this.retTrasp = data.retTrasp;
+    this.veicTransp = data.veicTransp;
+    this.reboque = data.reboque;
+    this.vagao = data.vagao;
+    this.balsa = data.balsa;
+    this.vol = data.vol;
   }
 
   validateOrThrow() {

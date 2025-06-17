@@ -1,4 +1,4 @@
-import type { ICMSTot } from "./ICMSTot.vo";
+import { ICMSTot } from "./ICMSTot.vo";
 import type { ISSQNTot } from "./ISSQNTot.vo";
 import type { retTrib } from "./retTrib.vo";
 
@@ -8,13 +8,15 @@ export class Total {
   retTrib: retTrib;
 
   constructor(
-    ICMSTot: ICMSTot,
-    ISSQNtot: ISSQNTot,
-    retTrib: retTrib
+    data: {
+      ICMSTot: ICMSTot;
+      ISSQNtot: ISSQNTot;
+      retTrib: retTrib;
+    }
   ) {
-    this.ICMSTot = ICMSTot;
-    this.ISSQNtot = ISSQNtot;
-    this.retTrib = retTrib;
+    this.ICMSTot = data.ICMSTot;
+    this.ISSQNtot = data.ISSQNtot;
+    this.retTrib = data.retTrib;
   }
 
   validateOrThrow() {
