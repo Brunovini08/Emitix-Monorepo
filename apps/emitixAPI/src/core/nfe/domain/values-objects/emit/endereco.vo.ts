@@ -38,13 +38,9 @@ export class Endereco {
     this.fone = data.fone;
     this.cpl = data.cpl;
 
-    this.validateOrThrow(); // Valida na construção
+    this.validateOrThrow();
   }
 
-  /**
-   * Valida as regras de negócio para o Value Object Endereco.
-   * Lança um erro específico se alguma validação falhar.
-   */
   public validateOrThrow(): void {
     if (!this.xLgr || this.xLgr.trim() === '') {
       throw new Error('Logradouro (xLgr) é obrigatório.');
@@ -70,10 +66,8 @@ export class Endereco {
     if (this.cPais !== '1058' || this.xPais !== 'Brasil') {
         throw new Error('País inválido. Apenas Brasil (código 1058) é permitido.');
     }
-    // Adicionar validações de formato para fone, se necessário
   }
 
-  // Você pode adicionar métodos úteis aqui, como formatar CEP, obter cidade/estado, etc.
   public getCepFormatado(): string {
     if (!this.CEP) return '';
     return this.CEP.replace(/(\d{5})(\d{3})/, '$1-$2');
@@ -81,5 +75,23 @@ export class Endereco {
 
   public getFullAddress(): string {
     return `${this.xLgr}, ${this.nro} - ${this.xBairro}, ${this.xMun} - ${this.UF}, CEP ${this.getCepFormatado()}`;
+  }
+
+  toJSON() {
+    return {
+      enderEmit: {
+        xLgr: this.xLgr,
+        nro: this.nro,
+        xBairro: this.xBairro,
+        cMun: this.cMun,
+        xMun: this.xMun,
+        UF: this.UF,
+        CEP: this.CEP,
+        cPais: this.cPais,
+        xPais: this.xPais,
+        fone: this.fone,
+        cpl: this.cpl,
+      }
+    }
   }
 }

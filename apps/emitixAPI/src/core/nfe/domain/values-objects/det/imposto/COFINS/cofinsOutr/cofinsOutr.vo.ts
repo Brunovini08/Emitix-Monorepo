@@ -7,7 +7,7 @@ export class COFINSOutr {
   public readonly quant: Quant;
   public readonly vCOFINS: number;
 
-  constructor(data) {
+  constructor(data: { CST: string, baseCalc: BaseCalc, quant: Quant, vCOFINS: number }) {
     this.CST = data.CST;
     this.baseCalc = data.baseCalc 
     this.quant = data.quant 

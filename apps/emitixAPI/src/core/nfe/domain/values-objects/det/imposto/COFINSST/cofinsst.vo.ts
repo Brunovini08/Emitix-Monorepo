@@ -7,7 +7,7 @@ export class COFINSST {
   public readonly vCOFINS: number;
   public readonly indSomaCOFINSST: string;
 
-  constructor(data) {
+  constructor(data: { baseCalc: BaseCalc, quant: Quant, vCOFINS: number, indSomaCOFINSST: string }) {
     this.baseCalc = data.baseCalc 
     this.quant = data.quant 
     this.vCOFINS = data.vCOFINS;

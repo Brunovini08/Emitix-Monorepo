@@ -1,4 +1,6 @@
-import { IsOptional, Length } from 'class-validator';
+import { IsOptional, Length, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { exportIndDto } from './exportInd/exportIndDto';
 
 export class detExportDto {
   @IsOptional()
@@ -6,7 +8,9 @@ export class detExportDto {
   nDraw: string; //Número do ato concessório de Drawback
 
   @IsOptional()
-  exportInd: string; //Exportação indireta
+  @ValidateNested({ each: true })
+  @Type(() => exportIndDto)
+  exportInd: exportIndDto[]; 
 
   @IsOptional()
   nRE: string; //Registro de exportação

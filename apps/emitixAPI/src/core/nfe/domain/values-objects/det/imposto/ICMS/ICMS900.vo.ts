@@ -24,7 +24,25 @@ export class ICMSSN900 {
   public readonly pCredSN;
   public readonly vCredICMSSN;
 
-  constructor(data) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+    modBC: string | null,
+    vBC: string | null,
+    pRedBC: string | null,
+    pICMS: string | null,
+    vICMS: string | null,
+    modBCST: string | null,
+    pMVAST: string | null,
+    pRedBCST: string | null,
+    vBCST: string | null,
+    pICMSST: string | null,
+    vICMSST: string | null,
+    VBCFCPST: string | null,
+    pFCPST: string | null,
+    pCredSN: string | null,
+    vCredICMSSN: string | null,
+  }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.modBC = data.modBC ?? null;
@@ -65,70 +83,70 @@ export class ICMSSN900 {
 
     const allowedModBC = ['0', '1', '2', '3'];
     if (this.modBC !== null && typeof this.modBC !== 'string' && !allowedModBC.includes(this.modBC)) {
-        throw new Error(`
+      throw new Error(`
         Modalidade de determinação da BC do ICMS (modBC) deve ser uma das seguintes:
         0 - Margem Valor Agregado (%); 1 - Pauta (valor); 2 - Preço Tabelado Máximo (valor); 3 - Valor da Operação, se informado.
       `);
     }
 
-    if (this.vBC !== null && (typeof this.vBC !== 'number' || this.vBC < 0)) {
+    if (this.vBC !== null && (typeof this.vBC !== 'string' || this.vBC.trim() === '')) {
       throw new Error('Valor da BC do ICMS (vBC) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pRedBC !== null && (typeof this.pRedBC !== 'number' || this.pRedBC < 0 || this.pRedBC > 100)) {
+    if (this.pRedBC !== null && (typeof this.pRedBC !== 'string' || this.pRedBC.trim() === '')) {
       throw new Error('Percentual de redução da BC (pRedBC) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pICMS !== null && (typeof this.pICMS !== 'number' || this.pICMS < 0 || this.pICMS > 100)) {
+    if (this.pICMS !== null && (typeof this.pICMS !== 'string' || this.pICMS.trim() === '')) {
       throw new Error('Alíquota do ICMS (pICMS) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vICMS !== null && (typeof this.vICMS !== 'number' || this.vICMS < 0)) {
+    if (this.vICMS !== null && (typeof this.vICMS !== 'string' || this.vICMS.trim() === '')) {
       throw new Error('Valor do ICMS (vICMS) deve ser um número não negativo, se informado.');
     }
 
     const allowedModBCST = ['0', '1', '2', '3', '4', '5', '6'];
     if (this.modBCST !== null && typeof this.modBCST !== 'string' && !allowedModBCST.includes(this.modBCST)) {
-        throw new Error(`
+      throw new Error(`
         Modalidade de determinação da BC do ICMS ST (modBCST) deve ser uma das seguintes:
         0 - Preço tabelado ou máximo sugerido; 1 - Lista Negativa (valor); 2 - Lista Positiva (valor); 3 - Lista Neutra (valor);
         4 - Margem Valor Agregado (%); 5 - Pauta (valor); 6 - Valor da Operação, se informado.
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'number' || this.pMVAST < 0 || this.pMVAST > 100)) {
+    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'number' || this.pRedBCST < 0 || this.pRedBCST > 100)) {
+    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vBCST !== null && (typeof this.vBCST !== 'number' || this.vBCST < 0)) {
+    if (this.vBCST !== null && (typeof this.vBCST !== 'string' || this.vBCST.trim() === '')) {
       throw new Error('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pICMSST !== null && (typeof this.pICMSST !== 'number' || this.pICMSST < 0 || this.pICMSST > 100)) {
+    if (this.pICMSST !== null && (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '')) {
       throw new Error('Alíquota do ICMS ST (pICMSST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vICMSST !== null && (typeof this.vICMSST !== 'number' || this.vICMSST < 0)) {
+    if (this.vICMSST !== null && (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '')) {
       throw new Error('Valor do ICMS ST (vICMSST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.VBCFCPST !== null && (typeof this.VBCFCPST !== 'number' || this.VBCFCPST < 0)) {
+    if (this.VBCFCPST !== null && (typeof this.VBCFCPST !== 'string' || this.VBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP ST (VBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'number' || this.pFCPST < 0 || this.pFCPST > 100)) {
+    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Alíquota do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pCredSN !== null && (typeof this.pCredSN !== 'number' || this.pCredSN < 0 || this.pCredSN > 100)) {
+    if (this.pCredSN !== null && (typeof this.pCredSN !== 'string' || this.pCredSN.trim() === '')) {
       throw new Error('Percentual do crédito de ICMS (pCredSN) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vCredICMSSN !== null && (typeof this.vCredICMSSN !== 'number' || this.vCredICMSSN < 0)) {
+    if (this.vCredICMSSN !== null && (typeof this.vCredICMSSN !== 'string' || this.vCredICMSSN.trim() === '')) {
       throw new Error('Valor do crédito de ICMS (vCredICMSSN) deve ser um número não negativo, se informado.');
     }
   }
@@ -160,23 +178,25 @@ export class ICMSSN900 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
-      modBC: this.modBC,
-      vBC: this.vBC,
-      pRedBC: this.pRedBC,
-      pICMS: this.pICMS,
-      vICMS: this.vICMS,
-      modBCST: this.modBCST,
-      pMVAST: this.pMVAST,
-      pRedBCST: this.pRedBCST,
-      vBCST: this.vBCST,
-      pICMSST: this.pICMSST,
-      vICMSST: this.vICMSST,
-      VBCFCPST: this.VBCFCPST,
-      pFCPST: this.pFCPST,
-      pCredSN: this.pCredSN,
-      vCredICMSSN: this.vCredICMSSN,
+      ICMSSN900: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+        modBC: this.modBC,
+        vBC: this.vBC,
+        pRedBC: this.pRedBC,
+        pICMS: this.pICMS,
+        vICMS: this.vICMS,
+        modBCST: this.modBCST,
+        pMVAST: this.pMVAST,
+        pRedBCST: this.pRedBCST,
+        vBCST: this.vBCST,
+        pICMSST: this.pICMSST,
+        vICMSST: this.vICMSST,
+        VBCFCPST: this.VBCFCPST,
+        pFCPST: this.pFCPST,
+        pCredSN: this.pCredSN,
+        vCredICMSSN: this.vCredICMSSN,
+      }
     };
   }
 }

@@ -1,5 +1,3 @@
-// Assuming PISAliq, PISQtde, PISNT, and PISOutr are defined as classes
-// with their own constructors, validateOrThrow, equals, and toJSON methods.
 
 import type { PISAliq } from "./pisAliq.vo";
 import type { PISNT } from "./pisNT.vo";
@@ -12,7 +10,12 @@ export class PIS {
   public readonly PISNT: PISNT;
   public readonly PISOutr: PISOutr;
 
-  constructor(data) {
+  constructor(data: {
+    PISAliq: PISAliq
+    PISQtde: PISQtde
+    PISNT: PISNT
+    PISOutr: PISOutr
+  }) {
     this.PISAliq = data.PISAliq 
     this.PISQtde = data.PISQtde 
     this.PISNT = data.PISNT 

@@ -3,11 +3,15 @@ import { IPI } from './IPI/ipi.vo';
 import { II } from './II/II.vo';   
 
 export class Produto {
-  public readonly ICMS: ICMS;
-  public readonly IPI: IPI;
-  public readonly II: II;
+  public readonly ICMS: ICMS
+  public readonly IPI: IPI | undefined;
+  public readonly II: II | undefined;
 
-  constructor(data) {
+  constructor(data: {
+    ICMS: ICMS;
+    IPI: IPI | undefined;
+    II: II | undefined;
+  }) {
     this.ICMS = data.ICMS 
     this.IPI = data.IPI 
     this.II = data.II 
@@ -19,8 +23,7 @@ export class Produto {
   public validateOrThrow() {
     if (!this.ICMS) {
       throw new Error('Dados do ICMS (ICMS) são obrigatórios.');
-    }
-    this.ICMS.validateOrThrow(); 
+    } 
 
     if (this.IPI) {
       this.IPI.validateOrThrow(); 

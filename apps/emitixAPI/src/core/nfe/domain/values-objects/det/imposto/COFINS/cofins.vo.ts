@@ -9,7 +9,7 @@ export class COFINS {
   public readonly COFINSNT: COFINSNT;
   public readonly COFINSOutr: COFINSOutr;
 
-  constructor(data) {
+  constructor(data: { COFINSAliq: COFINSAliq, COFINSQtde: COFINSQtde, COFINSNT: COFINSNT, COFINSOutr: COFINSOutr }) {
     this.COFINSAliq = data.COFINSAliq 
     this.COFINSQtde = data.COFINSQtde 
     this.COFINSNT = data.COFINSNT 

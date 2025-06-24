@@ -1,5 +1,8 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
   IsOptional,
   IsString,
   Matches,
@@ -44,8 +47,9 @@ export class volDto {
   pesoB: TDec_1203;
 
   @IsOptional()
-  @MinLength(0)
-  @MaxLength(5000)
+  @IsArray()
+  @ArrayMinSize(0)
+  @ArrayMaxSize(5000)
   @ValidateNested()
   @Type(() => lacresDto)
   lacres: lacresDto;

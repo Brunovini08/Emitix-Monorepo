@@ -2,7 +2,7 @@ export class Quant {
   public readonly qBCProd;
   public readonly vAliqProd;
 
-  constructor(data) {
+  constructor(data: { qBCProd: number, vAliqProd: number }) {
     this.qBCProd = data.qBCProd;
     this.vAliqProd = data.vAliqProd;
 

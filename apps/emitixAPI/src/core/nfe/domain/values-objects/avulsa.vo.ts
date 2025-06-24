@@ -1,30 +1,27 @@
-// src/domain/nfe/value-objects/avulsa.vo.ts
-
 export class Avulsa {
-  public readonly CNPJ: string;    // CNPJ do Órgão Emitente
-  public readonly xOrgao: string;  // Nome do Órgão Emitente
-  public readonly matr: string;    // Matrícula do Agente
-  public readonly xAgente: string; // Nome do Agente
-  public readonly fone: string;    // Telefone do Órgão/Agente
-  public readonly UF: string;      // UF do Órgão Emitente
-  public readonly nDAR: string;    // Número do Documento de Arrecadação de Receitas (DAR)
-  public readonly dEmiDAR: Date;   // Data de Emissão do DAR
-  public readonly vDAR: number;    // Valor do DAR
-  public readonly repEmi: string;  // Repartição Fiscal Emitente
-  public readonly dhRegDPEC?: Date; // Data e Hora do Registro do DPEC (Opcional)
-
+  public readonly CNPJ: string;
+  public readonly xOrgao: string;
+  public readonly matr: string;
+  public readonly xAgente: string;
+  public readonly fone?: string;
+  public readonly UF: string;
+  public readonly nDAR?: string;
+  public readonly dEmi?: Date;
+  public readonly vDAR?: number;
+  public readonly repEmi: string;
+  public readonly dPag?: Date;
   constructor(data: {
     CNPJ: string;
     xOrgao: string;
     matr: string;
     xAgente: string;
-    fone: string;
+    fone?: string;
     UF: string;
-    nDAR: string;
-    dEmiDAR: Date; // Espera um Date aqui
-    vDAR: number;
+    nDAR?: string;
+    dEmi?: Date;
+    vDAR?: number;
     repEmi: string;
-    dhRegDPEC?: Date; // Espera um Date aqui
+    dPag?: Date;
   }) {
     this.CNPJ = data.CNPJ;
     this.xOrgao = data.xOrgao;
@@ -33,57 +30,59 @@ export class Avulsa {
     this.fone = data.fone;
     this.UF = data.UF;
     this.nDAR = data.nDAR;
-    this.dEmiDAR = data.dEmiDAR;
+    this.dEmi = data.dEmi;
     this.vDAR = data.vDAR;
     this.repEmi = data.repEmi;
-    this.dhRegDPEC = data.dhRegDPEC;
-
-    this.validateOrThrow(); // Valida na construção
+    this.dPag = data.dPag;
+    this.dPag = data.dPag;
+    this.validateOrThrow();
   }
 
-  /**
-   * Valida as regras de negócio para o Value Object Avulsa.
-   * Lança um erro específico se alguma validação falhar.
-   */
   public validateOrThrow(): void {
     if (!this.CNPJ || this.CNPJ.length !== 14) {
-      throw new Error('CNPJ do Órgão Emitente (Avulsa) é obrigatório e deve ter 14 dígitos.');
-    }
-    if (!this.xOrgao || this.xOrgao.trim() === '') {
-      throw new Error('Nome do Órgão Emitente (Avulsa) é obrigatório.');
+      throw new Error('CNPJ do Órgão Emitente é obrigatório');
     }
     if (!this.matr || this.matr.trim() === '') {
-      throw new Error('Matrícula do Agente (Avulsa) é obrigatória.');
+      throw new Error('Matrícula do Agente é obrigatória');
     }
     if (!this.xAgente || this.xAgente.trim() === '') {
-      throw new Error('Nome do Agente (Avulsa) é obrigatório.');
+      throw new Error('Nome do Agente é obrigatório');
     }
-    if (!this.fone || this.fone.length < 8 || this.fone.length > 15) { // Exemplo de validação de telefone
-        throw new Error('Telefone (Avulsa) inválido. Deve ter entre 8 e 15 dígitos.');
+    if (!this.fone || this.fone.length < 8 || this.fone.length > 15) {
+        throw new Error('Telefone inválido. Deve ter entre 8 e 15 dígitos');
     }
     if (!this.UF || this.UF.length !== 2) {
-      throw new Error('UF do Órgão Emitente (Avulsa) inválida. Deve ter 2 caracteres.');
+      throw new Error('UF do Órgão Emitente inválida. Deve ter 2 caracteres');
     }
     if (!this.nDAR || this.nDAR.trim() === '') {
-      throw new Error('Número do Documento de Arrecadação (nDAR) é obrigatório.');
+      throw new Error('Número do Documento de Arrecadação é obrigatório');
     }
-    if (!(this.dEmiDAR instanceof Date) || isNaN(this.dEmiDAR.getTime())) {
-      throw new Error('Data de Emissão do DAR (dEmiDAR) inválida.');
+    if (!(this.dEmi instanceof Date) || isNaN(this.dEmi.getTime())) {
+      throw new Error('Data de Emissão do DAR inválida');
     }
     if (typeof this.vDAR !== 'number' || this.vDAR < 0) {
-      throw new Error('Valor do DAR (vDAR) inválido. Deve ser um número não negativo.');
+      throw new Error('Valor do DAR inválido. Deve ser um número não negativo');
     }
     if (!this.repEmi || this.repEmi.trim() === '') {
-      throw new Error('Repartição Fiscal Emitente (repEmi) é obrigatória.');
-    }
-    // Se dhRegDPEC estiver presente, validar se é uma data válida
-    if (this.dhRegDPEC && (!(this.dhRegDPEC instanceof Date) || isNaN(this.dhRegDPEC.getTime()))) {
-      throw new Error('Data e Hora do Registro do DPEC (dhRegDPEC) inválida.');
+      throw new Error('Repartição Fiscal Emitente é obrigatória');
     }
   }
 
-  // Você pode adicionar métodos de comportamento aqui, se houver lógica específica para 'Avulsa'
-  public hasDPECRegistered(): boolean {
-      return !!this.dhRegDPEC;
+  toJSON() {
+    return {
+      avulsa: {
+        CNPJ: this.CNPJ,
+        xOrgao: this.xOrgao,
+        matr: this.matr,
+        xAgente: this.xAgente,
+        fone: this.fone,
+        UF: this.UF,
+        nDAR: this.nDAR,
+        dEmi: this.dEmi,
+        vDAR: this.vDAR,
+        repEmi: this.repEmi,
+        dPag: this.dPag,
+      }
+    }
   }
 }

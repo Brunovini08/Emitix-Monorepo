@@ -3,8 +3,6 @@ import { prodDto } from './prod/prod.dto';
 import {
   IsNotEmpty,
   IsOptional,
-  IsString,
-  Matches,
   MaxLength,
   MinLength,
   ValidateNested,
@@ -20,7 +18,7 @@ export class detDto {
   prod: prodDto;
 
   @IsNotEmpty({
-    message: 'Trivutos incidentes nos produtos ou serviços da NF-e',
+    message: 'Tributos incidentes nos produtos ou serviços da NF-e',
   })
   @ValidateNested()
   @Type(() => impostosDto)

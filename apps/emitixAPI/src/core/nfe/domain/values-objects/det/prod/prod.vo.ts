@@ -1,8 +1,8 @@
 // src/domain/nfe/value-objects/nfe-item-prod.vo.ts
 
+import type { Comb } from "../comb/comb.vo";
 import type { Arma } from "./arma.vo";
 import type { DetExport } from "./detExport/detExport.vo";
-import type { DI } from "./DI/DI.vo";
 import type { GCred } from "./gcred.vo";
 import type { InfProdEmb } from "./infProdEmb.vo";
 import type { InfProdNFF } from "./infProdNFF.vo";
@@ -16,7 +16,7 @@ export class Prod {
   public readonly cBarra?: string;
   public readonly xProd: string;
   public readonly NCM: string;
-  public readonly NVE?: string;
+  public readonly NVE?: string[];
   public readonly CEST?: string;
   public readonly indEscala?: string;
   public readonly CNPJFab?: string;
@@ -30,15 +30,14 @@ export class Prod {
   public readonly vProd: number;
   public readonly cEANTrib: string;
   public readonly cBarraTrib?: string;
-  public readonly uTrib?: string;
-  public readonly qTrib?: number; 
-  public readonly vUnTrib?: number; 
+  public readonly uTrib: string;
+  public readonly qTrib: number; 
+  public readonly vUnTrib: number; 
   public readonly vFrete?: number;
   public readonly vSeg?: number;
   public readonly vDesc?: number;
   public readonly vOutro?: number;
-  public readonly indTot?: string;
-  public readonly DI?: DI
+  public readonly indTot: string;
   public readonly detExport?: DetExport[]
   public readonly xPed?: string;
   public readonly nItemPed?: string;
@@ -49,59 +48,58 @@ export class Prod {
   public readonly veicProd?: VeicProd; 
   public readonly med?: Med; 
   public readonly arma?: Arma[]; 
-  public readonly comb?: any; // Substitua 'any' pelo VO Comb
+  public readonly comb?: Comb[]; // Substitua 'any' pelo VO Comb
   public readonly nRECOPI?: string;
 
   constructor(data: {
     cProd: string; cEAN: string; cBarra?: string; xProd: string; NCM: string;
-    NVE?: string; CEST?: string; indEscala?: string; CNPJFab?: string; cBenef?: string;
+    NVE?: string[]; CEST?: string; indEscala?: string; CNPJFab?: string; cBenef?: string;
     gCred?: GCred[]; EXTIPI?: string; CFOP: string; uCom: string; qCom: number;
-    vUnCom: number; vProd: number; cEANTrib: string; cBarraTrib?: string; uTrib?: string;
-    qTrib?: number; vUnTrib?: number; vFrete?: number; vSeg?: number; vDesc?: number;
-    vOutro?: number; indTot?: string; detExport?: DetExport[]; xPed?: string; nItemPed?: string;
+    vUnCom: number; vProd: number; cEANTrib: string; cBarraTrib?: string; uTrib: string;
+    qTrib: number; vUnTrib: number; vFrete?: number; vSeg?: number; vDesc?: number;
+    vOutro?: number; indTot: string; detExport?: DetExport[]; xPed?: string; nItemPed?: string;
     nFCI?: string; rastro?: Rastro[]; infProdNFF?: InfProdNFF; infProdEmb?: InfProdEmb; veicProd?: VeicProd;
-    med?: Med; arma?: Arma[]; comb?: any; nRECOPI?: string;
+    med?: Med; arma?: Arma[]; comb?: Comb[]; nRECOPI?: string;
   }) {
     this.cProd = data.cProd;
     this.cEAN = data.cEAN;
-    this.cBarra = data.cBarra;
+    this.cBarra = data.cBarra || undefined;
     this.xProd = data.xProd;
     this.NCM = data.NCM;
-    this.NVE = data.NVE;
-    this.CEST = data.CEST;
-    this.indEscala = data.indEscala;
-    this.CNPJFab = data.CNPJFab;
-    this.cBenef = data.cBenef;
-    this.gCred = data.gCred;
-    this.EXTIPI = data.EXTIPI;
+    this.NVE = data.NVE || undefined;
+    this.CEST = data.CEST || undefined;
+    this.indEscala = data.indEscala || undefined;
+    this.CNPJFab = data.CNPJFab || undefined;
+    this.cBenef = data.cBenef || undefined;
+    this.gCred = data.gCred || undefined;
+    this.EXTIPI = data.EXTIPI || undefined;
     this.CFOP = data.CFOP;
     this.uCom = data.uCom;
     this.qCom = data.qCom;
     this.vUnCom = data.vUnCom;
     this.vProd = data.vProd;
     this.cEANTrib = data.cEANTrib;
-    this.cBarraTrib = data.cBarraTrib;
-    this.uTrib = data.uTrib;
-    this.qTrib = data.qTrib;
+    this.cBarraTrib = data.cBarraTrib || undefined;
+    this.uTrib = data.uTrib
+    this.qTrib = data.qTrib
     this.vUnTrib = data.vUnTrib;
-    this.vFrete = data.vFrete;
-    this.vSeg = data.vSeg;
-    this.vDesc = data.vDesc;
-    this.vOutro = data.vOutro;
+    this.vFrete = data.vFrete || undefined;
+    this.vSeg = data.vSeg || undefined;
+    this.vDesc = data.vDesc || undefined;
+    this.vOutro = data.vOutro || undefined;
     this.indTot = data.indTot;
-    this.detExport = data.detExport;
-    this.xPed = data.xPed;
-    this.nItemPed = data.nItemPed;
-    this.nFCI = data.nFCI;
-    this.rastro = data.rastro;
-    this.infProdNFF = data.infProdNFF;
-    this.infProdEmb = data.infProdEmb;
-    this.veicProd = data.veicProd;
-    this.med = data.med;
-    this.arma = data.arma;
-    this.comb = data.comb;
-    this.nRECOPI = data.nRECOPI;
-
+    this.detExport = data.detExport || undefined;
+    this.xPed = data.xPed || undefined;
+    this.nItemPed = data.nItemPed || undefined;
+    this.nFCI = data.nFCI || undefined;
+    this.rastro = data.rastro || undefined;
+    this.infProdNFF = data.infProdNFF || undefined;
+    this.infProdEmb = data.infProdEmb || undefined;
+    this.veicProd = data.veicProd || undefined;
+    this.med = data.med || undefined;
+    this.arma = data.arma || undefined;
+    this.comb = data.comb || undefined;
+    this.nRECOPI = data.nRECOPI || undefined;
     this.validateOrThrow();
   }
 
@@ -130,7 +128,7 @@ export class Prod {
     }
 
     // NVE (Nomenclatura de Valor Aduaneiro e Estatístico)
-    if (this.NVE !== undefined && this.NVE !== null && !/^[A-Z]{2}[0-9]{4}$/.test(this.NVE)) {
+      if (this.NVE !== undefined && this.NVE !== null && !this.NVE.every(nve => /^[A-Z]{2}[0-9]{4}$/.test(nve))) {
       throw new Error('NVE inválido, se informado. Formato: AA9999.');
     }
 
@@ -232,10 +230,6 @@ export class Prod {
     if (this.nRECOPI !== undefined && this.nRECOPI !== null && (this.nRECOPI.length < 1 || this.nRECOPI.length > 20)) {
         throw new Error('Número do RECOPI (nRECOPI) deve ter entre 1 e 20 caracteres, se informado.');
     }
-
-    // As validações de VOs aninhados (detExport, gCred, infProdEmb, infProdNFF, rastro, veicProd, med, arma, comb)
-    // ocorreriam dentro dos seus respectivos construtores quando instanciados.
-    // Se eles são opcionais e não forem instanciados, não haverá validação.
   }
 
   public getValorTotalLiquido(): number {

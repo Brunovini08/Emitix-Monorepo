@@ -4,7 +4,12 @@ export class PISQtde {
   public readonly vAliqProd;
   public readonly vPIS;
 
-  constructor(data) {
+  constructor(data: {
+    CST: string
+    qBCProd: number
+    vAliqProd: number
+    vPIS: number
+  }) {
     this.CST = data.CST;
     this.qBCProd = data.qBCProd;
     this.vAliqProd = data.vAliqProd;

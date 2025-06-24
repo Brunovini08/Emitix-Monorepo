@@ -12,6 +12,12 @@ import { TDec_1302 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1302
 import { TorigEnum } from 'src/core/nfe/domain/types/primitivies_types/Torig';
 
 export class ICMS61Dto {
+  @IsNotEmpty({
+    message: `Origem da mercadoria é obrigatório`,
+  })
+  @IsString()
+  orig: string;
+
   @IsNotEmpty()
   @IsEnum(TorigEnum, {
     message: `

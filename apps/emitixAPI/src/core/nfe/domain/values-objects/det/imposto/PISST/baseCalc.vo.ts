@@ -2,7 +2,7 @@ export class BaseCalc {
   public readonly vBC;
   public readonly pPis;
 
-  constructor(data) {
+  constructor(data: { vBC: number, pPis: number }) {
     this.vBC = data.vBC;
     this.pPis = data.pPis;
 

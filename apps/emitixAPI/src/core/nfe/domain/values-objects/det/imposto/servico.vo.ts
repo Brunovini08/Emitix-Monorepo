@@ -5,7 +5,10 @@ export class Servico {
   public readonly IPI: IPI;
   public readonly ISSQN: ISSQN;
 
-  constructor(data) {
+  constructor(data: {
+    IPI: IPI
+    ISSQN: ISSQN
+  }) {
     this.IPI = data.IPI 
     this.ISSQN = data.ISSQN 
 

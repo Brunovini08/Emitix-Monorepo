@@ -11,7 +11,7 @@ export class ICMSSN101 {
   public readonly pCredSN;
   public readonly vCredICMSSN;
 
-  constructor(data) {
+  constructor(data: { orig: string, CSOSN: string, pCredSN: string, vCredICMSSN: string }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.pCredSN = data.pCredSN;
@@ -36,11 +36,11 @@ export class ICMSSN101 {
       throw new Error('CSOSN para ICMS101 deve ser obrigatoriamente "101".');
     }
 
-    if (typeof this.pCredSN !== 'number' || this.pCredSN < 0 || this.pCredSN > 100) {
+    if (typeof this.pCredSN !== 'string' || this.pCredSN.trim() === '') {
       throw new Error('Alíquota aplicável de cálculo do crédito (pCredSN) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vCredICMSSN !== 'number' || this.vCredICMSSN < 0) {
+    if (typeof this.vCredICMSSN !== 'string' || this.vCredICMSSN.trim() === '') {
       throw new Error('Valor do crédito do ICMS (vCredICMSSN) é obrigatório e deve ser um número não negativo.');
     }
   }
@@ -59,10 +59,12 @@ export class ICMSSN101 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
-      pCredSN: this.pCredSN,
-      vCredICMSSN: this.vCredICMSSN,
+      ICMSSN101: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+        pCredSN: this.pCredSN,
+        vCredICMSSN: this.vCredICMSSN,
+      }
     };
   }
 }

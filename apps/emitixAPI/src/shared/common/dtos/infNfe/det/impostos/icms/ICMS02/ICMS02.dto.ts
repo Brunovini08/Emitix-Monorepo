@@ -44,5 +44,5 @@ export class ICMS02Dto {
     message: 'Valor do ICMS próprio é obrigatório',
   })
   @Type(() => TDec_1302)
-  vICMSMOno: TDec_1302; // Valor do ICMS próprio
+  vICMSMono: TDec_1302; // Valor do ICMS próprio
 }

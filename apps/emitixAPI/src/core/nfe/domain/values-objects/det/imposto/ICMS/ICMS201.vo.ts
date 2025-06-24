@@ -20,7 +20,21 @@ export class ICMSSN201 {
   public readonly pCredSN;
   public readonly vCredICMSSN;
 
-  constructor(data) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+    modBCST: string,
+    pMVAST: string,
+    pRedBCST: string,
+    vBCST: string,
+    pICMSST: string,
+    vICMSST: string,
+    vBCFCPST: string,
+    pFCPST: string,
+    vFCPST: string,
+    pCredSN: string,
+    vCredICMSSN: string,
+  }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.modBCST = data.modBCST;
@@ -63,43 +77,43 @@ export class ICMSSN201 {
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'number' || this.pMVAST < 0 || this.pMVAST > 100)) {
+    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'number' || this.pRedBCST < 0 || this.pRedBCST > 100)) {
+    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (typeof this.vBCST !== 'number' || this.vBCST < 0) {
+    if (typeof this.vBCST !== 'string' || this.vBCST.trim() === '') {
       throw new Error('Valor da BC do ICMS ST (vBCST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMSST !== 'number' || this.pICMSST < 0 || this.pICMSST > 100) {
+    if (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '') {
       throw new Error('Alíquota do ICMS ST (pICMSST) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMSST !== 'number' || this.vICMSST < 0) {
+    if (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '') {
       throw new Error('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'number' || this.vBCFCPST < 0)) {
+    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'number' || this.pFCPST < 0 || this.pFCPST > 100)) {
+    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Alíquota do ICMS FCP (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCPST !== null && (typeof this.vFCPST !== 'number' || this.vFCPST < 0)) {
+    if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
       throw new Error('Valor do ICMS FCP (vFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pCredSN !== null && (typeof this.pCredSN !== 'number' || this.pCredSN < 0 || this.pCredSN > 100)) {
+    if (this.pCredSN !== null && (typeof this.pCredSN !== 'string' || this.pCredSN.trim() === '')) {
       throw new Error('Alíquota do ICMS ST (pCredSN) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vCredICMSSN !== null && (typeof this.vCredICMSSN !== 'number' || this.vCredICMSSN < 0)) {
+    if (this.vCredICMSSN !== null && (typeof this.vCredICMSSN !== 'string' || this.vCredICMSSN.trim() === '')) {
       throw new Error('Valor do ICMS ST (vCredICMSSN) deve ser um número não negativo, se informado.');
     }
   }
@@ -127,19 +141,21 @@ export class ICMSSN201 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
-      modBCST: this.modBCST,
-      pMVAST: this.pMVAST,
-      pRedBCST: this.pRedBCST,
-      vBCST: this.vBCST,
-      pICMSST: this.pICMSST,
-      vICMSST: this.vICMSST,
-      vBCFCPST: this.vBCFCPST,
-      pFCPST: this.pFCPST,
-      vFCPST: this.vFCPST,
-      pCredSN: this.pCredSN,
-      vCredICMSSN: this.vCredICMSSN,
+      ICMSSN201: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+        modBCST: this.modBCST,
+        pMVAST: this.pMVAST,
+        pRedBCST: this.pRedBCST,
+        vBCST: this.vBCST,
+        pICMSST: this.pICMSST,
+        vICMSST: this.vICMSST,
+        vBCFCPST: this.vBCFCPST,
+        pFCPST: this.pFCPST,
+        vFCPST: this.vFCPST,
+        pCredSN: this.pCredSN,
+        vCredICMSSN: this.vCredICMSSN,
+      }
     };
   }
 }

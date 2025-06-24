@@ -27,6 +27,8 @@ export class ICMS15Dto {
     2 - Estrangeira - Adquirida no mercado interno
     `,
   })
+  @IsString()
+  orig: string;
   @IsNotEmpty({
     message: `Código de Situação Tributária (CST) do ICMS (00, 02, 10, 20, 30, 40, 41, 50, 51, 60, 70, 90)`,
   })

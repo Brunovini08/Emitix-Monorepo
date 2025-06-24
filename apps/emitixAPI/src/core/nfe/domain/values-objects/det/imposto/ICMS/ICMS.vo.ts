@@ -20,144 +20,84 @@ import type { ICMSSN102 } from "./ICMSSN102.vo"
 import type { ICMSSN500 } from "./ICMSSN500.vo"
 import type { ICMSST } from "./ICMSST.vo"
 
+// Definição de todos os tipos de ICMS possíveis
+export type ICMSType =
+  | 'ICMS00' | 'ICMS02' | 'ICMS10' | 'ICMS15' | 'ICMS20' 
+  | 'ICMS30' | 'ICMS40' | 'ICMS51' | 'ICMS53' | 'ICMS60' 
+  | 'ICMS61' | 'ICMS70' | 'ICMS90' | 'ICMSPart' | 'ICMSST' 
+  | 'ICMSSN101' | 'ICMSSN102' | 'ICMSSN201' | 'ICMSSN202' 
+  | 'ICMSSN500' | 'ICMSSN900';
+
+// Interface que representa os valores possíveis para cada tipo
+export type ICMSValues = {
+  ICMS00?: ICMS00;
+  ICMS02?: ICMS02;
+  ICMS10?: ICMS10;
+  ICMS15?: ICMS15;
+  ICMS20?: ICMS20;
+  ICMS30?: ICMS30;
+  ICMS40?: ICMS40;
+  ICMS51?: ICMS51;
+  ICMS53?: ICMS53;
+  ICMS60?: ICMS60;
+  ICMS61?: ICMS61;
+  ICMS70?: ICMS70;
+  ICMS90?: ICMS90;
+  ICMSPart?: ICMSPart;
+  ICMSST?: ICMSST;
+  ICMSSN101?: ICMSSN101;
+  ICMSSN102?: ICMSSN102;
+  ICMSSN201?: ICMSSN201;
+  ICMSSN202?: ICMSSN202;
+  ICMSSN500?: ICMSSN500;
+  ICMSSN900?: ICMSSN900;
+};
+
 export class ICMS {
-  public readonly ICMS00?: ICMS00
-  public readonly ICMS02?: ICMS02
-  public readonly ICMS10?: ICMS10
-  public readonly ICMS15?: ICMS15
-  public readonly ICMS20?: ICMS20
-  public readonly ICMS30?: ICMS30
-  public readonly ICMS40?: ICMS40
-  public readonly ICMS51?: ICMS51
-  public readonly ICMS53?: ICMS53
-  public readonly ICMS60?: ICMS60
-  public readonly ICMS61?: ICMS61
-  public readonly ICMS70?: ICMS70
-  public readonly ICMS90?: ICMS90
-  public readonly ICMSPart?: ICMSPart
-  public readonly ICMSST?: ICMSST
-  public readonly ICMSSN101?: ICMSSN101
-  public readonly ICMSSN102?: ICMSSN102
-  public readonly ICMSSN201?: ICMSSN201
-  public readonly ICMSSN202?: ICMSSN202
-  public readonly ICMSSN500?: ICMSSN500
-  public readonly ICMSSN900?: ICMSSN900
+  // Propriedade privada para armazenar o tipo de ICMS selecionado
+  private readonly _type: ICMSType;
+  
+  // Propriedade privada para armazenar o valor do ICMS
+  private readonly _value: any;
 
-  constructor(data: {
-    ICMS00?: ICMS00
-    ICMS02?: ICMS02
-    ICMS10?: ICMS10
-    ICMS15?: ICMS15
-    ICMS20?: ICMS20
-    ICMS30?: ICMS30
-    ICMS40?: ICMS40
-    ICMS51?: ICMS51
-    ICMS53?: ICMS53
-    ICMS60?: ICMS60
-    ICMS61?: ICMS61
-    ICMS70?: ICMS70
-    ICMS90?: ICMS90
-    ICMSPart?: ICMSPart
-    ICMSST?: ICMSST
-    ICMSSN101?: ICMSSN101
-    ICMSSN102?: ICMSSN102
-    ICMSSN201?: ICMSSN201
-    ICMSSN202?: ICMSSN202
-    ICMSSN500?: ICMSSN500
-    ICMSSN900?: ICMSSN900
-  }) {
-    this.ICMS00 = data.ICMS00
-    this.ICMS02 = data.ICMS02
-    this.ICMS10 = data.ICMS10
-    this.ICMS15 = data.ICMS15
-    this.ICMS20 = data.ICMS20
-    this.ICMS30 = data.ICMS30
-    this.ICMS40 = data.ICMS40
-    this.ICMS51 = data.ICMS51
-    this.ICMS53 = data.ICMS53
-    this.ICMS60 = data.ICMS60
-    this.ICMS61 = data.ICMS61
-    this.ICMS70 = data.ICMS70
-    this.ICMS90 = data.ICMS90
-    this.ICMSPart = data.ICMSPart
-    this.ICMSST = data.ICMSST
-    this.ICMSSN101 = data.ICMSSN101
-    this.ICMSSN102 = data.ICMSSN102
-    this.ICMSSN201 = data.ICMSSN201
-    this.ICMSSN202 = data.ICMSSN202
-    this.ICMSSN500 = data.ICMSSN500
-    this.ICMSSN900 = data.ICMSSN900
-
-    this.validateOrThrow()
+  constructor(data: Partial<ICMSValues>) {
+    this.validateOrThrow(data);
+    
+    // Armazena o tipo e o valor após validação
+    this._type = Object.keys(data)[0] as ICMSType;
+    console.log({
+      TIPO_ICMS: this._type
+    })
+    this._value = data[this._type];
   }
 
-  public validateOrThrow(): void {
-    // Lista de todos os tipos de ICMS possíveis
-    const icmsTypes = [
-      'ICMS00', 'ICMS02', 'ICMS10', 'ICMS15', 'ICMS20', 'ICMS30',
-      'ICMS40', 'ICMS51', 'ICMS53', 'ICMS60', 'ICMS61',
-      'ICMS70', 'ICMS90', 'ICMSPart', 'ICMSST', 'ICMSSN101',
-      'ICMSSN102', 'ICMSSN201', 'ICMSSN202', 'ICMSSN500', 'ICMSSN900',
-      'ICMSST'
-    ]
-
-    const definedTypes = icmsTypes.filter(type => this[type as keyof ICMS] !== undefined)
-
+  public validateOrThrow(data: Partial<ICMSValues>): void {
+    const definedTypes = Object.keys(data).filter(key => data[key as keyof ICMSValues] !== undefined);
+    
     if (definedTypes.length === 0) {
-      throw new Error('Pelo menos um tipo de ICMS deve ser definido.')
+      throw new Error('Pelo menos um tipo de ICMS deve ser definido.');
     }
+    
     if (definedTypes.length > 1) {
-      throw new Error(`Apenas um tipo de ICMS pode ser definido. Tipos encontrados: ${definedTypes.join(', ')}`)
+      throw new Error(`Apenas um tipo de ICMS pode ser definido. Tipos encontrados: ${definedTypes.join(', ')}`);
     }
+  }
+
+  // Métodos para acessar o tipo e valor do ICMS
+  public get type(): ICMSType {
+    return this._type;
+  }
+
+  public get value(): any {
+    return this._value;
   }
 
   public equals(other: ICMS): boolean {
-    return this.ICMS00 === other.ICMS00 &&
-      this.ICMS02 === other.ICMS02 &&
-      this.ICMS10 === other.ICMS10 &&
-      this.ICMS15 === other.ICMS15 &&
-      this.ICMS20 === other.ICMS20 &&
-      this.ICMS30 === other.ICMS30 &&
-      this.ICMS40 === other.ICMS40 &&
-      this.ICMS51 === other.ICMS51 &&
-      this.ICMS53 === other.ICMS53 &&
-      this.ICMS60 === other.ICMS60 &&
-      this.ICMS61 === other.ICMS61 &&
-      this.ICMS70 === other.ICMS70 &&
-      this.ICMS90 === other.ICMS90 &&
-      this.ICMSPart === other.ICMSPart &&
-      this.ICMSST === other.ICMSST &&
-      this.ICMSSN101 === other.ICMSSN101 &&
-      this.ICMSSN102 === other.ICMSSN102 &&
-      this.ICMSSN201 === other.ICMSSN201 &&
-      this.ICMSSN202 === other.ICMSSN202 &&
-      this.ICMSSN500 === other.ICMSSN500 &&
-      this.ICMSSN900 === other.ICMSSN900
+    return this._type === other._type && this._value === other._value;
   }
 
   public toJSON(): Record<string, any> {
-    return {
-      ICMS00: this.ICMS00,
-      ICMS02: this.ICMS02,
-      ICMS10: this.ICMS10,
-      ICMS15: this.ICMS15,
-      ICMS20: this.ICMS20,
-      ICMS30: this.ICMS30,
-      ICMS40: this.ICMS40,
-      ICMS51: this.ICMS51,
-      ICMS53: this.ICMS53,
-      ICMS60: this.ICMS60,
-      ICMS61: this.ICMS61,
-      ICMS70: this.ICMS70,
-      ICMS90: this.ICMS90,
-      ICMSPart: this.ICMSPart,
-      ICMSST: this.ICMSST,
-      ICMSSN101: this.ICMSSN101,
-      ICMSSN102: this.ICMSSN102,
-      ICMSSN201: this.ICMSSN201,
-      ICMSSN202: this.ICMSSN202,
-      ICMSSN500: this.ICMSSN500,
-      ICMSSN900: this.ICMSSN900
-    }
+    // Retorna apenas o tipo de ICMS definido e seu valor
+    return { [this._type]: this._value };
   }
 }

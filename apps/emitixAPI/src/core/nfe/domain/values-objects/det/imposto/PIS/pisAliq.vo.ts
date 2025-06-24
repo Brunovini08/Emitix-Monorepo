@@ -4,7 +4,12 @@ export class PISAliq {
   public readonly pPIS;
   public readonly vPIS;
 
-  constructor(data) {
+  constructor(data:{
+    CST: string
+    vBC: number
+    pPIS: number
+    vPIS: number
+  }) {
     this.CST = data.CST;
     this.vBC = data.vBC;
     this.pPIS = data.pPIS;

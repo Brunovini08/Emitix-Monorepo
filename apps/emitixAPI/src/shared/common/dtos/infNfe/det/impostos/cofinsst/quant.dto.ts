@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 import { TDec_1104 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1104';
 import { TDec_1204 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1204';
 
-export class quantoDto {
+export class quantDto {
   @IsNotEmpty({
     message: 'Quantidade Vendida',
   })

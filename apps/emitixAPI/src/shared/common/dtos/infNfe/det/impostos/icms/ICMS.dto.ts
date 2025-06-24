@@ -4,11 +4,11 @@ import { Type } from 'class-transformer';
 import { ICMS00Dto } from './ICMS00/ICMS00.dto';
 import { ICMS02Dto } from './ICMS02/ICMS02.dto';
 import { ICMS10Dto } from './ICMS10/ICMS10.dto';
-import { ICMS101Dto } from './ICMS101/ICMS101.dto';
+import { ICMSSN101Dto } from './ICMSSN101/ICMSSN101.dto';
 import { ICMS15Dto } from './ICMS15/ICMS15.dto';
 import { ICMS20Dto } from './ICMS20/ICMS20.dto';
-import { ICMS201Dto } from './ICMS201/ICMS201.dto';
-import { ICMS202Dto } from './ICMS202/ICMS202.dto';
+import { ICMSSN201Dto } from './ICMSSN201/ICMSSN201.dto';
+import { ICMSSN202Dto } from './ICMSSN202/ICMS202.dto';
 import { ICMS30Dto } from './ICMS30/ICMS30.dto';
 import { ICMS40Dto } from './ICMS40/ICMS40.dto';
 import { ICMS51Dto } from './ICMS51/ICMS51.dto';
@@ -17,7 +17,7 @@ import { ICMS60Dto } from './ICMS60/ICMS60.dto';
 import { ICMS61Dto } from './ICMS61/ICMS61.dto';
 import { ICMS70Dto } from './ICMS70/ICMS70.dto';
 import { ICMS90DTo } from './ICMS90/ICMS90.dto';
-import { ICMS900Dto } from './ICMS900/ICMS900.dto';
+import { ICMSSN900Dto } from './ICMSSN900/ICMSSN900.dto';
 import { ICMSPARTDto } from './ICMSPART/ICMSTPART.dto';
 import { ICMSSN102Dto } from './ICMSSN102/ICMSSN102.dto';
 import { ICMSSN500Dto } from './ICMSSN500/ICMSSN500.dto';
@@ -41,8 +41,8 @@ export class ICMSDto {
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => ICMS101Dto)
-  ICMS101: ICMS101Dto;
+  @Type(() => ICMSSN101Dto)
+  ICMS101: ICMSSN101Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -56,13 +56,13 @@ export class ICMSDto {
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => ICMS201Dto)
-  ICMS201: ICMS201Dto;
+  @Type(() => ICMSSN201Dto)
+  ICMSSN201: ICMSSN201Dto;
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => ICMS202Dto)
-  ICMS202: ICMS202Dto;
+  @Type(() => ICMSSN202Dto)
+  ICMSSN202: ICMSSN202Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -106,8 +106,8 @@ export class ICMSDto {
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => ICMS900Dto)
-  ICMS900: ICMS900Dto;
+  @Type(() => ICMSSN900Dto)
+  ICMSSN900: ICMSSN900Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -118,6 +118,11 @@ export class ICMSDto {
   @ValidateNested()
   @Type(() => ICMSSN102Dto)
   ICMSSN102: ICMSSN102Dto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ICMSSN101Dto)
+  ICMSSN101: ICMSSN101Dto;
 
   @IsOptional()
   @ValidateNested()
@@ -142,13 +147,13 @@ export type TCMSDto =
   | ICMS51Dto
   | ICMS53Dto
   | ICMS70Dto
-  | ICMS101Dto
+  | ICMSSN101Dto
   | ICMS61Dto
-  | ICMS201Dto
-  | ICMS202Dto
+  | ICMSSN201Dto
+  | ICMSSN202Dto
   | ICMS90DTo
   | ICMSSN102Dto
-  | ICMS900Dto
+  | ICMSSN900Dto
   | ICMSSN500Dto
   | ICMSPARTDto
   | ICMSSTDto;

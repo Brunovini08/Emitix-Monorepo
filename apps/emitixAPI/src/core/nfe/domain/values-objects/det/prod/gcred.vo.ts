@@ -26,4 +26,12 @@ export class GCred {
       throw new Error('Valor do Crédito Presumido (vCredPresumido) deve ser um número não negativo.');
     }
   }
+
+  public toJSON() {
+    return {
+      cCredPresumido: this.cCredPresumido,
+      pCredPresumido: this.pCredPresumido,
+      vCredPresumido: this.vCredPresumido,
+    };
+  }
 }

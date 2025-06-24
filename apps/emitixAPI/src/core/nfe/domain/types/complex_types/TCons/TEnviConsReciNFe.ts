@@ -1,4 +1,4 @@
-import { IsNotEmptyObject, ValidateNested } from "class-validator";
+import { IsNotEmptyObject, IsString, ValidateNested } from "class-validator";
 import { TConsReciNFe } from "./TConsReciNFe";
 import { Type } from "class-transformer";
 
@@ -7,4 +7,8 @@ export class TEnviConsReciNFe {
   @ValidateNested()
   @Type(() => TConsReciNFe)
   consReciNFe: TConsReciNFe
+
+  @IsNotEmptyObject()
+  @IsString()
+  cnpj: string;
 }

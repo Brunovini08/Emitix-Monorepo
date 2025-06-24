@@ -10,6 +10,7 @@ import {
   IsArray,
   ArrayMinSize,
   ArrayMaxSize,
+  ValidateNested,
 } from 'class-validator';
 import { combDto } from './comb/comb.dto';
 import { detExportDto } from './detExport/detExport.dto';
@@ -36,10 +37,6 @@ export class prodDto {
   @MaxLength(60)
   @Type(() => TString)
   cProd: TString;
-  /*Código do produto  ou serviço. Preencher com CFOP caso se trate de itens não relacionados
-    com mercadorias/produtos e que o contribuinte não possua codificação própria 
-    Formato "CFOP9999"
-  */
 
   @IsNotEmpty({
     message:
@@ -102,9 +99,12 @@ export class prodDto {
   cBenef: string; // Código do benefício fiscal. Ex: "1234567890"
 
   @IsOptional()
-  @MinLength(0)
-  @MaxLength(4)
-  gCred: gCredDto;
+  @IsArray()
+  @ArrayMinSize(0)
+  @ArrayMaxSize(4)
+  @ValidateNested({ each: true })
+  @Type(() => gCredDto)
+  gCred: gCredDto[];
 
   @IsOptional()
   @IsString()

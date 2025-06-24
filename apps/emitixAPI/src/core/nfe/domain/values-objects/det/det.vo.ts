@@ -10,11 +10,17 @@ export class Det {
   public readonly infAdProd?: string;
   public readonly obsItem: ObsItem;
 
-  constructor(data) {
+  constructor(data: {
+    prod: Prod;
+    imposto: Impostos;
+    impostoDevol: ImpostoDevol;
+    infAdProd?: string | undefined;
+    obsItem: ObsItem;
+  }) {
     this.prod = data.prod 
     this.imposto = data.imposto 
     this.impostoDevol = data.impostoDevol 
-    this.infAdProd = data.infAdProd ?? null; 
+    this.infAdProd = data.infAdProd ?? undefined; 
     this.obsItem = data.obsItem 
 
     this.validateOrThrow();

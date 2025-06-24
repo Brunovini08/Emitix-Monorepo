@@ -6,7 +6,7 @@ export class PISOutr {
   public readonly vAliqProd;
   public readonly vPIS;
 
-  constructor(data) {
+  constructor(data: { CST: string, vBC: number, pPis: number, qBCProd: number, vAliqProd: number, vPIS: number }) {
     this.CST = data.CST;
     this.vBC = data.vBC ?? null;
     this.pPis = data.pPis ?? null;

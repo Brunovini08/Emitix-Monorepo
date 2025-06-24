@@ -7,7 +7,7 @@ export class PISST {
   public readonly vPIS: number;
   public readonly indSomaPISST: string;
 
-  constructor(data) {
+  constructor(data: { baseCalc: BaseCalc, quant: Quant, vPIS: number, indSomaPISST: string }) {
     this.baseCalc = data.baseCalc 
     this.quant = data.quant 
     this.vPIS = data.vPIS;

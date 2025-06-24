@@ -12,18 +12,18 @@ export class ICMS00 {
   public readonly vBC;
   public readonly pICMS;
   public readonly vICMS;
-  public readonly pFCP;
-  public readonly vFCP;
+  public readonly pFCP?;
+  public readonly vFCP?;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, modBC: string, vBC: string, pICMS: string, vICMS: string, pFCP?: string, vFCP?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;
     this.vBC = data.vBC;
     this.pICMS = data.pICMS;
     this.vICMS = data.vICMS;
-    this.pFCP = data.pFCP ?? null;
-    this.vFCP = data.vFCP ?? null;
+    this.pFCP = data.pFCP ?? undefined;
+    this.vFCP = data.vFCP ?? undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -52,23 +52,23 @@ export class ICMS00 {
       `);
     }
 
-    if (typeof this.vBC !== 'number' || this.vBC < 0) {
+    if (typeof this.vBC !== 'string' || this.vBC.trim() === '') {
       throw new Error('Valor da BC do ICMS (vBC) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMS !== 'number' || this.pICMS < 0 || this.pICMS > 100) {
+    if (typeof this.pICMS !== 'string' || this.pICMS.trim() === '') {
       throw new Error('Alíquota do ICMS (pICMS) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMS !== 'number' || this.vICMS < 0) {
+    if (typeof this.vICMS !== 'string' || this.vICMS.trim() === '') {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.pFCP !== null && (typeof this.pFCP !== 'number' || this.pFCP < 0 || this.pFCP > 100)) {
+    if (this.pFCP !== null && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
       throw new Error('Alíquota do FCP (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCP !== null && (typeof this.vFCP !== 'number' || this.vFCP < 0)) {
+    if (this.vFCP !== null && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
       throw new Error('Valor do FCP (vFCP) deve ser um número não negativo, se informado.');
     }
   }
@@ -91,14 +91,16 @@ export class ICMS00 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      modBC: this.modBC,
-      vBC: this.vBC,
-      pICMS: this.pICMS,
-      vICMS: this.vICMS,
-      pFCP: this.pFCP,
-      vFCP: this.vFCP,
+      ICMS00: {
+        orig: this.orig,
+        CST: this.CST,
+        modBC: this.modBC,
+        vBC: this.vBC,
+        pICMS: this.pICMS,
+        vICMS: this.vICMS,
+        pFCP: this.pFCP,
+        vFCP: this.vFCP,
+      }
     };
   }
 }

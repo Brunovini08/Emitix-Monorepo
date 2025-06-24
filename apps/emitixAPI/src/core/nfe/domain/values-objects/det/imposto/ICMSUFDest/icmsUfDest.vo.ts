@@ -9,7 +9,7 @@ export class ICMSUFDest {
   public readonly vICMSUFDest;
   public readonly vICMSUFRemt;
 
-  constructor(data) {
+  constructor(data: { vBCUFDest: number, vBCFCPUFDest: number | null, pFCPUFDest: number | null, pICMSUFDest: number, pICMSInter: string, pICMSInterPart: number, vFCPUFDest: number | null, vICMSUFDest: number, vICMSUFRemt: number }) {
     this.vBCUFDest = data.vBCUFDest;
     this.vBCFCPUFDest = data.vBCFCPUFDest ?? null;
     this.pFCPUFDest = data.pFCPUFDest ?? null;

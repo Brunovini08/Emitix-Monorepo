@@ -8,16 +8,16 @@ Object.freeze(TorigEnum);
 export class ICMS40 {
   public readonly orig;
   public readonly CST;
-  public readonly vICMSDeson;
-  public readonly motDesICMS;
-  public readonly indDeduzDeson;
+  public readonly vICMSDeson?: string;
+  public readonly motDesICMS?: string;
+  public readonly indDeduzDeson?: string;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.vICMSDeson = data.vICMSDeson ?? null;
-    this.motDesICMS = data.motDesICMS ?? null;
-    this.indDeduzDeson = data.indDeduzDeson ?? null;
+    this.vICMSDeson = data.vICMSDeson ?? undefined;
+    this.motDesICMS = data.motDesICMS ?? undefined;
+    this.indDeduzDeson = data.indDeduzDeson ?? undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -39,17 +39,17 @@ export class ICMS40 {
       `);
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'number' || this.vICMSDeson < 0)) {
+    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
     const allowedMotDesICMS = ['1', '3', '4', '5', '6', '7', '8', '9', '10', '11', '16', '90'];
-    if (this.motDesICMS !== null && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
+    if (this.motDesICMS !== undefined && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
         throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser um dos valores válidos: '1', '3', '4', '5', '6', '7', '8', '9', '10', '11', '16', '90', se informado.`);
     }
 
     const allowedIndDeduzDeson = ['0', '1'];
-    if (this.indDeduzDeson !== null && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
+    if (this.indDeduzDeson !== undefined && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
         throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
     }
   }
@@ -69,11 +69,13 @@ export class ICMS40 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      vICMSDeson: this.vICMSDeson,
-      motDesICMS: this.motDesICMS,
-      indDeduzDeson: this.indDeduzDeson,
+      ICMS40: {
+        orig: this.orig,
+        CST: this.CST,
+        vICMSDeson: this.vICMSDeson,
+        motDesICMS: this.motDesICMS,
+        indDeduzDeson: this.indDeduzDeson,
+      }
     };
   }
 }

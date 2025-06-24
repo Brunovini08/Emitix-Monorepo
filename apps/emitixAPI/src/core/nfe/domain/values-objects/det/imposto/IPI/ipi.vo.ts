@@ -1,3 +1,6 @@
+import type { IPINT } from "src/core/nfe/domain/types/complex_types/TIpi/IPINT";
+import type { IPITrib } from "src/core/nfe/domain/types/complex_types/TIpi/IPITrib";
+
 export class IPI {
   public CNPJProd; 
   public cSelo; 
@@ -6,7 +9,14 @@ export class IPI {
   public IPITrib;
   public IPINT; 
 
-  constructor(data) {
+  constructor(data: {
+    CNPJProd: string
+    cSelo: string
+    qSelo: string
+    cEnq: string
+    IPITrib: IPITrib
+    IPINT: IPINT
+  }) {
     this.CNPJProd = data.CNPJProd ?? null;
     this.cSelo = data.cSelo ?? null;
     this.qSelo = data.qSelo ?? null;
