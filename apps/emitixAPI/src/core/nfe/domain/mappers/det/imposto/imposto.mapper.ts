@@ -2,6 +2,11 @@ import { Impostos } from "src/core/nfe/domain/values-objects/det/imposto/imposto
 import type { impostosDto } from "src/shared/common/dtos/infNfe/det/impostos/impostos.dto";
 import { ServicoMapper } from "./servico/servico.mapper";
 import { ProdutoMapper } from "./produto/produto.mapper";
+import { PISMapper } from "./PIS/PIS.mapper";
+import { PISSTMapper } from "./PISST/pisst.mapper";
+import { COFINSSTMapper } from "./COFINSST/cofinsst.mapper";
+import { COFINSMapper } from "./COFINS/cofins.mapper";
+import { ICMSUFDestMapper } from "./ICMSUFDest/icmsUfDest.mapper";
 
 export class ImpostosMapper {
   static fromDto(dto: impostosDto): Impostos {

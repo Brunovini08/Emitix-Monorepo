@@ -6,16 +6,15 @@ export class DI {
   public readonly xLocDesemb: string;
   public readonly cUFDesemb: string;
   public readonly dDesemb: string;
-  public readonly tpViaTransp: string | null;
-  public readonly vAFRMM: number | null;
-  public readonly tpIntermedio: string | null;
-  public readonly CNPJ?: string | null;
-  public readonly CPF?: string |null
-  public readonly UFTerceiro?: string | null
-  public readonly cExportador?: string | null
+  public readonly tpViaTransp: string
+  public readonly vAFRMM?: number
+  public readonly tpIntermedio: string
+  public readonly CNPJ?: string
+  public readonly CPF?: string
+  public readonly UFTerceiro?: string
+  public readonly cExportador: string
   public readonly adi?: Adi[]
-  public readonly uF: string | null;
-  public readonly cEAN: string | null;
+
 
   constructor(data: {
     nDI: string;
@@ -23,25 +22,28 @@ export class DI {
     xLocDesemb: string;
     cUFDesemb: string;
     dDesemb: string;
-    tpViaTransp?: string;
+    tpViaTransp: string;
     vAFRMM?: number;
-    tpIntermedio?: string;
-    cNPJ?: string;
-    uF?: string;
-    cEAN?: string;
+    tpIntermedio: string;
+    CNPJ?: string;
+    CPF?: string;
+    UFTerceiro?: string;
+    cExportador: string;
+    adi?: Adi[]
   }) {
     this.nDI = data.nDI;
     this.dDI = data.dDI;
     this.xLocDesemb = data.xLocDesemb;
     this.cUFDesemb = data.cUFDesemb;
     this.dDesemb = data.dDesemb;
-    this.tpViaTransp = data.tpViaTransp ?? null;
-    this.vAFRMM = data.vAFRMM ?? null;
-    this.tpIntermedio = data.tpIntermedio ?? null;
-    this.CNPJ = data.cNPJ ?? null;
-    this.uF = data.uF ?? null;
-    this.cEAN = data.cEAN ?? null;
-
+    this.tpViaTransp = data.tpViaTransp;
+    this.vAFRMM = data.vAFRMM;
+    this.tpIntermedio = data.tpIntermedio;
+    this.CNPJ = data.CNPJ || undefined;
+    this.CPF = data.CPF || undefined;
+    this.UFTerceiro = data.UFTerceiro || undefined;
+    this.cExportador = data.cExportador;
+    this.adi = data.adi || undefined;
     this.validateOrThrow();
   }
 
@@ -64,10 +66,7 @@ export class DI {
     if (this.CNPJ && !/^\d{14}$/.test(this.CNPJ)) {
       throw new Error('CNPJ do adquirente ou encomendante (CNPJ) deve conter exatamente 14 dígitos.');
     }
-    if (this.uF && !/^[A-Z]{2}$/.test(this.uF)) {
-      throw new Error('UF do adquirente ou encomendante (uF) deve conter exatamente 2 letras maiúsculas.');
-    }
-    if (this.vAFRMM !== null && typeof this.vAFRMM !== 'number' || (this.vAFRMM !== null && this.vAFRMM < 0)) {
+    if (this.vAFRMM !== undefined && typeof this.vAFRMM !== 'number' || (this.vAFRMM !== undefined && this.vAFRMM < 0)) {
         throw new Error('Valor Adicional ao Frete (vAFRMM) deve ser um número não negativo.');
     }
   }
@@ -86,8 +85,10 @@ export class DI {
       this.vAFRMM === other.vAFRMM &&
       this.tpIntermedio === other.tpIntermedio &&
       this.CNPJ === other.CNPJ &&
-      this.uF === other.uF &&
-      this.cEAN === other.cEAN
+      this.CPF === other.CPF &&
+      this.UFTerceiro === other.UFTerceiro &&
+      this.cExportador === other.cExportador &&
+      this.adi === other.adi
     );
   }
 
@@ -102,8 +103,10 @@ export class DI {
       vAFRMM: this.vAFRMM,
       tpIntermedio: this.tpIntermedio,
       CNPJ: this.CNPJ,
-      uF: this.uF,
-      cEAN: this.cEAN,
+      CPF: this.CPF,
+      UFTerceiro: this.UFTerceiro,
+      cExportador: this.cExportador,
+      adi: this.adi,
     };
   }
 }

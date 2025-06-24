@@ -4,7 +4,7 @@ export class COFINSQtde {
   public readonly vAliqProd;
   public readonly vCOFINS;
 
-  constructor(data) {
+  constructor(data: { CST: string, qBCProd: number, vAliqProd: number, vCOFINS: number }) {
     this.CST = data.CST;
     this.qBCProd = data.qBCProd;
     this.vAliqProd = data.vAliqProd;

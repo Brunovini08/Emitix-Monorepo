@@ -4,11 +4,13 @@ export class deduc {
   vDed
 
   constructor(
-    xDed,
-    vDed
+    data: {
+      xDed: string,
+      vDed: number,
+    }
   ) {
-    this.xDed = xDed;
-    this.vDed = vDed;
+    this.xDed = data.xDed;
+    this.vDed = data.vDed;
   }
 
   validateOrThrow() {

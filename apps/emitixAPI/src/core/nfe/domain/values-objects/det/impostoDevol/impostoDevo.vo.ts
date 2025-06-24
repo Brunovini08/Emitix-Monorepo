@@ -5,7 +5,10 @@ export class ImpostoDevol {
   public readonly IPI: IPI
   
   
-  constructor(data) {
+  constructor(data: {
+    pDevol,
+    IPI
+  }) {
     this.pDevol = data.pDevol
     this.IPI = data.IPI
   }

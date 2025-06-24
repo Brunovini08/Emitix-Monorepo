@@ -4,11 +4,13 @@ export class CSRT {
   hashCSRT
 
   constructor(
-    idCSRT,
-    hashCSRT
+    data: {
+      idCSRT: string,
+      hashCSRT: string
+    }
   ) {
-    this.idCSRT = idCSRT;
-    this.hashCSRT = hashCSRT;
+    this.idCSRT = data.idCSRT;
+    this.hashCSRT = data.hashCSRT;
   }
 
   validateOrThrow() {

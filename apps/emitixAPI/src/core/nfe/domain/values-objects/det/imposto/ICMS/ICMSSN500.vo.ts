@@ -20,7 +20,21 @@ export class ICMSSN500 {
   public readonly pICMSEfet;
   public readonly vICMSEfet;
 
-  constructor(data) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+    vBCSTRet: string,
+    pST: string,
+    vICMSSubstituto: string,
+    vICMSSTRet: string,
+    vBCFCPSTRet: string,
+    pFCPSTRet: string,
+    vFCPSTRet: string,
+    pRedBCEfet: string,
+    vBCEfet: string,
+    pICMSEfet: string,
+    vICMSEfet: string,
+  }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.vBCSTRet = data.vBCSTRet ?? null;
@@ -54,47 +68,47 @@ export class ICMSSN500 {
       `);
     }
 
-    if (this.vBCSTRet !== null && (typeof this.vBCSTRet !== 'number' || this.vBCSTRet < 0)) {
+    if (this.vBCSTRet !== null && (typeof this.vBCSTRet !== 'string' || this.vBCSTRet.trim() === '')) {
       throw new Error('Valor da BC do ICMS Substituição Tributária retido anteriormente (vBCSTRet) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pST !== null && (typeof this.pST !== 'number' || this.pST < 0 || this.pST > 100)) {
+    if (this.pST !== null && (typeof this.pST !== 'string' || this.pST.trim() === '')) {
       throw new Error('Alíquota suportada pelo consumidor final (pST) deve ser um número entre 0 e 100, se informada.');
     }
 
-    if (this.vICMSSubstituto !== null && (typeof this.vICMSSubstituto !== 'number' || this.vICMSSubstituto < 0)) {
+    if (this.vICMSSubstituto !== null && (typeof this.vICMSSubstituto !== 'string' || this.vICMSSubstituto.trim() === '')) {
       throw new Error('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSubstituto) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSSTRet !== null && (typeof this.vICMSSTRet !== 'number' || this.vICMSSTRet < 0)) {
+    if (this.vICMSSTRet !== null && (typeof this.vICMSSTRet !== 'string' || this.vICMSSTRet.trim() === '')) {
       throw new Error('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSTRet) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vBCFCPSTRet !== null && (typeof this.vBCFCPSTRet !== 'number' || this.vBCFCPSTRet < 0)) {
+    if (this.vBCFCPSTRet !== null && (typeof this.vBCFCPSTRet !== 'string' || this.vBCFCPSTRet.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP ST retido anteriormente (vBCFCPSTRet) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPSTRet !== null && (typeof this.pFCPSTRet !== 'number' || this.pFCPSTRet < 0 || this.pFCPSTRet > 100)) {
+    if (this.pFCPSTRet !== null && (typeof this.pFCPSTRet !== 'string' || this.pFCPSTRet.trim() === '')) {
       throw new Error('Alíquota do ICMS FCP ST retido anteriormente (pFCPSTRet) deve ser um número entre 0 e 100, se informada.');
     }
 
-    if (this.vFCPSTRet !== null && (typeof this.vFCPSTRet !== 'number' || this.vFCPSTRet < 0)) {
+    if (this.vFCPSTRet !== null && (typeof this.vFCPSTRet !== 'string' || this.vFCPSTRet.trim() === '')) {
       throw new Error('Valor do ICMS FCP ST retido anteriormente (vFCPSTRet) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pRedBCEfet !== null && (typeof this.pRedBCEfet !== 'number' || this.pRedBCEfet < 0 || this.pRedBCEfet > 100)) {
+    if (this.pRedBCEfet !== null && (typeof this.pRedBCEfet !== 'string' || this.pRedBCEfet.trim() === '')) {
       throw new Error('Percentual de redução da BC efetiva (pRedBCEfet) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vBCEfet !== null && (typeof this.vBCEfet !== 'number' || this.vBCEfet < 0)) {
+    if (this.vBCEfet !== null && (typeof this.vBCEfet !== 'string' || this.vBCEfet.trim() === '')) {
       throw new Error('Valor da BC efetiva do ICMS (vBCEfet) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pICMSEfet !== null && (typeof this.pICMSEfet !== 'number' || this.pICMSEfet < 0 || this.pICMSEfet > 100)) {
+    if (this.pICMSEfet !== null && (typeof this.pICMSEfet !== 'string' || this.pICMSEfet.trim() === '')) {
       throw new Error('Alíquota do ICMS efetivo (pICMSEfet) deve ser um número entre 0 e 100, se informada.');
     }
 
-    if (this.vICMSEfet !== null && (typeof this.vICMSEfet !== 'number' || this.vICMSEfet < 0)) {
+    if (this.vICMSEfet !== null && (typeof this.vICMSEfet !== 'string' || this.vICMSEfet.trim() === '')) {
       throw new Error('Valor do ICMS efetivo (vICMSEfet) deve ser um número não negativo, se informado.');
     }
   }
@@ -122,19 +136,21 @@ export class ICMSSN500 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
-      vBCSTRet: this.vBCSTRet,
-      pST: this.pST,
-      vICMSSubstituto: this.vICMSSubstituto,
-      vICMSSTRet: this.vICMSSTRet,
-      vBCFCPSTRet: this.vBCFCPSTRet,
-      pFCPSTRet: this.pFCPSTRet,
-      vFCPSTRet: this.vFCPSTRet,
-      pRedBCEfet: this.pRedBCEfet,
-      vBCEfet: this.vBCEfet,
-      pICMSEfet: this.pICMSEfet,
-      vICMSEfet: this.vICMSEfet,
+      ICMSSN500: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+        vBCSTRet: this.vBCSTRet,
+        pST: this.pST,
+        vICMSSubstituto: this.vICMSSubstituto,
+        vICMSSTRet: this.vICMSSTRet,
+        vBCFCPSTRet: this.vBCFCPSTRet,
+        pFCPSTRet: this.pFCPSTRet,
+        vFCPSTRet: this.vFCPSTRet,
+        pRedBCEfet: this.pRedBCEfet,
+        vBCEfet: this.vBCEfet,
+        pICMSEfet: this.pICMSEfet,
+        vICMSEfet: this.vICMSEfet,
+      }
     };
   }
 }

@@ -1,14 +1,16 @@
 export class infIntermed {
 
-  CNPJ
-  idCadIntTran
+  CNPJ: string
+  idCadIntTran: string
 
   constructor(
-    CNPJ,
-    idCadIntTran
+    data: {
+      CNPJ: string,
+      idCadIntTran: string
+    }
   ) {
-    this.CNPJ = CNPJ;
-    this.idCadIntTran = idCadIntTran;
+    this.CNPJ = data.CNPJ;
+    this.idCadIntTran = data.idCadIntTran;
   }
 
   validateOrThrow() {

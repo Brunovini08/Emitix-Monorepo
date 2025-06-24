@@ -30,7 +30,7 @@ export class ICMS90 {
   public readonly vICMSSTDeson;
   public readonly motDesICMSST;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, modBC: string, pRedBC: string, vBC: string, pICMS: string, vICMS: string, vBCFCP: string | null, vFCP: string | null, modBCST: string | null, pMVAST: string | null, pRedBCST: string | null, vBCST: string | null, pICMSST: string | null, vICMSST: string | null, vBCFCPST: string | null, pFCPST: string | null, vFCPST: string | null, vICMSDeson: string | null, motDesICMS: string | null, indDeduzDeson: string | null, vICMSSTDeson: string | null, motDesICMSST: string | null }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;
@@ -82,27 +82,27 @@ export class ICMS90 {
       `);
     }
 
-    if (typeof this.pRedBC !== 'number' || this.pRedBC < 0 || this.pRedBC > 100) {
+    if (typeof this.pRedBC !== 'string' || this.pRedBC.trim() === '') {
       throw new Error('Percentual de redução da BC (pRedBC) é obrigatório e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vBC !== 'number' || this.vBC < 0) {
+    if (typeof this.vBC !== 'string' || this.vBC.trim() === '') {
       throw new Error('Valor da BC do ICMS (vBC) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMS !== 'number' || this.pICMS < 0 || this.pICMS > 100) {
+    if (typeof this.pICMS !== 'string' || this.pICMS.trim() === '') {
       throw new Error('Alíquota do ICMS (pICMS) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMS !== 'number' || this.vICMS < 0) {
+    if (typeof this.vICMS !== 'string' || this.vICMS.trim() === '') {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCP !== null && (typeof this.vBCFCP !== 'number' || this.vBCFCP < 0)) {
+    if (this.vBCFCP !== null && (typeof this.vBCFCP !== 'string' || this.vBCFCP.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP (vBCFCP) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vFCP !== null && (typeof this.vFCP !== 'number' || this.vFCP < 0)) {
+    if (this.vFCP !== null && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
       throw new Error('Valor do ICMS FCP (vFCP) deve ser um número não negativo, se informado.');
     }
 
@@ -115,39 +115,39 @@ export class ICMS90 {
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'number' || this.pMVAST < 0 || this.pMVAST > 100)) {
+    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado ICMS ST (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'number' || this.pRedBCST < 0 || this.pRedBCST > 100)) {
+    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vBCST !== null && (typeof this.vBCST !== 'number' || this.vBCST < 0)) {
+    if (this.vBCST !== null && (typeof this.vBCST !== 'string' || this.vBCST.trim() === '')) {
       throw new Error('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pICMSST !== null && (typeof this.pICMSST !== 'number' || this.pICMSST < 0 || this.pICMSST > 100)) {
+    if (this.pICMSST !== null && (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '')) {
       throw new Error('Alíquota do ICMS ST (pICMSST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vICMSST !== null && (typeof this.vICMSST !== 'number' || this.vICMSST < 0)) {
+    if (this.vICMSST !== null && (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '')) {
       throw new Error('Valor do ICMS ST (vICMSST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'number' || this.vBCFCPST < 0)) {
+    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP ST (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'number' || this.pFCPST < 0 || this.pFCPST > 100)) {
+    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Percentual do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCPST !== null && (typeof this.vFCPST !== 'number' || this.vFCPST < 0)) {
+    if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
       throw new Error('Valor do ICMS FCP ST (vFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'number' || this.vICMSDeson < 0)) {
+    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -161,7 +161,7 @@ export class ICMS90 {
         throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
     }
 
-    if (this.vICMSSTDeson !== null && (typeof this.vICMSSTDeson !== 'number' || this.vICMSSTDeson < 0)) {
+    if (this.vICMSSTDeson !== null && (typeof this.vICMSSTDeson !== 'string' || this.vICMSSTDeson.trim() === '')) {
       throw new Error('Valor do ICMS ST desonerado (vICMSSTDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -204,29 +204,31 @@ export class ICMS90 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      modBC: this.modBC,
-      pRedBC: this.pRedBC,
-      vBC: this.vBC,
-      pICMS: this.pICMS,
-      vICMS: this.vICMS,
-      vBCFCP: this.vBCFCP,
-      vFCP: this.vFCP,
-      modBCST: this.modBCST,
-      pMVAST: this.pMVAST,
-      pRedBCST: this.pRedBCST,
-      vBCST: this.vBCST,
-      pICMSST: this.pICMSST,
-      vICMSST: this.vICMSST,
-      vBCFCPST: this.vBCFCPST,
-      pFCPST: this.pFCPST,
-      vFCPST: this.vFCPST,
-      vICMSDeson: this.vICMSDeson,
-      motDesICMS: this.motDesICMS,
-      indDeduzDeson: this.indDeduzDeson,
-      vICMSSTDeson: this.vICMSSTDeson,
-      motDesICMSST: this.motDesICMSST,
+      ICMS90: {
+        orig: this.orig,
+        CST: this.CST,
+        modBC: this.modBC,
+        pRedBC: this.pRedBC,
+        vBC: this.vBC,
+        pICMS: this.pICMS,
+        vICMS: this.vICMS,
+        vBCFCP: this.vBCFCP,
+        vFCP: this.vFCP,
+        modBCST: this.modBCST,
+        pMVAST: this.pMVAST,
+        pRedBCST: this.pRedBCST,
+        vBCST: this.vBCST,
+        pICMSST: this.pICMSST,
+        vICMSST: this.vICMSST,
+        vBCFCPST: this.vBCFCPST,
+        pFCPST: this.pFCPST,
+        vFCPST: this.vFCPST,
+        vICMSDeson: this.vICMSDeson,
+        motDesICMS: this.motDesICMS,
+        indDeduzDeson: this.indDeduzDeson,
+        vICMSSTDeson: this.vICMSSTDeson,
+        motDesICMSST: this.motDesICMSST,
+      }
     };
   }
 }

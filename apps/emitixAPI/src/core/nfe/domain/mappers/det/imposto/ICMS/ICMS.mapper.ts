@@ -1,30 +1,67 @@
-import type { ICMS } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS.vo";
+import { ICMS } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS.vo";
 import type { ICMSDto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS.dto";
+import { ICMS00Mapper } from "./ICMS00.mapper";
+import { ICMS40Mapper } from "./ICMS40.mapper";
+import { ICMS60Mapper } from "./ICMS60.mapper";
+import { ICMS90Mapper } from "./ICMS90.mapper";
+import { ICMS02Mapper } from "./ICMS02.mapper";
+import { ICMS10Mapper } from "./ICMS10.mapper";
+import { ICMS15Mapper } from "./ICMS15.mapper";
+import { ICMS20Mapper } from "./ICMS20.mapper";
+import { ICMS30Mapper } from "./ICMS30.mapper";
+import { ICMS51Mapper } from "./ICMS51.mapper";
+import { ICMS61Mapper } from "./ICMS61.mapper";
+import { ICMS70Mapper } from "./ICMS70.mapper";
+import { ICMS53Mapper } from "./ICMS53.mapper";
+import { ICMSPartMapper } from "./ICMSPart.mapper";
+import { ICMSSN101Mapper } from "./ICMSSN101.mapper";
+import { ICMSSN102Mapper } from "./ICMSSN102.mapper";
+import { ICMSSN201Mapper } from "./ICMSSN201.mapper";
+import { ICMSSN202Mapper } from "./ICMSSN202.mapper";
+import { ICMSSN500Mapper } from "./ICMSSN500.mapper";
+import { ICMSSN900Mapper } from "./ICMSSN900.mapper";
+import { ICMSSTMapper } from "./ICMSST.mapper";
 
 export class ICMSMapper {
   static fromDto(dto: ICMSDto): ICMS {
-    return new ICMS({
-      ICMS00: ICMS00Mapper.fromDto(dto.ICMS00),
-      ICMS40: ICMS40Mapper.fromDto(dto.ICMS40),
-      ICMS60: ICMS60Mapper.fromDto(dto.ICMS60),
-      ICMS90: ICMS90Mapper.fromDto(dto.ICMS90),
-      ICMS02: ICMS02Mapper.fromDto(dto.ICMS02),
-      ICMS10: ICMS10Mapper.fromDto(dto.ICMS10),
-      ICMS15: ICMS15Mapper.fromDto(dto.ICMS15),
-      ICMS20: ICMS20Mapper.fromDto(dto.ICMS20),
-      ICMS30: ICMS30Mapper.fromDto(dto.ICMS30),
-      ICMS51: ICMS51Mapper.fromDto(dto.ICMS51),
-      ICMS61: ICMS61Mapper.fromDto(dto.ICMS61),
-      ICMS70: ICMS70Mapper.fromDto(dto.ICMS70),
-      ICMS53: ICMS53Mapper.fromDto(dto.ICMS53),
-      ICMSPart: ICMSPartMapper.fromDto(dto.ICMSPART),
-      ICMSSN101: ICMSSN101Mapper.fromDto(dto.ICMSSN101),
-      ICMSSN102: ICMSSN102Mapper.fromDto(dto.ICMSSN102),
-      ICMSSN201: ICMSSN201Mapper.fromDto(dto.ICMSSN201),
-      ICMSSN202: ICMSSN202Mapper.fromDto(dto.ICMSSN202),
-      ICMSSN500: ICMSSN500Mapper.fromDto(dto.ICMSSN500),
-      ICMSSN900: ICMSSN900Mapper.fromDto(dto.ICMSSN900),
-      ICMSST: ICMSSTMapper.fromDto(dto.ICMSST),
-    });
+    let icmsVo: any;
+    const mappers = [
+      { key: 'ICMS00', mapper: ICMS00Mapper },
+      { key: 'ICMS02', mapper: ICMS02Mapper },
+      { key: 'ICMS10', mapper: ICMS10Mapper },
+      { key: 'ICMS15', mapper: ICMS15Mapper },
+      { key: 'ICMS20', mapper: ICMS20Mapper },
+      { key: 'ICMS30', mapper: ICMS30Mapper },
+      { key: 'ICMS40', mapper: ICMS40Mapper },
+      { key: 'ICMS51', mapper: ICMS51Mapper },
+      { key: 'ICMS53', mapper: ICMS53Mapper },
+      { key: 'ICMS60', mapper: ICMS60Mapper },
+      { key: 'ICMS61', mapper: ICMS61Mapper },
+      { key: 'ICMS70', mapper: ICMS70Mapper },
+      { key: 'ICMS90', mapper: ICMS90Mapper },
+      { key: 'ICMSPart', mapper: ICMSPartMapper }, 
+      { key: 'ICMSST', mapper: ICMSSTMapper },
+      { key: 'ICMSSN101', mapper: ICMSSN101Mapper },
+      { key: 'ICMSSN102', mapper: ICMSSN102Mapper },
+      { key: 'ICMSSN201', mapper: ICMSSN201Mapper },
+      { key: 'ICMSSN202', mapper: ICMSSN202Mapper },
+      { key: 'ICMSSN500', mapper: ICMSSN500Mapper },
+      { key: 'ICMSSN900', mapper: ICMSSN900Mapper },
+    ];
+
+    for (const { key, mapper } of mappers) {
+      const dtoKey = key === 'ICMSPart' ? 'ICMSPART' : key;
+
+      if (dto[dtoKey as keyof ICMSDto]) {
+        icmsVo = (mapper as any).fromDto(dto[dtoKey as keyof ICMSDto]);
+        console.log({
+          ICMSMAPPER: icmsVo?.toJSON()
+        })
+        if (!icmsVo) {
+          throw new Error("Não foi possível mapear o DTO para o Value Object ICMS.");
+        }
+      }
+    }
+    return new ICMS(icmsVo);
   }
 }

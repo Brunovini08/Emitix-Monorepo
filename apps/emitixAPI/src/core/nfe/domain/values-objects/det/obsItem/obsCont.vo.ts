@@ -1,10 +1,13 @@
 export class ObsContent {
-  public readonly xTexto;
-  public readonly xCampo;
+  public readonly xTexto: string;
+  public readonly xCampo: string;
 
-  constructor(data) {
-    this.xTexto = data.xTexto; // Assuming TString is just a string
-    this.xCampo = data.xCampo; // Assuming TString is just a string
+  constructor(data: {
+    xTexto: string,
+    xCampo: string
+  }) {
+    this.xTexto = data.xTexto;
+    this.xCampo = data.xCampo;
 
     this.validateOrThrow();
     Object.freeze(this);

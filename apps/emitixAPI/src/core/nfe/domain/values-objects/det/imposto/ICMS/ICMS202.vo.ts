@@ -18,18 +18,30 @@ export class ICMSSN202 {
   public readonly pFCPST;
   public readonly vFCPST;
 
-  constructor(data) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+    modBCST: string,
+    pMVAST: string,
+    pRedBCST: string,
+    vBCST: string,
+    pICMSST: string,
+    vICMSST: string,
+    vBCFCPST: string,
+    pFCPST: string,
+    vFCPST: string,
+  }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.modBCST = data.modBCST;
-    this.pMVAST = data.pMVAST ?? null;
-    this.pRedBCST = data.pRedBCST ?? null;
-    this.vBCST = data.vBCST ?? null; // vBCST is optional in the DTO, so it should be optional here too.
+    this.pMVAST = data.pMVAST;
+    this.pRedBCST = data.pRedBCST;
+    this.vBCST = data.vBCST;
     this.pICMSST = data.pICMSST;
     this.vICMSST = data.vICMSST;
-    this.vBCFCPST = data.vBCFCPST ?? null;
-    this.pFCPST = data.pFCPST ?? null;
-    this.vFCPST = data.vFCPST ?? null;
+    this.vBCFCPST = data.vBCFCPST;
+    this.pFCPST = data.pFCPST;
+    this.vFCPST = data.vFCPST;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -61,35 +73,35 @@ export class ICMSSN202 {
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'number' || this.pMVAST < 0 || this.pMVAST > 100)) {
+    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'number' || this.pRedBCST < 0 || this.pRedBCST > 100)) {
+    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vBCST !== null && (typeof this.vBCST !== 'number' || this.vBCST < 0)) {
+    if (this.vBCST !== null && (typeof this.vBCST !== 'string' || this.vBCST.trim() === '')) {
       throw new Error('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
     }
 
-    if (typeof this.pICMSST !== 'number' || this.pICMSST < 0 || this.pICMSST > 100) {
+    if (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '') {
       throw new Error('Alíquota do ICMS ST (pICMSST) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMSST !== 'number' || this.vICMSST < 0) {
+    if (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '') {
       throw new Error('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'number' || this.vBCFCPST < 0)) {
+    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do ICMS FCP (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'number' || this.pFCPST < 0 || this.pFCPST > 100)) {
+    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Percentual do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCPST !== null && (typeof this.vFCPST !== 'number' || this.vFCPST < 0)) {
+    if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
       throw new Error('Valor do ICMS FCP ST (vFCPST) deve ser um número não negativo, se informado.');
     }
   }
@@ -115,17 +127,19 @@ export class ICMSSN202 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
-      modBCST: this.modBCST,
-      pMVAST: this.pMVAST,
-      pRedBCST: this.pRedBCST,
-      vBCST: this.vBCST,
-      pICMSST: this.pICMSST,
-      vICMSST: this.vICMSST,
-      vBCFCPST: this.vBCFCPST,
-      pFCPST: this.pFCPST,
-      vFCPST: this.vFCPST,
+      ICMSSN202: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+        modBCST: this.modBCST,
+        pMVAST: this.pMVAST,
+        pRedBCST: this.pRedBCST,
+        vBCST: this.vBCST,
+        pICMSST: this.pICMSST,
+        vICMSST: this.vICMSST,
+        vBCFCPST: this.vBCFCPST,
+        pFCPST: this.pFCPST,
+        vFCPST: this.vFCPST,
+      }
     };
   }
 }

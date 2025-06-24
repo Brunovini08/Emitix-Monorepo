@@ -8,7 +8,7 @@ import { COFINSST } from "./COFINSST/cofinsst.vo";
 import { ICMSUFDest } from "./ICMSUFDest/icmsUfDest.vo";
 
 export class Impostos {
-  public readonly vTotTrib;
+  public readonly vTotTrib?: number;
   public readonly produto: Produto;
   public readonly servico: Servico;
   public readonly PIS: PIS;

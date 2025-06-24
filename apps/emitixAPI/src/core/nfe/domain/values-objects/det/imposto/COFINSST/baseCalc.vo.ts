@@ -2,7 +2,7 @@ export class BaseCalc {
   public readonly vBC;
   public readonly pCOFINS;
 
-  constructor(data) {
+  constructor(data: { vBC: number, pCOFINS: number }) {
     this.vBC = data.vBC;
     this.pCOFINS = data.pCOFINS;
 

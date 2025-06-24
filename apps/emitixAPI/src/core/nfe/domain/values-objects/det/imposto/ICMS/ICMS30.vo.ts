@@ -9,33 +9,33 @@ export class ICMS30 {
   public readonly orig;
   public readonly CST;
   public readonly modBCST;
-  public readonly pMVAST;
-  public readonly pRedBCST;
+  public readonly pMVAST?: string;
+  public readonly pRedBCST?: string;
   public readonly vBCST;
   public readonly pICMSST;
   public readonly vICMSST;
-  public readonly vBCFCPST;
-  public readonly pFCPST;
-  public readonly vFCPST;
-  public readonly vICMSDeson;
-  public readonly motDesICMS;
-  public readonly indDeduzDeson;
+  public readonly vBCFCPST?: string;
+  public readonly pFCPST?: string;
+  public readonly vFCPST?: string;
+  public readonly vICMSDeson?: string;
+  public readonly motDesICMS?: string;
+  public readonly indDeduzDeson?: string;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, modBCST: string, pMVAST?: string, pRedBCST?: string, vBCST: string, pICMSST: string, vICMSST: string, vBCFCPST?: string, pFCPST?: string, vFCPST?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBCST = data.modBCST;
-    this.pMVAST = data.pMVAST ?? null;
-    this.pRedBCST = data.pRedBCST ?? null;
+    this.pMVAST = data.pMVAST ?? undefined;
+    this.pRedBCST = data.pRedBCST ?? undefined;
     this.vBCST = data.vBCST;
     this.pICMSST = data.pICMSST;
     this.vICMSST = data.vICMSST;
-    this.vBCFCPST = data.vBCFCPST ?? null;
-    this.pFCPST = data.pFCPST ?? null;
-    this.vFCPST = data.vFCPST ?? null;
-    this.vICMSDeson = data.vICMSDeson ?? null;
-    this.motDesICMS = data.motDesICMS ?? null;
-    this.indDeduzDeson = data.indDeduzDeson ?? null;
+    this.vBCFCPST = data.vBCFCPST ?? undefined;
+    this.pFCPST = data.pFCPST ?? undefined;
+    this.vFCPST = data.vFCPST ?? undefined;
+    this.vICMSDeson = data.vICMSDeson ?? undefined;
+    this.motDesICMS = data.motDesICMS ?? undefined;
+    this.indDeduzDeson = data.indDeduzDeson ?? undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -65,50 +65,50 @@ export class ICMS30 {
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'number' || this.pMVAST < 0 || this.pMVAST > 100)) {
+    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado ICMS ST (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'number' || this.pRedBCST < 0 || this.pRedBCST > 100)) {
+    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (typeof this.vBCST !== 'number' || this.vBCST < 0) {
+    if (typeof this.vBCST !== 'string' || this.vBCST.trim() === '') {
       throw new Error('Valor da BC do ICMS ST (vBCST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMSST !== 'number' || this.pICMSST < 0 || this.pICMSST > 100) {
+    if (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '') {
       throw new Error('Alíquota do ICMS ST (pICMSST) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMSST !== 'number' || this.vICMSST < 0) {
+    if (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '') {
       throw new Error('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'number' || this.vBCFCPST < 0)) {
+    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do FCP ST (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'number' || this.pFCPST < 0 || this.pFCPST > 100)) {
+    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Alíquota do FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCPST !== null && (typeof this.vFCPST !== 'number' || this.vFCPST < 0)) {
+    if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
       throw new Error('Valor do FCP ST (vFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'number' || this.vICMSDeson < 0)) {
+    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
     const allowedMotDesICMS = ['6', '7', '9'];
-    if (this.motDesICMS !== null && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
-        throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser '6', '7' ou '9', se informado.`);
+    if (this.motDesICMS !== undefined && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
+      throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser '6', '7' ou '9', se informado.`);
     }
-    
+
     const allowedIndDeduzDeson = ['0', '1'];
-    if (this.indDeduzDeson !== null && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
-        throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
+    if (this.indDeduzDeson !== undefined && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
+      throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
     }
   }
 
@@ -136,20 +136,22 @@ export class ICMS30 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      modBCST: this.modBCST,
-      pMVAST: this.pMVAST,
-      pRedBCST: this.pRedBCST,
-      vBCST: this.vBCST,
-      pICMSST: this.pICMSST,
-      vICMSST: this.vICMSST,
-      vBCFCPST: this.vBCFCPST,
-      pFCPST: this.pFCPST,
-      vFCPST: this.vFCPST,
-      vICMSDeson: this.vICMSDeson,
-      motDesICMS: this.motDesICMS,
-      indDeduzDeson: this.indDeduzDeson,
+      ICMS30: {
+        orig: this.orig,
+        CST: this.CST,
+        modBCST: this.modBCST,
+        pMVAST: this.pMVAST,
+        pRedBCST: this.pRedBCST,
+        vBCST: this.vBCST,
+        pICMSST: this.pICMSST,
+        vICMSST: this.vICMSST,
+        vBCFCPST: this.vBCFCPST,
+        pFCPST: this.pFCPST,
+        vFCPST: this.vFCPST,
+        vICMSDeson: this.vICMSDeson,
+        motDesICMS: this.motDesICMS,
+        indDeduzDeson: this.indDeduzDeson,
+      }
     };
   }
 }

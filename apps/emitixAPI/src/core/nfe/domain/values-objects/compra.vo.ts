@@ -1,17 +1,19 @@
 export class compra {
 
-  xNEmp
-  xPed
-  xCont
+  xNEmp: string
+  xPed: string
+  xCont: string
 
   constructor(
-    xNEmp = undefined,
-    xPed = undefined,
-    xCont = undefined
+    data: {
+      xNEmp: string,
+      xPed: string,
+      xCont: string
+    }
   ) {
-    this.xNEmp = xNEmp;
-    this.xPed = xPed;
-    this.xCont = xCont;
+    this.xNEmp = data.xNEmp;
+    this.xPed = data.xPed;
+    this.xCont = data.xCont;
   }
 
   validateOrThrow() {

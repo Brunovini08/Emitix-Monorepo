@@ -1,5 +1,5 @@
-import type { defensivo } from "./defensivo.vo";
-import type { guiaTransito } from "./guiaTransito.vo";
+import { defensivo } from "./defensivo.vo";
+import { guiaTransito } from "./guiaTransito.vo";
 
 export class agropecuario {
 
@@ -7,11 +7,13 @@ export class agropecuario {
   guiaTransito: guiaTransito
 
   constructor(
-    defensivo,
-    guiaTransito
+    data: {
+      defensivo: defensivo[],
+      guiaTransito: guiaTransito
+    }
   ) {
-    this.defensivo = defensivo;
-    this.guiaTransito = guiaTransito;
+    this.defensivo = data.defensivo;
+    this.guiaTransito = data.guiaTransito;
   }
 
   validateOrThrow() {

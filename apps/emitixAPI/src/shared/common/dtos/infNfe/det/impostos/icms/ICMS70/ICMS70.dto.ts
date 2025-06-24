@@ -141,4 +141,5 @@ export class ICMS70Dto {
     message: `Motivo da desoneração do ICMS ST: 0 - Outros; 3 - Uso na agropecuária; 12 - Fomento agropecuário`,
   })
   motDesICMSST: string; // Motivo da desoneração do ICMS ST (0, 3 ou 12)
+  
 }

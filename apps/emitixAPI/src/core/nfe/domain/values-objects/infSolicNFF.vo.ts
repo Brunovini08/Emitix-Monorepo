@@ -1,11 +1,13 @@
 export class infSolicNFF {
 
-  xSolic
+  xSolic: string
 
   constructor(
-    xSolic
+    data: {
+      xSolic: string
+    }
   ) {
-    this.xSolic = xSolic;
+    this.xSolic = data.xSolic;
   }
 
   validateOrThrow() {

@@ -16,7 +16,7 @@ export class agropecuarioDto {
   @ValidateNested()
   @Type(() => defensivoDto)
   @ArrayMaxSize(20)
-  defensivo: defensivoDto;
+  defensivo: defensivoDto[];
 
   @IsOptional()
   @ValidateNested()

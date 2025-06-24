@@ -1,14 +1,16 @@
 export class defensivo {
 
-  nReceituario
-  CPFRespTec
+  nReceituario: string
+  CPFRespTec: string
 
   constructor(
-    nReceituario,
-    CPFRespTec
+    data: {
+      nReceituario: string,
+      CPFRespTec: string
+    }
   ) {
-    this.nReceituario = nReceituario;
-    this.CPFRespTec = CPFRespTec;
+    this.nReceituario = data.nReceituario;
+    this.CPFRespTec = data.CPFRespTec;
   }
 
   validateOrThrow() {

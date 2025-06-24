@@ -5,9 +5,11 @@ export class infRespTec {
   infResTec: TInfRespTec
 
   constructor(
-    infResTec
+    data: {
+      infResTec: TInfRespTec
+    }
   ) {
-    this.infResTec = infResTec;
+    this.infResTec = data.infResTec;
   }
 
   validateOrThrow() {

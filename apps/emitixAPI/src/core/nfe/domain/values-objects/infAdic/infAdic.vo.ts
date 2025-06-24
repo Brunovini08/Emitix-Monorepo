@@ -4,24 +4,26 @@ import type { procRef } from "./procRef.vo"
 
 export class infAdic {
 
-  infAdFisco
-  infCpl
+  infAdFisco: string
+  infCpl: string
   obsCont: ObsContent[]
   obsFisco: ObsFisco[]
-  procRef: procRef[]
+  procRef: procRef[] = []
 
   constructor(
-    infAdFisco,
-    infCpl,
-    obsCont,
-    obsFisco,
-    procRef
+    data: {
+      infAdFisco: string,
+      infCpl: string,
+      obsCont: ObsContent[],
+      obsFisco: ObsFisco[],
+      procRef: procRef[]
+    }
   ) {
-    this.infAdFisco = infAdFisco;
-    this.infCpl = infCpl;
-    this.obsCont = obsCont;
-    this.obsFisco = obsFisco;
-    this.procRef = procRef;
+    this.infAdFisco = data.infAdFisco;
+    this.infCpl = data.infCpl;
+    this.obsCont = data.obsCont;
+    this.obsFisco = data.obsFisco;
+    this.procRef = data.procRef;
   }
 
   validateOrThrow() {

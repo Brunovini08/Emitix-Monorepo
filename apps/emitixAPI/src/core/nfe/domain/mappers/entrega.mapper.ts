@@ -1,5 +1,5 @@
 import { TLocalVO } from "../values-objects/tlocal.vo";
-import type { TLocal } from "../types/primitivies_types/TLocal";
+import { TLocal } from "../types/primitivies_types/TLocal";
 
 export class EntregaMapper {
   static fromDto(dto: TLocal): TLocalVO {

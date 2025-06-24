@@ -76,4 +76,22 @@ export class Endereco {
   public getFullAddress(): string {
     return `${this.xLgr}, ${this.nro} - ${this.xBairro}, ${this.xMun} - ${this.UF}, CEP ${this.getCepFormatado()}`;
   }
+
+  toJSON() {
+    return {
+      enderEmit: {
+        xLgr: this.xLgr,
+        nro: this.nro,
+        xBairro: this.xBairro,
+        cMun: this.cMun,
+        xMun: this.xMun,
+        UF: this.UF,
+        CEP: this.CEP,
+        cPais: this.cPais,
+        xPais: this.xPais,
+        fone: this.fone,
+        cpl: this.cpl,
+      }
+    }
+  }
 }

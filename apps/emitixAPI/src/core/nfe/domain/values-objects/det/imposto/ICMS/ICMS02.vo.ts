@@ -10,14 +10,14 @@ export class ICMS02 {
   public readonly CST;
   public readonly qBCMono;
   public readonly adRemICMS;
-  public readonly vICMSMOno;
+  public readonly vICMSMono;
 
-  constructor(data) {
-    this.orig = data.orig ?? null;
+  constructor(data: { orig: string, CST: string, qBCMono: string, adRemICMS: string, vICMSMono: string }) {
+    this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMono = data.qBCMono ?? null;
+    this.qBCMono = data.qBCMono;
     this.adRemICMS = data.adRemICMS;
-    this.vICMSMOno = data.vICMSMOno;
+    this.vICMSMono = data.vICMSMono;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -38,16 +38,16 @@ export class ICMS02 {
       throw new Error('CST para ICMS02 deve ser obrigatoriamente "02".');
     }
 
-    if (this.qBCMono !== null && (typeof this.qBCMono !== 'number' || this.qBCMono < 0)) {
+    if (this.qBCMono !== null && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
       throw new Error('Quantidade tributada (qBCMono) deve ser um número não negativo, se informada.');
     }
 
-    if (typeof this.adRemICMS !== 'number' || this.adRemICMS <= 0) { // Assuming adRemICMS should be positive
+    if (typeof this.adRemICMS !== 'string' || this.adRemICMS.trim() === '') { // Assuming adRemICMS should be positive
       throw new Error('Alíquota ad rem do imposto (adRemICMS) é obrigatória e deve ser um número positivo.');
     }
 
-    if (typeof this.vICMSMOno !== 'number' || this.vICMSMOno < 0) {
-      throw new Error('Valor do ICMS próprio (vICMSMOno) é obrigatório e deve ser um número não negativo.');
+    if (typeof this.vICMSMono !== 'string' || this.vICMSMono.trim() === '') {
+      throw new Error('Valor do ICMS próprio (vICMSMono) é obrigatório e deve ser um número não negativo.');
     }
   }
 
@@ -60,17 +60,19 @@ export class ICMS02 {
       this.CST === other.CST &&
       this.qBCMono === other.qBCMono &&
       this.adRemICMS === other.adRemICMS &&
-      this.vICMSMOno === other.vICMSMOno
+      this.vICMSMono === other.vICMSMono
     );
   }
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      qBCMono: this.qBCMono,
-      adRemICMS: this.adRemICMS,
-      vICMSMOno: this.vICMSMOno,
+      ICMS02: {
+        orig: this.orig,
+        CST: this.CST,
+        qBCMono: this.qBCMono,
+        adRemICMS: this.adRemICMS,
+        vICMSMono: this.vICMSMono,
+      }
     };
   }
 }

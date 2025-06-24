@@ -7,11 +7,13 @@ export class forDia {
   deduc: deduc[]
 
   constructor(
-    qtde,
-    dia
+    data: {
+      qtde: number,
+      dia: number,
+    }
   ) {
-    this.qtde = qtde;
-    this.dia = dia;
+    this.qtde = data.qtde;
+    this.dia = data.dia;
   }
 
   validateOrThrow() {

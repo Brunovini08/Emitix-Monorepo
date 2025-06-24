@@ -8,26 +8,26 @@ Object.freeze(TorigEnum);
 export class ICMS15 {
   public readonly orig;
   public readonly CST;
-  public readonly qBCMono;
+  public readonly qBCMono?: string;
   public readonly adRemICMS;
   public readonly vICMSMono;
   public readonly qBCMonoReten;
   public readonly adRemICMSReten;
   public readonly vICMSMonoReten;
-  public readonly pRedAdRem;
-  public readonly motRedAdRem;
+  public readonly pRedAdRem?: string;
+  public readonly motRedAdRem?: string;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, qBCMono?: string, adRemICMS: string, vICMSMono: string, qBCMonoReten?: string, adRemICMSReten?: string, vICMSMonoReten?: string, pRedAdRem?: string, motRedAdRem?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMono = data.qBCMono ?? null;
+    this.qBCMono = data.qBCMono;
     this.adRemICMS = data.adRemICMS;
     this.vICMSMono = data.vICMSMono;
-    this.qBCMonoReten = data.qBCMonoReten ?? null;
-    this.adRemICMSReten = data.adRemICMSReten ?? null;
-    this.vICMSMonoReten = data.vICMSMonoReten ?? null;
-    this.pRedAdRem = data.pRedAdRem ?? null;
-    this.motRedAdRem = data.motRedAdRem ?? null;
+    this.qBCMonoReten = data.qBCMonoReten;
+    this.adRemICMSReten = data.adRemICMSReten;
+    this.vICMSMonoReten = data.vICMSMonoReten
+    this.pRedAdRem = data.pRedAdRem;
+    this.motRedAdRem = data.motRedAdRem;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -45,36 +45,36 @@ export class ICMS15 {
       throw new Error('CST para ICMS15 deve ser obrigatoriamente "15".');
     }
 
-    if (this.qBCMono !== null && (typeof this.qBCMono !== 'number' || this.qBCMono < 0)) {
+    if (this.qBCMono !== null && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
       throw new Error('Quantidade tributada (qBCMono) deve ser um número não negativo, se informada.');
     }
 
-    if (typeof this.adRemICMS !== 'number' || this.adRemICMS <= 0) {
+    if (typeof this.adRemICMS !== 'string' || this.adRemICMS.trim() === '') {
       throw new Error('Alíquota ad rem do imposto (adRemICMS) é obrigatória e deve ser um número positivo.');
     }
 
-    if (typeof this.vICMSMono !== 'number' || this.vICMSMono < 0) {
+    if (typeof this.vICMSMono !== 'string' || this.vICMSMono.trim() === '') {
       throw new Error('Valor do ICMS próprio (vICMSMono) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.qBCMonoReten !== null && (typeof this.qBCMonoReten !== 'number' || this.qBCMonoReten < 0)) {
+    if (this.qBCMonoReten !== null && (typeof this.qBCMonoReten !== 'string' || this.qBCMonoReten.trim() === '')) {
       throw new Error('Quantidade tributada sujeita a retenção (qBCMonoReten) deve ser um número não negativo, se informada.');
     }
 
-    if (this.adRemICMSReten !== null && (typeof this.adRemICMSReten !== 'number' || this.adRemICMSReten <= 0)) {
+    if (this.adRemICMSReten !== null && (typeof this.adRemICMSReten !== 'string' || this.adRemICMSReten.trim() === '')) {
       throw new Error('Alíquota ad rem do imposto com retenção (adRemICMSReten) deve ser um número positivo, se informada.');
     }
 
-    if (this.vICMSMonoReten !== null && (typeof this.vICMSMonoReten !== 'number' || this.vICMSMonoReten < 0)) {
+    if (this.vICMSMonoReten !== null && (typeof this.vICMSMonoReten !== 'string' || this.vICMSMonoReten.trim() === '')) {
       throw new Error('Valor do ICMS com retenção (vICMSMonoReten) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pRedAdRem !== null && (typeof this.pRedAdRem !== 'number' || this.pRedAdRem < 0 || this.pRedAdRem > 100)) {
+    if (this.pRedAdRem !== null && (typeof this.pRedAdRem !== 'string' || this.pRedAdRem.trim() === '')) {
       throw new Error('Percentual de redução do valor da alíquota ad rem do ICMS (pRedAdRem) deve ser um número entre 0 e 100, se informado.');
     }
 
     const allowedMotRedAdRem = ['1', '9'];
-    if (this.motRedAdRem !== null && typeof this.motRedAdRem !== 'string' && !allowedMotRedAdRem.includes(this.motRedAdRem)) {
+    if (this.motRedAdRem !== undefined && typeof this.motRedAdRem !== 'string' && !allowedMotRedAdRem.includes(this.motRedAdRem)) {
         throw new Error(`Motivo da redução do adrem (motRedAdRem) deve ser '1' ou '9', se informado.`);
     }
   }
@@ -99,16 +99,18 @@ export class ICMS15 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      qBCMono: this.qBCMono,
-      adRemICMS: this.adRemICMS,
-      vICMSMono: this.vICMSMono,
-      qBCMonoReten: this.qBCMonoReten,
-      adRemICMSReten: this.adRemICMSReten,
-      vICMSMonoReten: this.vICMSMonoReten,
-      pRedAdRem: this.pRedAdRem,
-      motRedAdRem: this.motRedAdRem,
+      ICMS15: {
+        orig: this.orig,
+        CST: this.CST,
+        qBCMono: this.qBCMono,
+        adRemICMS: this.adRemICMS,
+        vICMSMono: this.vICMSMono,
+        qBCMonoReten: this.qBCMonoReten,
+        adRemICMSReten: this.adRemICMSReten,
+        vICMSMonoReten: this.vICMSMonoReten,
+        pRedAdRem: this.pRedAdRem,
+        motRedAdRem: this.motRedAdRem,
+      }
     };
   }
 }

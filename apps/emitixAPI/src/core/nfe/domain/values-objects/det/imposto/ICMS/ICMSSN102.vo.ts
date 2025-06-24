@@ -9,7 +9,10 @@ export class ICMSSN102 {
   public readonly orig;
   public readonly CSOSN;
 
-  constructor(data) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+  }) {
     this.orig = data.orig ?? null; // orig is optional in the DTO
     this.CSOSN = data.CSOSN;
 
@@ -49,8 +52,10 @@ export class ICMSSN102 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CSOSN: this.CSOSN,
+      ICMSSN102: {
+        orig: this.orig,
+        CSOSN: this.CSOSN,
+      }
     };
   }
 }

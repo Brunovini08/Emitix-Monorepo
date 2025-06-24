@@ -1,14 +1,18 @@
+import type { detPag } from "./detPag.vo";
+
 export class pag {
 
-  detPag
-  vTroco
+  detPag: detPag[];
+  vTroco: number;
 
   constructor(
-    detPag,
-    vTroco = undefined
+    data: {
+      detPag: detPag[],
+      vTroco: number
+    }
   ) {
-    this.detPag = detPag;
-    this.vTroco = vTroco;
+    this.detPag = data.detPag;
+    this.vTroco = data.vTroco;
   }
 
   validateOrThrow() {

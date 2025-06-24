@@ -3,23 +3,23 @@ import type { dup } from "./dup.vo";
 
 export class cobr {
 
-  fat: fat[]
-  dup: dup[]
+  fat?: fat
+  dup?: dup[]
 
   constructor(
-    fat,
-    dup
+    data: {
+      fat?: fat,
+      dup?: dup[]
+    }
   ) {
-    this.fat = fat;
-    this.dup = dup;
+    this.fat = data.fat || undefined;
+    this.dup = data.dup || [];
   }
 
   validateOrThrow() {
     if (this.fat !== undefined && this.fat !== null) {
-      for (const item of this.fat) {
-        if (typeof item.validateOrThrow === 'function') {
-          item.validateOrThrow();
-        }
+      if (typeof this.fat.validateOrThrow === 'function') {
+        this.fat.validateOrThrow();
       }
     }
 
@@ -40,8 +40,8 @@ export class cobr {
 
   toJson() {
     return {
-      fat: this.fat.map(item => item.toJson()),
-      dup: this.dup.map(item => item.toJson()),
+      fat: this.fat?.toJson() || undefined,
+      dup: this.dup?.map(item => item.toJson()) || [],
     };
   }
 }

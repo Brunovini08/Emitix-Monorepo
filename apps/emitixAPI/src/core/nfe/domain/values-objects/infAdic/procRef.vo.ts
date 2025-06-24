@@ -1,17 +1,19 @@
 export class procRef {
 
-  nProc
-  indProc
-  tpAto
+  nProc: string
+  indProc: string
+  tpAto: string
 
   constructor(
-    nProc,
-    indProc,
-    tpAto = undefined
+   data: {
+    nProc: string,
+    indProc: string,
+    tpAto: string
+   }
   ) {
-    this.nProc = nProc;
-    this.indProc = indProc;
-    this.tpAto = tpAto;
+    this.nProc = data.nProc;
+    this.indProc = data.indProc;
+    this.tpAto = data.tpAto;
   }
 
   validateOrThrow() {

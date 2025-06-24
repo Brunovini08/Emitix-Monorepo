@@ -42,7 +42,7 @@ export class canaDto {
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(31)
-  forDia: forDiaDto;
+  forDia: forDiaDto[];
 
   @IsNotEmpty({
     message: 'Total do mês',

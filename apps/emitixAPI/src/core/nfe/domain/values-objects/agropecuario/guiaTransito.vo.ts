@@ -1,20 +1,22 @@
 export class guiaTransito {
 
-  tpGuia
-  UFGuia
-  serieGuia
-  nGuia
+  tpGuia: string
+  UFGuia: string
+  serieGuia: string
+  nGuia: string
 
   constructor(
-    tpGuia,
-    UFGuia,
-    serieGuia,
-    nGuia
+    data: {
+      tpGuia: string,
+      UFGuia: string,
+      serieGuia: string,
+      nGuia: string
+    }
   ) {
-    this.tpGuia = tpGuia;
-    this.UFGuia = UFGuia;
-    this.serieGuia = serieGuia;
-    this.nGuia = nGuia;
+    this.tpGuia = data.tpGuia;
+    this.UFGuia = data.UFGuia;
+    this.serieGuia = data.serieGuia;
+    this.nGuia = data.nGuia;
   }
 
   validateOrThrow() {

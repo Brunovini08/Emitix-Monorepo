@@ -3,39 +3,41 @@ import type { forDia } from "./forDia/forDia.vo"
 
 export class cana {
 
-  safra
-  ref
+  safra: string
+  ref: string
   forDia: forDia[]
-  qTotMes
-  qTotAnt
-  qTotGer
+  qTotMes: number
+  qTotAnt: number
+  qTotGer: number
   deduc: deduc[]
-  vFor
-  vTotDed
-  vLiqFor
+  vFor: number
+  vTotDed: number
+  vLiqFor: number
 
   constructor(
-    safra,
-    ref,
-    forDia,
-    qTotMes,
-    qTotAnt,
-    qTotGer,
-    deduc,
-    vFor,
-    vTotDed,
-    vLiqFor
+    data: {
+      safra: string,
+      ref: string,
+      forDia: forDia[],
+      qTotMes: number,
+      qTotAnt: number,
+      qTotGer: number,
+      deduc: deduc[],
+      vFor: number,
+      vTotDed: number,
+      vLiqFor: number
+    }
   ) {
-    this.safra = safra;
-    this.ref = ref;
-    this.forDia = forDia;
-    this.qTotMes = qTotMes;
-    this.qTotAnt = qTotAnt;
-    this.qTotGer = qTotGer;
-    this.deduc = deduc;
-    this.vFor = vFor;
-    this.vTotDed = vTotDed;
-    this.vLiqFor = vLiqFor;
+    this.safra = data.safra;
+    this.ref = data.ref;
+    this.forDia = data.forDia;
+    this.qTotMes = data.qTotMes;
+    this.qTotAnt = data.qTotAnt;
+    this.qTotGer = data.qTotGer;
+    this.deduc = data.deduc;
+    this.vFor = data.vFor;
+    this.vTotDed = data.vTotDed;
+    this.vLiqFor = data.vLiqFor;
   }
 
   validateOrThrow() {
@@ -78,20 +80,26 @@ export class cana {
     }
 
     if (this.qTotMes !== undefined && this.qTotMes !== null) {
-      if (typeof this.qTotMes.validateOrThrow === 'function') {
-        this.qTotMes.validateOrThrow();
+      if (typeof this.qTotMes === 'number') {
+        if (this.qTotMes < 0) {
+          throw new Error('O campo qTotMes deve ser maior que 0.');
+        }
       }
     }
 
     if (this.qTotAnt !== undefined && this.qTotAnt !== null) {
-      if (typeof this.qTotAnt.validateOrThrow === 'function') {
-        this.qTotAnt.validateOrThrow();
+      if (typeof this.qTotAnt === 'number') {
+        if (this.qTotAnt < 0) {
+          throw new Error('O campo qTotAnt deve ser maior que 0.');
+        }
       }
     }
 
     if (this.qTotGer !== undefined && this.qTotGer !== null) {
-      if (typeof this.qTotGer.validateOrThrow === 'function') {
-        this.qTotGer.validateOrThrow();
+      if (typeof this.qTotGer === 'number') {
+        if (this.qTotGer < 0) {
+          throw new Error('O campo qTotGer deve ser maior que 0.');
+        }
       }
     }
 
@@ -110,20 +118,26 @@ export class cana {
     }
 
     if (this.vFor !== undefined && this.vFor !== null) {
-      if (typeof this.vFor.validateOrThrow === 'function') {
-        this.vFor.validateOrThrow();
+      if (typeof this.vFor === 'number') {
+        if (this.vFor < 0) {
+          throw new Error('O campo vFor deve ser maior que 0.');
+        }
       }
     }
 
     if (this.vTotDed !== undefined && this.vTotDed !== null) {
-      if (typeof this.vTotDed.validateOrThrow === 'function') {
-        this.vTotDed.validateOrThrow();
+      if (typeof this.vTotDed === 'number') {
+        if (this.vTotDed < 0) {
+          throw new Error('O campo vTotDed deve ser maior que 0.');
+        }
       }
     }
 
     if (this.vLiqFor !== undefined && this.vLiqFor !== null) {
-      if (typeof this.vLiqFor.validateOrThrow === 'function') {
-        this.vLiqFor.validateOrThrow();
+      if (typeof this.vLiqFor === 'number') {
+        if (this.vLiqFor < 0) {
+          throw new Error('O campo vLiqFor deve ser maior que 0.');
+        }
       }
     }
   }
@@ -133,13 +147,13 @@ export class cana {
       safra: this.safra,
       ref: this.ref,
       forDia: this.forDia.map(item => item.toJSON()),
-      qTotMes: this.qTotMes.toJSON(),
-      qTotAnt: this.qTotAnt.toJSON(),
-      qTotGer: this.qTotGer.toJSON(),
+      qTotMes: this.qTotMes,
+      qTotAnt: this.qTotAnt,
+      qTotGer: this.qTotGer,
       deduc: this.deduc.map(item => item.toJSON()),
-      vFor: this.vFor.toJSON(),
-      vTotDed: this.vTotDed.toJSON(),
-      vLiqFor: this.vLiqFor.toJSON(),
+      vFor: this.vFor,
+      vTotDed: this.vTotDed,
+      vLiqFor: this.vLiqFor,
     };
   }
 }

@@ -1,17 +1,19 @@
 export class dup {
 
-  nDUp
-  dVenc
-  vDup
+  nDUp: string
+  dVenc: string
+  vDup: string
 
   constructor(
-    vDup,
-    nDUp,
-    dVenc
+    data: {
+      vDup: string,
+      nDUp: string,
+      dVenc: string
+    }
   ) {
-    this.nDUp = nDUp;
-    this.dVenc = dVenc;
-    this.vDup = vDup;
+    this.nDUp = data.nDUp;
+    this.dVenc = data.dVenc;
+    this.vDup = data.vDup;
   }
 
   validateOrThrow() {

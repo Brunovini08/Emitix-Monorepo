@@ -2,7 +2,10 @@ export class ObsFisco {
   public readonly xTexto;
   public readonly xCampo;
 
-  constructor(data) {
+  constructor(data: {
+    xTexto,
+    xCampo
+  }) {
     this.xTexto = data.xTexto; // Assuming TString is just a string
     this.xCampo = data.xCampo; // Assuming TString is just a string
 

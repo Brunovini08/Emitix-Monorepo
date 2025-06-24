@@ -11,7 +11,7 @@ export class AvulsaMapper {
       fone: String(dto.fone),
       UF: String(dto.UF),
       nDAR: String(dto.nDAR),
-      dEmiDAR: new Date(dto.dEmi.toString()),
+      dEmi: new Date(dto.dEmi.toString()),
       vDAR: Number(dto.vDAR),
       repEmi: String(dto.repEmi),
     });

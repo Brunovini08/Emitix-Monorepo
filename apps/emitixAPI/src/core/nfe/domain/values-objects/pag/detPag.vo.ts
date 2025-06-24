@@ -8,21 +8,23 @@ export class detPag {
   infoPag
   card
   constructor(
-    tPag,
-    vPag,
-    indPag,
-    xPag,
-    dPag,
-    infoPag,
-    card
+    data: {
+      tPag: string,
+      vPag: string,
+      indPag: string,
+      xPag: string,
+      dPag: string,
+      infoPag: string,
+      card: string
+    }
   ) {
-    this.indPag = indPag;
-    this.tPag = tPag;
-    this.xPag = xPag;
-    this.vPag = vPag;
-    this.dPag = dPag;
-    this.infoPag = infoPag;
-    this.card = card;
+    this.indPag = data.indPag;
+    this.tPag = data.tPag;
+    this.xPag = data.xPag;
+    this.vPag = data.vPag;
+    this.dPag = data.dPag;
+    this.infoPag = data.infoPag;
+    this.card = data.card;
   }
 
   validateOrThrow() {

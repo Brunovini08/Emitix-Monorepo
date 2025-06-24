@@ -1,4 +1,4 @@
-import { Ide } from "../values-objects/ide.vo";
+import { Ide } from "../values-objects/ide/ide.vo";
 import type { ideDto } from "src/shared/common/dtos/infNfe/ide/ide.dto";
 
 export class IdeMapper {
@@ -10,7 +10,7 @@ export class IdeMapper {
       mod: String(dto.mod),
       serie: String(dto.serie),
       nNF: String(dto.nNF),
-      dhEmi: new Date(dto.dhEmi.toString()),
+      dhEmi: String(dto.dhEmi),
       tpNF: String(dto.tpNF),
       idDest: String(dto.idDest),
       cMunFG: String(dto.cMunFG),
@@ -22,9 +22,9 @@ export class IdeMapper {
       indPres: String(dto.indPres),
       procEmi: String(dto.procEmi),
       verProc: String(dto.verProc),
-      dhSaiEnt: new Date(dto.dhSaiEnt.toString()),
-      dhCont: new Date(dto.dhCont.toString()),
-      xJust: String(dto.xJust),
+      dhSaiEnt: String(dto.dhSaiEnt),
+      dhCont: String(dto.dhCont) || undefined,
+      xJust: String(dto.xJust) || undefined,
     });
   }
 }

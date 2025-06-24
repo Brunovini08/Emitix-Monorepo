@@ -4,6 +4,7 @@ export class Arma {
   public readonly descr: string
 
   constructor(data: {
+
     nSerie: string
     nCano: string
     descr: string

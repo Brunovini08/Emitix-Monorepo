@@ -8,16 +8,16 @@ Object.freeze(TorigEnum);
 export class ICMS61 {
   public readonly orig;
   public readonly CST;
-  public readonly qBCMonoRet;
-  public readonly adRemICMSRet;
-  public readonly vICMSMonoRet;
+  public readonly qBCMonoRet?;
+  public readonly adRemICMSRet?;
+  public readonly vICMSMonoRet?;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, qBCMonoRet?: string, adRemICMSRet?: string, vICMSMonoRet?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMonoRet = data.qBCMonoRet ?? null;
-    this.adRemICMSRet = data.adRemICMSRet ?? null;
-    this.vICMSMonoRet = data.vICMSMonoRet ?? null;
+    this.qBCMonoRet = data.qBCMonoRet ?? undefined;
+    this.adRemICMSRet = data.adRemICMSRet ?? undefined;
+    this.vICMSMonoRet = data.vICMSMonoRet ?? undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -38,15 +38,15 @@ export class ICMS61 {
       throw new Error('CST para ICMS61 deve ser obrigatoriamente "61".');
     }
 
-    if (this.qBCMonoRet !== null && (typeof this.qBCMonoRet !== 'number' || this.qBCMonoRet < 0)) {
+    if (this.qBCMonoRet !== undefined && (typeof this.qBCMonoRet !== 'string' || this.qBCMonoRet.trim() === '')) {
       throw new Error('Quantidade tributada retida anteriormente (qBCMonoRet) deve ser um número não negativo, se informada.');
     }
 
-    if (this.adRemICMSRet !== null && (typeof this.adRemICMSRet !== 'number' || this.adRemICMSRet < 0)) {
+    if (this.adRemICMSRet !== undefined && (typeof this.adRemICMSRet !== 'string' || this.adRemICMSRet.trim() === '')) {
       throw new Error('Alíquota ad rem do imposto retido anteriormente (adRemICMSRet) deve ser um número não negativo, se informada.');
     }
 
-    if (this.vICMSMonoRet !== null && (typeof this.vICMSMonoRet !== 'number' || this.vICMSMonoRet < 0)) {
+    if (this.vICMSMonoRet !== undefined && (typeof this.vICMSMonoRet !== 'string' || this.vICMSMonoRet.trim() === '')) {
       throw new Error('Valor do ICMS da operação retido anteriormente (vICMSMonoRet) deve ser um número não negativo, se informado.');
     }
   }
@@ -66,11 +66,13 @@ export class ICMS61 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      qBCMonoRet: this.qBCMonoRet,
-      adRemICMSRet: this.adRemICMSRet,
-      vICMSMonoRet: this.vICMSMonoRet,
+      ICMS61: {
+        orig: this.orig,
+        CST: this.CST,
+        qBCMonoRet: this.qBCMonoRet,
+        adRemICMSRet: this.adRemICMSRet,
+        vICMSMonoRet: this.vICMSMonoRet,
+      }
     };
   }
 }

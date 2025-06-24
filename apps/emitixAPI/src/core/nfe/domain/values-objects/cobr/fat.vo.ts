@@ -1,20 +1,22 @@
 export class fat {
 
-  nFat
-  vOrig
-  vDesc
-  vLiq
+  nFat: string
+  vOrig: string
+  vDesc: string
+  vLiq: string
 
   constructor(
-    nFat,
-    vOrig,
-    vDesc,
-    vLiq
-  ) {
-    this.nFat = nFat;
-    this.vOrig = vOrig;
-    this.vDesc = vDesc;
-    this.vLiq = vLiq;
+    data: {
+      nFat: string,
+      vOrig: string,
+      vDesc: string,
+      vLiq: string
+    }
+  ) { 
+    this.nFat = data.nFat;
+    this.vOrig = data.vOrig;
+    this.vDesc = data.vDesc;
+    this.vLiq = data.vLiq;
   }
 
   validateOrThrow() {

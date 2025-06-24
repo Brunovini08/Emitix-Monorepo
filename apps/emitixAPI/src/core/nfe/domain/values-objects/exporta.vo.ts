@@ -1,17 +1,19 @@
 export class exporta {
 
-  UFSaidaPais
-  xLocExporta
-  xLocDespacho
+  UFSaidaPais: string
+  xLocExporta: string
+  xLocDespacho: string
 
   constructor(
-    UFSaidaPais,
-    xLocExporta,
-    xLocDespacho = undefined
-  ) {
-    this.UFSaidaPais = UFSaidaPais;
-    this.xLocExporta = xLocExporta;
-    this.xLocDespacho = xLocDespacho;
+    data: {
+      UFSaidaPais: string,
+      xLocExporta: string,
+      xLocDespacho: string
+    }
+    ) {
+    this.UFSaidaPais = data.UFSaidaPais;
+    this.xLocExporta = data.xLocExporta;
+    this.xLocDespacho = data.xLocDespacho;
   }
 
   validateOrThrow() {

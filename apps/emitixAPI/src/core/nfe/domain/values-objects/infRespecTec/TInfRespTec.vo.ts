@@ -9,17 +9,19 @@ export class TInfRespTec {
   CSRT: CSRT
 
   constructor(
-    CNPJ,
-    xContato,
-    email,
-    fone,
-    CSRT
+     data: {
+      CNPJ: string,
+      xContato: string,
+      email: string,
+      fone: string,
+      CSRT: CSRT
+     }
   ) {
-    this.CNPJ = CNPJ;
-    this.xContato = xContato;
-    this.email = email;
-    this.fone = fone;
-    this.CSRT = CSRT;
+    this.CNPJ = data.CNPJ;
+    this.xContato = data.xContato;
+    this.email = data.email;
+    this.fone = data.fone;
+    this.CSRT = data.CSRT;
   }
 
   validateOrThrow() {

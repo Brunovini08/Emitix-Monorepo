@@ -46,13 +46,15 @@ export class TLocalVO {
 
   toJSON() {
     return {
-      xLgr: this.xLgr,
-      nro: this.nro,
-      xCpl: this.xCpl,
-      xBairro: this.xBairro,
-      cMun: this.cMun,
-      xMun: this.xMun,
-      UF: this.UF,
+      entrega: {
+        xLgr: this.xLgr,
+        nro: this.nro,
+        xCpl: this.xCpl,
+        xBairro: this.xBairro,
+        cMun: this.cMun,
+        xMun: this.xMun,
+        UF: this.UF,
+      }
     };
   }
 }

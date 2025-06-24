@@ -5,7 +5,10 @@ export class ObsItem {
   public readonly obsCont: ObsContent;
   public readonly obsFisco: ObsFisco;
 
-  constructor(data) {
+  constructor(data: {
+    obsCont,
+    obsFisco
+  }) {
     this.obsCont = data.obsCont 
     this.obsFisco = data.obsFisco 
 

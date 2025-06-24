@@ -1,7 +1,7 @@
 export class COFINSNT {
   public readonly CST;
 
-  constructor(data) {
+  constructor(data: { CST: string }) {
     this.CST = data.CST;
 
     this.validateOrThrow();

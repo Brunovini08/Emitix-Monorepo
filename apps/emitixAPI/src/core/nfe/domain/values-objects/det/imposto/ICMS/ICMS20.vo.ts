@@ -13,14 +13,14 @@ export class ICMS20 {
   public readonly vBC;
   public readonly pICMS;
   public readonly vICMS;
-  public readonly vBCFCP;
-  public readonly pFCP;
-  public readonly vFCP;
-  public readonly vICMSDeson;
-  public readonly motDesICMS;
-  public readonly indDeduzDeson;
+  public readonly vBCFCP?: string;
+  public readonly pFCP?: string;
+  public readonly vFCP?: string;
+  public readonly vICMSDeson?: string;
+  public readonly motDesICMS?: string;
+  public readonly indDeduzDeson?: string;
 
-  constructor(data) {
+  constructor(data: { orig: string, CST: string, modBC: string, pRedBC: string, vBC: string, pICMS: string, vICMS: string, vBCFCP?: string, pFCP?: string, vFCP?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;
@@ -28,12 +28,12 @@ export class ICMS20 {
     this.vBC = data.vBC;
     this.pICMS = data.pICMS;
     this.vICMS = data.vICMS;
-    this.vBCFCP = data.vBCFCP ?? null;
-    this.pFCP = data.pFCP ?? null;
-    this.vFCP = data.vFCP ?? null;
-    this.vICMSDeson = data.vICMSDeson ?? null;
-    this.motDesICMS = data.motDesICMS ?? null;
-    this.indDeduzDeson = data.indDeduzDeson ?? null;
+    this.vBCFCP = data.vBCFCP ?? undefined;
+    this.pFCP = data.pFCP ?? undefined;
+    this.vFCP = data.vFCP ?? undefined;
+    this.vICMSDeson = data.vICMSDeson ?? undefined;
+    this.motDesICMS = data.motDesICMS ?? undefined;
+    this.indDeduzDeson = data.indDeduzDeson ?? undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -62,45 +62,45 @@ export class ICMS20 {
       `);
     }
 
-    if (typeof this.pRedBC !== 'number' || this.pRedBC < 0 || this.pRedBC > 100) {
+    if (typeof this.pRedBC !== 'string' || this.pRedBC.trim() === '') {
       throw new Error('Percentual de redução da BC (pRedBC) é obrigatório e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vBC !== 'number' || this.vBC < 0) {
+    if (typeof this.vBC !== 'string' || this.vBC.trim() === '') {
       throw new Error('Valor da BC do ICMS (vBC) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMS !== 'number' || this.pICMS < 0 || this.pICMS > 100) {
+    if (typeof this.pICMS !== 'string' || this.pICMS.trim() === '') {
       throw new Error('Alíquota do ICMS (pICMS) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMS !== 'number' || this.vICMS < 0) {
+    if (typeof this.vICMS !== 'string' || this.vICMS.trim() === '') {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCP !== null && (typeof this.vBCFCP !== 'number' || this.vBCFCP < 0)) {
+    if (this.vBCFCP !== null && (typeof this.vBCFCP !== 'string' || this.vBCFCP.trim() === '')) {
       throw new Error('Valor da Base de cálculo do FCP (vBCFCP) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCP !== null && (typeof this.pFCP !== 'number' || this.pFCP < 0 || this.pFCP > 100)) {
+    if (this.pFCP !== null && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
       throw new Error('Percentual de ICMS relativo ao Fundo de Combate à Pobreza (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCP !== null && (typeof this.vFCP !== 'number' || this.vFCP < 0)) {
+    if (this.vFCP !== null && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
       throw new Error('Valor do ICMS relativo ao Fundo de Combate à Pobreza (vFCP) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'number' || this.vICMSDeson < 0)) {
+    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS de desoneração (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
     const allowedMotDesICMS = ['3', '9', '12'];
-    if (this.motDesICMS !== null && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
+    if (this.motDesICMS !== undefined && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
         throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser '3', '9' ou '12', se informado.`);
     }
     
     const allowedIndDeduzDeson = ['0', '1'];
-    if (this.indDeduzDeson !== null && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
+    if (this.indDeduzDeson !==  undefined && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
         throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
     }
   }
@@ -128,19 +128,21 @@ export class ICMS20 {
 
   public toJSON() {
     return {
-      orig: this.orig,
-      CST: this.CST,
-      modBC: this.modBC,
-      pRedBC: this.pRedBC,
-      vBC: this.vBC,
-      pICMS: this.pICMS,
-      vICMS: this.vICMS,
-      vBCFCP: this.vBCFCP,
-      pFCP: this.pFCP,
-      vFCP: this.vFCP,
-      vICMSDeson: this.vICMSDeson,
-      motDesICMS: this.motDesICMS,
-      indDeduzDeson: this.indDeduzDeson,
+      ICMS20: {
+        orig: this.orig,
+        CST: this.CST,
+        modBC: this.modBC,
+        pRedBC: this.pRedBC,
+        vBC: this.vBC,
+        pICMS: this.pICMS,
+        vICMS: this.vICMS,
+        vBCFCP: this.vBCFCP,
+        pFCP: this.pFCP,
+        vFCP: this.vFCP,
+        vICMSDeson: this.vICMSDeson,
+        motDesICMS: this.motDesICMS,
+        indDeduzDeson: this.indDeduzDeson,
+      }
     };
   }
 }
