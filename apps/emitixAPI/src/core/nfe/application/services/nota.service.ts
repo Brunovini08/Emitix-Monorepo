@@ -82,6 +82,9 @@ export class NotaService {
       if (String(createNfeDto.NFe.infNFe.emit.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
       const nfe = NFeMapper.fromDto(createNfeDto)
       const nfeJson = nfe.toJSON()
+      console.log({
+        NFEJSON: nfeJson.NFe,
+      })
       const xml = await this.nfeEmitirUseCase.execute(nfe)
       const sign = await this.signedXmlUtil.signXml(xml, file, certPassword, nfeJson.nfeChaveAcesso, 'infNFe')
       const result = await validateXmlXsd(sign, 0)

@@ -10,9 +10,9 @@ export class DetMapper {
     return new Det({
       prod: ProdMapper.fromDto(dto.prod),
       imposto: ImpostosMapper.fromDto(dto.imposto),
-      impostoDevol: ImpostoDevolMapper.fromDto(dto.impostoDevol),
-      infAdProd: String(dto.infAdProd),
-      obsItem: ObsItemMapper.fromDto(dto.obsItem),
+      impostoDevol: dto.impostoDevol ? ImpostoDevolMapper.fromDto(dto.impostoDevol) : undefined,
+      infAdProd: dto.infAdProd ? String(dto.infAdProd) : undefined,
+      obsItem: dto.obsItem ? ObsItemMapper.fromDto(dto.obsItem) : undefined,
     });
   }
 }

@@ -1,31 +1,31 @@
 export class transporta {
 
-  CNPJ
-  CPF
-  xNome
-  IE
-  xEnder
-  xMun
-  UF
+  CNPJ?
+  CPF?
+  xNome?
+  IE?
+  xEnder?
+  xMun?
+  UF?
 
   constructor(
     data: {
-      CNPJ,
-      CPF,
-      xNome,
-      IE,
-      xEnder,
-      xMun,
-      UF
+      CNPJ?,
+      CPF?,
+      xNome?,
+      IE?,
+      xEnder?,
+      xMun?,
+      UF?
     }
   ) {
-    this.CNPJ = data.CNPJ;
-    this.CPF = data.CPF;
-    this.xNome = data.xNome;
-    this.IE = data.IE;
-    this.xEnder = data.xEnder;
-    this.xMun = data.xMun;
-    this.UF = data.UF;
+    this.CNPJ = data.CNPJ || undefined;
+    this.CPF = data.CPF || undefined;
+    this.xNome = data.xNome || undefined;
+    this.IE = data.IE || undefined;
+    this.xEnder = data.xEnder || undefined;
+    this.xMun = data.xMun || undefined;
+    this.UF = data.UF || undefined;
   }
 
   validateOrThrow() {
@@ -48,7 +48,7 @@ export class transporta {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       CNPJ: this.CNPJ,
       CPF: this.CPF,

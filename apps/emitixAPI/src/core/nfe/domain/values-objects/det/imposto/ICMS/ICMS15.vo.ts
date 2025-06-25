@@ -8,14 +8,14 @@ Object.freeze(TorigEnum);
 export class ICMS15 {
   public readonly orig;
   public readonly CST;
-  public readonly qBCMono?: string;
+  public readonly qBCMono?: string | undefined;
   public readonly adRemICMS;
   public readonly vICMSMono;
   public readonly qBCMonoReten;
   public readonly adRemICMSReten;
   public readonly vICMSMonoReten;
-  public readonly pRedAdRem?: string;
-  public readonly motRedAdRem?: string;
+  public readonly pRedAdRem?: string | undefined;
+  public readonly motRedAdRem?: string | undefined;
 
   constructor(data: { orig: string, CST: string, qBCMono?: string, adRemICMS: string, vICMSMono: string, qBCMonoReten?: string, adRemICMSReten?: string, vICMSMonoReten?: string, pRedAdRem?: string, motRedAdRem?: string }) {
     this.orig = data.orig;
@@ -45,7 +45,7 @@ export class ICMS15 {
       throw new Error('CST para ICMS15 deve ser obrigatoriamente "15".');
     }
 
-    if (this.qBCMono !== null && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
+    if (this.qBCMono !== undefined && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
       throw new Error('Quantidade tributada (qBCMono) deve ser um número não negativo, se informada.');
     }
 
@@ -57,19 +57,19 @@ export class ICMS15 {
       throw new Error('Valor do ICMS próprio (vICMSMono) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.qBCMonoReten !== null && (typeof this.qBCMonoReten !== 'string' || this.qBCMonoReten.trim() === '')) {
+    if (this.qBCMonoReten !== undefined && (typeof this.qBCMonoReten !== 'string' || this.qBCMonoReten.trim() === '')) {
       throw new Error('Quantidade tributada sujeita a retenção (qBCMonoReten) deve ser um número não negativo, se informada.');
     }
 
-    if (this.adRemICMSReten !== null && (typeof this.adRemICMSReten !== 'string' || this.adRemICMSReten.trim() === '')) {
+    if (this.adRemICMSReten !== undefined && (typeof this.adRemICMSReten !== 'string' || this.adRemICMSReten.trim() === '')) {
       throw new Error('Alíquota ad rem do imposto com retenção (adRemICMSReten) deve ser um número positivo, se informada.');
     }
 
-    if (this.vICMSMonoReten !== null && (typeof this.vICMSMonoReten !== 'string' || this.vICMSMonoReten.trim() === '')) {
+    if (this.vICMSMonoReten !== undefined && (typeof this.vICMSMonoReten !== 'string' || this.vICMSMonoReten.trim() === '')) {
       throw new Error('Valor do ICMS com retenção (vICMSMonoReten) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pRedAdRem !== null && (typeof this.pRedAdRem !== 'string' || this.pRedAdRem.trim() === '')) {
+    if (this.pRedAdRem !== undefined && (typeof this.pRedAdRem !== 'string' || this.pRedAdRem.trim() === '')) { 
       throw new Error('Percentual de redução do valor da alíquota ad rem do ICMS (pRedAdRem) deve ser um número entre 0 e 100, se informado.');
     }
 
@@ -102,14 +102,14 @@ export class ICMS15 {
       ICMS15: {
         orig: this.orig,
         CST: this.CST,
-        qBCMono: this.qBCMono,
+        qBCMono: this.qBCMono || undefined,
         adRemICMS: this.adRemICMS,
         vICMSMono: this.vICMSMono,
         qBCMonoReten: this.qBCMonoReten,
         adRemICMSReten: this.adRemICMSReten,
         vICMSMonoReten: this.vICMSMonoReten,
-        pRedAdRem: this.pRedAdRem,
-        motRedAdRem: this.motRedAdRem,
+        pRedAdRem: this.pRedAdRem || undefined,
+        motRedAdRem: this.motRedAdRem || undefined,
       }
     };
   }

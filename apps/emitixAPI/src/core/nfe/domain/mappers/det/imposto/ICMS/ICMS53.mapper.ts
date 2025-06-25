@@ -8,7 +8,7 @@ export class ICMS53Mapper {
       CST: dto.CST,
       adRemICMS: String(dto.adRemICMS),
       vICMSMonoOp: String(dto.vICMSMonoOp),
-      pDof: String(dto.pDof),
+      pDif: String(dto.pDif),
       vICMSMonoDif: String(dto.vICMSMonoDif),
       vICMSMono: String(dto.vICMSMono),
       qBCMonoDif: String(dto.qBCMonoDif),

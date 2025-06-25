@@ -51,7 +51,7 @@ export class ICMS53Dto {
 
   @IsOptional()
   @Type(() => TDec_0302a04Max100)
-  pDof: TDec_0302a04Max100; // Percentual do diferemento
+  pDif: TDec_0302a04Max100; // Percentual do diferemento
 
   @IsOptional()
   @Type(() => TDec_1302)

@@ -5,7 +5,6 @@ export class IdeMapper {
   static fromDto(dto: ideDto): Ide {
     return new Ide({
       cUF: String(dto.cUF),
-      cNF: String(dto.cNF),
       natOp: String(dto.natOp),
       mod: String(dto.mod),
       serie: String(dto.serie),
@@ -22,9 +21,9 @@ export class IdeMapper {
       indPres: String(dto.indPres),
       procEmi: String(dto.procEmi),
       verProc: String(dto.verProc),
-      dhSaiEnt: String(dto.dhSaiEnt),
-      dhCont: String(dto.dhCont) || undefined,
-      xJust: String(dto.xJust) || undefined,
+      dhSaiEnt: dto.dhSaiEnt ? String(dto.dhSaiEnt) : undefined,
+      dhCont: dto.dhCont ? String(dto.dhCont) : undefined,
+      xJust: dto.xJust ? String(dto.xJust) : undefined,
     });
   }
 }

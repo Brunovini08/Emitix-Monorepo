@@ -87,23 +87,27 @@ export class NFe {
     this.infRespTec = data.infRespTec
     this.infSolicNFF = data.infSolicNFF
     this.agropecuario = data.agropecuario
-    console.log({
-      avulsa: this.avulsa,
-    })
-    this.chaveAcesso = this.nfeChaveAcesso({
+    
+    // Gerar chave parcial primeiro
+    const chaveParcial = this.gerarChaveParcial({
       cUF: String(this.ide.cUF),
       cnpj: String(this.emit.CNPJ),
       modelo: String(this.ide.mod),
       serie: String(this.ide.serie),
       nNF: String(this.ide.nNF),
-      cNF: this.cnf,
+      cNF: String(this.ide.cNF),
       tpEmis: String(this.ide.tpEmis),
       dhEmi: String(this.ide.dhEmi),
-    })
-    this.nfeDV = this.nfeCalcDigitoVerificador(String(this.nfeChaveAcesso))
+    });
+    
+    // Calcular dígito verificador
+    this.nfeDV = this.nfeCalcDigitoVerificador(chaveParcial);
+    
+    // Gerar chave completa
+    this.chaveAcesso = chaveParcial + this.nfeDV;
   }
 
-  private nfeChaveAcesso({
+  private gerarChaveParcial({
     cUF,
     cnpj,
     modelo,
@@ -117,14 +121,9 @@ export class NFe {
     const AAMM =
       emissionDate.getFullYear().toString().slice(-2) +
       (emissionDate.getMonth() + 1).toString().padStart(2, '0');
-
     const nNFFormat = String(nNF).padStart(9, '0')
 
-    const chaveParcial = cUF + AAMM + cnpj + modelo + serie + nNFFormat + tpEmis + cNF;
-    const cDV = this.nfeCalcDigitoVerificador(chaveParcial);
-    const chave: string = chaveParcial + cDV;
-
-    return chave;
+    return cUF + AAMM + cnpj + modelo + serie + nNFFormat + tpEmis + cNF;
   }
 
   private nfeCalcDigitoVerificador(chave: string): string {
@@ -146,14 +145,31 @@ export class NFe {
     }
   }
 
-  private nfeCNF() {
-    this.cnf = Math.floor(Math.random() * 90000000 + 10000000).toString();
+  private cleanObject(obj: any): any {
+    if (Array.isArray(obj)) {
+      return obj
+        .map((item) => this.cleanObject(item))
+        .filter((item) => item !== null && item !== undefined);
+    } else if (obj !== null && typeof obj === 'object') {
+      const cleanedObj: any = {};
+      for (const key in obj) {
+        const cleanedValue = this.cleanObject(obj[key]);
+        if (
+          cleanedValue !== null &&
+          cleanedValue !== undefined 
+        ) {
+          cleanedObj[key] = cleanedValue;
+        }
+      }
+      return Object.keys(cleanedObj).length > 0 ? cleanedObj : undefined;
+    }
+    return obj;
   }
+  
 
   public toJSON() {
-    return {
+    const nfe = {
       NFe: {
-        chaveAcesso: this.nfeChaveAcesso,
         ide: this.ide,
         emit: this.emit,
         avulsa: this.avulsa,
@@ -175,6 +191,13 @@ export class NFe {
         infSolicNFF: this.infSolicNFF,
         agropecuario: this.agropecuario,
       },
+      nfeCNF: this.cnf,
+      nfeChaveAcesso: this.chaveAcesso,
+      nfeDV: this.nfeDV,
+      versao: '4.00',
+    }
+    return {
+      NFe: this.cleanObject(nfe.NFe),
       nfeCNF: this.cnf,
       nfeChaveAcesso: this.chaveAcesso,
       nfeDV: this.nfeDV,

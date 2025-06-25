@@ -8,16 +8,16 @@ Object.freeze(TorigEnum);
 export class ICMS61 {
   public readonly orig;
   public readonly CST;
-  public readonly qBCMonoRet?;
-  public readonly adRemICMSRet?;
-  public readonly vICMSMonoRet?;
+  public readonly qBCMonoRet?: string | undefined;
+  public readonly adRemICMSRet;
+  public readonly vICMSMonoRet;
 
-  constructor(data: { orig: string, CST: string, qBCMonoRet?: string, adRemICMSRet?: string, vICMSMonoRet?: string }) {
+  constructor(data: { orig: string, CST: string, qBCMonoRet?: string, adRemICMSRet: string, vICMSMonoRet: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMonoRet = data.qBCMonoRet ?? undefined;
-    this.adRemICMSRet = data.adRemICMSRet ?? undefined;
-    this.vICMSMonoRet = data.vICMSMonoRet ?? undefined;
+    this.qBCMonoRet = data.qBCMonoRet;
+    this.adRemICMSRet = data.adRemICMSRet;
+    this.vICMSMonoRet = data.vICMSMonoRet;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -69,7 +69,7 @@ export class ICMS61 {
       ICMS61: {
         orig: this.orig,
         CST: this.CST,
-        qBCMonoRet: this.qBCMonoRet,
+        qBCMonoRet: this.qBCMonoRet || undefined,
         adRemICMSRet: this.adRemICMSRet,
         vICMSMonoRet: this.vICMSMonoRet,
       }

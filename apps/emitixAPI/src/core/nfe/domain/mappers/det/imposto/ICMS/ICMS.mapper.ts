@@ -54,14 +54,11 @@ export class ICMSMapper {
 
       if (dto[dtoKey as keyof ICMSDto]) {
         icmsVo = (mapper as any).fromDto(dto[dtoKey as keyof ICMSDto]);
-        console.log({
-          ICMSMAPPER: icmsVo?.toJSON()
-        })
         if (!icmsVo) {
           throw new Error("Não foi possível mapear o DTO para o Value Object ICMS.");
         }
       }
     }
-    return new ICMS(icmsVo);
+    return new ICMS([icmsVo]);
   }
 }

@@ -5,21 +5,21 @@ import type { PISOutr } from "./pisOutr.vo";
 import type { PISQtde } from "./pisQtde.vo";
 
 export class PIS {
-  public readonly PISAliq: PISAliq;
-  public readonly PISQtde: PISQtde;
-  public readonly PISNT: PISNT;
-  public readonly PISOutr: PISOutr;
+  public readonly PISAliq?: PISAliq;
+  public readonly PISQtde?: PISQtde;
+  public readonly PISNT?: PISNT;
+  public readonly PISOutr?: PISOutr;
 
   constructor(data: {
-    PISAliq: PISAliq
-    PISQtde: PISQtde
-    PISNT: PISNT
-    PISOutr: PISOutr
+    PISAliq?: PISAliq
+    PISQtde?: PISQtde
+    PISNT?: PISNT
+    PISOutr?: PISOutr
   }) {
-    this.PISAliq = data.PISAliq 
-    this.PISQtde = data.PISQtde 
-    this.PISNT = data.PISNT 
-    this.PISOutr = data.PISOutr 
+    this.PISAliq = data.PISAliq || undefined
+    this.PISQtde = data.PISQtde || undefined
+    this.PISNT = data.PISNT || undefined
+    this.PISOutr = data.PISOutr || undefined
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -72,10 +72,10 @@ export class PIS {
 
   public toJSON() {
     return {
-      PISAliq: this.PISAliq ? this.PISAliq.toJSON() : null,
-      PISQtde: this.PISQtde ? this.PISQtde.toJSON() : null,
-      PISNT: this.PISNT ? this.PISNT.toJSON() : null,
-      PISOutr: this.PISOutr ? this.PISOutr.toJSON() : null,
+      PISAliq: this.PISAliq ? this.PISAliq.toJSON() : undefined,
+      PISQtde: this.PISQtde ? this.PISQtde.toJSON() : undefined,
+      PISNT: this.PISNT ? this.PISNT.toJSON() : undefined,
+      PISOutr: this.PISOutr ? this.PISOutr.toJSON() : undefined,
     };
   }
 }

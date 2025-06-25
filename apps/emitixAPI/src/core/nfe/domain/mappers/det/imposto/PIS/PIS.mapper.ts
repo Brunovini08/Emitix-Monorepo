@@ -8,10 +8,10 @@ import { PISOutrMapper } from "./PISOutr.mapper";
 export class PISMapper {
   static fromDto(dto: pisDto): PIS {
     return new PIS({
-      PISAliq: PISAliqMapper.fromDto(dto.PISAliq),
-      PISQtde: PISQtdeMapper.fromDto(dto.PISQtde),
-      PISNT: PISNTMapper.fromDto(dto.PISNT),
-      PISOutr: PISOutrMapper.fromDto(dto.PISOutr),
+      PISAliq: dto.PISAliq ? PISAliqMapper.fromDto(dto.PISAliq) : undefined,
+      PISQtde: dto.PISQtde ? PISQtdeMapper.fromDto(dto.PISQtde) : undefined,
+      PISNT: dto.PISNT ? PISNTMapper.fromDto(dto.PISNT) : undefined,
+      PISOutr: dto.PISOutr ? PISOutrMapper.fromDto(dto.PISOutr) : undefined,
     });
   }
 }

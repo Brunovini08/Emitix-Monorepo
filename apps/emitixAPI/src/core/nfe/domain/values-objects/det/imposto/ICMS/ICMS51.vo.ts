@@ -8,22 +8,23 @@ Object.freeze(TorigEnum);
 export class ICMS51 {
   public readonly orig;
   public readonly CST;
-  public readonly modBC?;
-  public readonly pRedBC?;
-  public readonly cBenefRBC?;
-  public readonly vBC?;
-  public readonly pICMS?;
-  public readonly vICMSp?;
-  public readonly pDif?;
-  public readonly vICMSDif?;
-  public readonly vICMS?;
-  public readonly vBCFCP?;
-  public readonly vFCP?;
-  public readonly pFCPDif?;
-  public readonly vFCPDif?;
-  public readonly vFCPEfet?;
+  public readonly modBC?: string | undefined;
+  public readonly pRedBC?: string | undefined ;
+  public readonly cBenefRBC?: string | undefined;
+  public readonly vBC?: string | undefined;
+  public readonly pICMS?: string | undefined;
+  public readonly vICMSOp?: string | undefined;
+  public readonly pDif?: string | undefined;
+  public readonly vICMSDif?: string | undefined;
+  public readonly vICMS?: string | undefined;
+  public readonly vBCFCP?: string | undefined;
+  public readonly pFCP?: string | undefined;
+  public readonly vFCP?: string | undefined;
+  public readonly pFCPDif?: string | undefined;
+  public readonly vFCPDif?: string | undefined;
+  public readonly vFCPEfet?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBC?: string, pRedBC?: string, cBenefRBC?: string, vBC?: string, pICMS?: string, vICMSp?: string, pDif?: string, vICMSDif?: string, vICMS?: string, vBCFCP?: string, vFCP?: string, pFCPDif?: string, vFCPDif?: string, vFCPEfet?: string }) {
+  constructor(data: { orig: string, CST: string, pFCP?: string, modBC?: string, pRedBC?: string, cBenefRBC?: string, vBC?: string, pICMS?: string, vICMSOp?: string, pDif?: string, vICMSDif?: string, vICMS?: string, vBCFCP?: string, vFCP?: string, pFCPDif?: string, vFCPDif?: string, vFCPEfet?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC ?? undefined;
@@ -31,11 +32,12 @@ export class ICMS51 {
     this.cBenefRBC = data.cBenefRBC ?? undefined;
     this.vBC = data.vBC ?? undefined;
     this.pICMS = data.pICMS ?? undefined;
-    this.vICMSp = data.vICMSp ?? undefined;
+    this.vICMSOp = data.vICMSOp ?? undefined;
     this.pDif = data.pDif ?? undefined;
     this.vICMSDif = data.vICMSDif ?? undefined;
     this.vICMS = data.vICMS ?? undefined;
     this.vBCFCP = data.vBCFCP ?? undefined;
+    this.pFCP = data.pFCP ?? undefined;
     this.vFCP = data.vFCP ?? undefined;
     this.pFCPDif = data.pFCPDif ?? undefined;
     this.vFCPDif = data.vFCPDif ?? undefined;
@@ -78,8 +80,8 @@ export class ICMS51 {
       throw new Error('Alíquota do ICMS (pICMS) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vICMSp !== undefined && (typeof this.vICMSp !== 'string' || this.vICMSp.trim() === '')) {
-      throw new Error('Valor do ICMS da operação própria (vICMSp) deve ser um número não negativo, se informado.');
+    if (this.vICMSOp !== undefined && (typeof this.vICMSOp !== 'string' || this.vICMSOp.trim() === '')) {
+      throw new Error('Valor do ICMS da operação própria (vICMSOp) deve ser um número não negativo, se informado.');
     }
 
     if (this.pDif !== undefined && (typeof this.pDif !== 'string' || this.pDif.trim() === '')) {
@@ -127,7 +129,7 @@ export class ICMS51 {
       this.cBenefRBC === other.cBenefRBC &&
       this.vBC === other.vBC &&
       this.pICMS === other.pICMS &&
-      this.vICMSp === other.vICMSp &&
+      this.vICMSOp === other.vICMSOp &&
       this.pDif === other.pDif &&
       this.vICMSDif === other.vICMSDif &&
       this.vICMS === other.vICMS &&
@@ -149,11 +151,12 @@ export class ICMS51 {
         cBenefRBC: this.cBenefRBC,
         vBC: this.vBC,
         pICMS: this.pICMS,
-        vICMSp: this.vICMSp,
+        vICMSOp: this.vICMSOp,
         pDif: this.pDif,
         vICMSDif: this.vICMSDif,
         vICMS: this.vICMS,
         vBCFCP: this.vBCFCP,
+        pFCP: this.pFCP,
         vFCP: this.vFCP,
         pFCPDif: this.pFCPDif,
         vFCPDif: this.vFCPDif,

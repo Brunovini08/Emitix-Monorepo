@@ -8,16 +8,16 @@ Object.freeze(TorigEnum);
 export class ICMS40 {
   public readonly orig;
   public readonly CST;
-  public readonly vICMSDeson?: string;
-  public readonly motDesICMS?: string;
-  public readonly indDeduzDeson?: string;
+  public readonly vICMSDeson?: string | undefined;
+  public readonly motDesICMS?: string | undefined;
+  public readonly indDeduzDeson?: string | undefined;
 
   constructor(data: { orig: string, CST: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.vICMSDeson = data.vICMSDeson ?? undefined;
-    this.motDesICMS = data.motDesICMS ?? undefined;
-    this.indDeduzDeson = data.indDeduzDeson ?? undefined;
+    this.vICMSDeson = data.vICMSDeson;
+    this.motDesICMS = data.motDesICMS;
+    this.indDeduzDeson = data.indDeduzDeson;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -39,7 +39,7 @@ export class ICMS40 {
       `);
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
+    if (this.vICMSDeson !== undefined && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -72,9 +72,9 @@ export class ICMS40 {
       ICMS40: {
         orig: this.orig,
         CST: this.CST,
-        vICMSDeson: this.vICMSDeson,
-        motDesICMS: this.motDesICMS,
-        indDeduzDeson: this.indDeduzDeson,
+        vICMSDeson: this.vICMSDeson || undefined,
+        motDesICMS: this.motDesICMS || undefined,
+        indDeduzDeson: this.indDeduzDeson || undefined,
       }
     };
   }

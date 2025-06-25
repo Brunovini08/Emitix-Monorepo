@@ -63,7 +63,7 @@ export class ICMS51Dto {
 
   @IsOptional()
   @Type(() => TDec_1302)
-  vICMSp: TDec_1302;
+  vICMSOp: TDec_1302;
 
   @IsOptional()
   @Type(() => TDec_0302a04Max100)

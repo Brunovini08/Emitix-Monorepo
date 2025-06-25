@@ -49,7 +49,7 @@ export class retTransp {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       vServ: this.vServ,
       vBCRet: this.vBCRet,

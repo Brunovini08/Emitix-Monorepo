@@ -33,7 +33,7 @@ export class SefazXmlBuilderService {
     this.nfeDanfeBuilder = nfeDanfeBuilder
   }
 
-  async buildNFeEnvio(data: NFe, cNF: string, cDV: string, chave: string) {
+  async buildNFeEnvio(data, cNF: string, cDV: string, chave: string) {
     return this.nfeEnvioBuilder.buildXML(data, cNF, cDV, chave)
   }
 

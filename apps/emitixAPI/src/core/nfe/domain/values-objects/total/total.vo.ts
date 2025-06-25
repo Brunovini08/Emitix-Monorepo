@@ -4,19 +4,19 @@ import type { retTrib } from "./retTrib.vo";
 
 export class Total {
   ICMSTot: ICMSTot;
-  ISSQNtot: ISSQNTot;
-  retTrib: retTrib;
+  ISSQNtot?: ISSQNTot;
+  retTrib?: retTrib;
 
   constructor(
     data: {
       ICMSTot: ICMSTot;
-      ISSQNtot: ISSQNTot;
-      retTrib: retTrib;
+      ISSQNtot?: ISSQNTot;
+      retTrib?: retTrib;
     }
   ) {
     this.ICMSTot = data.ICMSTot;
-    this.ISSQNtot = data.ISSQNtot;
-    this.retTrib = data.retTrib;
+    this.ISSQNtot = data.ISSQNtot || undefined;
+    this.retTrib = data.retTrib || undefined;
   }
 
   validateOrThrow() {
@@ -35,11 +35,11 @@ export class Total {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       ICMSTot: this.ICMSTot.toJson(),
-      ISSQNtot: this.ISSQNtot.toJson(),
-      retTrib: this.retTrib.toJson(),
+      ISSQNtot: this.ISSQNtot ? this.ISSQNtot.toJSON() : undefined,
+      retTrib: this.retTrib ? this.retTrib.toJSON() : undefined,
     };
   }
 }

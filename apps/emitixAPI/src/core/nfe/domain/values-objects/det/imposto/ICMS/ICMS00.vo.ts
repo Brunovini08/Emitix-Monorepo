@@ -64,11 +64,11 @@ export class ICMS00 {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.pFCP !== null && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
+    if (this.pFCP !== undefined && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
       throw new Error('Alíquota do FCP (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCP !== null && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
+    if (this.vFCP !== undefined && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
       throw new Error('Valor do FCP (vFCP) deve ser um número não negativo, se informado.');
     }
   }
@@ -98,8 +98,8 @@ export class ICMS00 {
         vBC: this.vBC,
         pICMS: this.pICMS,
         vICMS: this.vICMS,
-        pFCP: this.pFCP,
-        vFCP: this.vFCP,
+        pFCP: this.pFCP || undefined,
+        vFCP: this.vFCP || undefined,
       }
     };
   }

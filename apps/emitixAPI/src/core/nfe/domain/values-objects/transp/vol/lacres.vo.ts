@@ -20,7 +20,7 @@ export class lacres {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       nLacre: this.nLacre,
     };

@@ -4,16 +4,16 @@ import type { COFINSOutr } from "./cofinsOutr/cofinsOutr.vo";
 import type { COFINSQtde } from "./cofinsQtde.vo";
 
 export class COFINS {
-  public readonly COFINSAliq: COFINSAliq;
-  public readonly COFINSQtde: COFINSQtde;
-  public readonly COFINSNT: COFINSNT;
-  public readonly COFINSOutr: COFINSOutr;
+  public readonly COFINSAliq?: COFINSAliq;
+  public readonly COFINSQtde?: COFINSQtde;
+  public readonly COFINSNT?: COFINSNT;
+  public readonly COFINSOutr?: COFINSOutr;
 
-  constructor(data: { COFINSAliq: COFINSAliq, COFINSQtde: COFINSQtde, COFINSNT: COFINSNT, COFINSOutr: COFINSOutr }) {
-    this.COFINSAliq = data.COFINSAliq 
-    this.COFINSQtde = data.COFINSQtde 
-    this.COFINSNT = data.COFINSNT 
-    this.COFINSOutr = data.COFINSOutr 
+  constructor(data: { COFINSAliq?: COFINSAliq, COFINSQtde?: COFINSQtde, COFINSNT?: COFINSNT, COFINSOutr?: COFINSOutr }) {
+    this.COFINSAliq = data.COFINSAliq || undefined
+    this.COFINSQtde = data.COFINSQtde || undefined
+    this.COFINSNT = data.COFINSNT || undefined
+    this.COFINSOutr = data.COFINSOutr || undefined
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -66,10 +66,10 @@ export class COFINS {
 
   public toJSON() {
     return {
-      COFINSAliq: this.COFINSAliq ? this.COFINSAliq.toJSON() : null,
-      COFINSQtde: this.COFINSQtde ? this.COFINSQtde.toJSON() : null,
-      COFINSNT: this.COFINSNT ? this.COFINSNT.toJSON() : null,
-      COFINSOutr: this.COFINSOutr ? this.COFINSOutr.toJSON() : null,
+      COFINSAliq: this.COFINSAliq ? this.COFINSAliq.toJSON() : undefined,
+      COFINSQtde: this.COFINSQtde ? this.COFINSQtde.toJSON() : undefined,
+      COFINSNT: this.COFINSNT ? this.COFINSNT.toJSON() : undefined,
+      COFINSOutr: this.COFINSOutr ? this.COFINSOutr.toJSON() : undefined,
     };
   }
 }

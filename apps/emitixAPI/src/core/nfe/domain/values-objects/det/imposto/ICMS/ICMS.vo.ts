@@ -60,20 +60,17 @@ export class ICMS {
   // Propriedade privada para armazenar o valor do ICMS
   private readonly _value: any;
 
-  constructor(data: Partial<ICMSValues>) {
+  constructor(data: Partial<ICMSValues>[]) {
     this.validateOrThrow(data);
     
     // Armazena o tipo e o valor após validação
     this._type = Object.keys(data)[0] as ICMSType;
-    console.log({
-      TIPO_ICMS: this._type
-    })
+    
     this._value = data[this._type];
   }
 
-  public validateOrThrow(data: Partial<ICMSValues>): void {
-    const definedTypes = Object.keys(data).filter(key => data[key as keyof ICMSValues] !== undefined);
-    
+  public validateOrThrow(data: Partial<ICMSValues>[]): void {
+    const definedTypes = Object.values(data)
     if (definedTypes.length === 0) {
       throw new Error('Pelo menos um tipo de ICMS deve ser definido.');
     }

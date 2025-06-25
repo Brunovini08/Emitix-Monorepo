@@ -12,7 +12,7 @@ export class NfeEmitirUseCase {
 
   async execute(data: NFe): Promise<string> {
     const nfe = data.toJSON()
-    const xml = await this.nfeXmlBuilder.buildNFeEnvio(data, nfe.nfeCNF, nfe.nfeDV, nfe.nfeChaveAcesso)
+    const xml = await this.nfeXmlBuilder.buildNFeEnvio(nfe.NFe, nfe.nfeCNF, nfe.nfeDV, nfe.nfeChaveAcesso)
     return xml.xml
   }
 }

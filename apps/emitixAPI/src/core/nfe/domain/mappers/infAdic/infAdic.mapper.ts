@@ -7,11 +7,11 @@ import { ProcRefMapper } from "./proceRef.mapper";
 export class InfAdicMapper {
   static fromDto(dto: infAdicDto): infAdic {
     return new infAdic({
-      infAdFisco: String(dto.infAdFisco),
-      infCpl: String(dto.infCpl),
-      obsCont: dto.obsCont.map(item => ObsContMapper.fromDto(item)),
-      obsFisco: dto.obsFisco.map(item => ObsFiscoMapper.fromDto(item)),
-      procRef: dto.procRef.map(item => ProcRefMapper.fromDto(item))
+      infAdFisco: dto.infAdFisco ? String(dto.infAdFisco) : undefined,
+      infCpl: dto.infCpl ? String(dto.infCpl) : undefined,
+      obsCont: dto.obsCont ? dto.obsCont.map(item => ObsContMapper.fromDto(item)) : undefined,
+      obsFisco: dto.obsFisco ? dto.obsFisco.map(item => ObsFiscoMapper.fromDto(item)) : undefined,
+      procRef: dto.procRef ? dto.procRef.map(item => ProcRefMapper.fromDto(item)) : undefined
     })
   }
 }

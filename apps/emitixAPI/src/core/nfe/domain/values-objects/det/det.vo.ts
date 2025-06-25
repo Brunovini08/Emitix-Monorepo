@@ -6,22 +6,22 @@ import type { ObsItem } from "./obsItem/obsItem.vo";
 export class Det {
   public readonly prod: Prod;
   public readonly imposto: Impostos;
-  public readonly impostoDevol: ImpostoDevol;
+  public readonly impostoDevol?: ImpostoDevol;
   public readonly infAdProd?: string;
-  public readonly obsItem: ObsItem;
+  public readonly obsItem?: ObsItem;
 
   constructor(data: {
     prod: Prod;
     imposto: Impostos;
-    impostoDevol: ImpostoDevol;
-    infAdProd?: string | undefined;
-    obsItem: ObsItem;
+    impostoDevol?: ImpostoDevol;  
+    infAdProd?: string 
+    obsItem?: ObsItem;
   }) {
     this.prod = data.prod 
-    this.imposto = data.imposto 
-    this.impostoDevol = data.impostoDevol 
-    this.infAdProd = data.infAdProd ?? undefined; 
-    this.obsItem = data.obsItem 
+    this.imposto = data.imposto || undefined
+    this.impostoDevol = data.impostoDevol || undefined
+    this.infAdProd = data.infAdProd || undefined
+    this.obsItem = data.obsItem || undefined
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -42,7 +42,7 @@ export class Det {
       this.impostoDevol.validateOrThrow();
     }
 
-    if (this.infAdProd !== null) {
+    if (this.infAdProd !== undefined) {
       if (typeof this.infAdProd !== 'string') {
         throw new Error('Informações Adicionais do Produto (infAdProd) deve ser uma string.');
       }
@@ -71,11 +71,11 @@ export class Det {
 
   public toJSON() {
     return {
-      prod: this.prod ? this.prod.toJSON() : null,
-      imposto: this.imposto ? this.imposto.toJSON() : null,
-      impostoDevol: this.impostoDevol ? this.impostoDevol.toJSON() : null,
-      infAdProd: this.infAdProd,
-      obsItem: this.obsItem ? this.obsItem.toJSON() : null,
+      prod: this.prod.toJSON(),
+      imposto: this.imposto.toJSON(),
+      impostoDevol: this.impostoDevol ? this.impostoDevol.toJSON() : undefined,
+      infAdProd: this.infAdProd || undefined,
+      obsItem: this.obsItem ? this.obsItem.toJSON() : undefined,
     };
   }
 }
