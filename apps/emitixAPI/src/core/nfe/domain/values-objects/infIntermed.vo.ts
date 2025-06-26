@@ -29,7 +29,7 @@ export class infIntermed {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       CNPJ: this.CNPJ,
       idCadIntTran: this.idCadIntTran,

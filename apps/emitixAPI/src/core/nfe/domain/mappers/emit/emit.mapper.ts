@@ -5,14 +5,14 @@ import { EnderecoMapper } from "./enderecoEmit.mapper";
 export class EmitMapper {
   static fromDto(dto: emitDto): Emit {
     return new Emit({
-      CNPJ: String(dto.CNPJ),
+      CNPJ: dto.CNPJ ? String(dto.CNPJ) : undefined,
       xNome: String(dto.xNome),
-      xFant: String(dto.xFant),
+      xFant: dto.xFant ? String(dto.xFant) : undefined,
       enderEmit: EnderecoMapper.fromDto(dto.enderEmit),
       IE: String(dto.IE),
-      IEST: String(dto.IEST),
-      IM: String(dto.IM),
-      CNAE: String(dto.CNAE),
+      IEST: dto.IEST ? String(dto.IEST) : undefined,
+      IM: dto.IM ? String(dto.IM) : undefined,
+      CNAE: dto.CNAE ? String(dto.CNAE) : undefined,
       CRT: String(dto.CRT),
     });
   }

@@ -38,10 +38,10 @@ export class cobr {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
-      fat: this.fat?.toJson() || undefined,
-      dup: this.dup?.map(item => item.toJson()) || [],
+      fat: this.fat?.toJSON() || undefined,
+      dup: this.dup?.map(item => item.toJSON()) || [],
     };
   }
 }

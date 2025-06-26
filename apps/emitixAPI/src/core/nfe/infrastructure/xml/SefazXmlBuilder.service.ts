@@ -5,7 +5,6 @@ import { NFeDanfeBuilder } from "./builders/nfe-danfe.builder";
 import { NFeEnvioBuilder } from "./builders/nfe-envio.builder";
 import { NFeInutilizarBuilder } from "./builders/nfe-inutilizar.builder";
 import { NFeStatusBuilder } from "./builders/nfe-status.builder";
-import { NFe } from "../../domain/entities/nfe.entity";
 
 @Injectable()
 export class SefazXmlBuilderService {
@@ -33,8 +32,8 @@ export class SefazXmlBuilderService {
     this.nfeDanfeBuilder = nfeDanfeBuilder
   }
 
-  async buildNFeEnvio(data, cNF: string, cDV: string, chave: string) {
-    return this.nfeEnvioBuilder.buildXML(data, cNF, cDV, chave)
+  async buildNFeEnvio(data, chave: string) {
+    return this.nfeEnvioBuilder.buildXML(data, chave)
   }
 
   async buildNFeInutilizar(accessKey: string, objectFormat: any, versao: string) {

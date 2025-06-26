@@ -11,7 +11,12 @@ export class ICMSSN101 {
   public readonly pCredSN;
   public readonly vCredICMSSN;
 
-  constructor(data: { orig: string, CSOSN: string, pCredSN: string, vCredICMSSN: string }) {
+  constructor(data: {
+    orig: string,
+    CSOSN: string,
+    pCredSN: string,
+    vCredICMSSN: string
+  }) {
     this.orig = data.orig;
     this.CSOSN = data.CSOSN;
     this.pCredSN = data.pCredSN;

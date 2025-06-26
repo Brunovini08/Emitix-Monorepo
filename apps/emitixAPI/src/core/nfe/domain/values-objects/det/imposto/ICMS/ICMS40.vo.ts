@@ -12,7 +12,13 @@ export class ICMS40 {
   public readonly motDesICMS?: string | undefined;
   public readonly indDeduzDeson?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
+  constructor(data: { 
+    orig: string, 
+    CST: string,
+    vICMSDeson?: string | undefined,
+    motDesICMS?: string | undefined,
+    indDeduzDeson?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.vICMSDeson = data.vICMSDeson;

@@ -31,7 +31,32 @@ export class ICMS70 {
   public readonly vICMSSTDeson?;
   public readonly motDesICMSST?;
 
-  constructor(data: { orig: string, CST: string, modBC: string, pRedBC: string, vBC: string, vICMS: string, pICMS: string, vBCFCP?: string, pFCP?: string, vFCP?: string, modBCST: string, pMVAST?: string, pRedBCST?: string, vBCST: string, pICMSST?: string, vICMSST?: string, vBCFCPST?: string, pFCPST?: string, vFCPST?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string, vICMSSTDeson?: string, motDesICMSST?: string }) {
+  constructor(data: { 
+    orig: string, 
+    CST: string,
+    modBC: string,
+    pRedBC: string,
+    vBC: string,
+    vICMS: string,
+    pICMS: string,
+    vBCFCP?: string | undefined, 
+    pFCP?: string | undefined,
+    vFCP?: string | undefined,
+    modBCST: string,
+    pMVAST?: string | undefined,
+    pRedBCST?: string | undefined,
+    vBCST: string,
+    pICMSST?: string | undefined,
+    vICMSST?: string | undefined,
+    vBCFCPST?: string | undefined,
+    pFCPST?: string | undefined,
+    vFCPST?: string | undefined,
+    vICMSDeson?: string | undefined,
+    motDesICMS?: string | undefined,
+    indDeduzDeson?: string | undefined,
+    vICMSSTDeson?: string | undefined,
+    motDesICMSST?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;

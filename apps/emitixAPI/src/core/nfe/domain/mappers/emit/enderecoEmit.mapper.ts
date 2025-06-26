@@ -12,10 +12,10 @@ export class EnderecoMapper {
       xMun: String(dto.xMun),
       UF: String(dto.UF),
       CEP: String(dto.CEP),
-      cPais: String(dto.cPais),
-      xPais: String(dto.xPais),
-      fone: String(dto.fone),
-      cpl: String(dto.xCpl),
+      cPais: dto.cPais ? String(dto.cPais) : undefined,
+      xPais: dto.xPais ? String(dto.xPais) : undefined,
+      fone: dto.fone ? String(dto.fone) : undefined,
+      xCpl: dto.xCpl ? String(dto.xCpl) : undefined,
     });
   }
 }

@@ -8,30 +8,55 @@ Object.freeze(TorigEnum);
 export class ICMS90 {
   public readonly orig;
   public readonly CST;
-  public readonly modBC? : string | undefined;
-  public readonly pRedBC? : string | undefined;
-  public readonly vBC? : string | undefined;
-  public readonly pICMS? : string | undefined;
-  public readonly vICMS? : string | undefined;
-  public readonly vBCFCP? : string | undefined;
-  public readonly vFCP? : string | undefined;
-  public readonly pFCP? : string | undefined;
-  public readonly modBCST? : string | undefined;
-  public readonly pMVAST? : string | undefined;
-  public readonly pRedBCST? : string | undefined;
-  public readonly vBCST? : string | undefined;
-  public readonly pICMSST? : string | undefined;
-  public readonly vICMSST? : string | undefined;
-  public readonly vBCFCPST? : string | undefined;
-  public readonly pFCPST? : string | undefined;
-  public readonly vFCPST? : string | undefined;
-  public readonly vICMSDeson? : string | undefined;
-  public readonly motDesICMS? : string | undefined;
-  public readonly indDeduzDeson? : string | undefined;
-  public readonly vICMSSTDeson? : string | undefined;
-  public readonly motDesICMSST? : string | undefined;
+  public readonly modBC?: string | undefined;
+  public readonly pRedBC?: string | undefined;
+  public readonly vBC?: string | undefined;
+  public readonly pICMS?: string | undefined;
+  public readonly vICMS?: string | undefined;
+  public readonly vBCFCP?: string | undefined;
+  public readonly vFCP?: string | undefined;
+  public readonly pFCP?: string | undefined;
+  public readonly modBCST?: string | undefined;
+  public readonly pMVAST?: string | undefined;
+  public readonly pRedBCST?: string | undefined;
+  public readonly vBCST?: string | undefined;
+  public readonly pICMSST?: string | undefined;
+  public readonly vICMSST?: string | undefined;
+  public readonly vBCFCPST?: string | undefined;
+  public readonly pFCPST?: string | undefined;
+  public readonly vFCPST?: string | undefined;
+  public readonly vICMSDeson?: string | undefined;
+  public readonly motDesICMS?: string | undefined;
+  public readonly indDeduzDeson?: string | undefined;
+  public readonly vICMSSTDeson?: string | undefined;
+  public readonly motDesICMSST?: string | undefined;
 
-constructor(data: { orig: string, CST: string, modBC?: string, pRedBC?: string, vBC?: string, pICMS?: string, vICMS?: string, vBCFCP?: string, vFCP?: string, modBCST?: string, pMVAST?: string, pRedBCST?: string, vBCST?: string, pICMSST?: string, vICMSST?: string, vBCFCPST?: string, pFCPST?: string, vFCPST?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string, vICMSSTDeson?: string, motDesICMSST?: string, pFCP?: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    modBC?: string | undefined,
+    pRedBC?: string | undefined,
+    vBC?: string | undefined,
+    pICMS?: string | undefined,
+    vICMS?: string | undefined,
+    vBCFCP?: string | undefined,
+    vFCP?: string | undefined,
+    modBCST?: string | undefined,
+    pMVAST?: string | undefined,
+    pRedBCST?: string | undefined,
+    vBCST?: string | undefined,
+    pICMSST?: string | undefined,
+    vICMSST?: string | undefined,
+    vBCFCPST?: string | undefined,
+    pFCPST?: string | undefined,
+    vFCPST?: string | undefined,
+    vICMSDeson?: string | undefined,
+    motDesICMS?: string | undefined,
+    indDeduzDeson?: string | undefined,
+    vICMSSTDeson?: string | undefined,
+    motDesICMSST?: string | undefined,
+    pFCP?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;
@@ -155,12 +180,12 @@ constructor(data: { orig: string, CST: string, modBC?: string, pRedBC?: string, 
 
     const allowedMotDesICMS = ['3', '9', '12'];
     if (this.motDesICMS !== undefined && typeof this.motDesICMS !== 'string' && !allowedMotDesICMS.includes(this.motDesICMS)) {
-        throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser '3', '9' ou '12', se informado.`);
+      throw new Error(`Motivo da desoneração do ICMS (motDesICMS) deve ser '3', '9' ou '12', se informado.`);
     }
-    
+
     const allowedIndDeduzDeson = ['0', '1'];
     if (this.indDeduzDeson !== undefined && typeof this.indDeduzDeson !== 'string' && !allowedIndDeduzDeson.includes(this.indDeduzDeson)) {
-        throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
+      throw new Error(`Indica se o valor do ICMS desonerado deduz do valor do item (indDeduzDeson) deve ser '0' ou '1', se informado.`);
     }
 
     if (this.vICMSSTDeson !== undefined && (typeof this.vICMSSTDeson !== 'string' || this.vICMSSTDeson.trim() === '')) {
@@ -169,7 +194,7 @@ constructor(data: { orig: string, CST: string, modBC?: string, pRedBC?: string, 
 
     const allowedMotDesICMSST = ['0', '3', '12'];
     if (this.motDesICMSST !== undefined && typeof this.motDesICMSST !== 'string' && !allowedMotDesICMSST.includes(this.motDesICMSST)) {
-        throw new Error(`Motivo da desoneração do ICMS ST (motDesICMSST) deve ser '0', '3' ou '12', se informado.`);
+      throw new Error(`Motivo da desoneração do ICMS ST (motDesICMSST) deve ser '0', '3' ou '12', se informado.`);
     }
   }
 

@@ -24,7 +24,25 @@ export class ICMS51 {
   public readonly vFCPDif?: string | undefined;
   public readonly vFCPEfet?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, pFCP?: string, modBC?: string, pRedBC?: string, cBenefRBC?: string, vBC?: string, pICMS?: string, vICMSOp?: string, pDif?: string, vICMSDif?: string, vICMS?: string, vBCFCP?: string, vFCP?: string, pFCPDif?: string, vFCPDif?: string, vFCPEfet?: string }) {
+  constructor(data: { 
+    orig: string,
+    CST: string,
+    pFCP?: string | undefined,
+    modBC?: string | undefined,
+    pRedBC?: string | undefined,
+    cBenefRBC?: string | undefined,
+    vBC?: string | undefined, 
+    pICMS?: string | undefined,
+    vICMSOp?: string | undefined,
+    pDif?: string | undefined,
+    vICMSDif?: string | undefined,
+    vICMS?: string | undefined,
+    vBCFCP?: string | undefined,
+    vFCP?: string | undefined,
+    pFCPDif?: string | undefined,
+    vFCPDif?: string | undefined,
+    vFCPEfet?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC ?? undefined;

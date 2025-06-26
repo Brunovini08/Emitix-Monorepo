@@ -4,6 +4,7 @@ import type { ImpostoDevol } from "./impostoDevol/impostoDevo.vo";
 import type { ObsItem } from "./obsItem/obsItem.vo";
 
 export class Det {
+  public static nItem = 0;
   public readonly prod: Prod;
   public readonly imposto: Impostos;
   public readonly impostoDevol?: ImpostoDevol;
@@ -17,6 +18,7 @@ export class Det {
     infAdProd?: string 
     obsItem?: ObsItem;
   }) {
+    Det.nItem++;
     this.prod = data.prod 
     this.imposto = data.imposto || undefined
     this.impostoDevol = data.impostoDevol || undefined
@@ -71,6 +73,7 @@ export class Det {
 
   public toJSON() {
     return {
+      '@_nItem': Det.nItem,
       prod: this.prod.toJSON(),
       imposto: this.imposto.toJSON(),
       impostoDevol: this.impostoDevol ? this.impostoDevol.toJSON() : undefined,

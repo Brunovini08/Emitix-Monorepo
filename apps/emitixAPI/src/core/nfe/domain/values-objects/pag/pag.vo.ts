@@ -3,12 +3,12 @@ import type { detPag } from "./detPag.vo";
 export class pag {
 
   detPag: detPag[];
-  vTroco: number;
+  vTroco: string | undefined;
 
   constructor(
     data: {
       detPag: detPag[],
-      vTroco: number
+      vTroco: string | undefined
     }
   ) {
     this.detPag = data.detPag;
@@ -32,10 +32,10 @@ export class pag {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
-      detPag: this.detPag.map(item => item.toJson()),
-      vTroco: this.vTroco,
+      detPag: this.detPag.map(item => item.toJSON()),
+      vTroco: this.vTroco || undefined,
     };
   }
 }

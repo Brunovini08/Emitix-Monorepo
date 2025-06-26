@@ -27,7 +27,7 @@ export class fat {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       nFat: this.nFat,
       vOrig: this.vOrig,

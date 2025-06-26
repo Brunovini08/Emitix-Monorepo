@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { create } from "xmlbuilder2";
+import { XMLBuilder } from "fast-xml-parser";
 
 @Injectable()
 export class NFeConsultaCadastroBuilder {
@@ -7,10 +7,19 @@ export class NFeConsultaCadastroBuilder {
     dataFormat: any,
     versao: string
   ) {
-    const root = create({ ConsCad: dataFormat })
-    const ConsCad = root.root()
-    ConsCad.att('xmlns', 'http://www.portalfiscal.inf.br/nfe');
-    ConsCad.att('versao', versao)
-    return Promise.resolve(root.end({ prettyPrint: false, headless: true }))
+    const parser = new XMLBuilder({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    });
+
+    const xmlData = {
+      ConsCad: {
+        '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
+        '@_versao': versao,
+        ...dataFormat
+      }
+    };
+
+    return Promise.resolve(parser.build(xmlData));
   } 
 }

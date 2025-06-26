@@ -57,9 +57,9 @@ export class PISAliq {
   public toJSON() {
     return {
       CST: this.CST,
-      vBC: this.vBC,
-      pPIS: this.pPIS,
-      vPIS: this.vPIS,
+      vBC: this.vBC.toFixed(2),
+      pPIS: this.pPIS.toFixed(2),
+      vPIS: this.vPIS.toFixed(2),
     };
   }
 }

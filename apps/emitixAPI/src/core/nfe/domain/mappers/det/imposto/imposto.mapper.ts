@@ -12,7 +12,7 @@ export class ImpostosMapper {
   static fromDto(dto: impostosDto): Impostos {
 
     return new Impostos({
-      vTotTrib: String(dto.vTotTrib),
+      vTotTrib: dto.vTotTrib ? String(dto.vTotTrib) : undefined,
       produto: dto.produto ? ProdutoMapper.fromDto(dto.produto) : undefined,
       servico: dto.servico ? ServicoMapper.fromDto(dto.servico) : undefined,
       PIS: dto.PIS ? PISMapper.fromDto(dto.PIS) : undefined,

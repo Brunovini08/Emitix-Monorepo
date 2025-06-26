@@ -82,7 +82,7 @@ export class infAdic {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       infAdFisco: this.infAdFisco || undefined,
       infCpl: this.infCpl || undefined,

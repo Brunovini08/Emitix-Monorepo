@@ -15,7 +15,15 @@ export class ICMS00 {
   public readonly pFCP?;
   public readonly vFCP?;
 
-  constructor(data: { orig: string, CST: string, modBC: string, vBC: string, pICMS: string, vICMS: string, pFCP?: string, vFCP?: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    modBC: string,
+    vBC: string,
+    pICMS: string,
+    vICMS: string,
+    pFCP?: string | undefined, vFCP?: string | undefined
+   }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;

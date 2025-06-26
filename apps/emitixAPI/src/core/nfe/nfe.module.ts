@@ -22,6 +22,7 @@ import { NFeConsultaBuilder } from './infrastructure/xml/builders/nfe-consulta.b
 import { NFeStatusBuilder } from './infrastructure/xml/builders/nfe-status.builder';
 import { NFeConsultaCadastroBuilder } from './infrastructure/xml/builders/nfe-consulta-cadastro.builder';
 import { NFeDanfeBuilder } from './infrastructure/xml/builders/nfe-danfe.builder';
+import { EnviNFeGen } from './infrastructure/sefaz/services/enviNFeGen.util';
 
 @Module({
   controllers: [NfeController],
@@ -30,7 +31,7 @@ import { NFeDanfeBuilder } from './infrastructure/xml/builders/nfe-danfe.builder
     NfeConsultaCadastroUseCase, NfeDanfeUseCase, CertificateService,
     SignedXmlUtil, IdLoteService, SefazXmlBuilderService, NFeEnvioBuilder,
     NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
-    NFeConsultaCadastroBuilder, NFeDanfeBuilder],
+    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen],
   imports: [RedisModule, IssuerInvoiceModule, HttpModule],
   exports: [NfeService, IdLoteService],
 })

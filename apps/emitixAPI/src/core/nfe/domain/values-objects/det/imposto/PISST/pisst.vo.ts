@@ -63,7 +63,7 @@ export class PISST {
     return {
       baseCalc: this.baseCalc ? this.baseCalc.toJSON() : null,
       quant: this.quant ? this.quant.toJSON() : null,
-      vPIS: this.vPIS,
+      vPIS: this.vPIS.toFixed(2),
       indSomaPISST: this.indSomaPISST,
     };
   }

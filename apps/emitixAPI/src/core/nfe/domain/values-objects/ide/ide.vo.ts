@@ -43,6 +43,7 @@ export class Ide {
       cMunFG: string;
       tpImp: string;
       tpEmis: string;
+      cDV: string;
       tpAmb: string;
       finNFe: string;
       indFinal: string;
@@ -72,6 +73,7 @@ export class Ide {
     this.cMunFG = data.cMunFG;
     this.tpImp = data.tpImp;
     this.tpEmis = data.tpEmis;
+    this.cDV = data.cDV;
     this.tpAmb = data.tpAmb;
     this.finNFe = data.finNFe;
     this.indFinal = data.indFinal;
@@ -90,8 +92,14 @@ export class Ide {
     this.validateOrThrow();
   }
 
+  
+
   private nfeCNF(): string {
-    return Math.floor(Math.random() * 90000000 + 10000000).toString();
+    // Gerar um número de 8 dígitos baseado no timestamp para ser mais previsível
+    const timestamp = Date.now();
+    const randomPart = Math.floor(Math.random() * 1000);
+    const cnf = (timestamp % 90000000 + randomPart).toString().padStart(8, '0');
+    return cnf;
   }
   
   public getNumeroFormatado(): string {
@@ -106,23 +114,14 @@ export class Ide {
       throw new Error('Tipo de Operação (tpNF) inválido. Deve ser "0" (Entrada) ou "1" (Saída).');
     }
 
-
     if (this.tpEmis !== '1') {
       if (this.dhCont === undefined) {
-        console.log('dhCont', this.dhCont);
         throw new Error('Data e Hora de Entrada em Contingência (dhCont) é obrigatório quando tpEmis for diferente de "1".');
       }
       if (this.xJust === undefined) {
         throw new Error('Justificativa da Entrada em Contingência (xJust) é obrigatória quando tpEmis for diferente de "1".');
       }
       
-    } else {
-      if (this.dhCont === undefined) {
-        throw new Error('Data e Hora de Entrada em Contingência (dhCont) não deve ser informada quando tpEmis for "1" (Normal).');
-      }
-      if (this.xJust === undefined) {
-        throw new Error('Justificativa (xJust) não deve ser informada quando tpEmis for "1" (Normal).');
-      }
     }
   }
 
@@ -142,6 +141,7 @@ export class Ide {
       cMunFGIBS: this.cMunFGIBS || undefined,
       tpImp: this.tpImp,
       tpEmis: this.tpEmis,
+      cDV: this.cDV,
       tpAmb: this.tpAmb,
       finNFe: this.finNFe,
       tpNFDebito: this.tpNFDebito || undefined,

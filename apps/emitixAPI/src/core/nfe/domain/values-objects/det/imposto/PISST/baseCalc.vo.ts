@@ -32,8 +32,8 @@ export class BaseCalc {
 
   public toJSON() {
     return {
-      vBC: this.vBC,
-      pPis: this.pPis,
+      vBC: this.vBC.toFixed(2),
+      pPis: this.pPis.toFixed(2),
     };
   }
 }

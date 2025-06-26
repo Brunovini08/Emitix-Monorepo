@@ -1,24 +1,34 @@
-import { create } from 'xmlbuilder2';
+import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 
-export async function enviNFeGen(
+export class EnviNFeGen {
+  async enviNFeGen(
   idLote: string,
   indSinc: string,
   nfeXml: string,
 ): Promise<string> {
-  const doc = create({ version: '1.0', encoding: 'UTF-8' })
-    .ele('enviNFe', {
-      xmlns: 'http://www.portalfiscal.inf.br/nfe',
-      versao: '4.00',
-    })
-    .ele('idLote')
-    .txt(idLote)
-    .up()
-    .ele('indSinc')
-    .txt(indSinc)
-    .up()
-    // Aqui você injeta o XML assinado da NFe como nó
-    .import(create(nfeXml).root())
-    .doc();
+  const parser = new XMLBuilder({
+    ignoreAttributes: false,
+    attributeNamePrefix: '@_',
+  });
 
-  return doc.end({ prettyPrint: false, headless: true });
+  // Parsear o XML existente da NFe
+  const xmlParser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: '@_',
+  });
+  
+  const parsedNFe = xmlParser.parse(nfeXml);
+
+  const xmlData = {
+    enviNFe: {
+      '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
+      '@_versao': '4.00',
+      idLote: idLote,
+      indSinc: indSinc,
+      NFe: parsedNFe.NFe
+    }
+  };
+
+  return parser.build(xmlData);
+}
 }

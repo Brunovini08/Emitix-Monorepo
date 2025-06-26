@@ -17,7 +17,18 @@ export class ICMS53 {
   public readonly qBCMonoDif?;
   public readonly adRemICMSDif?;
 
-  constructor(data: { orig: string, CST: string, qBCMono?: string, adRemICMS?: string, vICMSMonoOp?: string, pDif?: string, vICMSMonoDif?: string, vICMSMono?: string, qBCMonoDif?: string, adRemICMSDif?: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    qBCMono?: string | undefined,
+    adRemICMS?: string | undefined,
+    vICMSMonoOp?: string | undefined,
+    pDif?: string | undefined,
+    vICMSMonoDif?: string | undefined,
+    vICMSMono?: string | undefined,
+    qBCMonoDif?: string | undefined,
+    adRemICMSDif?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.qBCMono = data.qBCMono ?? undefined;

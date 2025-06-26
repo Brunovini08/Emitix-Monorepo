@@ -1,29 +1,24 @@
-export class detPag {
+import type { card } from "./card.vo"
 
-  indPag
+export class detPag {
+  indPag?: string | undefined
   tPag
-  xPag
+  xPag?: string | undefined
   vPag
-  dPag
-  infoPag
-  card
+  card?: card | undefined
   constructor(
     data: {
       tPag: string,
       vPag: string,
-      indPag: string,
-      xPag: string,
-      dPag: string,
-      infoPag: string,
-      card: string
+      indPag?: string | undefined,
+      xPag?: string | undefined,
+      card?: card | undefined
     }
   ) {
     this.indPag = data.indPag;
     this.tPag = data.tPag;
     this.xPag = data.xPag;
     this.vPag = data.vPag;
-    this.dPag = data.dPag;
-    this.infoPag = data.infoPag;
     this.card = data.card;
   }
 
@@ -54,12 +49,6 @@ export class detPag {
       }
     }
 
-    if (this.infoPag !== undefined && this.infoPag !== null) {
-      if (typeof this.infoPag.validateOrThrow === 'function') {
-        this.infoPag.validateOrThrow();
-      }
-    }
-
     if (this.card !== undefined && this.card !== null) {
       if (typeof this.card.validateOrThrow === 'function') {
         this.card.validateOrThrow();
@@ -67,15 +56,13 @@ export class detPag {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       indPag: this.indPag,
       tPag: this.tPag,
       xPag: this.xPag,
       vPag: this.vPag,
-      dPag: this.dPag,
-      infoPag: this.infoPag ? (typeof this.infoPag.toJson === 'function' ? this.infoPag.toJson() : this.infoPag) : undefined,
-      card: this.card ? (typeof this.card.toJson === 'function' ? this.card.toJson() : this.card) : undefined,
+      card: this.card ? this.card.toJson() : undefined,
     };
   }
 }

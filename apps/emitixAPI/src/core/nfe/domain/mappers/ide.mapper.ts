@@ -24,6 +24,7 @@ export class IdeMapper {
       dhSaiEnt: dto.dhSaiEnt ? String(dto.dhSaiEnt) : undefined,
       dhCont: dto.dhCont ? String(dto.dhCont) : undefined,
       xJust: dto.xJust ? String(dto.xJust) : undefined,
+      cDV: String(dto.cDV) || '',
     });
   }
 }

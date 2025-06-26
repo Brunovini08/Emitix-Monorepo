@@ -17,7 +17,7 @@ import { InfAdicMapper } from './infAdic/infAdic.mapper';
 import { InfIntermedMapper } from './infIntermed.mapper';
 import { InfRespTecMapper } from './infRespecTec/infRespTec.mapper';
 import { InfSolicNFFMapper } from './infSolicNFF.mapper';
-import { PagMapper } from './pag.mapper';
+import { PagMapper } from './pag/pag.mapper';
 import { RetiradaMapper } from './retirada.mapper';
 import { TotalMapper } from './total.mapper';
 import { TranspMapper } from './transp/transp.mapper';

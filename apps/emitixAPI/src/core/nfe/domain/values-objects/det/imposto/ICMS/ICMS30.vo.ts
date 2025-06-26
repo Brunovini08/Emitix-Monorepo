@@ -21,7 +21,21 @@ export class ICMS30 {
   public readonly motDesICMS?: string | undefined;
   public readonly indDeduzDeson?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBCST: string, pMVAST?: string, pRedBCST?: string, vBCST: string, pICMSST: string, vICMSST: string, vBCFCPST?: string, pFCPST?: string, vFCPST?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
+  constructor(data: { orig: string,
+     CST: string, 
+     modBCST: string,
+     pMVAST?: string | undefined,
+     pRedBCST?: string | undefined,
+     vBCST: string,
+     pICMSST: string,
+     vICMSST: string,
+     vBCFCPST?: string | undefined,
+     pFCPST?: string | undefined,
+     vFCPST?: string | undefined,
+     vICMSDeson?: string | undefined,
+     motDesICMS?: string | undefined,
+     indDeduzDeson?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBCST = data.modBCST;

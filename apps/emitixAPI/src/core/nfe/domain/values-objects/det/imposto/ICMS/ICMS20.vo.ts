@@ -20,7 +20,20 @@ export class ICMS20 {
   public readonly motDesICMS?: string | undefined;
   public readonly indDeduzDeson?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBC: string, pRedBC: string, vBC: string, pICMS: string, vICMS: string, vBCFCP?: string, pFCP?: string, vFCP?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
+  constructor(data: { orig: string, 
+    CST: string, 
+    modBC: string,
+    pRedBC: string,
+    vBC: string,
+    pICMS: string,
+    vICMS: string,
+    vBCFCP?: string | undefined,
+    pFCP?: string | undefined,
+    vFCP?: string | undefined,
+    vICMSDeson?: string | undefined,
+    motDesICMS?: string | undefined,
+    indDeduzDeson?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;

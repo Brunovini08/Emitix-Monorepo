@@ -12,7 +12,13 @@ export class ICMS02 {
   public readonly adRemICMS;
   public readonly vICMSMono;
 
-  constructor(data: { orig: string, CST: string, qBCMono?: string, adRemICMS: string, vICMSMono: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    qBCMono?: string | undefined,
+    adRemICMS: string,
+    vICMSMono: string
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.qBCMono = data.qBCMono || undefined;

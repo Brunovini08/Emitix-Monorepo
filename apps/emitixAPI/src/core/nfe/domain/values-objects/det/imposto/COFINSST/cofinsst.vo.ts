@@ -63,7 +63,7 @@ export class COFINSST {
     return {
       baseCalc: this.baseCalc ? this.baseCalc.toJSON() : null,
       quant: this.quant ? this.quant.toJSON() : null,
-      vCOFINS: this.vCOFINS,
+      vCOFINS: this.vCOFINS.toFixed(2),
       indSomaCOFINSST: this.indSomaCOFINSST,
     };
   }

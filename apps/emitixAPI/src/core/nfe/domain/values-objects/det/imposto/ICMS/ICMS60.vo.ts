@@ -20,7 +20,21 @@ export class ICMS60 {
   public readonly pICMSEfet?: string | undefined;
   public readonly vICMSEfet?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, vBCSTRet: string, pST: string, vICMSSubstituto: string, vICMSSTRet: string, vBCFCPSTRet: string, pFCPST: string, vFCPSTRet: string, pRedBCEfet: string, vBCEfet: string, pICMSEfet: string, vICMSEfet: string }) {
+  constructor(data: {
+    orig: string ,
+    CST: string,
+    vBCSTRet?: string | undefined,
+    pST?: string | undefined,
+    vICMSSubstituto?: string | undefined,
+    vICMSSTRet?: string | undefined,
+    vBCFCPSTRet?: string | undefined,
+    pFCPST?: string | undefined,
+    vFCPSTRet?: string | undefined,
+    pRedBCEfet?: string | undefined,
+    vBCEfet?: string | undefined,
+    pICMSEfet?: string | undefined,
+    vICMSEfet?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.vBCSTRet = data.vBCSTRet;

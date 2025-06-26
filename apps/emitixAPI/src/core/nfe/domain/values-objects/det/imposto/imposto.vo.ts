@@ -18,7 +18,7 @@ export class Impostos {
   public readonly ICMSUFDest?: ICMSUFDest;
 
   constructor(data: {
-    vTotTrib: string;
+    vTotTrib?: string;
     produto?: Produto;
     servico?: Servico;
     PIS?: PIS;
@@ -41,7 +41,7 @@ export class Impostos {
   }
 
   public validateOrThrow() {
-    if (this.vTotTrib !== null && (typeof this.vTotTrib !== 'string' || Number(this.vTotTrib) < 0)) {
+    if (this.vTotTrib !== undefined && (typeof this.vTotTrib !== 'string' || Number(this.vTotTrib) < 0)) {
       throw new Error('Valor Total dos Tributos (vTotTrib) deve ser um número não negativo, se informado.');
     }
 
@@ -99,8 +99,8 @@ export class Impostos {
   public toJSON() {
     return {
       vTotTrib: this.vTotTrib || undefined,
-      produto: this.produto ? this.produto.toJSON() : undefined,
-      servico: this.servico ? this.servico.toJSON() : undefined,
+      ...(this.produto ? this.produto.toJSON() : undefined),
+      ...(this.servico ? this.servico.toJSON() : undefined),
       PIS: this.PIS ? this.PIS.toJSON() : undefined,
       PISST: this.PISST ? this.PISST.toJSON() : undefined,
       COFINS: this.COFINS ? this.COFINS.toJSON() : undefined,

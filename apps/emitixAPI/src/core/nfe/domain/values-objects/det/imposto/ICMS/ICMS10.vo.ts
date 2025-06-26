@@ -27,7 +27,28 @@ export class ICMS10 {
   public readonly vICMSSTDeson?: string | undefined;
   public readonly motDesICMSST?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBC: string, vBC: string, pICMS: string, vICMS: string, vBCFCP?: string, pFCP?: string, vFCP?: string, modBCST: string, pMVAST: string, pRedBCST: string, vBCST: string, pICMSST: string, VICMSST: string, vBCFCPST: string, pFCPST: string, vFCPPST: string, vICMSSTDeson: string, motDesICMSST: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    modBC: string,
+    vBC: string,
+    pICMS: string,
+    vICMS: string,
+    vBCFCP?: string | undefined,
+    pFCP?: string | undefined, 
+    vFCP?: string | undefined, 
+    modBCST: string,
+    pMVAST: string,
+    pRedBCST: string,
+    vBCST: string,
+    pICMSST: string,
+    VICMSST: string,
+    vBCFCPST?: string | undefined, 
+    pFCPST?: string | undefined,
+    vFCPPST?: string | undefined, 
+    vICMSSTDeson?: string | undefined, 
+    motDesICMSST?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;

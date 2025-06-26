@@ -13,26 +13,26 @@ export class Emit {
   public readonly CRT: string;
 
   constructor(data: {
-    CNPJ?: string;
-    CPF?: string;
+    CNPJ?: string | undefined;
+    CPF?: string | undefined;
     xNome: string;
-    xFant?: string;
+    xFant?: string | undefined;
     enderEmit: Endereco;
-    IE: string;
-    IEST?: string;
-    IM?: string;
-    CNAE?: string;
+    IE: string
+    IEST?: string | undefined;
+    IM?: string | undefined;
+    CNAE?: string | undefined;
     CRT: string;
   }) {
-    this.CNPJ = data.CNPJ ?? undefined;
-    this.CPF = data.CPF ?? undefined;
+    this.CNPJ = data.CNPJ
+    this.CPF = data.CPF
     this.xNome = data.xNome;
-    this.xFant = data.xFant ?? undefined;
+    this.xFant = data.xFant
     this.enderEmit = data.enderEmit;
     this.IE = data.IE
-    this.IEST = data.IEST ?? undefined;
-    this.IM = data.IM ?? undefined;
-    this.CNAE = data.CNAE ?? undefined;
+    this.IEST = data.IEST
+    this.IM = data.IM
+    this.CNAE = data.CNAE
     this.CRT = data.CRT;
 
     this.validateOrThrow();
@@ -76,15 +76,15 @@ export class Emit {
   toJSON() {
     return {
       emit: {
-        CNPJ: this.CNPJ,
-        CPF: this.CPF,
+        CNPJ: this.CNPJ || undefined,
+        CPF: this.CPF || undefined,
         xNome: this.xNome,
-        xFant: this.xFant,
+        xFant: this.xFant || undefined,
         enderEmit: this.enderEmit.toJSON(),
         IE: this.IE,
-        IEST: this.IEST,
-        IM: this.IM,
-        CNAE: this.CNAE,
+        IEST: this.IEST || undefined,
+        IM: this.IM || undefined,
+        CNAE: this.CNAE || undefined,
         CRT: this.CRT,
       }
     }
