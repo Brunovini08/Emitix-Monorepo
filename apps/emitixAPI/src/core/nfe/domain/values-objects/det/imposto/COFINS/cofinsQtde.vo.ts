@@ -47,9 +47,9 @@ export class COFINSQtde {
   public toJSON() {
     return {
       CST: this.CST,
-      qBCProd: this.qBCProd,
-      vAliqProd: this.vAliqProd,
-      vCOFINS: this.vCOFINS,
+      qBCProd: this.qBCProd.toFixed(4),
+      vAliqProd: this.vAliqProd.toFixed(4),
+      vCOFINS: this.vCOFINS.toFixed(2),
     };
   }
 }

@@ -1,17 +1,15 @@
-// src/domain/shared/value-objects/endereco.vo.ts
-
 export class Endereco {
-  public readonly xLgr: string;    // Logradouro
-  public readonly nro: string;     // Número
-  public readonly xBairro: string; // Bairro
-  public readonly cMun: string;    // Código do Município (IBGE)
-  public readonly xMun: string;    // Nome do Município
-  public readonly UF: string;      // Sigla da Unidade da Federação
-  public readonly CEP: string;     // Código de Endereçamento Postal
-  public readonly cPais: string;   // Código do País (1058 para Brasil)
-  public readonly xPais: string;   // Nome do País (Brasil)
-  public readonly fone?: string;   // Telefone (Opcional)
-  public readonly cpl?: string;    // Complemento (Opcional)
+  public readonly xLgr: string;    
+  public readonly nro: string;     
+  public readonly xBairro: string; 
+  public readonly cMun: string;    
+  public readonly xMun: string;    
+  public readonly UF: string;      
+  public readonly CEP: string;     
+  public readonly cPais?: string | undefined;   
+  public readonly xPais?: string | undefined;   
+  public readonly fone?: string | undefined;   
+  public readonly xCpl?: string | undefined;    
 
   constructor(data: {
     xLgr: string;
@@ -21,10 +19,10 @@ export class Endereco {
     xMun: string;
     UF: string;
     CEP: string;
-    cPais: string;
-    xPais: string;
-    fone?: string;
-    cpl?: string;
+    cPais?: string | undefined;
+    xPais?: string | undefined;
+    fone: string | undefined;
+    xCpl: string | undefined;
   }) {
     this.xLgr = data.xLgr;
     this.nro = data.nro;
@@ -36,7 +34,7 @@ export class Endereco {
     this.cPais = data.cPais;
     this.xPais = data.xPais;
     this.fone = data.fone;
-    this.cpl = data.cpl;
+    this.xCpl = data.xCpl;
 
     this.validateOrThrow();
   }
@@ -79,19 +77,17 @@ export class Endereco {
 
   toJSON() {
     return {
-      enderEmit: {
-        xLgr: this.xLgr,
-        nro: this.nro,
-        xBairro: this.xBairro,
-        cMun: this.cMun,
-        xMun: this.xMun,
-        UF: this.UF,
-        CEP: this.CEP,
-        cPais: this.cPais,
-        xPais: this.xPais,
-        fone: this.fone,
-        cpl: this.cpl,
-      }
+      xLgr: this.xLgr,
+      nro: this.nro,
+      xBairro: this.xBairro,
+      cMun: this.cMun,
+      xMun: this.xMun,
+      UF: this.UF,
+      CEP: this.CEP,
+      cPais: this.cPais || undefined,
+      xPais: this.xPais || undefined,
+      fone: this.fone || undefined,
+      xCpl: this.xCpl || undefined,
     }
   }
 }

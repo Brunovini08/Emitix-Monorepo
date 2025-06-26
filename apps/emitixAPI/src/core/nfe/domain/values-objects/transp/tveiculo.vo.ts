@@ -1,16 +1,16 @@
 export class TVeiculo {
   placa;
-  UF;
-  RNTC;
+  UF?;
+  RNTC?;
 
   constructor(data: {
     placa,
-    UF,
-    RNTC
+    UF?,
+    RNTC?
   }) {
     this.placa = data.placa;
-    this.UF = data.UF; // Assuming TUf is also a pure class or just a string/object
-    this.RNTC = data.RNTC; // Assuming TString is also a pure class or just a string
+    this.UF = data.UF || undefined;
+    this.RNTC = data.RNTC || undefined;
   }
 
   validateOrThrow() {
@@ -28,11 +28,11 @@ export class TVeiculo {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       placa: this.placa,
-      UF: this.UF,
-      RNTC: this.RNTC
+      UF: this.UF || undefined,
+      RNTC: this.RNTC || undefined
     }
   }
 }

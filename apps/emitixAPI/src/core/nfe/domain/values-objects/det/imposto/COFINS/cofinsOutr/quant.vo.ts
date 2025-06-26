@@ -32,8 +32,8 @@ export class Quant {
 
   public toJSON() {
     return {
-      qBCProd: this.qBCProd,
-      vAliqProd: this.vAliqProd,
+      qBCProd: this.qBCProd.toFixed(4),
+      vAliqProd: this.vAliqProd.toFixed(4),
     };
   }
 }

@@ -1,9 +1,9 @@
 import { pki, type Base64 } from 'node-forge';
 import { SignedXml } from 'xml-crypto';
-import { XMLParser, XMLBuilder } from 'fast-xml-parser';
 import type { CertificateService } from '../../certificate/certificate.service';
+import { Injectable } from '@nestjs/common';
 
-
+@Injectable()
 export class SignedEventXml {
 
   private readonly privateKey: pki.PrivateKey

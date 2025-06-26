@@ -36,7 +36,7 @@ export class compra {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       xNEmp: this.xNEmp,
       xPed: this.xPed,

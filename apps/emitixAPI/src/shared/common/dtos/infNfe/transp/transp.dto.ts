@@ -52,7 +52,10 @@ export class transpDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => veiculoComReboqueDto)
-  reboque: veiculoComReboqueDto;
+  @IsArray()  
+  @ArrayMinSize(0)
+  @ArrayMaxSize(5)
+  reboque: veiculoComReboqueDto[];
 
   @IsOptional()
   @Type(() => TString)

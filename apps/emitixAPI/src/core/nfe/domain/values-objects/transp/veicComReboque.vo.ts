@@ -35,10 +35,10 @@ export class veiculoComReboque {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
-      veicTransp: this.veicTransp.toJson(),
-      reboque: this.reboque.map(item => item.toJson()),
+      veicTransp: this.veicTransp.toJSON(),
+      reboque: this.reboque.map(item => item.toJSON()),
     };
   }
 }

@@ -1,10 +1,12 @@
 export class COFINSAliq {
   public readonly CST;
+  public readonly vBC;
   public readonly pCOFINS;
   public readonly vCOFINS;
 
-  constructor(data: { CST: string, pCOFINS: number, vCOFINS: number }) {
+  constructor(data: { CST: string, vBC: number, pCOFINS: number, vCOFINS: number }) {
     this.CST = data.CST;
+    this.vBC = data.vBC;
     this.pCOFINS = data.pCOFINS;
     this.vCOFINS = data.vCOFINS;
 
@@ -22,6 +24,10 @@ export class COFINSAliq {
       `);
     }
 
+    if (typeof this.vBC !== 'number' || this.vBC < 0) {
+      throw new Error('Valor da BC do COFINS (vBC) é obrigatório e deve ser um número não negativo.');
+    }
+
     if (typeof this.pCOFINS !== 'number' || this.pCOFINS < 0 || this.pCOFINS > 100) {
       throw new Error('Alíquota do COFINS (em percentual) (pCOFINS) é obrigatória e deve ser um número entre 0 e 100.');
     }
@@ -37,6 +43,7 @@ export class COFINSAliq {
     }
     return (
       this.CST === other.CST &&
+      this.vBC === other.vBC &&
       this.pCOFINS === other.pCOFINS &&
       this.vCOFINS === other.vCOFINS
     );
@@ -45,8 +52,9 @@ export class COFINSAliq {
   public toJSON() {
     return {
       CST: this.CST,
-      pCOFINS: this.pCOFINS,
-      vCOFINS: this.vCOFINS,
+      vBC: this.vBC.toFixed(2),
+      pCOFINS: this.pCOFINS.toFixed(2),
+      vCOFINS: this.vCOFINS.toFixed(2),
     };
   }
 }

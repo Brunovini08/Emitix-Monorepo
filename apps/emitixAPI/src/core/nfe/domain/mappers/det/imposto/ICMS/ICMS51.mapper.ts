@@ -11,7 +11,7 @@ export class ICMS51Mapper {
       cBenefRBC: dto.cBenefRBC,
       vBC: String(dto.vBC),
       pICMS: String(dto.pICMS),
-      vICMSp: String(dto.vICMSp),
+      vICMSOp: String(dto.vICMSOp),
       pDif: String(dto.pDif),
       vICMSDif: String(dto.vICMSDif),
       vICMS: String(dto.vICMS),

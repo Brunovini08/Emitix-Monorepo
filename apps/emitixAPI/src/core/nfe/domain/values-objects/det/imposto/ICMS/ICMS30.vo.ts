@@ -9,19 +9,33 @@ export class ICMS30 {
   public readonly orig;
   public readonly CST;
   public readonly modBCST;
-  public readonly pMVAST?: string;
-  public readonly pRedBCST?: string;
+  public readonly pMVAST?: string | undefined;
+  public readonly pRedBCST?: string | undefined;
   public readonly vBCST;
   public readonly pICMSST;
   public readonly vICMSST;
-  public readonly vBCFCPST?: string;
-  public readonly pFCPST?: string;
-  public readonly vFCPST?: string;
-  public readonly vICMSDeson?: string;
-  public readonly motDesICMS?: string;
-  public readonly indDeduzDeson?: string;
+  public readonly vBCFCPST?: string | undefined;
+  public readonly pFCPST?: string | undefined;
+  public readonly vFCPST?: string | undefined;
+  public readonly vICMSDeson?: string | undefined;
+  public readonly motDesICMS?: string | undefined;
+  public readonly indDeduzDeson?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBCST: string, pMVAST?: string, pRedBCST?: string, vBCST: string, pICMSST: string, vICMSST: string, vBCFCPST?: string, pFCPST?: string, vFCPST?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
+  constructor(data: { orig: string,
+     CST: string, 
+     modBCST: string,
+     pMVAST?: string | undefined,
+     pRedBCST?: string | undefined,
+     vBCST: string,
+     pICMSST: string,
+     vICMSST: string,
+     vBCFCPST?: string | undefined,
+     pFCPST?: string | undefined,
+     vFCPST?: string | undefined,
+     vICMSDeson?: string | undefined,
+     motDesICMS?: string | undefined,
+     indDeduzDeson?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBCST = data.modBCST;
@@ -65,11 +79,11 @@ export class ICMS30 {
       `);
     }
 
-    if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
+    if (this.pMVAST !== undefined && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
       throw new Error('Percentual da Margem de Valor Adicionado ICMS ST (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
+    if (this.pRedBCST !== undefined && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
       throw new Error('Percentual de redução da BC ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
@@ -85,19 +99,19 @@ export class ICMS30 {
       throw new Error('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
+    if (this.vBCFCPST !== undefined && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
       throw new Error('Valor da BC do FCP ST (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
+    if (this.pFCPST !== undefined && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
       throw new Error('Alíquota do FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
+    if (this.vFCPST !== undefined && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
       throw new Error('Valor do FCP ST (vFCPST) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
+    if (this.vICMSDeson !== undefined && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -120,7 +134,7 @@ export class ICMS30 {
       this.orig === other.orig &&
       this.CST === other.CST &&
       this.modBCST === other.modBCST &&
-      this.pMVAST === other.pMVAST &&
+      this.pMVAST === other.pMVAST && 
       this.pRedBCST === other.pRedBCST &&
       this.vBCST === other.vBCST &&
       this.pICMSST === other.pICMSST &&
@@ -140,17 +154,17 @@ export class ICMS30 {
         orig: this.orig,
         CST: this.CST,
         modBCST: this.modBCST,
-        pMVAST: this.pMVAST,
-        pRedBCST: this.pRedBCST,
+        pMVAST: this.pMVAST || undefined,
+        pRedBCST: this.pRedBCST || undefined,
         vBCST: this.vBCST,
         pICMSST: this.pICMSST,
         vICMSST: this.vICMSST,
-        vBCFCPST: this.vBCFCPST,
-        pFCPST: this.pFCPST,
-        vFCPST: this.vFCPST,
-        vICMSDeson: this.vICMSDeson,
-        motDesICMS: this.motDesICMS,
-        indDeduzDeson: this.indDeduzDeson,
+        vBCFCPST: this.vBCFCPST || undefined,
+        pFCPST: this.pFCPST || undefined,
+        vFCPST: this.vFCPST || undefined,
+        vICMSDeson: this.vICMSDeson || undefined,
+        motDesICMS: this.motDesICMS || undefined,
+        indDeduzDeson: this.indDeduzDeson || undefined,
       }
     };
   }

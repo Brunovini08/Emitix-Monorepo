@@ -5,6 +5,7 @@ export class COFINSAliqMapper {
   static fromDto(dto: confinsAliqDto): COFINSAliq {
     return new COFINSAliq({
       CST: dto.CST,
+      vBC: Number(dto.vBC),
       pCOFINS: Number(dto.pCOFINS),
       vCOFINS: Number(dto.vCOFINS),
     });

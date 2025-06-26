@@ -8,32 +8,31 @@ export class Ide {
   public readonly mod: string;
   public readonly serie: string;
   public readonly nNF: string;
+  public readonly dhSaiEnt?: string | undefined; 
   public readonly dhEmi: string;
   public readonly tpNF: string;
   public readonly idDest: string;
   public readonly cMunFG: string;
+  public readonly cMunFGIBS?: string | undefined;
   public readonly tpImp: string;
   public readonly tpEmis: string; 
   public readonly cDV: string;
   public readonly tpAmb: string;
   public readonly finNFe: string;
+  public readonly tpNFDebito?: string | undefined;
+  public readonly tpNFCredito?: string | undefined;
   public readonly indFinal: string;
   public readonly indPres: string;
+  public readonly indIntermed?: string | undefined;
   public readonly procEmi: string;
   public readonly verProc: string;
-  public readonly cMunFGIBS?: string;
-  public readonly dhSaiEnt?: string; 
   public readonly dhCont?: string | undefined;  
   public readonly xJust?: string | undefined; 
-  public readonly tpNFDebito?: string;
-  public readonly tpNFCredito?: string;
-  public readonly indIntermed?: string;
   public readonly NFref?: NFref[];
   public readonly gCompraGov?: GCompraGov;
   constructor(
     data: {
       cUF: string;
-      cNF: string;
       natOp: string;
       mod: string;
       serie: string;
@@ -44,25 +43,26 @@ export class Ide {
       cMunFG: string;
       tpImp: string;
       tpEmis: string;
+      cDV: string;
       tpAmb: string;
       finNFe: string;
       indFinal: string;
       indPres: string;
       procEmi: string;
       verProc: string;
-      cMunFGIBS?: string;
-      dhSaiEnt?: string;
+      cMunFGIBS?: string | undefined;
+      dhSaiEnt?: string | undefined;
       dhCont?: string | undefined; 
       xJust?: string | undefined;
-      tpNFDebito?: string;
-      tpNFCredito?: string;
-      indIntermed?: string;
-      NFref?: NFref[];
-      gCompraGov?: GCompraGov;
+      tpNFDebito?: string | undefined;
+      tpNFCredito?: string | undefined;
+      indIntermed?: string | undefined;
+      NFref?: NFref[] | undefined;
+      gCompraGov?: GCompraGov | undefined;
     },
   ) {
     this.cUF = data.cUF;
-    this.cNF = data.cNF;
+    this.cNF = this.nfeCNF();
     this.natOp = data.natOp;
     this.mod = data.mod;
     this.serie = data.serie;
@@ -73,6 +73,7 @@ export class Ide {
     this.cMunFG = data.cMunFG;
     this.tpImp = data.tpImp;
     this.tpEmis = data.tpEmis;
+    this.cDV = data.cDV;
     this.tpAmb = data.tpAmb;
     this.finNFe = data.finNFe;
     this.indFinal = data.indFinal;
@@ -91,6 +92,16 @@ export class Ide {
     this.validateOrThrow();
   }
 
+  
+
+  private nfeCNF(): string {
+    // Gerar um número de 8 dígitos baseado no timestamp para ser mais previsível
+    const timestamp = Date.now();
+    const randomPart = Math.floor(Math.random() * 1000);
+    const cnf = (timestamp % 90000000 + randomPart).toString().padStart(8, '0');
+    return cnf;
+  }
+  
   public getNumeroFormatado(): string {
     return `${this.serie}-${this.nNF}`;
   }
@@ -103,7 +114,6 @@ export class Ide {
       throw new Error('Tipo de Operação (tpNF) inválido. Deve ser "0" (Entrada) ou "1" (Saída).');
     }
 
-
     if (this.tpEmis !== '1') {
       if (this.dhCont === undefined) {
         throw new Error('Data e Hora de Entrada em Contingência (dhCont) é obrigatório quando tpEmis for diferente de "1".');
@@ -111,17 +121,7 @@ export class Ide {
       if (this.xJust === undefined) {
         throw new Error('Justificativa da Entrada em Contingência (xJust) é obrigatória quando tpEmis for diferente de "1".');
       }
-      if (this.xJust.length < 15 || this.xJust.length > 256) {
-          throw new Error('Justificativa (xJust) deve ter entre 15 e 256 caracteres.');
-      }
       
-    } else {
-      if (this.dhCont === undefined) {
-        throw new Error('Data e Hora de Entrada em Contingência (dhCont) não deve ser informada quando tpEmis for "1" (Normal).');
-      }
-      if (this.xJust === undefined) {
-        throw new Error('Justificativa (xJust) não deve ser informada quando tpEmis for "1" (Normal).');
-      }
     }
   }
 
@@ -134,25 +134,27 @@ export class Ide {
       serie: this.serie,
       nNF: this.nNF,
       dhEmi: this.dhEmi,
+      dhSaiEnt: this.dhSaiEnt || undefined,
       tpNF: this.tpNF,
       idDest: this.idDest,
       cMunFG: this.cMunFG,
-      cMunFGIBS: this.cMunFGIBS,
+      cMunFGIBS: this.cMunFGIBS || undefined,
       tpImp: this.tpImp,
       tpEmis: this.tpEmis,
+      cDV: this.cDV,
       tpAmb: this.tpAmb,
       finNFe: this.finNFe,
+      tpNFDebito: this.tpNFDebito || undefined,
+      tpNFCredito: this.tpNFCredito || undefined,
       indFinal: this.indFinal,
       indPres: this.indPres,
+      indIntermed: this.indIntermed || undefined,
       procEmi: this.procEmi,
       verProc: this.verProc,
-      dhSaiEnt: this.dhSaiEnt,
-      dhCont: this.dhCont,
-      xJust: this.xJust,
-      tpNFDebito: this.tpNFDebito,
-      tpNFCredito: this.tpNFCredito,
-      NFref: this.NFref?.map(ref => ref.toJSON()),
-      gCompraGov: this.gCompraGov?.toJSON(),
+      dhCont: this.dhCont || undefined,
+      xJust: this.xJust || undefined,
+      NFref: this.NFref?.map(ref => ref.toJSON()) || undefined,
+      gCompraGov: this.gCompraGov?.toJSON() || undefined,
     };
   }
 }

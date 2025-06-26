@@ -37,7 +37,6 @@ export class NfeService {
           nUrl,
           issuerInvoice,
           typeDocument,
-
         );
     } catch (error) {
       console.error(error);

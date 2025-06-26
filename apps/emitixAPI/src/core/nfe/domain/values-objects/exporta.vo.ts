@@ -36,7 +36,7 @@ export class exporta {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       UFSaidaPais: this.UFSaidaPais,
       xLocExporta: this.xLocExporta,

@@ -1,26 +1,24 @@
 export class card {
 
   tpIntegra
-  CNPJ
-  tBand
-  cAut
-  CNPJReceb
-  idTErmPag
+  CNPJ?: string | undefined
+  tBand?: string | undefined
+  cAut?: string | undefined
 
   constructor(
-    tpIntegra,
-    CNPJ,
-    tBand,
-    cAut,
-    CNPJReceb,
-    idTErmPag
+    data: {
+      tpIntegra,
+      CNPJ,
+      tBand,
+      cAut,
+    }
   ) {
-    this.tpIntegra = tpIntegra;
-    this.CNPJ = CNPJ;
-    this.tBand = tBand;
-    this.cAut = cAut;
-    this.CNPJReceb = CNPJReceb;
-    this.idTErmPag = idTErmPag;
+    this.tpIntegra = data.tpIntegra;
+    this.CNPJ = data.CNPJ ? String(data.CNPJ) : undefined;
+    this.tBand = data.tBand ? String(data.tBand) : undefined;
+    this.cAut = data.cAut ? String(data.cAut) : undefined;
+
+    this.validateOrThrow();
   }
 
   validateOrThrow() {
@@ -41,12 +39,6 @@ export class card {
         throw new Error('O campo cAut deve ter entre 1 e 128 caracteres.');
       }
     }
-
-    if (this.idTErmPag !== undefined && this.idTErmPag !== null) {
-      if (this.idTErmPag.length < 1 || this.idTErmPag.length > 40) {
-        throw new Error('O campo idTErmPag deve ter entre 1 e 40 caracteres.');
-      }
-    }
   }
 
   toJson() {
@@ -55,8 +47,6 @@ export class card {
       CNPJ: this.CNPJ,
       tBand: this.tBand,
       cAut: this.cAut,
-      CNPJReceb: this.CNPJReceb,
-      idTErmPag: this.idTErmPag,
     };
   }
 }

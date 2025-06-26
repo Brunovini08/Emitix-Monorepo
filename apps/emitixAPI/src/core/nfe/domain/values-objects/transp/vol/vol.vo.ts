@@ -8,7 +8,7 @@ export class vol {
   nVol
   pesoL
   pesoB
-  lacres: lacres[]
+  lacres?: lacres[]
 
   constructor(
     data: {
@@ -27,7 +27,7 @@ export class vol {
     this.nVol = data.nVol;
     this.pesoL = data.pesoL;
     this.pesoB = data.pesoB;
-    this.lacres = data.lacres;
+    this.lacres = data.lacres || undefined;
   }
 
   validateOrThrow() {
@@ -63,7 +63,7 @@ export class vol {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       qVol: this.qVol,
       esp: this.esp,
@@ -71,9 +71,7 @@ export class vol {
       nVol: this.nVol,
       pesoL: this.pesoL,
       pesoB: this.pesoB,
-      lacres: this.lacres.map((lacre) => {
-        lacre.toJson()
-      }),
+      lacres: this.lacres ? this.lacres.map(lacre => lacre.toJSON()) : undefined,
     };
   }
 }

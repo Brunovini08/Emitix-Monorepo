@@ -10,9 +10,7 @@ import {
   ValidateIf,
   ValidateNested,
 } from 'class-validator';
-import { infoPagDto } from './infoPag.dto';
 import { cardDto } from './card.dto';
-import { TData } from 'src/core/nfe/domain/types/primitivies_types/TData';
 import { TDec_1302 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1302';
 import { TString } from 'src/core/nfe/domain/types/primitivies_types/TString';
 
@@ -43,15 +41,6 @@ export class detPagDto {
   @ValidateIf((o) => o.tPag != '90')
   @Type(() => TDec_1302)
   vPag: TDec_1302;
-
-  @IsOptional()
-  @Type(() => TData)
-  dPag: TData;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => infoPagDto)
-  infoPag: infoPagDto;
 
   @IsOptional()
   @ValidateNested()

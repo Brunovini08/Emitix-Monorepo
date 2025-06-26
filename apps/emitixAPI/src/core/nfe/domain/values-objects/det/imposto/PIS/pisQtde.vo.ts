@@ -52,9 +52,9 @@ export class PISQtde {
   public toJSON() {
     return {
       CST: this.CST,
-      qBCProd: this.qBCProd,
-      vAliqProd: this.vAliqProd,
-      vPIS: this.vPIS,
+      qBCProd: this.qBCProd.toFixed(4),
+      vAliqProd: this.vAliqProd.toFixed(4),
+      vPIS: this.vPIS.toFixed(2),
     };
   }
 }

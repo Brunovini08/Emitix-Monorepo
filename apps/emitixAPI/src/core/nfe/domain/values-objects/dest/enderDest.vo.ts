@@ -6,10 +6,10 @@ export class Endereco {
   public readonly xMun: string;
   public readonly UF: string;
   public readonly CEP: string;
-  public readonly cPais: string;
-  public readonly xPais: string;
-  public readonly fone?: string;
-  public readonly cpl?: string;
+  public readonly cPais?: string | undefined;
+  public readonly xPais?: string | undefined;
+  public readonly fone?: string | undefined;
+  public readonly xCpl?: string | undefined;
 
   constructor(data: {
     xLgr: string;
@@ -19,10 +19,10 @@ export class Endereco {
     xMun: string;
     UF: string;
     CEP: string;
-    cPais: string;
-    xPais: string;
-    fone?: string;
-    cpl?: string;
+    cPais?: string | undefined;
+    xPais?: string | undefined;
+    fone?: string | undefined;
+    xCpl?: string | undefined;
   }) {
     this.xLgr = data.xLgr;
     this.nro = data.nro;
@@ -34,7 +34,7 @@ export class Endereco {
     this.cPais = data.cPais;
     this.xPais = data.xPais;
     this.fone = data.fone;
-    this.cpl = data.cpl;
+    this.xCpl = data.xCpl;
 
     this.validateOrThrow();
   }
@@ -74,19 +74,17 @@ export class Endereco {
 
   toJSON() {
     return {
-        enderDest: {
-        xLgr: this.xLgr,
-        nro: this.nro,
-        xBairro: this.xBairro,
-        cMun: this.cMun,
-        xMun: this.xMun,
-        UF: this.UF,
-        CEP: this.CEP,
-        cPais: this.cPais,
-        xPais: this.xPais,
-        fone: this.fone,
-        cpl: this.cpl,
-      }
+      xLgr: this.xLgr,
+      nro: this.nro,
+      xBairro: this.xBairro,
+      cMun: this.cMun,
+      xMun: this.xMun,
+      UF: this.UF,
+      CEP: this.CEP,
+      cPais: this.cPais || undefined,
+      xPais: this.xPais || undefined,
+      fone: this.fone || undefined,
+      xCpl: this.xCpl || undefined,
     }
   }
 }

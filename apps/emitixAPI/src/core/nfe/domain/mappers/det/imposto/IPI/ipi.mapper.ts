@@ -4,6 +4,9 @@ import { IPINTMapper } from "./ipint.mapper";
 
 export class IPIMapper {
   static fromDto(dto: TIpi): IPI {
+    console.log({
+      IPI: dto
+    })
     return new IPI({
       CNPJProd: String(dto.CNPJProd),
       cSelo: String(dto.cSelo),

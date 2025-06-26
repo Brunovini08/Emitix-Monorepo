@@ -54,36 +54,26 @@ export type ICMSValues = {
 };
 
 export class ICMS {
-  // Propriedade privada para armazenar o tipo de ICMS selecionado
   private readonly _type: ICMSType;
-  
-  // Propriedade privada para armazenar o valor do ICMS
   private readonly _value: any;
 
   constructor(data: Partial<ICMSValues>) {
-    this.validateOrThrow(data);
-    
-    // Armazena o tipo e o valor após validação
-    this._type = Object.keys(data)[0] as ICMSType;
-    console.log({
-      TIPO_ICMS: this._type
-    })
+    const types = Object.keys(data) as ICMSType[];
+    if (types.length !== 1) {
+      throw new Error(`ICMS deve conter exatamente um tipo. Encontrados: ${types.join(', ')}`);
+    }
+
+    this._type = types[0];
     this._value = data[this._type];
+
+    if (!this._value) {
+      throw new Error(`Valor para ${this._type} não definido.`);
+    }
+
+    this._value.validateOrThrow?.(); // se existir
+    Object.freeze(this);
   }
 
-  public validateOrThrow(data: Partial<ICMSValues>): void {
-    const definedTypes = Object.keys(data).filter(key => data[key as keyof ICMSValues] !== undefined);
-    
-    if (definedTypes.length === 0) {
-      throw new Error('Pelo menos um tipo de ICMS deve ser definido.');
-    }
-    
-    if (definedTypes.length > 1) {
-      throw new Error(`Apenas um tipo de ICMS pode ser definido. Tipos encontrados: ${definedTypes.join(', ')}`);
-    }
-  }
-
-  // Métodos para acessar o tipo e valor do ICMS
   public get type(): ICMSType {
     return this._type;
   }
@@ -93,11 +83,12 @@ export class ICMS {
   }
 
   public equals(other: ICMS): boolean {
-    return this._type === other._type && this._value === other._value;
+    return this._type === other._type && this._value.equals(other._value);
   }
 
-  public toJSON(): Record<string, any> {
-    // Retorna apenas o tipo de ICMS definido e seu valor
-    return { [this._type]: this._value };
+  public toJSON(): any {
+    return this._value?.toJSON ? this._value.toJSON() : this._value;
   }
 }
+
+

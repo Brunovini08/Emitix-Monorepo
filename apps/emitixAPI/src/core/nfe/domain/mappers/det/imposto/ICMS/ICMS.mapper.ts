@@ -1,5 +1,5 @@
 import { ICMS } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS.vo";
-import type { ICMSDto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS.dto";
+import { ICMSDto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS.dto";
 import { ICMS00Mapper } from "./ICMS00.mapper";
 import { ICMS40Mapper } from "./ICMS40.mapper";
 import { ICMS60Mapper } from "./ICMS60.mapper";
@@ -53,10 +53,7 @@ export class ICMSMapper {
       const dtoKey = key === 'ICMSPart' ? 'ICMSPART' : key;
 
       if (dto[dtoKey as keyof ICMSDto]) {
-        icmsVo = (mapper as any).fromDto(dto[dtoKey as keyof ICMSDto]);
-        console.log({
-          ICMSMAPPER: icmsVo?.toJSON()
-        })
+        icmsVo = { [key]: (mapper as any).fromDto(dto[dtoKey as keyof ICMSDto]) };
         if (!icmsVo) {
           throw new Error("Não foi possível mapear o DTO para o Value Object ICMS.");
         }

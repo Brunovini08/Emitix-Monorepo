@@ -11,19 +11,30 @@ export class ICMS53 {
   public readonly qBCMono?;
   public readonly adRemICMS?;
   public readonly vICMSMonoOp?;
-  public readonly pDof?;
+  public readonly pDif?;
   public readonly vICMSMonoDif?;
   public readonly vICMSMono?;
   public readonly qBCMonoDif?;
   public readonly adRemICMSDif?;
 
-  constructor(data: { orig: string, CST: string, qBCMono?: string, adRemICMS?: string, vICMSMonoOp?: string, pDof?: string, vICMSMonoDif?: string, vICMSMono?: string, qBCMonoDif?: string, adRemICMSDif?: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    qBCMono?: string | undefined,
+    adRemICMS?: string | undefined,
+    vICMSMonoOp?: string | undefined,
+    pDif?: string | undefined,
+    vICMSMonoDif?: string | undefined,
+    vICMSMono?: string | undefined,
+    qBCMonoDif?: string | undefined,
+    adRemICMSDif?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.qBCMono = data.qBCMono ?? undefined;
     this.adRemICMS = data.adRemICMS ?? undefined;
     this.vICMSMonoOp = data.vICMSMonoOp ?? undefined;
-    this.pDof = data.pDof ?? undefined;
+    this.pDif = data.pDif ?? undefined;
     this.vICMSMonoDif = data.vICMSMonoDif ?? undefined;
     this.vICMSMono = data.vICMSMono ?? undefined;
     this.qBCMonoDif = data.qBCMonoDif ?? undefined;
@@ -60,8 +71,8 @@ export class ICMS53 {
       throw new Error('Valor do ICMS da operação (vICMSMonoOp) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pDof !== undefined && (typeof this.pDof !== 'string' || this.pDof.trim() === '')) {
-      throw new Error('Percentual do diferimento (pDof) deve ser um número entre 0 e 100, se informado.');
+    if (this.pDif !== undefined && (typeof this.pDif !== 'string' || this.pDif.trim() === '')) {
+      throw new Error('Percentual do diferimento (pDif) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vICMSMonoDif !== undefined && (typeof this.vICMSMonoDif !== 'string' || this.vICMSMonoDif.trim() === '')) {
@@ -91,7 +102,7 @@ export class ICMS53 {
       this.qBCMono === other.qBCMono &&
       this.adRemICMS === other.adRemICMS &&
       this.vICMSMonoOp === other.vICMSMonoOp &&
-      this.pDof === other.pDof &&
+      this.pDif === other.pDif &&
       this.vICMSMonoDif === other.vICMSMonoDif &&
       this.vICMSMono === other.vICMSMono &&
       this.qBCMonoDif === other.qBCMonoDif &&
@@ -107,7 +118,7 @@ export class ICMS53 {
         qBCMono: this.qBCMono,
         adRemICMS: this.adRemICMS,
         vICMSMonoOp: this.vICMSMonoOp,
-        pDof: this.pDof,
+        pDif: this.pDif,
         vICMSMonoDif: this.vICMSMonoDif,
         vICMSMono: this.vICMSMono,
         qBCMonoDif: this.qBCMonoDif,

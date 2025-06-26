@@ -1,4 +1,4 @@
-import { create } from "xmlbuilder2"
+import { XMLBuilder } from "fast-xml-parser"
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -8,13 +8,23 @@ export class NFeInutilizarBuilder {
     objectFormat: any,
     versao: string
   ) {
-    const root = create({ inutNFe: objectFormat })
-    const inutNFe = root.root()
-    const infInut = inutNFe.find((node) => node.node.nodeName === 'infInut')
-    infInut?.att('Id', accessKey)
-    inutNFe.att('xmlns', 'http://www.portalfiscal.inf.br/nfe')
-    inutNFe.att('versao', versao)
-    const xml = root.end({ prettyPrint: false, headless: true });
-    return xml
+    const parser = new XMLBuilder({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    });
+
+    const xmlData = {
+      inutNFe: {
+        '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
+        '@_versao': versao,
+        infInut: {
+          '@_Id': accessKey,
+          ...objectFormat
+        }
+      }
+    };
+
+    const xml = parser.build(xmlData);
+    return xml;
   }
 }

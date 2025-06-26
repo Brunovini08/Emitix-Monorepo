@@ -34,4 +34,11 @@ export class AutXML {
   public getDocumento(): string {
     return this.CNPJ || this.CPF || '';
   }
+
+  public toJSON() {
+    return {
+      CNPJ: this.CNPJ || undefined,
+      CPF: this.CPF || undefined,
+    };
+  }
 }

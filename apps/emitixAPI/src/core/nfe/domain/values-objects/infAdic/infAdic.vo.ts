@@ -4,26 +4,26 @@ import type { procRef } from "./procRef.vo"
 
 export class infAdic {
 
-  infAdFisco: string
-  infCpl: string
-  obsCont: ObsContent[]
-  obsFisco: ObsFisco[]
-  procRef: procRef[] = []
+  infAdFisco?: string
+  infCpl?: string
+  obsCont?: ObsContent[]
+  obsFisco?: ObsFisco[]
+  procRef?: procRef[]
 
   constructor(
     data: {
-      infAdFisco: string,
-      infCpl: string,
-      obsCont: ObsContent[],
-      obsFisco: ObsFisco[],
-      procRef: procRef[]
+      infAdFisco?: string,
+      infCpl?: string,
+      obsCont?: ObsContent[],
+      obsFisco?: ObsFisco[],
+      procRef?: procRef[]
     }
   ) {
-    this.infAdFisco = data.infAdFisco;
-    this.infCpl = data.infCpl;
-    this.obsCont = data.obsCont;
-    this.obsFisco = data.obsFisco;
-    this.procRef = data.procRef;
+    this.infAdFisco = data.infAdFisco || undefined;
+    this.infCpl = data.infCpl || undefined;
+    this.obsCont = data.obsCont || undefined;
+    this.obsFisco = data.obsFisco || undefined;
+    this.procRef = data.procRef || undefined;
   }
 
   validateOrThrow() {
@@ -82,13 +82,13 @@ export class infAdic {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
-      infAdFisco: this.infAdFisco,
-      infCpl: this.infCpl,
-      obsCont: this.obsCont.map(item => item.toJSON()),
-      obsFisco: this.obsFisco.map(item => item.toJSON()),
-      procRef: this.procRef.map(item => item.toJSON()),
+      infAdFisco: this.infAdFisco || undefined,
+      infCpl: this.infCpl || undefined,
+      obsCont: this.obsCont ? this.obsCont.map(item => item.toJSON()) : undefined,
+      obsFisco: this.obsFisco ? this.obsFisco.map(item => item.toJSON()) : undefined,
+      procRef: this.procRef ? this.procRef.map(item => item.toJSON()) : undefined,
     };
   }
 }

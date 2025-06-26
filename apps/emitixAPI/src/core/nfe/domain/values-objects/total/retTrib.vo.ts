@@ -1,38 +1,38 @@
 export class retTrib {
 
-  vRetPIS
-  vRetCOFINS
-  vRetCSLL
-  vBCIRRF
-  vIRRF
-  vBCRetPrev
-  vRetPRev
+  vRetPIS?
+  vRetCOFINS?
+  vRetCSLL?
+  vBCIRRF?
+  vIRRF?
+  vBCRetPrev?
+  vRetPRev?
 
   constructor(
     data: {
-      vRetPIS,
-      vRetCOFINS,
-      vRetCSLL,
-      vBCIRRF,
-      vIRRF,
-      vBCRetPrev,
-      vRetPRev
+      vRetPIS?,
+      vRetCOFINS?,
+      vRetCSLL?,
+      vBCIRRF?,
+      vIRRF?,
+      vBCRetPrev?,
+      vRetPRev?
     }
   ) {
-    this.vRetPIS = data.vRetPIS;
-    this.vRetCOFINS = data.vRetCOFINS;
-    this.vRetCSLL = data.vRetCSLL;
-    this.vBCIRRF = data.vBCIRRF;
-    this.vIRRF = data.vIRRF;
-    this.vBCRetPrev = data.vBCRetPrev;
-    this.vRetPRev = data.vRetPRev;
+    this.vRetPIS = data.vRetPIS || undefined;
+    this.vRetCOFINS = data.vRetCOFINS || undefined;
+    this.vRetCSLL = data.vRetCSLL || undefined;
+    this.vBCIRRF = data.vBCIRRF || undefined;
+    this.vIRRF = data.vIRRF || undefined;
+    this.vBCRetPrev = data.vBCRetPrev || undefined;
+    this.vRetPRev = data.vRetPRev || undefined;
   }
 
   validateOrThrow() {
 
   }
 
-  toJson() {
+  toJSON() {
     return {
       vRetPIS: this.vRetPIS,
       vRetCOFINS: this.vRetCOFINS,

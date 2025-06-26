@@ -4,17 +4,17 @@ import { II } from './II/II.vo';
 
 export class Produto {
   public readonly ICMS: ICMS
-  public readonly IPI: IPI | undefined;
-  public readonly II: II | undefined;
+  public readonly IPI?: IPI;
+  public readonly II?: II;
 
   constructor(data: {
     ICMS: ICMS;
-    IPI: IPI | undefined;
-    II: II | undefined;
+    IPI?: IPI;
+    II?: II;
   }) {
-    this.ICMS = data.ICMS 
-    this.IPI = data.IPI 
-    this.II = data.II 
+    this.ICMS = data.ICMS
+    this.IPI = data.IPI || undefined
+    this.II = data.II || undefined
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -47,9 +47,9 @@ export class Produto {
 
   public toJSON() {
     return {
-      ICMS: this.ICMS ? this.ICMS.toJSON() : null,
-      IPI: this.IPI ? this.IPI.toJSON() : null,
-      II: this.II ? this.II.toJSON() : null,
+      ICMS: this.ICMS.toJSON(),
+      IPI: this.IPI ? this.IPI.toJSON() : undefined,
+      II: this.II ? this.II.toJSON() : undefined,
     };
   }
 }

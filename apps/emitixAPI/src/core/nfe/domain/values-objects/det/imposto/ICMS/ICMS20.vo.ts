@@ -13,14 +13,27 @@ export class ICMS20 {
   public readonly vBC;
   public readonly pICMS;
   public readonly vICMS;
-  public readonly vBCFCP?: string;
-  public readonly pFCP?: string;
-  public readonly vFCP?: string;
-  public readonly vICMSDeson?: string;
-  public readonly motDesICMS?: string;
-  public readonly indDeduzDeson?: string;
+  public readonly vBCFCP?: string | undefined;
+  public readonly pFCP?: string | undefined;
+  public readonly vFCP?: string | undefined;
+  public readonly vICMSDeson?: string | undefined;
+  public readonly motDesICMS?: string | undefined;
+  public readonly indDeduzDeson?: string | undefined;
 
-  constructor(data: { orig: string, CST: string, modBC: string, pRedBC: string, vBC: string, pICMS: string, vICMS: string, vBCFCP?: string, pFCP?: string, vFCP?: string, vICMSDeson?: string, motDesICMS?: string, indDeduzDeson?: string }) {
+  constructor(data: { orig: string, 
+    CST: string, 
+    modBC: string,
+    pRedBC: string,
+    vBC: string,
+    pICMS: string,
+    vICMS: string,
+    vBCFCP?: string | undefined,
+    pFCP?: string | undefined,
+    vFCP?: string | undefined,
+    vICMSDeson?: string | undefined,
+    motDesICMS?: string | undefined,
+    indDeduzDeson?: string | undefined
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
     this.modBC = data.modBC;
@@ -28,12 +41,12 @@ export class ICMS20 {
     this.vBC = data.vBC;
     this.pICMS = data.pICMS;
     this.vICMS = data.vICMS;
-    this.vBCFCP = data.vBCFCP ?? undefined;
-    this.pFCP = data.pFCP ?? undefined;
-    this.vFCP = data.vFCP ?? undefined;
-    this.vICMSDeson = data.vICMSDeson ?? undefined;
-    this.motDesICMS = data.motDesICMS ?? undefined;
-    this.indDeduzDeson = data.indDeduzDeson ?? undefined;
+    this.vBCFCP = data.vBCFCP;
+    this.pFCP = data.pFCP;
+    this.vFCP = data.vFCP;
+    this.vICMSDeson = data.vICMSDeson;
+    this.motDesICMS = data.motDesICMS;
+    this.indDeduzDeson = data.indDeduzDeson;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -78,19 +91,19 @@ export class ICMS20 {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vBCFCP !== null && (typeof this.vBCFCP !== 'string' || this.vBCFCP.trim() === '')) {
+    if (this.vBCFCP !== undefined && (typeof this.vBCFCP !== 'string' || this.vBCFCP.trim() === '')) {
       throw new Error('Valor da Base de cálculo do FCP (vBCFCP) deve ser um número não negativo, se informado.');
     }
 
-    if (this.pFCP !== null && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
+    if (this.pFCP !== undefined && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
       throw new Error('Percentual de ICMS relativo ao Fundo de Combate à Pobreza (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCP !== null && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
+    if (this.vFCP !== undefined && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
       throw new Error('Valor do ICMS relativo ao Fundo de Combate à Pobreza (vFCP) deve ser um número não negativo, se informado.');
     }
 
-    if (this.vICMSDeson !== null && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
+    if (this.vICMSDeson !== undefined && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
       throw new Error('Valor do ICMS de desoneração (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -136,12 +149,12 @@ export class ICMS20 {
         vBC: this.vBC,
         pICMS: this.pICMS,
         vICMS: this.vICMS,
-        vBCFCP: this.vBCFCP,
-        pFCP: this.pFCP,
-        vFCP: this.vFCP,
-        vICMSDeson: this.vICMSDeson,
-        motDesICMS: this.motDesICMS,
-        indDeduzDeson: this.indDeduzDeson,
+        vBCFCP: this.vBCFCP || undefined,
+        pFCP: this.pFCP || undefined,
+        vFCP: this.vFCP || undefined,
+        vICMSDeson: this.vICMSDeson || undefined,
+        motDesICMS: this.motDesICMS || undefined,
+        indDeduzDeson: this.indDeduzDeson || undefined,
       }
     };
   }

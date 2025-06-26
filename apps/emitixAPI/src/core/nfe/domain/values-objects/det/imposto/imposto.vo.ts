@@ -8,41 +8,45 @@ import { COFINSST } from "./COFINSST/cofinsst.vo";
 import { ICMSUFDest } from "./ICMSUFDest/icmsUfDest.vo";
 
 export class Impostos {
-  public readonly vTotTrib?: number;
-  public readonly produto: Produto;
-  public readonly servico: Servico;
-  public readonly PIS: PIS;
-  public readonly PISST: PISST;
-  public readonly COFINS: COFINS;
-  public readonly COFINSST: COFINSST;
-  public readonly ICMSUFDest: ICMSUFDest;
+  public readonly vTotTrib?: string;
+  public readonly produto?: Produto;
+  public readonly servico?: Servico;
+  public readonly PIS?: PIS; 
+  public readonly PISST?: PISST;
+  public readonly COFINS?: COFINS;
+  public readonly COFINSST?: COFINSST;
+  public readonly ICMSUFDest?: ICMSUFDest;
 
   constructor(data: {
-    vTotTrib: number;
-    produto: Produto;
-    servico: Servico;
-    PIS: PIS;
-    PISST: PISST;
-    COFINS: COFINS;
-    COFINSST: COFINSST;
-    ICMSUFDest: ICMSUFDest;
+    vTotTrib?: string;
+    produto?: Produto;
+    servico?: Servico;
+    PIS?: PIS;
+    PISST?: PISST;
+    COFINS?: COFINS;
+    COFINSST?: COFINSST;
+    ICMSUFDest?: ICMSUFDest;
   }) {
-    this.vTotTrib = data.vTotTrib   
-    this.produto = data.produto   
-    this.servico = data.servico;
-    this.PIS = data.PIS;
-    this.PISST = data.PISST;
-    this.COFINS = data.COFINS;
-    this.COFINSST = data.COFINSST;
-    this.ICMSUFDest = data.ICMSUFDest;
+    this.vTotTrib = data.vTotTrib || undefined   
+    this.produto = data.produto || undefined   
+    this.servico = data.servico || undefined   
+    this.PIS = data.PIS || undefined;
+    this.PISST = data.PISST || undefined;
+    this.COFINS = data.COFINS || undefined;
+    this.COFINSST = data.COFINSST || undefined;
+    this.ICMSUFDest = data.ICMSUFDest || undefined;
 
     this.validateOrThrow();
     Object.freeze(this);
   }
 
   public validateOrThrow() {
-    if (this.vTotTrib !== null && (typeof this.vTotTrib !== 'number' || this.vTotTrib < 0)) {
+    if (this.vTotTrib !== undefined && (typeof this.vTotTrib !== 'string' || Number(this.vTotTrib) < 0)) {
       throw new Error('Valor Total dos Tributos (vTotTrib) deve ser um número não negativo, se informado.');
+    }
+
+    if (this.produto && this.servico) {
+      throw new Error('Impostos pode conter dados de Produto ou Serviço, mas não ambos.');
     }
 
     if (this.produto) {
@@ -73,9 +77,7 @@ export class Impostos {
       this.ICMSUFDest.validateOrThrow();
     }
 
-    if (this.produto && this.servico) {
-      throw new Error('Impostos pode conter dados de Produto ou Serviço, mas não ambos.');
-    }
+   
   }
 
   public equals(other) {
@@ -96,14 +98,14 @@ export class Impostos {
 
   public toJSON() {
     return {
-      vTotTrib: this.vTotTrib,
-      produto: this.produto ? this.produto.toJSON() : null,
-      servico: this.servico ? this.servico.toJSON() : null,
-      PIS: this.PIS ? this.PIS.toJSON() : null,
-      PISST: this.PISST ? this.PISST.toJSON() : null,
-      COFINS: this.COFINS ? this.COFINS.toJSON() : null,
-      COFINSST: this.COFINSST ? this.COFINSST.toJSON() : null,
-      ICMSUFDest: this.ICMSUFDest ? this.ICMSUFDest.toJSON() : null,
+      vTotTrib: this.vTotTrib || undefined,
+      ...(this.produto ? this.produto.toJSON() : undefined),
+      ...(this.servico ? this.servico.toJSON() : undefined),
+      PIS: this.PIS ? this.PIS.toJSON() : undefined,
+      PISST: this.PISST ? this.PISST.toJSON() : undefined,
+      COFINS: this.COFINS ? this.COFINS.toJSON() : undefined,
+      COFINSST: this.COFINSST ? this.COFINSST.toJSON() : undefined,
+      ICMSUFDest: this.ICMSUFDest ? this.ICMSUFDest.toJSON() : undefined,
     };
   }
 }

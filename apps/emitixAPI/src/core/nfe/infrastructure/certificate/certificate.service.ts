@@ -12,7 +12,6 @@ export class CertificateService {
   }
 
   public async extractCnpjFromCertificate(file: Base64, certPassword: string) {
-    const cert = await this.validateCertificate(file, certPassword)
     const cnpj = extractCNPJFromSubject(file, certPassword)
     return cnpj
   }

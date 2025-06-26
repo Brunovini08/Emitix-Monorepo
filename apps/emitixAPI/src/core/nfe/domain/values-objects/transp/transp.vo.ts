@@ -8,34 +8,34 @@ import type { vol } from "./vol/vol.vo"
 export class transp {
 
   modFrete
-  transporta: transporta
-  retTrasp: retTransp
-  veicTransp: TVeiculo
-  reboque: veiculoComReboque
-  vagao: string
-  balsa: string
-  vol: vol[]
+  transporta?: transporta
+  retTrasp?: retTransp
+  veicTransp?: TVeiculo
+  reboque?: veiculoComReboque[]
+  vagao?: string
+  balsa?: string
+  vol?: vol[]
 
   constructor(
     data: {
       modFrete: string,
-      transporta: transporta,
-      retTrasp: retTransp,
-      veicTransp: TVeiculo,
-      reboque: veiculoComReboque,
-      vagao: string,
-      balsa: string,
-      vol: vol[]
+      transporta?: transporta,
+      retTrasp?: retTransp,
+      veicTransp?: TVeiculo,
+      reboque?: veiculoComReboque[],
+      vagao?: string,
+      balsa?: string,
+      vol?: vol[]
     }
   ) {
     this.modFrete = data.modFrete;
-    this.transporta = data.transporta;
-    this.retTrasp = data.retTrasp;
-    this.veicTransp = data.veicTransp;
-    this.reboque = data.reboque;
-    this.vagao = data.vagao;
-    this.balsa = data.balsa;
-    this.vol = data.vol;
+    this.transporta = data.transporta || undefined;
+    this.retTrasp = data.retTrasp || undefined;
+    this.veicTransp = data.veicTransp || undefined;
+    this.reboque = data.reboque || undefined;
+    this.vagao = data.vagao || undefined;
+    this.balsa = data.balsa || undefined;
+    this.vol = data.vol || undefined;
   }
 
   validateOrThrow() {
@@ -63,8 +63,10 @@ export class transp {
     }
 
     if (this.reboque !== undefined && this.reboque !== null) {
-      if (typeof this.reboque.validateOrThrow === 'function') {
-        this.reboque.validateOrThrow();
+      for (const item of this.reboque) {
+        if (typeof item.validateOrThrow === 'function') {
+          item.validateOrThrow();
+        }
       }
     }
 
@@ -95,16 +97,16 @@ export class transp {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       modFrete: this.modFrete,
-      transporta: this.transporta ? (typeof this.transporta.toJson === 'function' ? this.transporta.toJson() : this.transporta) : undefined,
-      retTrasp: this.retTrasp ? (typeof this.retTrasp.toJson === 'function' ? this.retTrasp.toJson() : this.retTrasp) : undefined,
-      veicTransp: this.veicTransp ? (typeof this.veicTransp.toJson === 'function' ? this.veicTransp.toJson() : this.veicTransp) : undefined,
-      reboque: this.reboque ? (typeof this.reboque.toJson === 'function' ? this.reboque.toJson() : this.reboque) : undefined,
+      transporta: this.transporta ? (typeof this.transporta.toJSON === 'function' ? this.transporta.toJSON() : this.transporta) : undefined,
+      retTrasp: this.retTrasp ? (typeof this.retTrasp.toJSON === 'function' ? this.retTrasp.toJSON() : this.retTrasp) : undefined,
+      veicTransp: this.veicTransp ? (typeof this.veicTransp.toJSON === 'function' ? this.veicTransp.toJSON() : this.veicTransp) : undefined,
+      reboque: this.reboque ? this.reboque.map(item => item.toJSON()) : undefined,
       vagao: this.vagao,
       balsa: this.balsa,
-      vol: this.vol.map(item => item.toJson()),
+      vol: this.vol ? this.vol.map(item => item.toJSON()) : undefined,
     };
   }
 }

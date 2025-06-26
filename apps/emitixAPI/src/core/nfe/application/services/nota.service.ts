@@ -23,6 +23,8 @@ import { SendSefaz } from '../../infrastructure/sefaz/SendSefaz';
 import { HttpService } from '@nestjs/axios';
 import * as forge from 'node-forge';
 import { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
+import { EnviNFeGen } from '../../infrastructure/sefaz/services/enviNFeGen.util';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class NotaService {
@@ -39,6 +41,7 @@ export class NotaService {
   private readonly signedXmlUtil: SignedXmlUtil
   private readonly idLoteService: IdLoteService
   private readonly httpService: HttpService
+  private readonly enviNFeGen: EnviNFeGen
   constructor(
     emissionService: EmissionService,
     nfeEmitirUseCase: NfeEmitirUseCase,
@@ -51,6 +54,7 @@ export class NotaService {
     signedXmlUtil: SignedXmlUtil,
     idLoteService: IdLoteService,
     httpService: HttpService,
+    enviNFeGen: EnviNFeGen,
   ) {
     this.emissionService = emissionService
     this.nfeEmitirUseCase = nfeEmitirUseCase
@@ -63,6 +67,7 @@ export class NotaService {
     this.signedXmlUtil = signedXmlUtil
     this.idLoteService = idLoteService
     this.httpService = httpService
+    this.enviNFeGen = enviNFeGen
   }
 
   async emitir(
@@ -84,24 +89,25 @@ export class NotaService {
       const nfeJson = nfe.toJSON()
       const xml = await this.nfeEmitirUseCase.execute(nfe)
       const sign = await this.signedXmlUtil.signXml(xml, file, certPassword, nfeJson.nfeChaveAcesso, 'infNFe')
+      console.log(sign)
       const result = await validateXmlXsd(sign, 0)
 
       if (result === true) {
         const idLote = await this.idLoteService.generateId(userId);
-        if (!idLote)
-          throw new BadRequestException('Id do Lote não vou gerado');
+        if (!idLote) throw new BadRequestException('Id do Lote não vou gerado');
+        const envNfe = await this.enviNFeGen.enviNFeGen(idLote, indSinc, sign)
         const sendSefaz = new SendSefaz(this.httpService)
-        const envNfe = await sendSefaz.sendSefazRequest(
-          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
-          sign,
-          String(createNfeDto.NFe.infNFe.ide.cUF),
-          String(createNfeDto.NFe.infNFe.ide.tpAmb),
-          nUrl,
-          cert,
-          privateKey,
-          certPassword,
-          typeDocument,
-        );
+        const response = await firstValueFrom(sendSefaz.sendSefazRequest(
+            '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+            envNfe,
+            String(createNfeDto.NFe.infNFe.ide.cUF),
+            String(createNfeDto.NFe.infNFe.ide.tpAmb),
+            nUrl,
+            cert,
+            privateKey,
+            typeDocument
+          ));
+        return response;
       }
     } catch (error) {
       console.error(error)

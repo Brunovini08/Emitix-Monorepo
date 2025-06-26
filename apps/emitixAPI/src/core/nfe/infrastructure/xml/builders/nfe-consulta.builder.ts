@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { create } from "xmlbuilder2";
+import { XMLBuilder } from "fast-xml-parser";
 
 @Injectable()
 export class NFeConsultaBuilder {
@@ -7,10 +7,19 @@ export class NFeConsultaBuilder {
     dataFormat: any,
     versao: string
   ) {
-    const root = create({ consSitNFe: dataFormat });
-    const consSitNFe = root.root();
-    consSitNFe.att('xmlns', 'http://www.portalfiscal.inf.br/nfe');
-    consSitNFe.att('versao', versao);
-    return root.end({ prettyPrint: false, headless: true });
+    const parser = new XMLBuilder({
+      ignoreAttributes: false,
+      attributeNamePrefix: '@_',
+    });
+
+    const xmlData = {
+      consSitNFe: {
+        '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
+        '@_versao': versao,
+        ...dataFormat
+      }
+    };
+
+    return parser.build(xmlData);
   } 
 }

@@ -8,10 +8,10 @@ import { COFINSOutrMapper } from "./cofinsOutr/cofinsOutr.mapper";
 export class COFINSMapper {
   static fromDto(dto: cofinsDto): COFINS {
     return new COFINS({
-      COFINSAliq: COFINSAliqMapper.fromDto(dto.COFINSAliq),
-      COFINSQtde: COFINSQtdeMapper.fromDto(dto.COFINSQtde),
-      COFINSNT: COFINSNTMapper.fromDto(dto.COFINSNT),
-      COFINSOutr: COFINSOutrMapper.fromDto(dto.COFINSOutr),
+      COFINSAliq: dto.COFINSAliq ? COFINSAliqMapper.fromDto(dto.COFINSAliq) : undefined,
+      COFINSQtde: dto.COFINSQtde ? COFINSQtdeMapper.fromDto(dto.COFINSQtde) : undefined,
+      COFINSNT: dto.COFINSNT ? COFINSNTMapper.fromDto(dto.COFINSNT) : undefined,
+      COFINSOutr: dto.COFINSOutr ? COFINSOutrMapper.fromDto(dto.COFINSOutr) : undefined,
     });
   }
 }

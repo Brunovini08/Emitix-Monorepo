@@ -28,7 +28,7 @@ export class dup {
     }
   }
 
-  toJson() {
+  toJSON() {
     return {
       nDUp: this.nDUp,
       dVenc: this.dVenc,

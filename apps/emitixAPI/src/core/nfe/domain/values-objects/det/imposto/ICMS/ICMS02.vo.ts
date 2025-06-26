@@ -8,14 +8,20 @@ Object.freeze(TorigEnum);
 export class ICMS02 {
   public readonly orig;
   public readonly CST;
-  public readonly qBCMono;
+  public readonly qBCMono?;
   public readonly adRemICMS;
   public readonly vICMSMono;
 
-  constructor(data: { orig: string, CST: string, qBCMono: string, adRemICMS: string, vICMSMono: string }) {
+  constructor(data: {
+    orig: string,
+    CST: string,
+    qBCMono?: string | undefined,
+    adRemICMS: string,
+    vICMSMono: string
+  }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMono = data.qBCMono;
+    this.qBCMono = data.qBCMono || undefined;
     this.adRemICMS = data.adRemICMS;
     this.vICMSMono = data.vICMSMono;
 
@@ -24,7 +30,7 @@ export class ICMS02 {
   }
 
   public validateOrThrow() {
-    if (this.orig !== null && !(Object.values(TorigEnum).includes(this.orig))) {
+    if (this.orig !== undefined && !(Object.values(TorigEnum).includes(this.orig))) {
       throw new Error(`
         Origem da mercadoria (orig) deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno), se informado.
@@ -38,7 +44,7 @@ export class ICMS02 {
       throw new Error('CST para ICMS02 deve ser obrigatoriamente "02".');
     }
 
-    if (this.qBCMono !== null && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
+    if (this.qBCMono !== undefined && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
       throw new Error('Quantidade tributada (qBCMono) deve ser um número não negativo, se informada.');
     }
 
@@ -69,7 +75,7 @@ export class ICMS02 {
       ICMS02: {
         orig: this.orig,
         CST: this.CST,
-        qBCMono: this.qBCMono,
+        qBCMono: this.qBCMono || undefined,
         adRemICMS: this.adRemICMS,
         vICMSMono: this.vICMSMono,
       }
