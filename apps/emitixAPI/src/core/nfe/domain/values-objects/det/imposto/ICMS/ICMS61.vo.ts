@@ -6,17 +6,18 @@ const TorigEnum = {
 Object.freeze(TorigEnum);
 
 export class ICMS61 {
-  public readonly orig;
-  public readonly CST;
-  public readonly qBCMonoRet?: string | undefined;
-  public readonly adRemICMSRet;
-  public readonly vICMSMonoRet;
+  public readonly orig: string;
+  public readonly CST: string;
+  public readonly qBCMonoRet: number;
+  public readonly adRemICMSRet: number;
+  public readonly vICMSMonoRet: number;
 
-  constructor(data: { orig: string,
+  constructor(data: {
+    orig: string,
     CST: string,
-    qBCMonoRet?: string | undefined,
-    adRemICMSRet: string,
-    vICMSMonoRet: string
+    qBCMonoRet: number,
+    adRemICMSRet: number,
+    vICMSMonoRet: number,
   }) {
     this.orig = data.orig;
     this.CST = data.CST;
@@ -43,20 +44,20 @@ export class ICMS61 {
       throw new Error('CST para ICMS61 deve ser obrigatoriamente "61".');
     }
 
-    if (this.qBCMonoRet !== undefined && (typeof this.qBCMonoRet !== 'string' || this.qBCMonoRet.trim() === '')) {
-      throw new Error('Quantidade tributada retida anteriormente (qBCMonoRet) deve ser um número não negativo, se informada.');
+    if (typeof this.qBCMonoRet !== 'number' || this.qBCMonoRet < 0) {
+      throw new Error('Quantidade tributada retida (qBCMonoRet) é obrigatória e deve ser um número não negativo.');
     }
 
-    if (this.adRemICMSRet !== undefined && (typeof this.adRemICMSRet !== 'string' || this.adRemICMSRet.trim() === '')) {
-      throw new Error('Alíquota ad rem do imposto retido anteriormente (adRemICMSRet) deve ser um número não negativo, se informada.');
+    if (typeof this.adRemICMSRet !== 'number' || this.adRemICMSRet < 0) {
+      throw new Error('Alíquota ad valorem do ICMS retido (adRemICMSRet) é obrigatória e deve ser um número não negativo.');
     }
 
-    if (this.vICMSMonoRet !== undefined && (typeof this.vICMSMonoRet !== 'string' || this.vICMSMonoRet.trim() === '')) {
-      throw new Error('Valor do ICMS da operação retido anteriormente (vICMSMonoRet) deve ser um número não negativo, se informado.');
+    if (typeof this.vICMSMonoRet !== 'number' || this.vICMSMonoRet < 0) {
+      throw new Error('Valor do ICMS monofásico retido (vICMSMonoRet) é obrigatório e deve ser um número não negativo.');
     }
   }
 
-  public equals(other) {
+  public equals(other: ICMS61): boolean {
     if (!(other instanceof ICMS61)) {
       return false;
     }
@@ -74,9 +75,9 @@ export class ICMS61 {
       ICMS61: {
         orig: this.orig,
         CST: this.CST,
-        qBCMonoRet: this.qBCMonoRet || undefined,
-        adRemICMSRet: this.adRemICMSRet,
-        vICMSMonoRet: this.vICMSMonoRet,
+        qBCMonoRet: this.qBCMonoRet.toFixed(4),
+        adRemICMSRet: this.adRemICMSRet.toFixed(2),
+        vICMSMonoRet: this.vICMSMonoRet.toFixed(2),
       }
     };
   }

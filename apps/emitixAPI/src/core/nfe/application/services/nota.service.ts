@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Base64 } from 'node-forge';
 import { validateXmlXsd } from 'src/core/nfe/infrastructure/certificate/services/validateXmlXsd.util';
 import { EmissionService } from '../../../emission/application/emission.service';
-import { IdLoteService } from '../../infrastructure/sefaz/services/idLote.service';
+import { IdLoteService } from '../../infrastructure/external/sefaz/services/idLote.service';
 import { TEnvConsCad } from '../../domain/types/complex_types/TCons/TEnvConsCad';
 import TEnvConsSitNfe from '../../domain/types/complex_types/TCons/TEnvConsSitNfe';
 import TEnvConsStatServ from '../../domain/types/complex_types/TCons/TEnvConsStatServ';
@@ -16,14 +16,14 @@ import { NfeEmitirUseCase } from '../use-cases/nfe-emitir.usecase';
 import { NfeInutilizarUseCase } from '../use-cases/nfe-inutilizar.usecase';
 import { NfeStatusUseCase } from '../use-cases/nfe-status.usecase';
 import { NfeConsultaUseCase } from '../use-cases/nfe-consulta.usecase';
-import { SignedXmlUtil } from '../../infrastructure/xml/sign/signedXml.util';
+import { SignedXmlUtil } from '../../infrastructure/external/xml/sign/signedXml.util';
 import { CertificateService } from '../../infrastructure/certificate/certificate.service';
 import { NFeMapper } from '../../domain/mappers/nfe.mapper';
-import { SendSefaz } from '../../infrastructure/sefaz/SendSefaz';
+import { SendSefaz } from '../../infrastructure/external/sefaz/SendSefaz';
 import { HttpService } from '@nestjs/axios';
 import * as forge from 'node-forge';
 import { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
-import { EnviNFeGen } from '../../infrastructure/sefaz/services/enviNFeGen.util';
+import { EnviNFeGen } from '../../infrastructure/external/sefaz/services/enviNFeGen.util';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()

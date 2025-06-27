@@ -52,7 +52,7 @@ export class ICMS60Dto {
 
   @IsOptional()
   @Type(() => TDec_0302a04Opc)
-  pFCPST: TDec_0302a04Opc; // Alíquota do ICMS Substituição Tributária retido anteriormente (%)
+  pFCPSTRet: TDec_0302a04Opc; // Alíquota do ICMS Substituição Tributária retido anteriormente (%)
 
   @IsOptional()
   @Type(() => TDec_1302)

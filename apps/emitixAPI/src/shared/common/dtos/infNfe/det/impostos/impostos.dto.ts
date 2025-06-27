@@ -1,7 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, ValidateNested } from 'class-validator';
-import { produtoDto } from './produto/produto.dto';
-import { servicoDto } from './servico/servico.dto';
+import { IsOptional, ValidateNested } from 'class-validator';
 import { pisDto } from './pis/pis.dto';
 import { pisStDto } from './pisst/pisst.dto';
 import { cofinsDto } from './cofins/confins.dto';
@@ -9,6 +7,11 @@ import { cofinsSTDto } from './cofinsst/cofinsst.dto';
 import { icmsUfDestDto } from './icmsUfDest/icmsUfDest.dto';
 import { ICMSDto } from './icms/ICMS.dto';
 import { TDec_1302 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1302';
+import { IIDto } from './II/II.dto';
+import { ISSQNDto } from './servico/ISSQN.dto';
+import { TIpi } from 'src/core/nfe/domain/types/complex_types/TIpi/TIpi';
+import { IBSCBSDto } from './IBSCBS/IBSCBS.dto';
+
 
 export class impostosDto {
   @IsOptional()
@@ -17,13 +20,23 @@ export class impostosDto {
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => produtoDto)
-  produto: produtoDto;
+  @Type(() => ICMSDto)
+  ICMS: ICMSDto;
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => servicoDto)
-  servico: servicoDto;
+  @Type(() => TIpi)
+  IPI: TIpi;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => IIDto)
+  II: IIDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ISSQNDto)
+  ISSQN: ISSQNDto;
 
   @IsOptional()
   @ValidateNested()
@@ -49,4 +62,9 @@ export class impostosDto {
   @ValidateNested()
   @Type(() => icmsUfDestDto)
   ICMSUFDest: icmsUfDestDto;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => IBSCBSDto)
+  IBSCBS: IBSCBSDto;
 }

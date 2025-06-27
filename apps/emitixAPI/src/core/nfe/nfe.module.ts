@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { NfeController } from './presentation/nfe.controller';
-import { IdLoteService } from './infrastructure/sefaz/services/idLote.service';
+import { IdLoteService } from './infrastructure/external/sefaz/services/idLote.service';
 import { NfeService } from './application/services/nfe.service';
 
 import { IssuerInvoiceModule } from '../issuer/issuer.module';
@@ -14,15 +14,15 @@ import { NfeDanfeUseCase } from './application/use-cases/nfe-danfe.usecase';
 import { NfeInutilizarUseCase } from './application/use-cases/nfe-inutilizar.usecase';
 import { NfeStatusUseCase } from './application/use-cases/nfe-status.usecase';
 import { CertificateService } from './infrastructure/certificate/certificate.service';
-import { SignedXmlUtil } from './infrastructure/xml/sign/signedXml.util';
-import { SefazXmlBuilderService } from './infrastructure/xml/SefazXmlBuilder.service';
-import { NFeEnvioBuilder } from './infrastructure/xml/builders/nfe-envio.builder';
-import { NFeInutilizarBuilder } from './infrastructure/xml/builders/nfe-inutilizar.builder';
-import { NFeConsultaBuilder } from './infrastructure/xml/builders/nfe-consulta.builder';
-import { NFeStatusBuilder } from './infrastructure/xml/builders/nfe-status.builder';
-import { NFeConsultaCadastroBuilder } from './infrastructure/xml/builders/nfe-consulta-cadastro.builder';
-import { NFeDanfeBuilder } from './infrastructure/xml/builders/nfe-danfe.builder';
-import { EnviNFeGen } from './infrastructure/sefaz/services/enviNFeGen.util';
+import { EnviNFeGen } from './infrastructure/external/sefaz/services/enviNFeGen.util';
+import { NFeConsultaCadastroBuilder } from './infrastructure/external/xml/builders/nfe-consulta-cadastro.builder';
+import { NFeConsultaBuilder } from './infrastructure/external/xml/builders/nfe-consulta.builder';
+import { NFeDanfeBuilder } from './infrastructure/external/xml/builders/nfe-danfe.builder';
+import { NFeEnvioBuilder } from './infrastructure/external/xml/builders/nfe-envio.builder';
+import { NFeInutilizarBuilder } from './infrastructure/external/xml/builders/nfe-inutilizar.builder';
+import { NFeStatusBuilder } from './infrastructure/external/xml/builders/nfe-status.builder';
+import { SefazXmlBuilderService } from './infrastructure/external/xml/SefazXmlBuilder.service';
+import { SignedXmlUtil } from './infrastructure/external/xml/sign/signedXml.util';
 
 @Module({
   controllers: [NfeController],

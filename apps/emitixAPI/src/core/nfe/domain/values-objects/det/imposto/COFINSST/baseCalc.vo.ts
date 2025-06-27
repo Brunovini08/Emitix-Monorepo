@@ -1,6 +1,6 @@
 export class BaseCalc {
-  public readonly vBC;
-  public readonly pCOFINS;
+  public readonly vBC: number;
+  public readonly pCOFINS: number;
 
   constructor(data: { vBC: number, pCOFINS: number }) {
     this.vBC = data.vBC;
@@ -20,7 +20,7 @@ export class BaseCalc {
     }
   }
 
-  public equals(other) {
+  public equals(other: BaseCalc): boolean {
     if (!(other instanceof BaseCalc)) {
       return false;
     }

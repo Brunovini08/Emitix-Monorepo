@@ -1,30 +1,33 @@
 import  { ICMS90 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS90.vo";
 import type { ICMS90DTo } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS90/ICMS90.dto";
+import { ParserUtils } from "src/shared/common/utils/parser.utils";
+
 export class ICMS90Mapper {
   static fromDto(dto: ICMS90DTo): ICMS90 {
     return new ICMS90({
       orig: dto.orig,
       CST: dto.CST,
       modBC: dto.modBC,
-      pRedBC: String(dto.pRedBC),
-      vBC: String(dto.vBC),
-      pICMS: String(dto.pICMS),
-      vICMS: String(dto.vICMS),
-      vBCFCP: String(dto.vBCFCP),
-      vFCP: String(dto.vFCP),
+      pRedBC: ParserUtils.parseDecimal(dto.pRedBC),
+      vBC: ParserUtils.parseDecimal(dto.vBC),
+      pICMS: ParserUtils.parseDecimal(dto.pICMS),
+      vICMS: ParserUtils.parseDecimal(dto.vICMS),
+      vBCFCP: ParserUtils.parseDecimalOptional(dto.vBCFCP),
+      vFCP: ParserUtils.parseDecimalOptional(dto.vFCP),
+      pFCP: ParserUtils.parseDecimalOptional(dto.pFCP),
       modBCST: dto.modBCST,
-      pMVAST: String(dto.pMVAST),
-      pRedBCST: String(dto.pRedBCST),
-      vBCST: String(dto.vBCST),
-      pICMSST: String(dto.pICMSST),
-      vICMSST: String(dto.vICMSST),
-      vBCFCPST: String(dto.vBCFCPST),
-      pFCPST: String(dto.pFCPST),
-      vFCPST: String(dto.vFCPST),
-      vICMSDeson: String(dto.vICMSDeson),
+      pMVAST: ParserUtils.parseDecimalOptional(dto.pMVAST),
+      pRedBCST: ParserUtils.parseDecimalOptional(dto.pRedBCST),
+      vBCST: ParserUtils.parseDecimal(dto.vBCST),
+      pICMSST: ParserUtils.parseDecimalOptional(dto.pICMSST),
+      vICMSST: ParserUtils.parseDecimalOptional(dto.vICMSST),
+      vBCFCPST: ParserUtils.parseDecimalOptional(dto.vBCFCPST),
+      pFCPST: ParserUtils.parseDecimalOptional(dto.pFCPST),
+      vFCPST: ParserUtils.parseDecimalOptional(dto.vFCPST),
+      vICMSDeson: ParserUtils.parseDecimalOptional(dto.vICMSDeson),
       motDesICMS: dto.motDesICMS,
       indDeduzDeson: dto.indDeduzDeson,
-      vICMSSTDeson: String(dto.vICMSSTDeson),
+      vICMSSTDeson: ParserUtils.parseDecimalOptional(dto.vICMSSTDeson),
       motDesICMSST: dto.motDesICMSST,
     });
   }

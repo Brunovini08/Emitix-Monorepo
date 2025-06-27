@@ -1,5 +1,6 @@
 import  { ICMS10 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS10.vo";
 import type { ICMS10Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS10/ICMS10.dto";
+import { ParserUtils } from "src/shared/common/utils/parser.utils";
 
 export class ICMS10Mapper {
   static fromDto(dto: ICMS10Dto): ICMS10 {
@@ -7,22 +8,22 @@ export class ICMS10Mapper {
       orig: dto.orig,
       CST: dto.CST,
       modBC: dto.modBC,
-      vBC: String(dto.vBC),
-      pICMS: String(dto.pICMS),
-      vICMS: String(dto.vICMS),
-      vBCFCP: String(dto.vBCFCP),
-      pFCP: String(dto.pFCP),
-      vFCP: String(dto.vFCP),
+      vBC: ParserUtils.parseDecimal(dto.vBC),
+      pICMS: ParserUtils.parseDecimal(dto.pICMS),
+      vICMS: ParserUtils.parseDecimal(dto.vICMS),
+      vBCFCP: ParserUtils.parseDecimalOptional(dto.vBCFCP),
+      pFCP: ParserUtils.parseDecimalOptional(dto.pFCP),
+      vFCP: ParserUtils.parseDecimalOptional(dto.vFCP),
       modBCST: dto.modBCST,
-      pMVAST: String(dto.pMVAST),
-      pRedBCST: String(dto.pRedBCST),
-      vBCST: String(dto.vBCST),
-      pICMSST: String(dto.pICMSST),
-      VICMSST: String(dto.VICMSST),
-      vBCFCPST: String(dto.vBCFCPST),
-      pFCPST: String(dto.pFCPST),
-      vFCPPST: String(dto.vFCPPST),
-      vICMSSTDeson: String(dto.vICMSSTDeson),
+      pMVAST: ParserUtils.parseDecimalOptional(dto.pMVAST),
+      pRedBCST: ParserUtils.parseDecimalOptional(dto.pRedBCST),
+      vBCST: ParserUtils.parseDecimal(dto.vBCST),
+      pICMSST: ParserUtils.parseDecimalOptional(dto.pICMSST),
+      VICMSST: ParserUtils.parseDecimalOptional(dto.VICMSST),
+      vBCFCPST: ParserUtils.parseDecimalOptional(dto.vBCFCPST),
+      pFCPST: ParserUtils.parseDecimalOptional(dto.pFCPST),
+      vFCPPST: ParserUtils.parseDecimalOptional(dto.vFCPPST),
+      vICMSSTDeson: ParserUtils.parseDecimalOptional(dto.vICMSSTDeson),
       motDesICMSST: dto.motDesICMSST,
     });
   }

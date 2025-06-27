@@ -1,6 +1,6 @@
 import { pki, type Base64 } from 'node-forge';
 import { SignedXml } from 'xml-crypto';
-import type { CertificateService } from '../../certificate/certificate.service';
+import type { CertificateService } from '../../../certificate/certificate.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

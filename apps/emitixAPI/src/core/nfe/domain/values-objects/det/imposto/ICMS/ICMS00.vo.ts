@@ -6,23 +6,24 @@ const TorigEnum = {
 Object.freeze(TorigEnum);
 
 export class ICMS00 {
-  public readonly orig;
-  public readonly CST;
-  public readonly modBC;
-  public readonly vBC;
-  public readonly pICMS;
-  public readonly vICMS;
-  public readonly pFCP?;
-  public readonly vFCP?;
+  public readonly orig: string;
+  public readonly CST: string;
+  public readonly modBC: string;
+  public readonly vBC: number;
+  public readonly pICMS: number;
+  public readonly vICMS: number;
+  public readonly pFCP?: number;
+  public readonly vFCP?: number;
 
   constructor(data: {
     orig: string,
     CST: string,
     modBC: string,
-    vBC: string,
-    pICMS: string,
-    vICMS: string,
-    pFCP?: string | undefined, vFCP?: string | undefined
+    vBC: number,
+    pICMS: number,
+    vICMS: number,
+    pFCP?: number,
+    vFCP?: number
    }) {
     this.orig = data.orig;
     this.CST = data.CST;
@@ -30,8 +31,8 @@ export class ICMS00 {
     this.vBC = data.vBC;
     this.pICMS = data.pICMS;
     this.vICMS = data.vICMS;
-    this.pFCP = data.pFCP ?? undefined;
-    this.vFCP = data.vFCP ?? undefined;
+    this.pFCP = data.pFCP;
+    this.vFCP = data.vFCP;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -60,28 +61,28 @@ export class ICMS00 {
       `);
     }
 
-    if (typeof this.vBC !== 'string' || this.vBC.trim() === '') {
+    if (typeof this.vBC !== 'number' || this.vBC < 0) {
       throw new Error('Valor da BC do ICMS (vBC) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (typeof this.pICMS !== 'string' || this.pICMS.trim() === '') {
+    if (typeof this.pICMS !== 'number' || this.pICMS < 0 || this.pICMS > 100) {
       throw new Error('Alíquota do ICMS (pICMS) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
-    if (typeof this.vICMS !== 'string' || this.vICMS.trim() === '') {
+    if (typeof this.vICMS !== 'number' || this.vICMS < 0) {
       throw new Error('Valor do ICMS (vICMS) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.pFCP !== undefined && (typeof this.pFCP !== 'string' || this.pFCP.trim() === '')) {
+    if (this.pFCP !== undefined && (typeof this.pFCP !== 'number' || this.pFCP < 0 || this.pFCP > 100)) {
       throw new Error('Alíquota do FCP (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
-    if (this.vFCP !== undefined && (typeof this.vFCP !== 'string' || this.vFCP.trim() === '')) {
+    if (this.vFCP !== undefined && (typeof this.vFCP !== 'number' || this.vFCP < 0)) {
       throw new Error('Valor do FCP (vFCP) deve ser um número não negativo, se informado.');
     }
   }
 
-  public equals(other) {
+  public equals(other: ICMS00): boolean {
     if (!(other instanceof ICMS00)) {
       return false;
     }
@@ -103,11 +104,11 @@ export class ICMS00 {
         orig: this.orig,
         CST: this.CST,
         modBC: this.modBC,
-        vBC: this.vBC,
-        pICMS: this.pICMS,
-        vICMS: this.vICMS,
-        pFCP: this.pFCP || undefined,
-        vFCP: this.vFCP || undefined,
+        vBC: this.vBC.toFixed(2),
+        pICMS: this.pICMS.toFixed(2),
+        vICMS: this.vICMS.toFixed(2),
+        pFCP: this.pFCP?.toFixed(2),
+        vFCP: this.vFCP?.toFixed(2),
       }
     };
   }

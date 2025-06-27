@@ -3,14 +3,14 @@ import type { Quant } from "./quant.vo";
 
 export class COFINSOutr {
   public readonly CST: string;
-  public readonly baseCalc: BaseCalc;
-  public readonly quant: Quant;
+  public readonly baseCalc?: BaseCalc;
+  public readonly quant?: Quant;
   public readonly vCOFINS: number;
 
-  constructor(data: { CST: string, baseCalc: BaseCalc, quant: Quant, vCOFINS: number }) {
+  constructor(data: { CST: string, baseCalc?: BaseCalc, quant?: Quant, vCOFINS: number }) {
     this.CST = data.CST;
-    this.baseCalc = data.baseCalc 
-    this.quant = data.quant 
+    this.baseCalc = data.baseCalc;
+    this.quant = data.quant;
     this.vCOFINS = data.vCOFINS;
 
     this.validateOrThrow();
@@ -53,7 +53,11 @@ export class COFINSOutr {
     }
 
     if (this.baseCalc && this.quant) {
-      throw new Error('Apenas um dos campos "baseCalc" ou "quant" pode ser preenchido.');
+      throw new Error('COFINSOutr deve conter apenas baseCalc OU quant, não ambos.');
+    }
+
+    if (!this.baseCalc && !this.quant) {
+      throw new Error('COFINSOutr deve conter baseCalc OU quant.');
     }
 
     if (this.baseCalc) {
@@ -69,14 +73,14 @@ export class COFINSOutr {
     }
   }
 
-  public equals(other) {
+  public equals(other: COFINSOutr): boolean {
     if (!(other instanceof COFINSOutr)) {
       return false;
     }
     return (
       this.CST === other.CST &&
-      (this.baseCalc ? this.baseCalc.equals(other.baseCalc) : this.baseCalc === other.baseCalc) &&
-      (this.quant ? this.quant.equals(other.quant) : this.quant === other.quant) &&
+      this.baseCalc?.equals(other.baseCalc) &&
+      this.quant?.equals(other.quant) &&
       this.vCOFINS === other.vCOFINS
     );
   }
@@ -84,8 +88,8 @@ export class COFINSOutr {
   public toJSON() {
     return {
       CST: this.CST,
-      baseCalc: this.baseCalc ? this.baseCalc.toJSON() : null,
-      quant: this.quant ? this.quant.toJSON() : null,
+      baseCalc: this.baseCalc ? this.baseCalc.toJSON() : undefined,
+      quant: this.quant ? this.quant.toJSON() : undefined,
       vCOFINS: this.vCOFINS.toFixed(2),
     };
   }

@@ -6,18 +6,18 @@ const TorigEnum = {
 Object.freeze(TorigEnum);
 
 export class ICMS40 {
-  public readonly orig;
-  public readonly CST;
-  public readonly vICMSDeson?: string | undefined;
-  public readonly motDesICMS?: string | undefined;
-  public readonly indDeduzDeson?: string | undefined;
+  public readonly orig: string;
+  public readonly CST: string;
+  public readonly vICMSDeson?: number;
+  public readonly motDesICMS?: string;
+  public readonly indDeduzDeson?: string;
 
   constructor(data: { 
     orig: string, 
     CST: string,
-    vICMSDeson?: string | undefined,
-    motDesICMS?: string | undefined,
-    indDeduzDeson?: string | undefined
+    vICMSDeson?: number,
+    motDesICMS?: string,
+    indDeduzDeson?: string
   }) {
     this.orig = data.orig;
     this.CST = data.CST;
@@ -45,7 +45,7 @@ export class ICMS40 {
       `);
     }
 
-    if (this.vICMSDeson !== undefined && (typeof this.vICMSDeson !== 'string' || this.vICMSDeson.trim() === '')) {
+    if (this.vICMSDeson !== undefined && (typeof this.vICMSDeson !== 'number' || this.vICMSDeson < 0)) {
       throw new Error('Valor do ICMS desonerado (vICMSDeson) deve ser um número não negativo, se informado.');
     }
 
@@ -60,7 +60,7 @@ export class ICMS40 {
     }
   }
 
-  public equals(other) {
+  public equals(other: ICMS40): boolean {
     if (!(other instanceof ICMS40)) {
       return false;
     }
@@ -78,9 +78,9 @@ export class ICMS40 {
       ICMS40: {
         orig: this.orig,
         CST: this.CST,
-        vICMSDeson: this.vICMSDeson || undefined,
-        motDesICMS: this.motDesICMS || undefined,
-        indDeduzDeson: this.indDeduzDeson || undefined,
+        vICMSDeson: this.vICMSDeson?.toFixed(2),
+        motDesICMS: this.motDesICMS,
+        indDeduzDeson: this.indDeduzDeson,
       }
     };
   }

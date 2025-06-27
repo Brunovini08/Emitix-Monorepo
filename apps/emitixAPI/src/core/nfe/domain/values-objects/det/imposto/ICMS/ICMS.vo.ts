@@ -70,7 +70,7 @@ export class ICMS {
       throw new Error(`Valor para ${this._type} não definido.`);
     }
 
-    this._value.validateOrThrow?.(); // se existir
+    this._value.validateOrThrow?.(); 
     Object.freeze(this);
   }
 

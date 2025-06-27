@@ -1,8 +1,8 @@
 export class Quant {
-  public readonly qBCProd;
-  public readonly vAliqProd;
+  public readonly qBCProd: number;
+  public readonly vAliqProd: number;
 
-  constructor(data) {
+  constructor(data: { qBCProd: number, vAliqProd: number }) {
     this.qBCProd = data.qBCProd;
     this.vAliqProd = data.vAliqProd;
 
@@ -20,7 +20,7 @@ export class Quant {
     }
   }
 
-  public equals(other) {
+  public equals(other: Quant): boolean {
     if (!(other instanceof Quant)) {
       return false;
     }

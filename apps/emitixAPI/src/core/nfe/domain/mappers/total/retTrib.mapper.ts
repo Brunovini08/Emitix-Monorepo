@@ -10,7 +10,7 @@ export class RetTribMapper {
       vBCIRRF: dto.vBCIRRF,
       vIRRF: dto.vIRRF,
       vBCRetPrev: dto.vBCRetPrev,
-      vRetPRev: dto.vRetPRev,
+      vRetPrev: dto.vRetPrev,
     });
   }
 }

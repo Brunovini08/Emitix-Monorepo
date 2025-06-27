@@ -29,5 +29,5 @@ export class retTribDto {
 
   @IsOptional()
   @Type(() => TDec_1302Opc)
-  vRetPRev: TDec_1302Opc;
+  vRetPrev: TDec_1302Opc;
 }

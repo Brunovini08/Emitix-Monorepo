@@ -10,7 +10,7 @@ export class ISSQNTot {
   vDescIncond
   vDescCond
   vISSRet
-  cRegrib
+  cRegTrib
 
   constructor(
     data: {
@@ -25,7 +25,7 @@ export class ISSQNTot {
       vDescIncond?,
       vDescCond?,
       vISSRet?,
-      cRegrib?,
+      cRegTrib?,
     }
   ) {
     this.vServ = data.vServ || undefined;
@@ -39,12 +39,12 @@ export class ISSQNTot {
     this.vDescIncond = data.vDescIncond || undefined;
     this.vDescCond = data.vDescCond || undefined;
     this.vISSRet = data.vISSRet || undefined;
-    this.cRegrib = data.cRegrib || undefined;
+    this.cRegTrib = data.cRegTrib || undefined;
   }
 
   validateOrThrow() {
     const requiredFields = ['dCompet'];
-    const cRegribOptions = ['1', '2', '3', '4', '5', '6'];
+    const cRegTribOptions = ['1', '2', '3', '4', '5', '6'];
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
@@ -52,8 +52,8 @@ export class ISSQNTot {
       }
     }
 
-    if (this.cRegrib !== undefined && this.cRegrib !== null && !cRegribOptions.includes(this.cRegrib)) {
-      throw new Error(`O valor de cRegrib deve ser um dos seguintes: ${cRegribOptions.join(', ')}.`);
+    if (this.cRegTrib !== undefined && this.cRegTrib !== null && !cRegTribOptions.includes(this.cRegTrib)) {
+      throw new Error(`O valor de cRegTrib deve ser um dos seguintes: ${cRegTribOptions.join(', ')}.`);
     }
   }
 
@@ -70,7 +70,7 @@ export class ISSQNTot {
       vDescIncond: this.vDescIncond,
       vDescCond: this.vDescCond,
       vISSRet: this.vISSRet,
-      cRegrib: this.cRegrib,
+      cRegTrib: this.cRegTrib,
     };
   }
 }
