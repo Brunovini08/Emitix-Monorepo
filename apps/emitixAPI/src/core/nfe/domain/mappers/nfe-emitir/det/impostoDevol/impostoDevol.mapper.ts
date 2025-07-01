@@ -1,5 +1,6 @@
+import { ImpostoDevol } from "src/core/nfe/domain/values-objects/det/impostoDevol/impostoDevo.vo";
 import type { impostoDevolDto } from "src/shared/common/dtos/infNfe/det/impostoDevol/impostoDevol.dto";
-import { ImpostoDevol } from "../../../values-objects/det/impostoDevol/impostoDevo.vo";
+
 
 export class ImpostoDevolMapper {
   static fromDto(dto: impostoDevolDto): ImpostoDevol {

@@ -1,9 +1,9 @@
 import type { detDto } from "src/shared/common/dtos/infNfe/det/det.dto";
-import { Det } from "../../values-objects/det/det.vo";
 import { ProdMapper } from "./prod/ProdMapper";
 import { ImpostosMapper } from "./imposto/imposto.mapper";
 import { ImpostoDevolMapper } from "./impostoDevol/impostoDevol.mapper";
 import { ObsItemMapper } from "./obsItem/obsItem.mapper";
+import { Det } from "../../../values-objects/det/det.vo";
 
 export class DetMapper {
   static fromDto(dto: detDto): Det {

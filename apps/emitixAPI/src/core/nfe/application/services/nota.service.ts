@@ -18,7 +18,7 @@ import { NfeStatusUseCase } from '../use-cases/nfe-status.usecase';
 import { NfeConsultaUseCase } from '../use-cases/nfe-consulta.usecase';
 import { SignedXmlUtil } from '../../infrastructure/external/xml/sign/signedXml.util';
 import { CertificateService } from '../../infrastructure/certificate/certificate.service';
-import { NFeMapper } from '../../domain/mappers/nfe.mapper';
+import { NFeMapper } from '../../domain/mappers/nfe-emitir/nfe.mapper';
 import { SendSefaz } from '../../infrastructure/external/sefaz/SendSefaz';
 import { HttpService } from '@nestjs/axios';
 import * as forge from 'node-forge';

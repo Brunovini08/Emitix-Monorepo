@@ -184,12 +184,8 @@ export class NFe {
     if (cNF !== dados.cNF.padStart(8, '0')) throw new Error(`cNF na chave (${cNF}) não corresponde ao original (${dados.cNF})`);
   }
 
-  /**
-   * Valida os percentuais e totais de ICMS-ST e FCPST antes de enviar para o SEFAZ.
-   * Lança erro se encontrar inconsistências.
-   */
+ 
   public validateTotalsAndPercents(): void {
-    // 1. Rejeição 881: Percentual de FCPST igual a zero
     this.det.forEach((item, idx) => {
       const icms = item.imposto?.ICMS;
       if (!icms) return;
@@ -207,7 +203,6 @@ export class NFe {
       }
     });
 
-    // 2. Rejeição 533: Total da BC ICMS-ST difere do somatório dos itens
     let somaBCST = 0;
     this.det.forEach((item) => {
       const icms = item.imposto?.ICMS;
@@ -226,7 +221,6 @@ export class NFe {
       console.warn(`Rejeição 533: Total da BC ICMS-ST (${this.total.ICMSTot.vBCST}) difere do somatório dos itens (${somaBCST})`);
     }
 
-    // 3. Rejeição 534: Total do ICMS-ST difere do somatório dos itens
     let somaICMSST = 0;
     this.det.forEach((item) => {
       const icms = item.imposto?.ICMS;
