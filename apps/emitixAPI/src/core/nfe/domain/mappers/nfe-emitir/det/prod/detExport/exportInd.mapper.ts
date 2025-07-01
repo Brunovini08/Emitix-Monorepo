@@ -1,4 +1,4 @@
-import { ExportInd } from "src/core/nfe/domain/values-objects/det/prod/detExport/exportInd.vo";
+import { ExportInd } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/detExport/exportInd.vo";
 import { exportIndDto } from "src/shared/common/dtos/infNfe/det/prod/detExport/exportInd/exportIndDto";
 
 export class ExportIndMapper {

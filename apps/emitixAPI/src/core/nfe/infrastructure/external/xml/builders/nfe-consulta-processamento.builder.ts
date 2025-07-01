@@ -1,5 +1,5 @@
 import { XMLBuilder } from "fast-xml-parser";
-import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/consultaProcessamentoNfe.entity";
+import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/nfe-consulta-processamento.entity";
 
 export class NfeConsultaProcessamentoBuilder {
   async consultaProcessamento(data: ConsultaProcessamentoNfeEntity, versao) {

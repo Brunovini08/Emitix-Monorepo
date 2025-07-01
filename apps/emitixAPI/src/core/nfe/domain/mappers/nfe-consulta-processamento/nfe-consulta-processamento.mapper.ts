@@ -1,4 +1,4 @@
-import { ConsultaProcessamentoNfeEntity } from "../../entities/consultaProcessamentoNfe.entity";
+import { ConsultaProcessamentoNfeEntity } from "../../entities/nfe-consulta-processamento.entity";
 import type { TConsReciNFe } from "../../types/complex_types/TCons/TConsReciNFe";
 import type { TEnviConsReciNFe } from "../../types/complex_types/TCons/TEnviConsReciNFe";
 

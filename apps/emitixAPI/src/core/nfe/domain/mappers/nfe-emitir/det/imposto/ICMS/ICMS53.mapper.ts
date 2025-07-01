@@ -1,4 +1,4 @@
-import { ICMS53 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS53.vo";
+import { ICMS53 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS53.vo";
 import type { ICMS53Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS53/ICMS53.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

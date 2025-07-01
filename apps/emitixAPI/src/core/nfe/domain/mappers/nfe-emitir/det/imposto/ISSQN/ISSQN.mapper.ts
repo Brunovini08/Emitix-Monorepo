@@ -1,4 +1,4 @@
-import { ISSQN } from "src/core/nfe/domain/values-objects/det/imposto/ISSQN/ISSQN.vo";
+import { ISSQN } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ISSQN/ISSQN.vo";
 import type { ISSQNDto } from "src/shared/common/dtos/infNfe/det/impostos/servico/ISSQN.dto";
 
 export class ISSQNMapper {

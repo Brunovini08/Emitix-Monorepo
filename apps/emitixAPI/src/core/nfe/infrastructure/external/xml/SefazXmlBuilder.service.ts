@@ -7,8 +7,8 @@ import { NFeInutilizarBuilder } from "./builders/nfe-inutilizar.builder";
 import { NFeStatusBuilder } from "./builders/nfe-status.builder";
 import { NfeConsultaProcessamentoBuilder } from "./builders/nfe-consulta-processamento.builder";
 import type { TEnviConsReciNFe } from "src/core/nfe/domain/types/complex_types/TCons/TEnviConsReciNFe";
-import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/consultaProcessamentoNfe.entity";
-import type { InutNFe } from "src/core/nfe/domain/entities/inutNFe.entity";
+import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/nfe-consulta-processamento.entity";
+import type { InutNFe } from "src/core/nfe/domain/entities/nfe-inutilizar.entity";
 
 @Injectable()
 export class SefazXmlBuilderService {

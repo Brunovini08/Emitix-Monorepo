@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { SefazXmlBuilderService } from "../../infrastructure/external/xml/SefazXmlBuilder.service";
-import { NFe } from "../../domain/entities/nfe.entity";
+import { NFe } from "../../domain/entities/nfe-emitir.entity";
 import type TEnvInutNfe from "../../domain/types/complex_types/TInut/TEnvInutNfe";
 import type TInutNFe from "../../domain/types/complex_types/TInut/TInutNfe";
-import type { InutNFe } from "../../domain/entities/inutNFe.entity";
+import type { InutNFe } from "../../domain/entities/nfe-inutilizar.entity";
 
 @Injectable()
 export class NfeInutilizarUseCase {

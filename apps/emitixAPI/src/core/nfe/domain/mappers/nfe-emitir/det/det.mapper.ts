@@ -3,7 +3,7 @@ import { ProdMapper } from "./prod/ProdMapper";
 import { ImpostosMapper } from "./imposto/imposto.mapper";
 import { ImpostoDevolMapper } from "./impostoDevol/impostoDevol.mapper";
 import { ObsItemMapper } from "./obsItem/obsItem.mapper";
-import { Det } from "../../../values-objects/det/det.vo";
+import { Det } from "../../../values-objects/nfe-emitir/det/det.vo";
 
 export class DetMapper {
   static fromDto(dto: detDto): Det {

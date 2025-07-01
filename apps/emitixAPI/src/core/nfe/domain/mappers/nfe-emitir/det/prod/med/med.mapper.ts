@@ -1,4 +1,4 @@
-import{ Med } from "src/core/nfe/domain/values-objects/det/prod/med.vo";
+import{ Med } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/med.vo";
 import { medDto } from "src/shared/common/dtos/infNfe/det/prod/med/med.dto";
 
 export class MedMapper {

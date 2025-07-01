@@ -1,6 +1,6 @@
 
 import type { deducDto } from "src/shared/common/dtos/infNfe/cana/forDia/deduc.dto";
-import { deduc } from "../../../values-objects/cana/forDia/deduc.vo";
+import { deduc } from "../../../values-objects/nfe-emitir/cana/forDia/deduc.vo";
 
 export class DeducMapper {
   static fromDto(dto: deducDto): deduc {

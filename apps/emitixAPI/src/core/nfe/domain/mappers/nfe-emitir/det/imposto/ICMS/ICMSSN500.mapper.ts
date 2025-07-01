@@ -1,4 +1,4 @@
-import  { ICMSSN500 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMSSN500.vo";
+import  { ICMSSN500 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMSSN500.vo";
 import type { ICMSSN500Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMSSN500/ICMSSN500.dto";
 
 export class ICMSSN500Mapper {

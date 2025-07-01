@@ -1,4 +1,4 @@
-import { Arma } from "src/core/nfe/domain/values-objects/det/prod/arma.vo";
+import { Arma } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/arma.vo";
 import type { armaDto } from "src/shared/common/dtos/infNfe/det/prod/arma/arma.dto";
 
 export class ArmaMapper {

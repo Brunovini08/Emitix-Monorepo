@@ -1,4 +1,4 @@
-import { InutNFe } from "../../entities/inutNFe.entity";
+import { InutNFe } from "../../entities/nfe-inutilizar.entity";
 import type TInutNFe from "../../types/complex_types/TInut/TInutNfe";
 
 

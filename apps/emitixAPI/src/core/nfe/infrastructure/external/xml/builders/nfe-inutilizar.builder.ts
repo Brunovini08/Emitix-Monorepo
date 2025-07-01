@@ -1,6 +1,6 @@
 import { XMLBuilder } from "fast-xml-parser"
 import { Injectable } from "@nestjs/common";
-import type { InutNFe } from "src/core/nfe/domain/entities/inutNFe.entity";
+import type { InutNFe } from "src/core/nfe/domain/entities/nfe-inutilizar.entity";
 
 @Injectable()
 export class NFeInutilizarBuilder {

@@ -1,6 +1,6 @@
 import type { ICMSTotDto } from "src/shared/common/dtos/infNfe/total/ICMSTot/ICMSTot.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
-import { ICMSTot } from "../../../values-objects/total/ICMSTot.vo";
+import { ICMSTot } from "../../../values-objects/nfe-emitir/total/ICMSTot.vo";
 
 export class ICMSTotMapper {
   static fromDto(dto: ICMSTotDto): ICMSTot {

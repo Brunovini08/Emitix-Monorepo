@@ -1,4 +1,4 @@
-import { VeicProd } from "src/core/nfe/domain/values-objects/det/prod/veicProd.vo";
+import { VeicProd } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/veicProd.vo";
 import type { veicProdDto } from "src/shared/common/dtos/infNfe/det/prod/veicProd/veicProd.dto";
 
 export class VeicProdMapper {

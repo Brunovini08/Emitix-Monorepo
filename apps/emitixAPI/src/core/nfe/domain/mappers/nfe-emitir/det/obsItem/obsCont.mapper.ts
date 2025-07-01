@@ -1,4 +1,4 @@
-import { ObsContent } from "src/core/nfe/domain/values-objects/det/obsItem/obsCont.vo";
+import { ObsContent } from "src/core/nfe/domain/values-objects/nfe-emitir/det/obsItem/obsCont.vo";
 import type { obsContentDto } from "src/shared/common/dtos/infNfe/det/obsItem/obsContent.dto";
 
 export class ObsContMapper {

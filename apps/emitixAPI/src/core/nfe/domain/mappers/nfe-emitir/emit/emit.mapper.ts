@@ -1,6 +1,6 @@
 import type { emitDto } from "src/shared/common/dtos/infNfe/emit/emit.dto";
 import { EnderecoMapper } from "./enderecoEmit.mapper";
-import { Emit } from "../../../values-objects/emit/emit.vo";
+import { Emit } from "../../../values-objects/nfe-emitir/emit/emit.vo";
 
 export class EmitMapper {
   static fromDto(dto: emitDto): Emit {

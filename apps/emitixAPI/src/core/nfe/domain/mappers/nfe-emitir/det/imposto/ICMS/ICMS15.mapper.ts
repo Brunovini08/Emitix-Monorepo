@@ -1,4 +1,4 @@
-import  { ICMS15 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS15.vo";
+import  { ICMS15 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS15.vo";
 import type { ICMS15Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS15/ICMS15.dto";
 
 export class ICMS15Mapper {

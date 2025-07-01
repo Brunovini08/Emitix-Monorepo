@@ -1,5 +1,5 @@
 import { procRefDto } from "src/shared/common/dtos/infNfe/infAdic/procRef.dto";
-import { procRef } from "../../../values-objects/infAdic/procRef.vo";
+import { procRef } from "../../../values-objects/nfe-emitir/infAdic/procRef.vo";
 
 export class ProcRefMapper {
   static fromDto(dto: procRefDto): procRef {

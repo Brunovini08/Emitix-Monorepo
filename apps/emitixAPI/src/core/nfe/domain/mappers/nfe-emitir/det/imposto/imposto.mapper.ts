@@ -1,4 +1,4 @@
-import { Impostos } from "src/core/nfe/domain/values-objects/det/imposto/imposto.vo";
+import { Impostos } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/imposto.vo";
 import type { impostosDto } from "src/shared/common/dtos/infNfe/det/impostos/impostos.dto";
 import { PISMapper } from "./PIS/PIS.mapper";
 import { PISSTMapper } from "./PISST/pisst.mapper";

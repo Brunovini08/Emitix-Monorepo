@@ -1,4 +1,4 @@
-import { COFINSAliq } from "src/core/nfe/domain/values-objects/det/imposto/COFINS/cofinsAliq.vo";
+import { COFINSAliq } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/COFINS/cofinsAliq.vo";
 import type { confinsAliqDto } from "src/shared/common/dtos/infNfe/det/impostos/cofins/confinsAliq.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

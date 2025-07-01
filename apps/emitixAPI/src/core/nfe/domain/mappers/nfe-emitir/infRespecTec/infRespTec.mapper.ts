@@ -1,6 +1,6 @@
 import type { infRespTecDto } from "src/shared/common/dtos/infNfe/infRespTec/infRespTec.dto";
 import { TInfRespecTecMapper } from "./tInfRespecTec.mapper";
-import { infRespTec } from "../../../values-objects/infRespecTec/infRespTec.vo";
+import { infRespTec } from "../../../values-objects/nfe-emitir/infRespecTec/infRespTec.vo";
 
 
 export class InfRespTecMapper {

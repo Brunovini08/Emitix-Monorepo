@@ -1,4 +1,4 @@
-import { PISOutr } from "src/core/nfe/domain/values-objects/det/imposto/PIS/pisOutr.vo";
+import { PISOutr } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/PIS/pisOutr.vo";
 import type { pisOutrDto } from "src/shared/common/dtos/infNfe/det/impostos/pis/pisOutr.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

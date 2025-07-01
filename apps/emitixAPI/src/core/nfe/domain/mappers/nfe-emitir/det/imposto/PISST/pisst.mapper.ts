@@ -1,4 +1,4 @@
-import { PISST } from "src/core/nfe/domain/values-objects/det/imposto/PISST/pisst.vo";
+import { PISST } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/PISST/pisst.vo";
 import type { pisStDto } from "src/shared/common/dtos/infNfe/det/impostos/pisst/pisst.dto";
 import { BaseCalcMapper } from "./baseCalc.mapper";
 import { QuantMapper } from "./quant.mapper";

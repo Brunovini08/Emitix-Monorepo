@@ -1,4 +1,4 @@
-import { ICMS00 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS00.vo";
+import { ICMS00 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS00.vo";
 import type { ICMS00Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS00/ICMS00.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

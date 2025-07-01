@@ -1,4 +1,4 @@
-import  { ICMSSN201 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS201.vo";
+import  { ICMSSN201 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS201.vo";
   import type { ICMSSN201Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMSSN201/ICMSSN201.dto";
 
 export class ICMSSN201Mapper {

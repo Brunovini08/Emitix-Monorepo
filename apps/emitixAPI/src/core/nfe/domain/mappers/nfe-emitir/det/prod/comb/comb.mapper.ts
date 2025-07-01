@@ -1,4 +1,4 @@
-import { Comb } from "src/core/nfe/domain/values-objects/det/comb/comb.vo";
+import { Comb } from "src/core/nfe/domain/values-objects/nfe-emitir/det/comb/comb.vo";
 import type { combDto } from "src/shared/common/dtos/infNfe/det/prod/comb/comb.dto";
 
 export class CombMapper {

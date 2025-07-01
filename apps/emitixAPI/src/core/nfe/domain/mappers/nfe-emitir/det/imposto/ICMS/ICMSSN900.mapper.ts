@@ -1,4 +1,4 @@
-import { ICMSSN900 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS900.vo";
+import { ICMSSN900 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS900.vo";
 import type { ICMSSN900Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMSSN900/ICMSSN900.dto";
 
 export class ICMSSN900Mapper {

@@ -2,7 +2,7 @@ import { infAdicDto } from "src/shared/common/dtos/infNfe/infAdic/infAdic.dto";
 import { ObsContMapper } from "./obsCont.mapper";
 import { ObsFiscoMapper } from "../det/obsItem/obsFisco.mapper";
 import { ProcRefMapper } from "./proceRef.mapper";
-import { infAdic } from "../../../values-objects/infAdic/infAdic.vo";
+import { infAdic } from "../../../values-objects/nfe-emitir/infAdic/infAdic.vo";
 
 export class InfAdicMapper {
   static fromDto(dto: infAdicDto): infAdic {
