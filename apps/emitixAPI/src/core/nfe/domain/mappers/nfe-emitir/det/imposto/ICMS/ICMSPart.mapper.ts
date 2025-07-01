@@ -1,4 +1,4 @@
-import  { ICMSPart } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMSPART.vo";
+import  { ICMSPart } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMSPART.vo";
 import type { ICMSPARTDto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMSPART/ICMSTPART.dto";
 
 

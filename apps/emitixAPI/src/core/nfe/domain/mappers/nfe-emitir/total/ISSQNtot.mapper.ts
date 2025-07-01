@@ -1,5 +1,5 @@
 import type { ISSQNtotDto } from "src/shared/common/dtos/infNfe/total/ISSQNtot/ISSQNtot.dto";
-import { ISSQNTot } from "../../../values-objects/total/ISSQNTot.vo";
+import { ISSQNTot } from "../../../values-objects/nfe-emitir/total/ISSQNTot.vo";
 
 export class ISSQNtotMapper {
   static fromDto(dto: ISSQNtotDto): ISSQNTot {

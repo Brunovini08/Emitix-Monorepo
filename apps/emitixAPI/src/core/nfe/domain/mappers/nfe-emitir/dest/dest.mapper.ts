@@ -1,6 +1,6 @@
 import type { destDto } from "src/shared/common/dtos/infNfe/det/dest/dest.dto";
 import { EnderecoMapper } from "./endereco.mapper";
-import { Dest } from "../../../values-objects/dest/dest.vo";
+import { Dest } from "../../../values-objects/nfe-emitir/dest/dest.vo";
 
 export class DestMapper {
   static fromDto(dto: destDto): Dest {

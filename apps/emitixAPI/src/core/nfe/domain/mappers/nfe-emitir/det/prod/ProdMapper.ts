@@ -9,7 +9,7 @@ import { MedMapper } from "./med/med.mapper";
 import { ArmaMapper } from "./arma/arma.mapper";
 import { CombMapper } from "./comb/comb.mapper";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
-import { Prod } from "src/core/nfe/domain/values-objects/det/prod/prod.vo";
+import { Prod } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/prod.vo";
 
 export class ProdMapper {
   static fromDto(dto: prodDto): Prod {

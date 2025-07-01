@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { SefazXmlBuilderService } from "../../infrastructure/external/xml/SefazXmlBuilder.service";
-import type { NFe } from "../../domain/entities/nfe.entity";
+import type { NFe } from "../../domain/entities/nfe-emitir.entity";
 
 @Injectable()
 export class NfeEmitirUseCase {

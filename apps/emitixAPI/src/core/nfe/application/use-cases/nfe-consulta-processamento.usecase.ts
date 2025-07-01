@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { SefazXmlBuilderService } from "../../infrastructure/external/xml/SefazXmlBuilder.service";
-import { ConsultaProcessamentoNfeEntity } from "../../domain/entities/consultaProcessamentoNfe.entity";
+import { ConsultaProcessamentoNfeEntity } from "../../domain/entities/nfe-consulta-processamento.entity";
 
 @Injectable()
 export class NfeConsultaProcessamentoUseCase {

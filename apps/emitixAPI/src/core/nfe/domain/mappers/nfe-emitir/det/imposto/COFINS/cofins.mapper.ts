@@ -1,4 +1,4 @@
-import { COFINS } from "src/core/nfe/domain/values-objects/det/imposto/COFINS/cofins.vo";
+import { COFINS } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/COFINS/cofins.vo";
 import type { cofinsDto } from "src/shared/common/dtos/infNfe/det/impostos/cofins/confins.dto";
 
 import { COFINSQtdeMapper } from "./cofinsQtde.mapper";

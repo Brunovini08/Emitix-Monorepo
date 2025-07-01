@@ -1,5 +1,5 @@
 import type { ideDto } from "src/shared/common/dtos/infNfe/ide/ide.dto";
-import { Ide } from "../../values-objects/ide/ide.vo";
+import { Ide } from "../../values-objects/nfe-emitir/ide/ide.vo";
 
 export class IdeMapper {
   static fromDto(dto: ideDto): Ide {

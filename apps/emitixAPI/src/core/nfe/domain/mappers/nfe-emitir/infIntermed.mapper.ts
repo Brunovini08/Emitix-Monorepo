@@ -1,5 +1,5 @@
 import { infIntermedDto } from "src/shared/common/dtos/infNfe/infIntermed/infIntermed.dto";
-import { infIntermed } from "../../values-objects/infIntermed.vo";
+import { infIntermed } from "../../values-objects/nfe-emitir/infIntermed.vo";
 
 export class InfIntermedMapper {
   static fromDto(dto: infIntermedDto): infIntermed {

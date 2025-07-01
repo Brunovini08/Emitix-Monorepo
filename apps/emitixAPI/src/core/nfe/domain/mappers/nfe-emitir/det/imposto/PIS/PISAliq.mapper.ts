@@ -1,4 +1,4 @@
-import { PISAliq } from "src/core/nfe/domain/values-objects/det/imposto/PIS/pisAliq.vo";
+import { PISAliq } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/PIS/pisAliq.vo";
 import type { PISAliqDto } from "src/shared/common/dtos/infNfe/det/impostos/pis/pisAli.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

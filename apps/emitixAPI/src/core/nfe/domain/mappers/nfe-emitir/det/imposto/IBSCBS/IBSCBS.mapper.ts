@@ -1,4 +1,4 @@
-import { IBSCBS } from "src/core/nfe/domain/values-objects/det/imposto/IBSCBS/ibscbs.vo";
+import { IBSCBS } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/IBSCBS/ibscbs.vo";
 import type { IBSCBSDto } from "src/shared/common/dtos/infNfe/det/impostos/IBSCBS/IBSCBS.dto";
 
 export class IBSCBSMapper {

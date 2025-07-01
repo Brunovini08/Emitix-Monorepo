@@ -1,4 +1,4 @@
-import { ImpostoDevol } from "src/core/nfe/domain/values-objects/det/impostoDevol/impostoDevo.vo";
+import { ImpostoDevol } from "src/core/nfe/domain/values-objects/nfe-emitir/det/impostoDevol/impostoDevo.vo";
 import type { impostoDevolDto } from "src/shared/common/dtos/infNfe/det/impostoDevol/impostoDevol.dto";
 
 

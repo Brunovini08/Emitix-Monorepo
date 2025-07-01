@@ -1,4 +1,4 @@
-import { ICMS } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS.vo";
+import { ICMS } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS.vo";
 import { ICMSDto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS.dto";
 import { ICMS00Mapper } from "./ICMS00.mapper";
 import { ICMS40Mapper } from "./ICMS40.mapper";

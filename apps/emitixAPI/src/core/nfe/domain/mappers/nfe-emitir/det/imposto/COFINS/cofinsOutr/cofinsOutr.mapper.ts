@@ -1,4 +1,4 @@
-import { COFINSOutr } from "src/core/nfe/domain/values-objects/det/imposto/COFINS/cofinsOutr/cofinsOutr.vo";
+import { COFINSOutr } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/COFINS/cofinsOutr/cofinsOutr.vo";
 import type { cofinsOutrDto } from "src/shared/common/dtos/infNfe/det/impostos/cofins/cofinsOutr/cofinsOutr.dto";
 import { BaseCalcMapper } from "./baseCalc.mapper";
 import { QuantMapper } from "./quant.mapper";

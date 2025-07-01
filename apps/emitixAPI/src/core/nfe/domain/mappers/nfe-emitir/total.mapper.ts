@@ -1,5 +1,5 @@
 import type { totalDto } from "src/shared/common/dtos/infNfe/total/total.dto";
-import { Total } from "../../values-objects/total/total.vo";
+import { Total } from "../../values-objects/nfe-emitir/total/total.vo";
 import { ISSQNtotMapper } from "./total/ISSQNtot.mapper";
 import { RetTribMapper } from "./total/retTrib.mapper";
 import { ICMSTotMapper } from "./total/ICMSTot.mapper";

@@ -1,5 +1,5 @@
 import type { volDto } from "src/shared/common/dtos/infNfe/transp/vol/vol.dto";
-import { vol } from "../../../../values-objects/transp/vol/vol.vo";
+import { vol } from "../../../../values-objects/nfe-emitir/transp/vol/vol.vo";
 import { LacreMapper } from "./lacre.mapper";
 export class volMapper {
   static fromDto(dto: volDto): vol {

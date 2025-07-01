@@ -1,4 +1,4 @@
-import { ICMS61 } from "src/core/nfe/domain/values-objects/det/imposto/ICMS/ICMS61.vo";
+import { ICMS61 } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMS/ICMS61.vo";
 import type { ICMS61Dto } from "src/shared/common/dtos/infNfe/det/impostos/icms/ICMS61/ICMS61.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

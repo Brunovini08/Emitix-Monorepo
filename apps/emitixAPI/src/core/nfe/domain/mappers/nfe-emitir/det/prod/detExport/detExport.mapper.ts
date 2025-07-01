@@ -1,6 +1,6 @@
 import type { detExportDto } from "src/shared/common/dtos/infNfe/det/prod/detExport/detExport.dto";
 import { ExportIndMapper } from "./exportInd.mapper";
-import { DetExport } from "src/core/nfe/domain/values-objects/det/prod/detExport/detExport.vo";
+import { DetExport } from "src/core/nfe/domain/values-objects/nfe-emitir/det/prod/detExport/detExport.vo";
 
 export class DetExportMapper {
   static fromDto(dto: detExportDto): DetExport {

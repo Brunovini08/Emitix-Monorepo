@@ -1,5 +1,5 @@
 import type { veiculoComReboqueDto } from "src/shared/common/dtos/infNfe/transp/veiculoComReboque.dto";
-import { veiculoComReboque } from "../../../values-objects/transp/veicComReboque.vo";
+import { veiculoComReboque } from "../../../values-objects/nfe-emitir/transp/veicComReboque.vo";
 
 export class VeiculoComReboqueMapper {
   static fromDto(dto: veiculoComReboqueDto): veiculoComReboque {

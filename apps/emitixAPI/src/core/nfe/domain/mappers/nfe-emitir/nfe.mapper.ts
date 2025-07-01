@@ -1,5 +1,5 @@
 // src/nfe/domain/mappers/nfe.mapper.ts
-import { NFe, NFeData } from '../../entities/nfe.entity';
+import { NFe, NFeData } from '../../entities/nfe-emitir.entity';
 import type { NFeDto } from '../../types/complex_types/TNFe/NFe.dto';
 import { AutXMLMapper } from './autXML.mapper';
 import { AvulsaMapper } from './avulsa.mapper';

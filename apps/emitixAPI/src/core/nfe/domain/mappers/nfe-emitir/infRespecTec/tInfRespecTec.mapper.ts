@@ -1,4 +1,4 @@
-import { TInfRespTec as TInfRespTecVO } from "../../../values-objects/infRespecTec/TInfRespTec.vo";
+import { TInfRespTec as TInfRespTecVO } from "../../../values-objects/nfe-emitir/infRespecTec/TInfRespTec.vo";
 import { TInfRespTec } from "../../../types/complex_types/TInfRespTec/TInfRespTec";
 import { CSRTMapper } from "./csrt.mapper";
 

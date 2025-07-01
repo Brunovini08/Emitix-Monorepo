@@ -1,5 +1,5 @@
 
-import { Endereco } from "src/core/nfe/domain/values-objects/dest/enderDest.vo";
+import { Endereco } from "src/core/nfe/domain/values-objects/nfe-emitir/dest/enderDest.vo";
 import type { enderDto } from "../../../types/complex_types/TEnderEmi/ender.dto";
 
 export class EnderecoMapper {

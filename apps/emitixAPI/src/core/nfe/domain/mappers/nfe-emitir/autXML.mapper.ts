@@ -1,5 +1,5 @@
 import { autXMLDto } from "src/shared/common/dtos/infNfe/autXML/autXML.dto";
-import { AutXML } from "../../values-objects/autXML.vo";
+import { AutXML } from "../../values-objects/nfe-emitir/autXML.vo";
 
 export class AutXMLMapper {
   static fromDto(dto: autXMLDto): AutXML {

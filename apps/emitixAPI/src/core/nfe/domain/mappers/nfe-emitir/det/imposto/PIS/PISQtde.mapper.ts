@@ -1,4 +1,4 @@
-import { PISQtde } from "src/core/nfe/domain/values-objects/det/imposto/PIS/pisQtde.vo";
+import { PISQtde } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/PIS/pisQtde.vo";
 import type { pisQtdeDto } from "src/shared/common/dtos/infNfe/det/impostos/pis/pisQtde.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

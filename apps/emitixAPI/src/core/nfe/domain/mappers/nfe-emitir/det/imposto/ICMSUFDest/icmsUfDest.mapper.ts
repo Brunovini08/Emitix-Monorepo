@@ -1,4 +1,4 @@
-import { ICMSUFDest } from "src/core/nfe/domain/values-objects/det/imposto/ICMSUFDest/icmsUfDest.vo";
+import { ICMSUFDest } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/ICMSUFDest/icmsUfDest.vo";
 import type { icmsUfDestDto } from "src/shared/common/dtos/infNfe/det/impostos/icmsUfDest/icmsUfDest.dto";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
 

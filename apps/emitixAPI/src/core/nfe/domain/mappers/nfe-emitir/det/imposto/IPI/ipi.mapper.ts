@@ -1,4 +1,4 @@
-import { IPI } from "src/core/nfe/domain/values-objects/det/imposto/IPI/ipi.vo";
+import { IPI } from "src/core/nfe/domain/values-objects/nfe-emitir/det/imposto/IPI/ipi.vo";
 import { TIpi } from "src/core/nfe/domain/types/complex_types/TIpi/TIpi";
 import { IPINTMapper } from "./ipint.mapper";
 
