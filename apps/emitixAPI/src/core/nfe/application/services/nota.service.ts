@@ -26,6 +26,8 @@ import { EnviNFeGen } from '../../infrastructure/external/sefaz/services/enviNFe
 import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
+import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
+import type TInutNFe from '../../domain/types/complex_types/TInut/TInutNfe';
 
 @Injectable()
 export class NotaService {
@@ -138,7 +140,7 @@ export class NotaService {
       const result = await validateXmlXsd(xml, 1);
       if (result === true) {
         const xmlString = String(xml);
-          const sendSefaz = new SendSefaz(this.httpService)
+        const sendSefaz = new SendSefaz(this.httpService)
         const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
           '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
           xmlString,
@@ -159,7 +161,7 @@ export class NotaService {
   }
 
   async inutilizarNFe(
-    body: TEnvInutNfe,
+    body: TInutNFe,
     file: Base64,
     certPassword: string,
     nUrl: number,
@@ -169,31 +171,14 @@ export class NotaService {
       const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
-      if (String(body.inutNFe.infInut.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-
-    //   const xml = await this.nfeInutilizarUseCase.execute(body);
-    //   const signed = signedXml(xml, file, certPassword, accessKey, 'infInut');
-    //   const xmlString = String(signed);
-    //   const result = await validateXmlXsd(xmlString, 2);
-    //   if (result === true) {
-    //     const envXml = await sendSefazRequest(
-    //       signed,
-    //       String(body.inutNFe.infInut.cUF),
-    //       String(body.inutNFe.infInut.tpAmb),
-    //       nUrl,
-    //       cert,
-    //       privateKey,
-    //       typeDocument,
-    //     );
-    //     return envXml.data;
-    //   }
-    //   return result;
-    // }
-  } catch (error) {
-    console.error(error);
-    throw error; // Lança o erro para que o chamador possa tratá-lo adequadamente
+      if (String(body.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const inutNFe = NfeInutilizarMapper.fromDto(body);
+      const xml = await this.nfeInutilizarUseCase.execute(inutNFe);
+    } catch (error) {
+      console.error(error);
+      throw error; // Lança o erro para que o chamador possa tratá-lo adequadamente
+    }
   }
-}
 
   async consultaNFe(
     body: TEnvConsSitNfe,
@@ -366,8 +351,8 @@ export class NotaService {
     //     return envXml.data;
     //   }
     //   return result;
-    }
   }
+}
 function evento(cert: any, any: any, privateKey: any, any1: any, body: TEnvInutNfe, TEnvEvento, idUser: any, string: any, file: string, Base64: any, certPassword: string, string1: any, nUrl: number, number: any, typeDocument: string, string2: any) {
   throw new Error('Function not implemented.');
 }
