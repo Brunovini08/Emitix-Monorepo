@@ -1,5 +1,5 @@
 import type { transpDto } from "src/shared/common/dtos/infNfe/transp/transp.dto";
-import { transp } from "../../values-objects/transp/transp.vo";
+import { transp } from "../../../values-objects/transp/transp.vo";
 import { TransportaMapper } from "./transporta.mapper";
 import { RetTranspMapper } from "./retTransp.mapper";
 import { VeiculoComReboqueMapper } from "./VeiculoComReboque.mapper";

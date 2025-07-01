@@ -1,5 +1,5 @@
 import type { transportaDto } from "src/shared/common/dtos/infNfe/transp/transporta/transporta.dto";
-import { transporta } from "../../values-objects/transp/transporta.vo";
+import { transporta } from "../../../values-objects/transp/transporta.vo";
 
 export class TransportaMapper {
   static fromDto(dto: transportaDto): transporta {
