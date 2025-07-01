@@ -14,7 +14,6 @@ export class ICMS70 {
   public readonly pICMS: number;
   public readonly vICMS: number;
   public readonly vBCFCP?: number;
-  public readonly pFCP?: number;
   public readonly vFCP?: number;
   public readonly modBCST: string;
   public readonly pMVAST?: number;
@@ -40,7 +39,6 @@ export class ICMS70 {
     vICMS: number,
     pICMS: number,
     vBCFCP?: number, 
-    pFCP?: number,
     vFCP?: number,
     modBCST: string,
     pMVAST?: number,
@@ -65,7 +63,6 @@ export class ICMS70 {
     this.pICMS = data.pICMS;
     this.vICMS = data.vICMS;
     this.vBCFCP = data.vBCFCP;
-    this.pFCP = data.pFCP;	
     this.vFCP = data.vFCP;
     this.modBCST = data.modBCST;
     this.pMVAST = data.pMVAST;
@@ -127,10 +124,6 @@ export class ICMS70 {
 
     if (this.vBCFCP !== undefined && (typeof this.vBCFCP !== 'number' || this.vBCFCP < 0)) {
       throw new Error('Valor da BC do FCP (vBCFCP) deve ser um número não negativo, se informado.');
-    }
-
-    if (this.pFCP !== undefined && (typeof this.pFCP !== 'number' || this.pFCP < 0 || this.pFCP > 100)) {
-      throw new Error('Alíquota do FCP (pFCP) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vFCP !== undefined && (typeof this.vFCP !== 'number' || this.vFCP < 0)) {
@@ -215,7 +208,6 @@ export class ICMS70 {
       this.pICMS === other.pICMS &&
       this.vICMS === other.vICMS &&
       this.vBCFCP === other.vBCFCP &&
-      this.pFCP === other.pFCP &&
       this.vFCP === other.vFCP &&
       this.modBCST === other.modBCST &&
       this.pMVAST === other.pMVAST &&
@@ -245,7 +237,6 @@ export class ICMS70 {
         pICMS: this.pICMS.toFixed(2),
         vICMS: this.vICMS.toFixed(2),
         vBCFCP: this.vBCFCP?.toFixed(2),
-        pFCP: this.pFCP?.toFixed(2),
         vFCP: this.vFCP?.toFixed(2),
         modBCST: this.modBCST,
         pMVAST: this.pMVAST?.toFixed(2),

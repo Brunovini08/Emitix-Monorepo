@@ -60,6 +60,8 @@ export class Total {
   }
 
   toJSON() {
+    this.validateOrThrow();
+    
     return {
       ICMSTot: this.ICMSTot.toJson(),
       ISSQNtot: this.ISSQNtot ? this.ISSQNtot.toJSON() : undefined,

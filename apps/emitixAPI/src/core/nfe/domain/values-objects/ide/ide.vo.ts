@@ -59,10 +59,11 @@ export class Ide {
       indIntermed?: string | undefined;
       NFref?: NFref[] | undefined;
       gCompraGov?: GCompraGov | undefined;
+      cNF?: string | undefined;
     },
   ) {
     this.cUF = data.cUF;
-    this.cNF = this.nfeCNF();
+    this.cNF = data.cNF || this.nfeCNF();
     this.natOp = data.natOp;
     this.mod = data.mod;
     this.serie = data.serie;

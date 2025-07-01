@@ -30,6 +30,9 @@ export class ICMS90 {
   public readonly indDeduzDeson?: string;
   public readonly vICMSSTDeson?: number;
   public readonly motDesICMSST?: string;
+  public readonly vICMSOp?: number;
+  public readonly pDif?: number;
+  public readonly vICMSDif?: number;
 
   constructor(data: {
     orig: string,
@@ -55,7 +58,10 @@ export class ICMS90 {
     indDeduzDeson?: string,
     vICMSSTDeson?: number,
     motDesICMSST?: string,
-    pFCP?: number
+    pFCP?: number,
+    vICMSOp?: number,
+    pDif?: number,
+    vICMSDif?: number
   }) {
     this.orig = data.orig;
     this.CST = data.CST;
@@ -81,6 +87,9 @@ export class ICMS90 {
     this.indDeduzDeson = data.indDeduzDeson;
     this.vICMSSTDeson = data.vICMSSTDeson;
     this.motDesICMSST = data.motDesICMSST;
+    this.vICMSOp = data.vICMSOp;
+    this.pDif = data.pDif;
+    this.vICMSDif = data.vICMSDif;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -200,6 +209,18 @@ export class ICMS90 {
     if (this.motDesICMSST !== undefined && typeof this.motDesICMSST !== 'string' && !allowedMotDesICMSST.includes(this.motDesICMSST)) {
       throw new Error(`Motivo da desoneração do ICMS ST (motDesICMSST) deve ser '3', '9' ou '12', se informado.`);
     }
+
+    if (this.vICMSOp !== undefined && (typeof this.vICMSOp !== 'number' || this.vICMSOp < 0)) {
+      throw new Error('Valor do ICMS Op (vICMSOp) deve ser um número não negativo, se informado.');
+    }
+
+    if (this.pDif !== undefined && (typeof this.pDif !== 'number' || this.pDif < 0 || this.pDif > 100)) {
+      throw new Error('Percentual de diferença de alíquota (pDif) deve ser um número entre 0 e 100, se informado.');
+    }
+
+    if (this.vICMSDif !== undefined && (typeof this.vICMSDif !== 'number' || this.vICMSDif < 0)) {
+      throw new Error('Valor do ICMS Dif (vICMSDif) deve ser um número não negativo, se informado.');
+    }
   }
 
   public equals(other: ICMS90): boolean {
@@ -230,7 +251,10 @@ export class ICMS90 {
       this.motDesICMS === other.motDesICMS &&
       this.indDeduzDeson === other.indDeduzDeson &&
       this.vICMSSTDeson === other.vICMSSTDeson &&
-      this.motDesICMSST === other.motDesICMSST
+      this.motDesICMSST === other.motDesICMSST &&
+      this.vICMSOp === other.vICMSOp &&
+      this.pDif === other.pDif &&
+      this.vICMSDif === other.vICMSDif
     );
   }
 
@@ -261,6 +285,9 @@ export class ICMS90 {
         indDeduzDeson: this.indDeduzDeson || undefined,
         vICMSSTDeson: this.vICMSSTDeson?.toFixed(2) || undefined,
         motDesICMSST: this.motDesICMSST || undefined,
+        vICMSOp: this.vICMSOp?.toFixed(2) || undefined,
+        pDif: this.pDif?.toFixed(2) || undefined,
+        vICMSDif: this.vICMSDif?.toFixed(2) || undefined,
       }
     };
   }

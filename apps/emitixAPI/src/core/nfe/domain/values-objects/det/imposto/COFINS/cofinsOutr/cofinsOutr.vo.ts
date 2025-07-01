@@ -73,14 +73,14 @@ export class COFINSOutr {
     }
   }
 
-  public equals(other: COFINSOutr): boolean {
+  public equals(other: COFINSOutr | undefined): boolean {
     if (!(other instanceof COFINSOutr)) {
       return false;
     }
     return (
       this.CST === other.CST &&
-      this.baseCalc?.equals(other.baseCalc) &&
-      this.quant?.equals(other.quant) &&
+      (this.baseCalc ? this.baseCalc.equals(other.baseCalc) : false) &&
+      (this.quant ? this.quant.equals(other.quant) : false) &&
       this.vCOFINS === other.vCOFINS
     );
   }

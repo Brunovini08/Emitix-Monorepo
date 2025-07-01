@@ -20,7 +20,7 @@ export class BaseCalc {
     }
   }
 
-  public equals(other: BaseCalc): boolean {
+  public equals(other: BaseCalc | undefined): boolean {
     if (!(other instanceof BaseCalc)) {
       return false;
     }

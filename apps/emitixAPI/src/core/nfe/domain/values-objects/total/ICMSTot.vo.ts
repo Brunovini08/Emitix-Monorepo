@@ -93,38 +93,41 @@ export class ICMSTot {
     
     // Calcular vNF automaticamente se não fornecido
     if (data.vNF === undefined || data.vNF === null) {
+     
       this.vNF = this.calcularVNF(data);
     } else {
       this.vNF = data.vNF;
+      const vNFVerify = this.calcularVNF(data);
+      if(vNFVerify !== Number(data.vNF)) {
+        this.vNF = vNFVerify;
+        console.warn('O valor de vNF não é válido, foi corrigido para: ', this.vNF);
+      }
     }
     
     this.vTotTrib = data.vTotTrib;
   }
 
-  private calcularVNF(data: any): number {
-    // Fórmula: vProd - vDesc + vFrete + vSeg + vOutro + vII + vIPI - vIPIDevol + vICMS + vST + vFCP + vPIS + vCOFINS
-    const vProd = data.vProd || 0;
-    const vDesc = data.vDesc || 0;
-    const vFrete = data.vFrete || 0;
-    const vSeg = data.vSeg || 0;
-    const vOutro = data.vOutro || 0;
-    const vII = data.vII || 0;
-    const vIPI = data.vIPI || 0;
-    const vIPIDevol = data.vIPIDevol || 0;
-    const vICMS = data.vICMS || 0;
-    const vST = data.vST || 0;
-    const vFCP = data.vFCP || 0;
-    const vPIS = data.vPIS || 0;
-    const vCOFINS = data.vCOFINS || 0;
-
-    return vProd - vDesc + vFrete + vSeg + vOutro + vII + vIPI - vIPIDevol + vICMS + vST + vFCP + vPIS + vCOFINS;
+  public calcularVNF(data: any): number {
+    return (
+      (Number(data.vProd) || 0) +
+      (Number(data.vST) || 0) +
+      (Number(data.vFrete) || 0) +
+      (Number(data.vSeg) || 0) +
+      (Number(data.vOutro) || 0) +
+      (Number(data.vII) || 0) +
+      (Number(data.vIPI) || 0) -
+      (Number(data.vDesc) || 0) -
+      (Number(data.vIPIDevol) || 0)
+    );
   }
+  
 
   validateOrThrow() {
     const requiredFields = [
-      'vBC', 'vICMS', 'vICMSDeson', 'vFCP', 'vBCST', 'vST',
-      'vFCPST', 'vFCPSTRet', 'vProd', 'vFrete', 'vSeg', 'vDesc',
-      'vII', 'vIPI', 'vIPIDevol', 'vPIS', 'vCOFINS', 'vOutro', 'vNF'
+      'vBC', 'vICMS', 'vBCST', 'vST', 'vProd', 'vFrete', 'vSeg',
+      'vDesc', 'vII', 'vPIS', 'vCOFINS', 'vOutro', 'vNF','vICMSDeson','vFCP',
+      'vBCST','vST','vFCPST','vFCPSTRet', 'vProd', 'vIPI', 'vIPIDevol','vPIS', 'vCOFINS',
+      'vOutro', 'vNF'
     ];
 
     for (const field of requiredFields) {
@@ -137,16 +140,30 @@ export class ICMSTot {
   // Função auxiliar para formatar valores decimais apenas se for número
   private formatDecimal(value: any, decimals: number = 2): any {
     if (value === undefined || value === null) {
-      return value; // Mantém undefined/null como está
+      return value; 
     }
     if (typeof value === 'number') {
-      // Garantir que sempre tenha 2 casas decimais
       return value.toFixed(decimals);
+    } else {
+      value = Number(value).toFixed(decimals);
     }
-    return value; // Se não for número, retorna como está
+    return value; 
   }
 
   toJson() {
+    // Limpar valores zero antes de serializar
+    const allFields = [
+       'vFCPUFDest', 'vICMSUFDest', 'vICMSUFRemet', 'qBCMono', 'vICMSMono',
+       'qBCMonoReten', 'vICMSMonoReten', 'qBCMonoRet', 'qBCMonoReten', 'vICMSMonoReten', 'vICMSMonoRet', 'vTotTrib',
+       'vTotTrib'
+    ];
+
+    allFields.forEach(field => {
+      if(this[field] == '0.00' || this[field] == '0' || this[field] == '0,00' || this[field] == null) {
+        this[field] = undefined;
+      }
+    });
+
     const result: any = {};
     
     // Elementos obrigatórios na ordem exata do XSD
@@ -169,6 +186,8 @@ export class ICMSTot {
     result.vFCP = this.formatDecimal(this.vFCP, 2);
     result.vBCST = this.formatDecimal(this.vBCST, 2);
     result.vST = this.formatDecimal(this.vST, 2);
+    
+    // vFCPST é obrigatório no XSD, mas pode ser zero
     result.vFCPST = this.formatDecimal(this.vFCPST, 2);
     result.vFCPSTRet = this.formatDecimal(this.vFCPSTRet, 2);
     
@@ -209,7 +228,6 @@ export class ICMSTot {
     if (this.vTotTrib !== undefined && this.vTotTrib !== null) {
       result.vTotTrib = this.formatDecimal(this.vTotTrib, 2);
     }
-    
     return result;
   }
 }

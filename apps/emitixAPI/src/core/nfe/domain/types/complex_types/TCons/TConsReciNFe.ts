@@ -1,5 +1,4 @@
-import { IsIn, IsNotEmpty } from "class-validator";
-import type { TUf } from "../../primitivies_types/TUf";
+import { IsIn, IsNotEmpty, IsOptional } from "class-validator";
 
 export class TConsReciNFe {
   @IsNotEmpty({
@@ -15,16 +14,11 @@ export class TConsReciNFe {
   })
   nRec: string;
   
-  @IsNotEmpty({
-    message: 'O campo "versao" é obrigatório',
-  })
+  @IsOptional()
   @IsIn(['4.00'], {
     message: 'O campo "versao" deve ser 4.00',
   })
   versao: string;
 
-  @IsNotEmpty({
-    message: 'O campo "UF" é obrigatório'
-  })
-  uf: TUf;
+ 
 }

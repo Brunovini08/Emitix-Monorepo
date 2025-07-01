@@ -12,6 +12,7 @@ const XSD_PATH = [
   "xsds/consCad_v2.00.xsd", 
   "xsds/distDFeInt_v1.01.xsd",
   "xsds/envEventoCancNFe_v1.00.xsd",
+  "xsds/enviNFe_v4.00.xsd",
 ];
 
 export class ValidateXmlXsdUtil {

@@ -86,8 +86,9 @@ export class NFe {
     this.cana = data.cana;
     this.infRespTec = data.infRespTec;
     this.infSolicNFF = data.infSolicNFF;
-    this.agropecuario = data.agropecuario;
+    this.agropecuario = data.agropecuario; 
 
+    const cNF = this.gerarCNF();
 
     const dadosChave = {
       cUF: String(this.ide.cUF),
@@ -95,7 +96,7 @@ export class NFe {
       modelo: String(this.ide.mod),
       serie: String(this.ide.serie),
       nNF: String(this.ide.nNF),
-      cNF: this.cnf,
+      cNF: cNF,
       tpEmis: String(this.ide.tpEmis),
       dhEmi: String(this.ide.dhEmi),
     };
@@ -104,7 +105,19 @@ export class NFe {
     this.nfeDV = this.nfeCalcDigitoVerificador(chaveParcial);
     this.chaveAcesso = chaveParcial + this.nfeDV;
     this.validarChaveAcesso(this.chaveAcesso, dadosChave);
-    this.nfeDV = this.nfeDV;
+    this.cnf = dadosChave.cNF;
+
+    this.ide = new Ide({
+      ...this.ide,
+      cDV: this.nfeDV,
+      cNF: cNF,
+    });
+    this.validateOrThrow();
+    this.autoCorrectAndWarn();
+  }
+
+  private gerarCNF() {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
   }
 
   private gerarChaveParcial({ cUF, cnpj, modelo, serie, nNF, cNF, tpEmis, dhEmi }): string {
@@ -122,7 +135,6 @@ export class NFe {
     const cNFFormat = String(cNF).padStart(8, '0');
 
     const chaveParcial = cUFFormat + AAMM + cnpjFormat + modeloFormat + serieFormat + nNFFormat + tpEmisFormat + cNFFormat;
-
     if (chaveParcial.length !== 43) {
       throw new Error(`Chave parcial deve ter 43 dígitos, mas tem ${chaveParcial.length}`);
     }
@@ -172,6 +184,68 @@ export class NFe {
     if (cNF !== dados.cNF.padStart(8, '0')) throw new Error(`cNF na chave (${cNF}) não corresponde ao original (${dados.cNF})`);
   }
 
+  /**
+   * Valida os percentuais e totais de ICMS-ST e FCPST antes de enviar para o SEFAZ.
+   * Lança erro se encontrar inconsistências.
+   */
+  public validateTotalsAndPercents(): void {
+    // 1. Rejeição 881: Percentual de FCPST igual a zero
+    this.det.forEach((item, idx) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS60', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].pFCPST !== undefined) {
+          const pFCPST = Number(icms[grupo].pFCPST);
+          if (pFCPST === 0) {
+            console.warn(`Rejeição 881: Percentual de FCPST igual a zero no item ${idx + 1}`);
+          }
+        }
+      }
+    });
+
+    // 2. Rejeição 533: Total da BC ICMS-ST difere do somatório dos itens
+    let somaBCST = 0;
+    this.det.forEach((item) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].vBCST !== undefined) {
+          somaBCST += Number(icms[grupo].vBCST);
+        }
+      }
+    });
+    if (Number(this.total.ICMSTot.vBCST) !== somaBCST) {
+      console.warn(`Rejeição 533: Total da BC ICMS-ST (${this.total.ICMSTot.vBCST}) difere do somatório dos itens (${somaBCST})`);
+    }
+
+    // 3. Rejeição 534: Total do ICMS-ST difere do somatório dos itens
+    let somaICMSST = 0;
+    this.det.forEach((item) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].vICMSST !== undefined) {
+          somaICMSST += Number(icms[grupo].vICMSST);
+        }
+      }
+    });
+    if (Number(this.total.ICMSTot.vST) !== somaICMSST) {
+      console.warn(`Rejeição 534: Total do ICMS-ST (${this.total.ICMSTot.vST}) difere do somatório dos itens (${somaICMSST})`);
+    }
+  }
+
   private cleanObject(obj: any): any {
     if (Array.isArray(obj)) {
       return obj.map((item) => this.cleanObject(item)).filter((item) => item !== null && item !== undefined);
@@ -186,6 +260,103 @@ export class NFe {
       return Object.keys(cleanedObj).length > 0 ? cleanedObj : undefined;
     }
     return obj;
+  }
+
+  public validateOrThrow() {
+    this.validateTotalsAndPercents();
+    this.validateFCPST();
+  }
+
+  private validateFCPST() {
+    this.det.forEach((item, idx) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS60', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].pFCPST !== undefined) {
+          const pFCPST = Number(icms[grupo].pFCPST);
+          if (pFCPST === 0) {
+            console.warn(`Rejeição 881: Percentual de FCPST igual a zero no item ${idx + 1}`);
+          }
+        }
+      }
+    });
+  }
+
+  public autoCorrectAndWarn(): string[] {
+    const warnings: string[] = [];
+
+    // 1. Corrigir pFCPST igual a zero (Rejeição 881)
+    this.det.forEach((item, idx) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS60', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].pFCPST !== undefined) {
+          const pFCPST = Number(icms[grupo].pFCPST);
+          if (pFCPST === 0) {
+            // Corrige removendo o campo
+            delete icms[grupo].pFCPST;
+            warnings.push(`Item ${idx + 1}: Percentual de FCPST estava igual a zero e foi removido para evitar rejeição 881.`);
+          }
+        }
+      }
+    });
+
+    // 2. Corrigir total da BC ICMS-ST (Rejeição 533)
+    let somaBCST = 0;
+    this.det.forEach((item) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].vBCST !== undefined) {
+          somaBCST += Number(icms[grupo].vBCST);
+        }
+      }
+    });
+    if (Number(this.total.ICMSTot.vBCST) !== somaBCST) {
+      warnings.push(`Total da BC ICMS-ST (${this.total.ICMSTot.vBCST}) foi corrigido para o somatório dos itens (${somaBCST}) para evitar rejeição 533.`);
+      this.total.ICMSTot.vBCST = somaBCST;
+    }
+
+    // 3. Corrigir total do ICMS-ST (Rejeição 534)
+    let somaICMSST = 0;
+    this.det.forEach((item) => {
+      const icms = item.imposto?.ICMS;
+      if (!icms) return;
+      const gruposPossiveis = [
+        'ICMS10', 'ICMS30', 'ICMS70', 'ICMS90',
+        'ICMSSN201', 'ICMSSN202', 'ICMSSN900', 'ICMSST'
+      ];
+      for (const grupo of gruposPossiveis) {
+        if (icms[grupo] && icms[grupo].vICMSST !== undefined) {
+          somaICMSST += Number(icms[grupo].vICMSST);
+        }
+      }
+    });
+    if (Number(this.total.ICMSTot.vST) !== somaICMSST) {
+      warnings.push(`Total do ICMS-ST (${this.total.ICMSTot.vST}) foi corrigido para o somatório dos itens (${somaICMSST}) para evitar rejeição 534.`);
+      this.total.ICMSTot.vST = somaICMSST;
+    }
+
+    // 4. Corrigir vNF (valor total da nota)
+    const vNFCalculado = this.total.ICMSTot.calcularVNF(this.total.ICMSTot);
+    if (Number(this.total.ICMSTot.vNF) !== vNFCalculado) {
+      warnings.push(`O valor de vNF (${this.total.ICMSTot.vNF}) foi corrigido para o valor calculado (${vNFCalculado}) para evitar rejeição 610.`);
+      this.total.ICMSTot.vNF = vNFCalculado;
+    }
+
+    return warnings;
   }
 
   public toJSON() {

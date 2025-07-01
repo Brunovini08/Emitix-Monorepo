@@ -20,7 +20,7 @@ export class Quant {
     }
   }
 
-  public equals(other: Quant): boolean {
+  public equals(other: Quant | undefined): boolean {
     if (!(other instanceof Quant)) {
       return false;
     }

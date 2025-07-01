@@ -4,7 +4,6 @@ import { ParserUtils } from "src/shared/common/utils/parser.utils";
 
 export class ICMSTotMapper {
   static fromDto(dto: ICMSTotDto): ICMSTot {
-    // Calcular totais dos produtos se não fornecidos
     const vProd = ParserUtils.parseDecimal(dto.vProd);
     const vFrete = ParserUtils.parseDecimal(dto.vFrete);
     const vSeg = ParserUtils.parseDecimal(dto.vSeg);
@@ -19,7 +18,6 @@ export class ICMSTotMapper {
     const vCOFINS = ParserUtils.parseDecimal(dto.vCOFINS);
     const vOutro = ParserUtils.parseDecimal(dto.vOutro);
 
-    // Calcular vNF automaticamente (fórmula correta)
     const vNF = vProd - vDesc + vFrete + vSeg + vOutro + vII + vIPI - vIPIDevol;
 
     return new ICMSTot({

@@ -1,20 +1,19 @@
 import { Injectable } from "@nestjs/common";
-
 import { SefazXmlBuilderService } from "../../infrastructure/external/xml/SefazXmlBuilder.service";
-import { NFe } from "../../domain/entities/nfe.entity";
+import type { TEnviConsReciNFe } from "../../domain/types/complex_types/TCons/TEnviConsReciNFe";
 
 @Injectable()
-export class NfeConsultaUseCase {
+export class NfeConsultaProcessamentoUseCase {
   constructor(
     private readonly nfeXmlBuilder: SefazXmlBuilderService,
   ) {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data): Promise<string> {
-    const nfe = data.consReciNFe
+  async execute(data: TEnviConsReciNFe): Promise<string> {
+    const nfe = data
     const versao = "4.00"
-    const xml = await this.nfeXmlBuilder.buildNFeConsulta(nfe, versao)
+    const xml = await this.nfeXmlBuilder.buildNFeConsultaProcessamento(nfe, versao)
      return xml
   }
 }

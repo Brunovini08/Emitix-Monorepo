@@ -13,7 +13,6 @@ export class ICMS70Mapper {
       pICMS: ParserUtils.parseDecimal(dto.pICMS),
       vICMS: ParserUtils.parseDecimal(dto.vICMS),
       vBCFCP: ParserUtils.parseDecimalOptional(dto.vBCFCP),
-      pFCP: ParserUtils.parseDecimalOptional(dto.pFCP),
       vFCP: ParserUtils.parseDecimalOptional(dto.vFCP),
       modBCST: dto.modBCST,
       pMVAST: ParserUtils.parseDecimalOptional(dto.pMVAST),

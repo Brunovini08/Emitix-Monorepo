@@ -23,15 +23,17 @@ import { NFeInutilizarBuilder } from './infrastructure/external/xml/builders/nfe
 import { NFeStatusBuilder } from './infrastructure/external/xml/builders/nfe-status.builder';
 import { SefazXmlBuilderService } from './infrastructure/external/xml/SefazXmlBuilder.service';
 import { SignedXmlUtil } from './infrastructure/external/xml/sign/signedXml.util';
+import { NfeConsultaProcessamentoBuilder } from './infrastructure/external/xml/builders/nfe-consulta-processamento.builder';
+import { NfeConsultaProcessamentoUseCase } from './application/use-cases/nfe-consulta-processamento.usecase';
 
 @Module({
   controllers: [NfeController],
   providers: [NfeService, IdLoteService, NotaService, NfeEmitirUseCase,
     NfeInutilizarUseCase, NfeConsultaUseCase, NfeStatusUseCase,
-    NfeConsultaCadastroUseCase, NfeDanfeUseCase, CertificateService,
+    NfeConsultaCadastroUseCase, NfeDanfeUseCase, NfeConsultaProcessamentoUseCase, CertificateService,
     SignedXmlUtil, IdLoteService, SefazXmlBuilderService, NFeEnvioBuilder,
     NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
-    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen],
+    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen, NfeConsultaProcessamentoBuilder],
   imports: [RedisModule, IssuerInvoiceModule, HttpModule],
   exports: [NfeService, IdLoteService],
 })

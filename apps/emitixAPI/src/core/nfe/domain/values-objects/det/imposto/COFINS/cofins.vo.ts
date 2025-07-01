@@ -52,15 +52,12 @@ export class COFINS {
     }
   }
 
-  public equals(other) {
-    if (!(other instanceof COFINS)) {
-      return false;
-    }
+  public equals(other: COFINS | undefined): boolean {
     return (
-      (this.COFINSAliq ? this.COFINSAliq.equals(other.COFINSAliq) : this.COFINSAliq === other.COFINSAliq) &&
-      (this.COFINSQtde ? this.COFINSQtde.equals(other.COFINSQtde) : this.COFINSQtde === other.COFINSQtde) &&
-      (this.COFINSNT ? this.COFINSNT.equals(other.COFINSNT) : this.COFINSNT === other.COFINSNT) &&
-      (this.COFINSOutr ? this.COFINSOutr.equals(other.COFINSOutr) : this.COFINSOutr === other.COFINSOutr)
+      (this.COFINSAliq ? this.COFINSAliq.equals(other?.COFINSAliq) : false) &&
+      (this.COFINSQtde ? this.COFINSQtde.equals(other?.COFINSQtde) : false) &&
+      (this.COFINSNT ? this.COFINSNT.equals(other?.COFINSNT) : false) &&
+      (this.COFINSOutr ? this.COFINSOutr.equals(other?.COFINSOutr) : false)
     );
   }
 

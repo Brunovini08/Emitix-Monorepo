@@ -4,7 +4,7 @@ import { TDec_1302 } from 'src/core/nfe/domain/types/primitivies_types/TDec_1302
 
 export class ICMSTotDto {
   @IsNotEmpty({
-    message: 'TOtais referentes ao ICMS',
+    message: 'Total referentes ao ICMS',
   })
   @Type(() => TDec_1302)
   vBC: TDec_1302;
@@ -15,9 +15,7 @@ export class ICMSTotDto {
   @Type(() => TDec_1302)
   vICMS: TDec_1302;
 
-  @IsNotEmpty({
-    message: 'Valor TOtal do ICMS desonerado',
-  })
+  @IsOptional()
   @Type(() => TDec_1302)
   vICMSDeson: TDec_1302;
 
@@ -33,9 +31,7 @@ export class ICMSTotDto {
   @Type(() => TDec_1302)
   vICMSUFRemet: TDec_1302;
 
-  @IsNotEmpty({
-    message: 'Valor Total do FCP (Fundo de Combate à Pobreza)',
-  })
+  @IsOptional()
   @Type(() => TDec_1302)
   vFCP: TDec_1302;
 
@@ -51,17 +47,11 @@ export class ICMSTotDto {
   @Type(() => TDec_1302)
   vST: TDec_1302;
 
-  @IsNotEmpty({
-    message:
-      'Valor Total do FCP (FUndo de Combate à Pobreza) retido por substituição tributária.',
-  })
+  @IsOptional()
   @Type(() => TDec_1302)
   vFCPST: TDec_1302;
 
-  @IsNotEmpty({
-    message:
-      'Valor Total do FCP (Fundo de Combate à Pobreza) retido anteriormente por substituição tributária.',
-  })
+  @IsOptional()
   @Type(() => TDec_1302)
   vFCPSTRet: TDec_1302;
 
@@ -125,10 +115,7 @@ export class ICMSTotDto {
   @Type(() => TDec_1302)
   vIPI: TDec_1302;
 
-  @IsNotEmpty({
-    message:
-      'Valor Total do IPI devolvido. Deve ser informado quando preenchido o Grupo Tributados Devolvidos na emissão de nota finNfe=4 (devolução) nas operações com não contribuintes do IPI. Corresponde ao total da soma dos campos id: UA04',
-  })
+  @IsOptional()
   @Type(() => TDec_1302)
   vIPIDevol: TDec_1302;
 

@@ -48,8 +48,8 @@ export class COFINSST {
       return false;
     }
     return (
-      this.baseCalc?.equals(other.baseCalc) &&
-      this.quant?.equals(other.quant) &&
+      (this.baseCalc ? this.baseCalc.equals(other.baseCalc) : false) &&
+      (this.quant ? this.quant.equals(other.quant) : false) &&
       this.vCOFINS === other.vCOFINS &&
       this.indSomaCOFINSST === other.indSomaCOFINSST
     );
