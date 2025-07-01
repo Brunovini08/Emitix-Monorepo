@@ -1,4 +1,4 @@
-import { InfProdNFF } from "../../../../values-objects/det/prod/infProdNFF.vo";
+import { InfProdNFF } from "src/core/nfe/domain/values-objects/det/prod/infProdNFF.vo";
 import { infProdNFFDto } from "src/shared/common/dtos/infNfe/det/prod/infProdNFF/infProdNFF.dto";
 
 export class InfProdNFFMapper {

@@ -1,7 +1,7 @@
 import { pagDto } from "src/shared/common/dtos/infNfe/pag/pag.dto";
-import { pag } from "../../values-objects/pag/pag.vo";
-import { detPag } from "../../values-objects/pag/detPag.vo";
 import { CardMapper } from "./card.mapper";
+import { detPag } from "../../../values-objects/pag/detPag.vo";
+import { pag } from "../../../values-objects/pag/pag.vo";
 
 export class PagMapper {
   static fromDto(dto: pagDto): pag {

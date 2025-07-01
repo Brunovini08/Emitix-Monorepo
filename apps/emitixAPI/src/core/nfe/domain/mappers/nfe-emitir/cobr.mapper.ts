@@ -1,7 +1,8 @@
 import { cobrDto } from "src/shared/common/dtos/infNfe/cobr/cobr.dto";
-import { cobr } from "../values-objects/cobr/cobr.vo";
-import { dup } from "../values-objects/cobr/dup.vo";
-import { fat } from "../values-objects/cobr/fat.vo";
+import { fat } from "../../values-objects/cobr/fat.vo";
+import { dup } from "../../values-objects/cobr/dup.vo";
+import { cobr } from "../../values-objects/cobr/cobr.vo";
+
 
 export class CobrMapper {
   static fromDto(dto: cobrDto): cobr {

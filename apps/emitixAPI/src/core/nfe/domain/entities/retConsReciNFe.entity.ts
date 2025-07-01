@@ -16,7 +16,7 @@ export class RetConsReciNFe {
     this.verAplic = data.verAplic;
     this.cStat = data.cStat;
     this.xMotivo = data.xMotivo;
-    this.infProt = data.infProt;
+    this.infProt = data.infProt || undefined
     this.validateOrThrow();
   }
 
@@ -25,6 +25,15 @@ export class RetConsReciNFe {
     if (!this.verAplic) throw new Error('verAplic é obrigatório');
     if (!this.cStat) throw new Error('cStat é obrigatório');
     if (!this.xMotivo) throw new Error('xMotivo é obrigatório');
-    // infProt é opcional
+  }
+
+  public toJSON() {
+    return {
+      tpAmb: this.tpAmb,
+      verAplic: this.verAplic,
+      cStat: this.cStat,
+      xMotivo: this.xMotivo,
+      infProt: this.infProt ? this.infProt : undefined
+    };
   }
 } 

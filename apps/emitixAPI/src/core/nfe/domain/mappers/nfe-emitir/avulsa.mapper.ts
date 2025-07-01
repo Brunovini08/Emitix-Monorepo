@@ -1,5 +1,5 @@
 import type { avulsaDto } from "src/shared/common/dtos/infNfe/avulsa/avulsa.dto";
-import { Avulsa } from "../values-objects/avulsa.vo";
+import { Avulsa } from "../../values-objects/avulsa.vo";
 
 export class AvulsaMapper {
   static fromDto(dto: avulsaDto): Avulsa {

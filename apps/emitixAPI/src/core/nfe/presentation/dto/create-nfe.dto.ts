@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   ArrayMaxSize,
+  ArrayMinSize,
   IsArray,
   IsOptional,
   MaxLength,
@@ -58,11 +59,12 @@ export class infNFeDto {
   entrega: entregaDto;
 
   @IsOptional()
-  @MinLength(0)
-  @MaxLength(10)
+  @IsArray()
+  @ArrayMinSize(0)
+  @ArrayMaxSize(10)
   @ValidateNested()
   @Type(() => autXMLDto)
-  authXML: autXMLDto;
+  authXML: autXMLDto[];
 
   @IsArray()
   @ArrayMaxSize(990)

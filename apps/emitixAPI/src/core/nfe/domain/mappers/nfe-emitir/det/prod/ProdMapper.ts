@@ -1,5 +1,4 @@
 import type { prodDto } from "src/shared/common/dtos/infNfe/det/prod/prod.dto";
-import { Prod } from "../../../values-objects/det/prod/prod.vo";
 import { DetExportMapper } from "./detExport/detExport.mapper";
 import { GCredMapper } from "./gCred.mapper";
 import { InfProdEmbMapper } from "./infProdEmb/infProdEmb.mapper";
@@ -10,6 +9,7 @@ import { MedMapper } from "./med/med.mapper";
 import { ArmaMapper } from "./arma/arma.mapper";
 import { CombMapper } from "./comb/comb.mapper";
 import { ParserUtils } from "src/shared/common/utils/parser.utils";
+import { Prod } from "src/core/nfe/domain/values-objects/det/prod/prod.vo";
 
 export class ProdMapper {
   static fromDto(dto: prodDto): Prod {

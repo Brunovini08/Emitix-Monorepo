@@ -1,5 +1,5 @@
-import { card } from "../../values-objects/pag/card.vo";
 import type { cardDto } from "src/shared/common/dtos/infNfe/pag/card.dto";
+import { card } from "../../../values-objects/pag/card.vo";
 
 export class CardMapper {
   static fromDto(dto: cardDto): card {

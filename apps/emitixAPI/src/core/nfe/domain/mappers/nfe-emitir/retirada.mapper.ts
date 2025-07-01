@@ -1,5 +1,5 @@
-import { TLocalVO } from "../values-objects/tlocal.vo";
-import type { TLocal } from "../types/primitivies_types/TLocal";
+import type { TLocal } from "../../types/primitivies_types/TLocal";
+import { TLocalVO } from "../../values-objects/tlocal.vo";
 
 export class RetiradaMapper {
   static fromDto(dto: TLocal): TLocalVO {

@@ -7,6 +7,7 @@ import { NFeInutilizarBuilder } from "./builders/nfe-inutilizar.builder";
 import { NFeStatusBuilder } from "./builders/nfe-status.builder";
 import { NfeConsultaProcessamentoBuilder } from "./builders/nfe-consulta-processamento.builder";
 import type { TEnviConsReciNFe } from "src/core/nfe/domain/types/complex_types/TCons/TEnviConsReciNFe";
+import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/consultaProcessamentoNfe.entity";
 
 @Injectable()
 export class SefazXmlBuilderService {
@@ -61,7 +62,7 @@ export class SefazXmlBuilderService {
     return this.nfeDanfeBuilder.distribuicaoDfe(data, versao)
   }
 
-  async buildNFeConsultaProcessamento(data: TEnviConsReciNFe, versao: string) {
+  async buildNFeConsultaProcessamento(data: ConsultaProcessamentoNfeEntity, versao: string) {
     return this.nfeConsultaProcessamentoBuilder.consultaProcessamento(data, versao)
   }
   

@@ -24,6 +24,7 @@ export class SendSefaz {
   ) {
     return from(ResolveSefazUrl.resolveSefazUrl(uf, tpAmb, service, typeDocument)).pipe(
       switchMap(({ url, urlName }) => {
+        console.log('URL da SEFAZ:', url);
         const httpsAgent = HttpServiceSend.createHttpsAgent(certificate, privateKey, caPath);
         const soapEnvelope = BuildSoapEnvelop.buildSoapEnvelope(xml, urlName);
         

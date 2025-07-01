@@ -47,4 +47,19 @@ export class InutNFe {
     if (!this.nNFFin) throw new Error('nNFFin é obrigatório');
     if (!this.xJust) throw new Error('xJust é obrigatório');
   }
+
+  public toJSON() {
+    return {
+      tpAmb: this.tpAmb,
+      xServ: this.xServ,
+      cUF: this.cUF,
+      ano: this.ano,
+      CNPJ: this.CNPJ,
+      mod: this.mod,
+      serie: this.serie,
+      nNFIni: this.nNFIni,
+      nNFFin: this.nNFFin,
+      xJust: this.xJust
+    };
+  }
 } 

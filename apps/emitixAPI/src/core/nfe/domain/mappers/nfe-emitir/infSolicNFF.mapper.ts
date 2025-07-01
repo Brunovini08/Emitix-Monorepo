@@ -1,5 +1,5 @@
 import type { infSolicNFFDto } from "src/shared/common/dtos/infNfe/infSolicNFF/infSolicNFF.dto";
-import { infSolicNFF } from "../values-objects/infSolicNFF.vo";
+import { infSolicNFF } from "../../values-objects/infSolicNFF.vo";
 
 
 export class InfSolicNFFMapper {
