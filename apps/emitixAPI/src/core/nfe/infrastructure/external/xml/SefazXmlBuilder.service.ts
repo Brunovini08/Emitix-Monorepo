@@ -66,5 +66,5 @@ export class SefazXmlBuilderService {
   async buildNFeConsultaProcessamento(data: ConsultaProcessamentoNfeEntity, versao: string) {
     return this.nfeConsultaProcessamentoBuilder.consultaProcessamento(data, versao)
   }
-  
+
 }

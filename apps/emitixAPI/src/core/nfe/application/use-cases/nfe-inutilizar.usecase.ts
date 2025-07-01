@@ -15,7 +15,7 @@ export class NfeInutilizarUseCase {
 
   async execute(data: InutNFe): Promise<string> {
     const nfe = data.toJSON()
-    const xml = await this.nfeXmlBuilder.buildNFeInutilizar(nfe.nfeChaveAcesso, nfe.inutNFe, nfe.versao)
+    const xml = await this.nfeXmlBuilder.buildNFeInutilizar(nfe.nfeChaveAcesso, data, nfe.versao)
     return xml
   }
 }
