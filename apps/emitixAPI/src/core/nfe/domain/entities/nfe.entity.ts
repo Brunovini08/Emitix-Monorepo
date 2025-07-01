@@ -12,7 +12,7 @@ import { infAdic } from "../values-objects/infAdic/infAdic.vo";
 import { infIntermed } from "../values-objects/infIntermed.vo";
 import { infRespTec } from "../values-objects/infRespecTec/infRespTec.vo";
 import { pag } from "../values-objects/pag/pag.vo";
-import { TLocalVO } from "../values-objects/tlocal.vo";
+import { TLocalVO } from "../values-objects/tlocal.vo"; 
 import { Total } from "../values-objects/total/total.vo";
 import { transp } from "../values-objects/transp/transp.vo";
 import { infSolicNFF } from "../values-objects/infSolicNFF.vo";

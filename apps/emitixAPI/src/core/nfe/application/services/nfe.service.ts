@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import  { Base64 } from 'node-forge';
 import  { NotaService } from 'src/core/nfe/application/services/nota.service';
 import  { TEnvConsCad } from '../../domain/types/complex_types/TCons/TEnvConsCad';

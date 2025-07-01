@@ -21,13 +21,10 @@ import { CertificateService } from '../../infrastructure/certificate/certificate
 import { NFeMapper } from '../../domain/mappers/nfe-emitir/nfe.mapper';
 import { SendSefaz } from '../../infrastructure/external/sefaz/SendSefaz';
 import { HttpService } from '@nestjs/axios';
-import * as forge from 'node-forge';
 import { NFeDto } from '../../domain/types/complex_types/TNFe/NFe.dto';
 import { EnviNFeGen } from '../../infrastructure/external/sefaz/services/enviNFeGen.util';
 import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
-import { RetConsReciNFe } from '../../domain/entities/retConsReciNFe.entity';
-import { InutNFe } from '../../domain/entities/inutNFe.entity';
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 
 @Injectable()
