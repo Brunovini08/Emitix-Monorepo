@@ -1,7 +1,7 @@
 import type { canaDto } from "src/shared/common/dtos/infNfe/cana/cana.dto";
-import { cana } from "../../values-objects/cana/cana.vo";
 import { ForDiaMapper } from "./forDia.mapper";
 import { DeducMapper } from "./deduc.mapper";
+import { cana } from "../../../values-objects/cana/cana.vo";
 
 export class CanaMapper {
   static fromDto(dto: canaDto): cana {

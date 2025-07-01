@@ -28,6 +28,7 @@ import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
 import { RetConsReciNFe } from '../../domain/entities/retConsReciNFe.entity';
 import { InutNFe } from '../../domain/entities/inutNFe.entity';
+import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 
 @Injectable()
 export class NotaService {
@@ -134,12 +135,14 @@ export class NotaService {
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(body.cnpj) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeConsultaProcessamento.execute(body);
+      const nfeConsultaProcessamento = ConsultaProcessamentoMapper.fromDto(body)
+      const xml = await this.nfeConsultaProcessamento.execute(nfeConsultaProcessamento);
       console.log(xml)
       const result = await validateXmlXsd(xml, 1);
       if (result === true) {
         const xmlString = String(xml);
-        const envXml = await firstValueFrom(new SendSefaz(this.httpService).sendSefazRequest(
+          const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
           '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
           xmlString,
           String(body.uf),

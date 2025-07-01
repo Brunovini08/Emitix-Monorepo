@@ -37,13 +37,13 @@ export class ConsultaProcessamentoNfeEntity {
     const consReciNFe = {
         tpAmb: this.tpAmb,
         nRec: this.nReq,
+      }
+      
+      return {
+        consReciNFe: consReciNFe,
+        cnpj: this.cnpj,
+        uf: this.uf,
         versao: this.versao
-    }
-    
-    return {
-      consReciNFe: consReciNFe,
-      cnpj: this.cnpj,
-      uf: this.uf
     }
   }
 }

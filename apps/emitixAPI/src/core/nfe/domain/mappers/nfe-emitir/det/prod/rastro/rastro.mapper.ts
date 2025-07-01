@@ -1,4 +1,4 @@
-import { Rastro } from "../../../../values-objects/det/prod/rastro.vo";
+import { Rastro } from "src/core/nfe/domain/values-objects/det/prod/rastro.vo";
 import { rastroDto } from "src/shared/common/dtos/infNfe/det/prod/rastro/rastro.dto";
 
 export class RastroMapper {

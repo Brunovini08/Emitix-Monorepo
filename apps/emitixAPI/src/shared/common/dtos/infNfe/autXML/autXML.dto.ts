@@ -5,9 +5,6 @@ import  { TCpf } from 'src/core/nfe/domain/types/primitivies_types/TCpf';
 
 
 export class autXMLDto {
-  map(arg0: (auth: any) => import("../../../../../core/nfe/domain/values-objects/autXML.vo").AutXML): import("../../../../../core/nfe/domain/values-objects/autXML.vo").AutXML[] | undefined {
-    throw new Error('Method not implemented.');
-  }
   @IsNotEmpty()
   @ValidateIf((o) => !o.CPF)
   @Type(() => TCnpj)

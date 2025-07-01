@@ -1,5 +1,5 @@
 import type { retTribDto } from "src/shared/common/dtos/infNfe/total/retTrib/retTrib.dto";
-import { retTrib } from "../../values-objects/total/retTrib.vo";
+import { retTrib } from "../../../values-objects/total/retTrib.vo";
 
 export class RetTribMapper {
   static fromDto(dto: retTribDto): retTrib {
