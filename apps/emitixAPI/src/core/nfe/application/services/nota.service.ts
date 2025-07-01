@@ -27,24 +27,30 @@ import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
-import type TInutNFe from '../../domain/types/complex_types/TInut/TInutNfe';
 
 @Injectable()
 export class NotaService {
 
   private readonly nfeEmitirUseCase: NfeEmitirUseCase
   private readonly nfeInutilizarUseCase: NfeInutilizarUseCase
-  private readonly nfeConsultaUseCase: NfeConsultaUseCase
-  private readonly nfeStatusUseCase: NfeStatusUseCase
-  private readonly nfeConsultaCadastroUseCase: NfeConsultaCadastroUseCase
-  private readonly nfeDanfeUseCase: NfeDanfeUseCase
   private readonly nfeConsultaProcessamento: NfeConsultaProcessamentoUseCase
+  private readonly nfeConsultaUseCase: NfeConsultaUseCase
+  private readonly nfeConsultaCadastroUseCase: NfeConsultaCadastroUseCase
+  private readonly nfeStatusUseCase: NfeStatusUseCase
+  private readonly nfeDanfeUseCase: NfeDanfeUseCase
+
   private readonly emissionService: EmissionService
+
   private readonly certificateService: CertificateService
+
   private readonly signedXmlUtil: SignedXmlUtil
+
   private readonly idLoteService: IdLoteService
+
   private readonly httpService: HttpService
+
   private readonly enviNFeGen: EnviNFeGen
+
   constructor(
     emissionService: EmissionService,
     nfeEmitirUseCase: NfeEmitirUseCase,
@@ -161,7 +167,7 @@ export class NotaService {
   }
 
   async inutilizarNFe(
-    body: TInutNFe,
+    body: TEnvInutNfe,
     file: Base64,
     certPassword: string,
     nUrl: number,
@@ -171,8 +177,8 @@ export class NotaService {
       const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
-      if (String(body.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const inutNFe = NfeInutilizarMapper.fromDto(body);
+      if (String(body.inutNFe.infInut.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const inutNFe = NfeInutilizarMapper.fromDto(body.inutNFe.infInut);
       const xml = await this.nfeInutilizarUseCase.execute(inutNFe);
     } catch (error) {
       console.error(error);
@@ -353,7 +359,5 @@ export class NotaService {
     //   return result;
   }
 }
-function evento(cert: any, any: any, privateKey: any, any1: any, body: TEnvInutNfe, TEnvEvento, idUser: any, string: any, file: string, Base64: any, certPassword: string, string1: any, nUrl: number, number: any, typeDocument: string, string2: any) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -20,6 +20,7 @@ import  { TEnvDistDFeInt } from '../domain/types/complex_types/TDist/TEnvDistDFe
 import  { TEnvEvento } from '../domain/types/complex_types/TEvento/TEnvEvento';
 import  TEnvInutNfe from '../domain/types/complex_types/TInut/TEnvInutNfe';
 import  { NFeDto } from '../domain/types/complex_types/TNFe/NFe.dto';
+import type { TEnvConsCad } from '../domain/types/complex_types/TCons/TEnvConsCad';
 
 @Controller('nfe')
 export class NfeController {
@@ -173,7 +174,7 @@ export class NfeController {
   @UseGuards(AuthGuard)
   @Post('consultacadastro')
   async consultaCadastro(
-    @Body() body,
+    @Body() body: TEnvConsCad,
     @Res() res: Response,
     @Request() req,
     @Headers('password') password: string,
