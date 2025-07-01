@@ -5,6 +5,8 @@ import { NFeDanfeBuilder } from "./builders/nfe-danfe.builder";
 import { NFeEnvioBuilder } from "./builders/nfe-envio.builder";
 import { NFeInutilizarBuilder } from "./builders/nfe-inutilizar.builder";
 import { NFeStatusBuilder } from "./builders/nfe-status.builder";
+import { NfeConsultaProcessamentoBuilder } from "./builders/nfe-consulta-processamento.builder";
+import type { TEnviConsReciNFe } from "src/core/nfe/domain/types/complex_types/TCons/TEnviConsReciNFe";
 
 @Injectable()
 export class SefazXmlBuilderService {
@@ -15,6 +17,7 @@ export class SefazXmlBuilderService {
   private readonly nfeStatusBuilder: NFeStatusBuilder
   private readonly nfeConsultaCadastroBuilder: NFeConsultaCadastroBuilder
   private readonly nfeDanfeBuilder: NFeDanfeBuilder
+  private readonly nfeConsultaProcessamentoBuilder: NfeConsultaProcessamentoBuilder
 
   constructor(
     nfeEnvioBuilder: NFeEnvioBuilder,
@@ -23,6 +26,7 @@ export class SefazXmlBuilderService {
     nfeStatusBuilder: NFeStatusBuilder,
     nfeConsultaCadastroBuilder: NFeConsultaCadastroBuilder,
     nfeDanfeBuilder: NFeDanfeBuilder,
+    nfeConsultaProcessamentoBuilder: NfeConsultaProcessamentoBuilder
   ) {
     this.nfeEnvioBuilder = nfeEnvioBuilder
     this.nfeInutilizarBuilder = nfeInutilizarBuilder
@@ -30,6 +34,7 @@ export class SefazXmlBuilderService {
     this.nfeStatusBuilder = nfeStatusBuilder
     this.nfeConsultaCadastroBuilder = nfeConsultaCadastroBuilder
     this.nfeDanfeBuilder = nfeDanfeBuilder
+    this.nfeConsultaProcessamentoBuilder = nfeConsultaProcessamentoBuilder
   }
 
   async buildNFeEnvio(data, chave: string) {
@@ -54,6 +59,10 @@ export class SefazXmlBuilderService {
 
   async buildNFeDanfe(data: any, versao: string) {
     return this.nfeDanfeBuilder.distribuicaoDfe(data, versao)
+  }
+
+  async buildNFeConsultaProcessamento(data: TEnviConsReciNFe, versao: string) {
+    return this.nfeConsultaProcessamentoBuilder.consultaProcessamento(data, versao)
   }
   
 }

@@ -10,7 +10,6 @@ import {
 import { impostoDevolDto } from './impostoDevol/impostoDevol.dto';
 import { impostosDto } from './impostos/impostos.dto';
 import { obsItemDto } from './obsItem/obsItem.dto';
-import { TString } from 'src/core/nfe/domain/types/primitivies_types/TString';
 
 export class detDto {
   @ValidateNested()
@@ -30,11 +29,13 @@ export class detDto {
   impostoDevol: impostoDevolDto;
 
   @IsOptional()
-  @ValidateNested()
-  @MinLength(1)
-  @MaxLength(500)
-  @Type(() => TString)
-  infAdProd: TString;
+  @MinLength(1, {
+    message: 'Informações Adicionais do Produto deve ter pelo menos 1 caractere',
+  })
+  @MaxLength(500, {
+    message: 'Informações Adicionais do Produto deve ter no máximo 500 caracteres',
+  })
+  infAdProd: string;
 
   @IsOptional()
   @ValidateNested()

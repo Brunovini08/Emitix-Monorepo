@@ -49,7 +49,6 @@ export class NfeService {
         body,
         file,
         certPassword,
-        body.cnpj,
         nUrl,
         typeDocument
       )

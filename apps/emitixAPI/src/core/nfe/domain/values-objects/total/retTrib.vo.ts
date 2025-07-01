@@ -6,7 +6,7 @@ export class retTrib {
   vBCIRRF?
   vIRRF?
   vBCRetPrev?
-  vRetPRev?
+  vRetPrev?
 
   constructor(
     data: {
@@ -16,7 +16,7 @@ export class retTrib {
       vBCIRRF?,
       vIRRF?,
       vBCRetPrev?,
-      vRetPRev?
+      vRetPrev?
     }
   ) {
     this.vRetPIS = data.vRetPIS || undefined;
@@ -25,11 +25,11 @@ export class retTrib {
     this.vBCIRRF = data.vBCIRRF || undefined;
     this.vIRRF = data.vIRRF || undefined;
     this.vBCRetPrev = data.vBCRetPrev || undefined;
-    this.vRetPRev = data.vRetPRev || undefined;
+    this.vRetPrev = data.vRetPrev || undefined;
   }
 
   validateOrThrow() {
-
+    // Todos os campos são opcionais, não há validação obrigatória
   }
 
   toJSON() {
@@ -40,7 +40,7 @@ export class retTrib {
       vBCIRRF: this.vBCIRRF,
       vIRRF: this.vIRRF,
       vBCRetPrev: this.vBCRetPrev,
-      vRetPRev: this.vRetPRev,
+      vRetPrev: this.vRetPrev,
     };
   }
 }

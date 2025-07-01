@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ResolveSefazUrl } from "./resolveSefazUrl.util";
-import { HttpServiceSend } from "src/core/nfe/infrastructure/http/http.service";
+import { HttpServiceSend } from "src/core/nfe/infrastructure/external/http/http.service";
 import { BuildSoapEnvelop } from "./buildSoapEnvelop.util";
 import * as forge from 'node-forge';
 import { Injectable } from "@nestjs/common";

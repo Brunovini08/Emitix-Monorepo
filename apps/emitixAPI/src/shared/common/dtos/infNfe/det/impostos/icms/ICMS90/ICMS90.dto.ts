@@ -67,6 +67,22 @@ export class ICMS90DTo {
 
   @IsOptional()
   @Type(() => TDec_1302)
+  vICMSOp: TDec_1302; // Valor do ICMS Op (R$)
+
+  @IsOptional()
+  @Type(() => TDec_0302a04)
+  pDif: TDec_0302a04; // Percentual de diferença de alíquota (%)
+
+  @IsOptional()
+  @Type(() => TDec_1302)
+  vICMSDif: TDec_1302; // Valor do ICMS Dif (R$)
+
+  @IsOptional()
+  @Type(() => TDec_0302a04Opc)
+  pFCP: TDec_0302a04Opc; // Percentual do ICMS FCP (%)
+
+  @IsOptional()
+  @Type(() => TDec_1302)
   vBCFCP: TDec_1302; // Valor da BC do ICMS FCP (R$)
 
   @IsOptional()

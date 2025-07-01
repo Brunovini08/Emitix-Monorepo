@@ -55,13 +55,13 @@ export class prodDto {
       'Codigo de barras diferente do padrão deve ter no máximo 30 caracteres',
   })
   @Type(() => TString)
-  cBarra: TString; // Código de barras do produto, diferente do GTIN (EAN-13 ou GTIN-14)
+  cBarra: TString;
 
   @IsNotEmpty({
     message: 'Descrição do produto ou serviço é obrigatória',
   })
   @MinLength(1, { message: 'xProd must be at least 1 character' })
-  @MaxLength(120, { message: 'xProd must be less than 60 characters' })
+  @MaxLength(120, { message: 'xProd must be less than 120 characters' })
   @Type(() => TString)
   xProd: TString;
 
@@ -74,29 +74,31 @@ export class prodDto {
   NCM: string;
 
   @IsOptional()
-  @IsString()
-  @Matches(/^[A-Z]{2}[0-9]{4}$/)
-  NVE: string; // Nomenclatura de Valor Aduaneio e Estatistico (NVE) do produto. Ex: 12345678
+  @IsArray()
+  @ArrayMinSize(0)
+  @ArrayMaxSize(8)
+  @IsString({ each: true })
+  @Matches(/^[A-Z]{2}[0-9]{4}$/, { each: true })
+  NVE: string[];
 
   @IsOptional()
   @Matches(/^[0-9]{7}$/)
   @IsString()
-  CEST: string; // Código Especificador da Substituição Tributária (CEST) do produto. Ex: 1234567
+  CEST: string;
 
   @IsOptional()
   @IsString()
   @IsIn(['S', 'N'], { message: 'indEscala must be either S or N' })
-  indEscala: string; // Indicador de escala do produto. Ex: "S" (Sim) ou "N" (Não)
+  indEscala: string;
 
   @IsOptional()
   @Type(() => TCnpj)
-  CNPJFab: TCnpj; // CNPJ do fabricante do produto. Ex: 12345678000195
-  // Preencher com o CNPJ do fabricante, caso o produto seja fabricado por outra empresa
+  CNPJFab: TCnpj;
 
   @IsOptional()
   @IsString()
   @Matches(/^([!-ÿ]{8}|[!-ÿ]{10}|SEM CBENEF)?$/)
-  cBenef: string; // Código do benefício fiscal. Ex: "1234567890"
+  cBenef: string;
 
   @IsOptional()
   @IsArray()
@@ -108,15 +110,15 @@ export class prodDto {
 
   @IsOptional()
   @IsString()
-  @Matches(/^[0-9]{2, 3}$/)
+  @Matches(/^[0-9]{2,3}$/)
   EXTIPI: string;
 
   @IsNotEmpty({
     message: 'CFOP, obrigatório',
   })
   @IsString()
-  @Matches(/^[1,2,3,4,5,6,7]{1}[0-9]{3}$/)
-  CFOP: string; // Código Fiscal de Operação e Prestação (CFOP) da operação. Ex: 5101, 6101, 6102
+  @Matches(/^[1-7]{1}[0-9]{3}$/)
+  CFOP: string;
 
   @IsNotEmpty({
     message: 'Unidade comercial, obrigatória',
@@ -124,27 +126,27 @@ export class prodDto {
   @MinLength(1)
   @MaxLength(6)
   @Type(() => TString)
-  uCom: TString; // Unidade de medida do produto ou serviço. Ex: "UN", "KG", "LT"
+  uCom: TString;
 
   @IsNotEmpty({
     message:
-      'Valor unitário de comercialização - alterado para aceitar 0 a 4 casas decimais e 11 inteiros, obrigatório',
+      'Quantidade comercial - alterado para aceitar 0 a 4 casas decimais e 11 inteiros, obrigatório',
   })
   @Type(() => TDec_1104v)
-  qCom: TDec_1104v; // Quantidade do produto ou serviço. Ex: 10, 20.5, 1000
+  qCom: TDec_1104v;
 
   @IsNotEmpty({
     message:
       'Valor unitário de comercialização - alterado para aceitar 0 a 10 casas decimais e 11 inteiros',
   })
   @Type(() => TDec_1110v)
-  vUnCom: TDec_1110v; // Valor unitário do produto ou serviço. Ex: 10.00, 20.50, 1000.00
+  vUnCom: TDec_1110v;
 
   @IsNotEmpty({
-    message: 'Valor burto do produto ou serviço, obrigatório',
+    message: 'Valor bruto do produto ou serviço, obrigatório',
   })
   @Type(() => TDec_1302)
-  vProd: TDec_1302; // Valor total do produto ou serviço. Ex: 100.00, 200.50, 1000.00
+  vProd: TDec_1302;
 
   @IsNotEmpty({
     message:
@@ -152,81 +154,114 @@ export class prodDto {
   })
   @IsString()
   @Matches(/^SEM GTIN|[0-9]{0}|[0-9]{8}|[0-9]{12,14}$/)
-  cEANTrib: string; // Código de barras do produto padrão GTIN (EAN-13 ou GTIN-14) para tributação
+  cEANTrib: string;
 
   @IsOptional()
   @MinLength(3)
   @MaxLength(30)
   @Type(() => TString)
-  cBarraTrib: TString; // Código de barras da unidade tributável diferente do pradrão GTIN
+  cBarraTrib: TString;
 
-  @IsOptional()
+  @IsNotEmpty({
+    message: 'Unidade tributável, obrigatória',
+  })
   @MinLength(1, { message: 'uTrib must be at least 1 character' })
   @MaxLength(6, { message: 'uTrib must be less than 6 characters' })
-  uTrib: string; // Unidade de medida da unidade tributável. Ex: "UN", "KG", "LT"
+  uTrib: string;
+
+  @IsNotEmpty({
+    message: 'Quantidade tributável, obrigatória',
+  })
+  @Type(() => TDec_1104v)
+  qTrib: TDec_1104v;
+
+  @IsNotEmpty({
+    message: 'Valor unitário tributável, obrigatório',
+  })
+  @Type(() => TDec_1110v)
+  vUnTrib: TDec_1110v;
 
   @IsOptional()
-  qTrib: string; // Quantidade da unidade tributável. Ex: 10, 20.5, 1000
+  @Type(() => TDec_1302)
+  vFrete: TDec_1302;
 
   @IsOptional()
-  vUnTrib: string; // Valor unitário da unidade tributável. Ex: 10.00, 20.50, 1000.00
+  @Type(() => TDec_1302)
+  vSeg: TDec_1302;
 
   @IsOptional()
-  vFrete: string; // Valor do frete do produto ou serviço. Ex: 10.00, 20.50, 1000.00
+  @Type(() => TDec_1302)
+  vDesc: TDec_1302;
 
   @IsOptional()
-  vSeg: string; // Valor do seguro do produto ou serviço. Ex: 10.00, 20.50, 1000.00
+  @Type(() => TDec_1302)
+  vOutro: TDec_1302;
 
-  @IsOptional()
-  vDesc: number; // Valor do desconto do produto ou serviço. Ex: 10.00, 20.50, 1000.00
-
-  @IsOptional()
-  vOutro: number; // Valor de outros acréscimos do produto ou serviço. Ex: 10.00, 20.50, 1000.00
-
-  @IsOptional()
+  @IsNotEmpty({
+    message: 'Indicador de totalização é obrigatório',
+  })
   @IsIn(['0', '1'], { message: 'indTot must be either 0 or 1' })
-  indTot: string; // Indicador de totalização do produto ou serviço. Ex: "0" (Não) ou "1" (Sim)
+  indTot: string;
 
   @IsOptional()
+  @ValidateNested()
+  @Type(() => detExportDto)
   detExport: detExportDto;
 
   @IsOptional()
   @Length(1, 15)
-  xPed: string; //pedido de compra - Informação de interesse do emissor para controle do B2B.
+  xPed: string;
 
   @IsOptional()
-  nItemPed: string; //Número do Item do Pedido de Compra - Identificação do número do item do pedido de Compra
+  @Matches(/^[0-9]{1,6}$/)
+  nItemPed: string;
 
   @IsOptional()
-  nFCI: string; //Número de controle da FCI - Ficha de Conteúdo de Importação.
+  @Length(36, 36)
+  nFCI: string;
 
   @IsOptional()
   @IsArray()
   @ArrayMinSize(0)
   @ArrayMaxSize(500)
+  @ValidateNested({ each: true })
+  @Type(() => rastroDto)
   rastro: rastroDto[];
 
   @IsOptional()
+  @ValidateNested()
+  @Type(() => infProdNFFDto)
   infProdNFF: infProdNFFDto;
 
   @IsOptional()
+  @ValidateNested()
+  @Type(() => infProdEmbDto)
   infProdEmb: infProdEmbDto;
 
   @IsOptional()
-  veicProd: veicProdDto; //Veículos novos
+  @ValidateNested()
+  @Type(() => veicProdDto)
+  veicProd: veicProdDto;
 
   @IsOptional()
+  @ValidateNested()
+  @Type(() => medDto)
   med: medDto;
 
   @IsOptional()
-  @MinLength(0)
-  @MaxLength(500)
+  @IsArray()
+  @ArrayMinSize(0)
+  @ArrayMaxSize(500)
+  @ValidateNested({ each: true })
+  @Type(() => armaDto)
   arma: armaDto[];
 
   @IsOptional()
+  @ValidateNested()
+  @Type(() => combDto)
   comb: combDto;
 
   @IsOptional()
   @Length(1, 20)
-  nRECOPI: string; // Número do RECOPI
+  nRECOPI: string;
 }

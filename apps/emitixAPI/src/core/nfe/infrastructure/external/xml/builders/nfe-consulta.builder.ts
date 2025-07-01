@@ -7,6 +7,7 @@ export class NFeConsultaBuilder {
     dataFormat: any,
     versao: string
   ) {
+    console.log(dataFormat)
     const parser = new XMLBuilder({
       ignoreAttributes: false,
       attributeNamePrefix: '@_',
@@ -16,7 +17,7 @@ export class NFeConsultaBuilder {
       consSitNFe: {
         '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
         '@_versao': versao,
-        ...dataFormat
+        ...dataFormat.consReciNFe
       }
     };
 

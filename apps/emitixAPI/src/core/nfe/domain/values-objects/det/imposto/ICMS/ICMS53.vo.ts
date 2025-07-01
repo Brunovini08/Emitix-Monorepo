@@ -6,39 +6,39 @@ const TorigEnum = {
 Object.freeze(TorigEnum);
 
 export class ICMS53 {
-  public readonly orig;
-  public readonly CST;
-  public readonly qBCMono?;
-  public readonly adRemICMS?;
-  public readonly vICMSMonoOp?;
-  public readonly pDif?;
-  public readonly vICMSMonoDif?;
-  public readonly vICMSMono?;
-  public readonly qBCMonoDif?;
-  public readonly adRemICMSDif?;
+  public readonly orig: string;
+  public readonly CST: string;
+  public readonly adRemICMS: number;
+  public readonly vICMSMonoOp: number;
+  public readonly pDif: number;
+  public readonly vICMSMonoDif: number;
+  public readonly vICMSMono: number;
+  public readonly qBCMonoDif: number;
+  public readonly adRemICMSDif: number;
+  public readonly qBCMono: number;
 
   constructor(data: {
     orig: string,
     CST: string,
-    qBCMono?: string | undefined,
-    adRemICMS?: string | undefined,
-    vICMSMonoOp?: string | undefined,
-    pDif?: string | undefined,
-    vICMSMonoDif?: string | undefined,
-    vICMSMono?: string | undefined,
-    qBCMonoDif?: string | undefined,
-    adRemICMSDif?: string | undefined
+    adRemICMS: number,
+    vICMSMonoOp: number,
+    pDif: number,
+    vICMSMonoDif: number,
+    vICMSMono: number,
+    qBCMonoDif: number,
+    adRemICMSDif: number,
+    qBCMono: number,
   }) {
     this.orig = data.orig;
     this.CST = data.CST;
-    this.qBCMono = data.qBCMono ?? undefined;
-    this.adRemICMS = data.adRemICMS ?? undefined;
-    this.vICMSMonoOp = data.vICMSMonoOp ?? undefined;
-    this.pDif = data.pDif ?? undefined;
-    this.vICMSMonoDif = data.vICMSMonoDif ?? undefined;
-    this.vICMSMono = data.vICMSMono ?? undefined;
-    this.qBCMonoDif = data.qBCMonoDif ?? undefined;
-    this.adRemICMSDif = data.adRemICMSDif ?? undefined;
+    this.adRemICMS = data.adRemICMS;
+    this.vICMSMonoOp = data.vICMSMonoOp;
+    this.pDif = data.pDif;
+    this.vICMSMonoDif = data.vICMSMonoDif;
+    this.vICMSMono = data.vICMSMono;
+    this.qBCMonoDif = data.qBCMonoDif;
+    this.adRemICMSDif = data.adRemICMSDif;
+    this.qBCMono = data.qBCMono;
 
     this.validateOrThrow();
     Object.freeze(this);
@@ -59,54 +59,54 @@ export class ICMS53 {
       throw new Error('CST para ICMS53 deve ser obrigatoriamente "53".');
     }
 
-    if (this.qBCMono !== undefined && (typeof this.qBCMono !== 'string' || this.qBCMono.trim() === '')) {
-      throw new Error('Quantidade tributada (qBCMono) deve ser um número não negativo, se informada.');
+    if (typeof this.adRemICMS !== 'number' || this.adRemICMS < 0) {
+      throw new Error('Alíquota ad valorem do ICMS (adRemICMS) é obrigatória e deve ser um número não negativo.');
     }
 
-    if (this.adRemICMS !== undefined && (typeof this.adRemICMS !== 'string' || this.adRemICMS.trim() === '')) {
-      throw new Error('Alíquota ad rem do imposto (adRemICMS) deve ser um número não negativo, se informada.');
+    if (typeof this.vICMSMonoOp !== 'number' || this.vICMSMonoOp < 0) {
+      throw new Error('Valor do ICMS da operação (vICMSMonoOp) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vICMSMonoOp !== undefined && (typeof this.vICMSMonoOp !== 'string' || this.vICMSMonoOp.trim() === '')) {
-      throw new Error('Valor do ICMS da operação (vICMSMonoOp) deve ser um número não negativo, se informado.');
+    if (typeof this.pDif !== 'number' || this.pDif < 0 || this.pDif > 100) {
+      throw new Error('Percentual do diferimento (pDif) é obrigatório e deve ser um número entre 0 e 100.');
     }
 
-    if (this.pDif !== undefined && (typeof this.pDif !== 'string' || this.pDif.trim() === '')) {
-      throw new Error('Percentual do diferimento (pDif) deve ser um número entre 0 e 100, se informado.');
+    if (typeof this.vICMSMonoDif !== 'number' || this.vICMSMonoDif < 0) {
+      throw new Error('Valor do ICMS diferido (vICMSMonoDif) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vICMSMonoDif !== undefined && (typeof this.vICMSMonoDif !== 'string' || this.vICMSMonoDif.trim() === '')) {
-      throw new Error('Valor do ICMS diferido (vICMSMonoDif) deve ser um número não negativo, se informado.');
+    if (typeof this.vICMSMono !== 'number' || this.vICMSMono < 0) {
+      throw new Error('Valor do ICMS monofásico (vICMSMono) é obrigatório e deve ser um número não negativo.');
     }
 
-    if (this.vICMSMono !== undefined && (typeof this.vICMSMono !== 'string' || this.vICMSMono.trim() === '')) {
-      throw new Error('Valor do ICMS próprio devido (vICMSMono) deve ser um número não negativo, se informado.');
+    if (typeof this.qBCMonoDif !== 'number' || this.qBCMonoDif < 0) {
+      throw new Error('Quantidade tributada diferida (qBCMonoDif) é obrigatória e deve ser um número não negativo.');
     }
 
-    if (this.qBCMonoDif !== undefined && (typeof this.qBCMonoDif !== 'string' || this.qBCMonoDif.trim() === '')) {
-      throw new Error('Quantidade tributada diferida (qBCMonoDif) deve ser um número não negativo, se informada.');
+    if (typeof this.adRemICMSDif !== 'number' || this.adRemICMSDif < 0) {
+      throw new Error('Alíquota ad valorem do ICMS diferido (adRemICMSDif) é obrigatória e deve ser um número não negativo.');
     }
 
-    if (this.adRemICMSDif !== undefined && (typeof this.adRemICMSDif !== 'string' || this.adRemICMSDif.trim() === '')) {
-      throw new Error('Alíquota ad rem do imposto diferido (adRemICMSDif) deve ser um número não negativo, se informada.');
+    if (typeof this.qBCMono !== 'number' || this.qBCMono < 0) {
+      throw new Error('Quantidade tributada (qBCMono) é obrigatória e deve ser um número não negativo.');
     }
   }
 
-  public equals(other) {
+  public equals(other: ICMS53): boolean {
     if (!(other instanceof ICMS53)) {
       return false;
     }
     return (
       this.orig === other.orig &&
       this.CST === other.CST &&
-      this.qBCMono === other.qBCMono &&
       this.adRemICMS === other.adRemICMS &&
       this.vICMSMonoOp === other.vICMSMonoOp &&
       this.pDif === other.pDif &&
       this.vICMSMonoDif === other.vICMSMonoDif &&
       this.vICMSMono === other.vICMSMono &&
       this.qBCMonoDif === other.qBCMonoDif &&
-      this.adRemICMSDif === other.adRemICMSDif
+      this.adRemICMSDif === other.adRemICMSDif &&
+      this.qBCMono === other.qBCMono
     );
   }
 
@@ -115,14 +115,14 @@ export class ICMS53 {
       ICMS53: {
         orig: this.orig,
         CST: this.CST,
-        qBCMono: this.qBCMono,
-        adRemICMS: this.adRemICMS,
-        vICMSMonoOp: this.vICMSMonoOp,
-        pDif: this.pDif,
-        vICMSMonoDif: this.vICMSMonoDif,
-        vICMSMono: this.vICMSMono,
-        qBCMonoDif: this.qBCMonoDif,
-        adRemICMSDif: this.adRemICMSDif,
+        adRemICMS: this.adRemICMS.toFixed(2),
+        vICMSMonoOp: this.vICMSMonoOp.toFixed(2),
+        pDif: this.pDif.toFixed(2),
+        vICMSMonoDif: this.vICMSMonoDif.toFixed(2),
+        vICMSMono: this.vICMSMono.toFixed(2),
+        qBCMonoDif: this.qBCMonoDif.toFixed(4),
+        adRemICMSDif: this.adRemICMSDif.toFixed(2),
+        qBCMono: this.qBCMono.toFixed(4),
       }
     };
   }
