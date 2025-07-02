@@ -7,6 +7,7 @@ import {
   Request,
   BadRequestException,
   UseGuards,
+  UseFilters,
 } from '@nestjs/common';
 import { NfeService } from '../application/services/nfe.service';
 import type { Base64 } from 'node-forge';
@@ -21,10 +22,17 @@ import  { TEnvEvento } from '../domain/types/complex_types/TEvento/TEnvEvento';
 import  TEnvInutNfe from '../domain/types/complex_types/TInut/TEnvInutNfe';
 import  { NFeDto } from '../domain/types/complex_types/TNFe/NFe.dto';
 import type { TEnvConsCad } from '../domain/types/complex_types/TCons/TEnvConsCad';
+import { AppErrorFilter } from './filters/app.error-filter';
+import { Logger } from 'nestjs-pino';
 
 @Controller('nfe')
+@UseFilters(new AppErrorFilter())
 export class NfeController {
-  constructor(private nfeService: NfeService, private issuerInvoiceService: IssuerService) { }
+  constructor(
+    private nfeService: NfeService, 
+    private issuerInvoiceService: IssuerService,
+    private readonly logger: Logger
+  ) { }
 
   @UseGuards(AuthGuard)
   @Post('emitir')
@@ -59,8 +67,10 @@ export class NfeController {
         issuerInvoice,
         "55"
       );
+      this.logger.log(xml)
       res.send(xml)
     } catch (error) {
+      this.logger.error(error)
       throw new BadRequestException(error);
     }
   }

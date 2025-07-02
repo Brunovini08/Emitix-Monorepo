@@ -119,7 +119,8 @@ export class NotaService {
             privateKey,
             typeDocument
           ));
-          return response;
+          
+          return response
         }
         return envNfeValidate;
       }

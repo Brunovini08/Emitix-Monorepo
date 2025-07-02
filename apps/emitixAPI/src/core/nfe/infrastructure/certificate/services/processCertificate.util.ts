@@ -3,6 +3,7 @@ export function loadCertificate(decode: forge.Base64, password: string) {
   const pfxBuffer = forge.util.decode64(decode);
   const p12Asn1 = forge.asn1.fromDer(pfxBuffer);
   const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, password);
+  console.log(p12)
   const keyBags = p12.getBags({ bagType: forge.pki.oids.pkcs8ShroudedKeyBag });
   const privateKeyBag = keyBags[forge.pki.oids.pkcs8ShroudedKeyBag];
   const privateKey = privateKeyBag?.[0]?.key ?? null;
@@ -20,6 +21,8 @@ export function loadCertificate(decode: forge.Base64, password: string) {
       cnpj = attr.value;
     }
   });
+
+  console.log(cert)
 
   return {
     privateKey,
