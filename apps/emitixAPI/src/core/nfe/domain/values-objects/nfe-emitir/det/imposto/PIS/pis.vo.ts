@@ -1,4 +1,5 @@
 
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 import type { PISAliq } from "./pisAliq.vo";
 import type { PISNT } from "./pisNT.vo";
 import type { PISOutr } from "./pisOutr.vo";
@@ -34,11 +35,11 @@ export class PIS {
     ].filter(Boolean).length;
 
     if (definedCount === 0) {
-      throw new Error('Pelo menos um dos tipos de PIS (PISAliq, PISQtde, PISNT, PISOutr) deve ser informado.');
+      throw new DomainError('Pelo menos um dos tipos de PIS (PISAliq, PISQtde, PISNT, PISOutr) deve ser informado.');
     }
 
     if (definedCount > 1) {
-      throw new Error('Apenas um dos tipos de PIS (PISAliq, PISQtde, PISNT, PISOutr) pode ser informado.');
+      throw new DomainError('Apenas um dos tipos de PIS (PISAliq, PISQtde, PISNT, PISOutr) pode ser informado.');
     }
 
     if (this.PISAliq) {

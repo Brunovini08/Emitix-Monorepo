@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error"
 import type { ObsContent } from "../det/obsItem/obsCont.vo"
 import type { ObsFisco } from "../det/obsItem/obsFisco.vo"
 import type { procRef } from "./procRef.vo"
@@ -29,22 +30,22 @@ export class infAdic {
   validateOrThrow() {
     if (this.infAdFisco !== undefined && this.infAdFisco !== null) {
       if (this.infAdFisco.length < 0 || this.infAdFisco.length > 2000) {
-        throw new Error('O campo infAdFisco deve ter entre 0 e 2000 caracteres.');
+        throw new DomainError('O campo infAdFisco deve ter entre 0 e 2000 caracteres.');
       }
     }
 
     if (this.infCpl !== undefined && this.infCpl !== null) {
       if (this.infCpl.length < 0 || this.infCpl.length > 5000) {
-        throw new Error('O campo infCpl deve ter entre 0 e 5000 caracteres.');
+        throw new DomainError('O campo infCpl deve ter entre 0 e 5000 caracteres.');
       }
     }
 
     if (this.obsCont !== undefined && this.obsCont !== null) {
       if (!Array.isArray(this.obsCont)) {
-        throw new Error('O campo obsCont deve ser um array.');
+        throw new DomainError('O campo obsCont deve ser um array.');
       }
       if (this.obsCont.length < 0 || this.obsCont.length > 10) {
-        throw new Error('O campo obsCont deve ter entre 0 e 10 itens.');
+        throw new DomainError('O campo obsCont deve ter entre 0 e 10 itens.');
       }
       for (const item of this.obsCont) {
         if (typeof item.validateOrThrow === 'function') {
@@ -55,10 +56,10 @@ export class infAdic {
 
     if (this.obsFisco !== undefined && this.obsFisco !== null) {
       if (!Array.isArray(this.obsFisco)) {
-        throw new Error('O campo obsFisco deve ser um array.');
+        throw new DomainError('O campo obsFisco deve ser um array.');
       }
       if (this.obsFisco.length < 0 || this.obsFisco.length > 10) {
-        throw new Error('O campo obsFisco deve ter entre 0 e 10 itens.');
+        throw new DomainError('O campo obsFisco deve ter entre 0 e 10 itens.');
       }
       for (const item of this.obsFisco) {
         if (typeof item.validateOrThrow === 'function') {
@@ -69,10 +70,10 @@ export class infAdic {
 
     if (this.procRef !== undefined && this.procRef !== null) {
       if (!Array.isArray(this.procRef)) {
-        throw new Error('O campo procRef deve ser um array.');
+        throw new DomainError('O campo procRef deve ser um array.');
       }
       if (this.procRef.length < 0 || this.procRef.length > 100) {
-        throw new Error('O campo procRef deve ter entre 0 e 100 itens.');
+        throw new DomainError('O campo procRef deve ter entre 0 e 100 itens.');
       }
       for (const item of this.procRef) {
         if (typeof item.validateOrThrow === 'function') {

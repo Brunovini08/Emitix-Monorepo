@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error"
 import type { ICMS00 } from "./ICMS00.vo"
 import type { ICMS02 } from "./ICMS02.vo"
 import type { ICMS10 } from "./ICMS10.vo"
@@ -60,14 +61,14 @@ export class ICMS {
   constructor(data: Partial<ICMSValues>) {
     const types = Object.keys(data) as ICMSType[];
     if (types.length !== 1) {
-      throw new Error(`ICMS deve conter exatamente um tipo. Encontrados: ${types.join(', ')}`);
+      throw new DomainError(`ICMS deve conter exatamente um tipo. Encontrados: ${types.join(', ')}`);
     }
 
     this._type = types[0];
     this._value = data[this._type];
 
     if (!this._value) {
-      throw new Error(`Valor para ${this._type} não definido.`);
+      throw new DomainError(`Valor para ${this._type} não definido.`);
     }
 
     this._value.validateOrThrow?.(); 

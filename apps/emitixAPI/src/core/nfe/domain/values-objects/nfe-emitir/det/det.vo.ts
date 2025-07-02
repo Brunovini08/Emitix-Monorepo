@@ -2,6 +2,7 @@ import type { Prod } from "./prod/prod.vo";
 import type { Impostos } from "./imposto/imposto.vo";
 import type { ImpostoDevol } from "./impostoDevol/impostoDevo.vo";
 import type { ObsItem } from "./obsItem/obsItem.vo";
+import { DomainError } from "../../../errors/domain.error";
 
 export class Det {
   public static nItem = 0;
@@ -31,12 +32,12 @@ export class Det {
 
   public validateOrThrow() {
     if (!this.prod) {
-      throw new Error('Produto (prod) é obrigatório.');
+      throw new DomainError('Produto (prod) é obrigatório.');
     }
     this.prod.validateOrThrow();
 
     if (!this.imposto) {
-      throw new Error('Tributos incidentes (imposto) são obrigatórios.');
+      throw new DomainError('Tributos incidentes (imposto) são obrigatórios.');
     }
     this.imposto.validateOrThrow();
 
@@ -46,10 +47,10 @@ export class Det {
 
     if (this.infAdProd !== undefined) {
       if (typeof this.infAdProd !== 'string') {
-        throw new Error('Informações Adicionais do Produto (infAdProd) deve ser uma string.');
+        throw new DomainError('Informações Adicionais do Produto (infAdProd) deve ser uma string.');
       }
       if (this.infAdProd.length < 1 || this.infAdProd.length > 500) {
-        throw new Error('Informações Adicionais do Produto (infAdProd) deve ter entre 1 e 500 caracteres.');
+        throw new DomainError('Informações Adicionais do Produto (infAdProd) deve ter entre 1 e 500 caracteres.');
       }
     }
 

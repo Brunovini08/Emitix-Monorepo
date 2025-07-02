@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class RefECF {
   public readonly mod: string;
   public readonly nECF: string;
@@ -15,13 +17,13 @@ export class RefECF {
 
   public validateOrThrow(): void {
     if (!this.mod) {
-      throw new Error('mod é obrigatório');
+      throw new DomainError('mod é obrigatório');
     }
     if (!this.nECF) {
-      throw new Error('nECF é obrigatório');
+      throw new DomainError('nECF é obrigatório');
     }
     if (!this.nCOO) {
-      throw new Error('nCOO é obrigatório');
+      throw new DomainError('nCOO é obrigatório');
     }
   }
 

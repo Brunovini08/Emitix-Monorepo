@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class PISOutr {
   public readonly CST;
   public readonly vBC;
@@ -24,40 +26,40 @@ export class PISOutr {
       '64', '65', '66', '67', '70', '71', '72', '73', '74', '75', '98', '99',
     ];
     if (typeof this.CST !== 'string' || !allowedCST.includes(this.CST)) {
-      throw new Error('Código de Situação Tributária do PIS (CST) é obrigatório e deve ser um dos valores permitidos.');
+      throw new DomainError('Código de Situação Tributária do PIS (CST) é obrigatório e deve ser um dos valores permitidos.');
     }
 
     const isPercentageBased = this.vBC !== null || this.pPis !== null;
     const isQuantityBased = this.qBCProd !== null || this.vAliqProd !== null;
 
     if (isPercentageBased && isQuantityBased) {
-      throw new Error('Apenas um tipo de cálculo (percentual ou por quantidade) pode ser informado.');
+      throw new DomainError('Apenas um tipo de cálculo (percentual ou por quantidade) pode ser informado.');
     }
 
     if (!isPercentageBased && !isQuantityBased) {
-      throw new Error('É necessário informar os dados para cálculo percentual (vBC e pPis) ou por quantidade (qBCProd e vAliqProd).');
+      throw new DomainError('É necessário informar os dados para cálculo percentual (vBC e pPis) ou por quantidade (qBCProd e vAliqProd).');
     }
 
     if (isPercentageBased) {
       if (typeof this.vBC !== 'number' || this.vBC < 0) {
-        throw new Error('Valor da BC do PIS (vBC) é obrigatório e deve ser um número não negativo para cálculo percentual.');
+        throw new DomainError('Valor da BC do PIS (vBC) é obrigatório e deve ser um número não negativo para cálculo percentual.');
       }
       if (typeof this.pPis !== 'number' || this.pPis < 0 || this.pPis > 100) {
-        throw new Error('Alíquota do PIS (em percentual) (pPis) é obrigatória e deve ser um número entre 0 e 100 para cálculo percentual.');
+        throw new DomainError('Alíquota do PIS (em percentual) (pPis) é obrigatória e deve ser um número entre 0 e 100 para cálculo percentual.');
       }
     }
 
     if (isQuantityBased) {
       if (typeof this.qBCProd !== 'number' || this.qBCProd < 0) {
-        throw new Error('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo para cálculo por quantidade.');
+        throw new DomainError('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo para cálculo por quantidade.');
       }
       if (typeof this.vAliqProd !== 'number' || this.vAliqProd < 0) {
-        throw new Error('Alíquota do PIS (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo para cálculo por quantidade.');
+        throw new DomainError('Alíquota do PIS (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo para cálculo por quantidade.');
       }
     }
 
     if (typeof this.vPIS !== 'number' || this.vPIS < 0) {
-      throw new Error('Valor do PIS (vPIS) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do PIS (vPIS) é obrigatório e deve ser um número não negativo.');
     }
   }
 

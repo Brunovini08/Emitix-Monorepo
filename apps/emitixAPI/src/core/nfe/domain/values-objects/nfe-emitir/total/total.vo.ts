@@ -4,6 +4,7 @@ import type { retTrib } from "./retTrib.vo";
 import type { ISTot } from "./ISTot.vo";
 import type { IBSCBSTot } from "./IBSCBSTot.vo";
 import type { vNFTot } from "./vNFTot.vo";
+import { DomainError } from "../../../errors/domain.error";
 
 export class Total {
   ICMSTot: ICMSTot;
@@ -33,7 +34,7 @@ export class Total {
 
   validateOrThrow() {
     if (this.ICMSTot === undefined || this.ICMSTot === null) {
-      throw new Error('O campo ICMSTot é obrigatório');
+      throw new DomainError('O campo ICMSTot é obrigatório');
     }
 
     this.ICMSTot.validateOrThrow();

@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class lacres {
 
   nLacre
@@ -12,11 +14,11 @@ export class lacres {
 
   validateOrThrow() {
     if (this.nLacre === undefined || this.nLacre === null) {
-      throw new Error('O campo nLacre é obrigatório');
+      throw new DomainError('O campo nLacre é obrigatório');
     }
 
     if (this.nLacre.length < 1 || this.nLacre.length > 60) {
-      throw new Error('O campo nLacre deve ter entre 1 e 60 caracteres.');
+      throw new DomainError('O campo nLacre deve ter entre 1 e 60 caracteres.');
     }
   }
 

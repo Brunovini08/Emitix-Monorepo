@@ -1,3 +1,5 @@
+import { DomainError } from "../../errors/domain.error";
+
 export class exporta {
 
   UFSaidaPais: string
@@ -21,17 +23,17 @@ export class exporta {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.xLocExporta.length < 1 || this.xLocExporta.length > 60) {
-      throw new Error('O campo xLocExporta deve ter entre 1 e 60 caracteres.');
+      throw new DomainError('O campo xLocExporta deve ter entre 1 e 60 caracteres.');
     }
 
     if (this.xLocDespacho !== undefined && this.xLocDespacho !== null) {
       if (this.xLocDespacho.length < 1 || this.xLocDespacho.length > 60) {
-        throw new Error('O campo xLocDespacho deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo xLocDespacho deve ter entre 1 e 60 caracteres.');
       }
     }
   }

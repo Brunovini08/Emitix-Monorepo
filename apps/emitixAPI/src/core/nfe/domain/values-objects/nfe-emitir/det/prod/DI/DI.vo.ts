@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 import type { Adi } from "./adi.vo";
 
 export class DI {
@@ -49,25 +50,25 @@ export class DI {
 
   public validateOrThrow(): void {
     if (!this.nDI || this.nDI.trim() === '') {
-      throw new Error('Número da Declaração de Importação (nDI) é obrigatório.');
+      throw new DomainError('Número da Declaração de Importação (nDI) é obrigatório.');
     }
     if (!this.dDI || !/^\d{4}-\d{2}-\d{2}$/.test(this.dDI)) {
-      throw new Error('Data de Registro da DI (dDI) é obrigatória e deve estar no formato AAAA-MM-DD.');
+      throw new DomainError('Data de Registro da DI (dDI) é obrigatória e deve estar no formato AAAA-MM-DD.');
     }
     if (!this.xLocDesemb || this.xLocDesemb.trim() === '') {
-      throw new Error('Local de Desembaraço (xLocDesemb) é obrigatório.');
+      throw new DomainError('Local de Desembaraço (xLocDesemb) é obrigatório.');
     }
     if (!this.cUFDesemb || this.cUFDesemb.trim() === '') {
-      throw new Error('UF de Desembaraço (cUFDesemb) é obrigatória.');
+      throw new DomainError('UF de Desembaraço (cUFDesemb) é obrigatória.');
     }
     if (!this.dDesemb || !/^\d{4}-\d{2}-\d{2}$/.test(this.dDesemb)) {
-      throw new Error('Data do Desembaraço (dDesemb) é obrigatória e deve estar no formato AAAA-MM-DD.');
+      throw new DomainError('Data do Desembaraço (dDesemb) é obrigatória e deve estar no formato AAAA-MM-DD.');
     }
     if (this.CNPJ && !/^\d{14}$/.test(this.CNPJ)) {
-      throw new Error('CNPJ do adquirente ou encomendante (CNPJ) deve conter exatamente 14 dígitos.');
+      throw new DomainError('CNPJ do adquirente ou encomendante (CNPJ) deve conter exatamente 14 dígitos.');
     }
     if (this.vAFRMM !== undefined && typeof this.vAFRMM !== 'number' || (this.vAFRMM !== undefined && this.vAFRMM < 0)) {
-        throw new Error('Valor Adicional ao Frete (vAFRMM) deve ser um número não negativo.');
+        throw new DomainError('Valor Adicional ao Frete (vAFRMM) deve ser um número não negativo.');
     }
   }
 

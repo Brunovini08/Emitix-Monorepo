@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class dup {
 
   nDUp: string
@@ -18,12 +20,12 @@ export class dup {
 
   validateOrThrow() {
     if (this.vDup === undefined || this.vDup === null) {
-      throw new Error('O campo vDup é obrigatório');
+      throw new DomainError('O campo vDup é obrigatório');
     }
 
     if (this.nDUp !== undefined && this.nDUp !== null) {
       if (this.nDUp.length < 1 || this.nDUp.length > 60) {
-        throw new Error('O campo nDUp deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo nDUp deve ter entre 1 e 60 caracteres.');
       }
     }
   }

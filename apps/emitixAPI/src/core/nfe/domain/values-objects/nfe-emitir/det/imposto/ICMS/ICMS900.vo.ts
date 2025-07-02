@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -67,7 +69,7 @@ export class ICMSSN900 {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
@@ -75,7 +77,7 @@ export class ICMSSN900 {
 
     const allowedCSOSN = ['202', '203'];
     if (this.CSOSN === undefined || typeof this.CSOSN !== 'string' || !allowedCSOSN.includes(this.CSOSN)) {
-      throw new Error(`
+      throw new DomainError(`
         CSOSN (Código de Situação da Operação – Simples Nacional) é obrigatório e deve ser '202' ou '203'.
         Este campo se refere ao CST (Código de Situação Tributária) do ICMS e espera os valores 202 ou 203.
       `);
@@ -83,31 +85,31 @@ export class ICMSSN900 {
 
     const allowedModBC = ['0', '1', '2', '3'];
     if (this.modBC !== null && typeof this.modBC !== 'string' && !allowedModBC.includes(this.modBC)) {
-      throw new Error(`
+      throw new DomainError(`
         Modalidade de determinação da BC do ICMS (modBC) deve ser uma das seguintes:
         0 - Margem Valor Agregado (%); 1 - Pauta (valor); 2 - Preço Tabelado Máximo (valor); 3 - Valor da Operação, se informado.
       `);
     }
 
     if (this.vBC !== null && (typeof this.vBC !== 'string' || this.vBC.trim() === '')) {
-      throw new Error('Valor da BC do ICMS (vBC) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS (vBC) deve ser um número não negativo, se informado.');
     }
 
     if (this.pRedBC !== null && (typeof this.pRedBC !== 'string' || this.pRedBC.trim() === '')) {
-      throw new Error('Percentual de redução da BC (pRedBC) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual de redução da BC (pRedBC) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.pICMS !== null && (typeof this.pICMS !== 'string' || this.pICMS.trim() === '')) {
-      throw new Error('Alíquota do ICMS (pICMS) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Alíquota do ICMS (pICMS) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vICMS !== null && (typeof this.vICMS !== 'string' || this.vICMS.trim() === '')) {
-      throw new Error('Valor do ICMS (vICMS) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS (vICMS) deve ser um número não negativo, se informado.');
     }
 
     const allowedModBCST = ['0', '1', '2', '3', '4', '5', '6'];
     if (this.modBCST !== null && typeof this.modBCST !== 'string' && !allowedModBCST.includes(this.modBCST)) {
-      throw new Error(`
+      throw new DomainError(`
         Modalidade de determinação da BC do ICMS ST (modBCST) deve ser uma das seguintes:
         0 - Preço tabelado ou máximo sugerido; 1 - Lista Negativa (valor); 2 - Lista Positiva (valor); 3 - Lista Neutra (valor);
         4 - Margem Valor Agregado (%); 5 - Pauta (valor); 6 - Valor da Operação, se informado.
@@ -115,39 +117,39 @@ export class ICMSSN900 {
     }
 
     if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
-      throw new Error('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
-      throw new Error('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vBCST !== null && (typeof this.vBCST !== 'string' || this.vBCST.trim() === '')) {
-      throw new Error('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
     }
 
     if (this.pICMSST !== null && (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '')) {
-      throw new Error('Alíquota do ICMS ST (pICMSST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Alíquota do ICMS ST (pICMSST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vICMSST !== null && (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '')) {
-      throw new Error('Valor do ICMS ST (vICMSST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS ST (vICMSST) deve ser um número não negativo, se informado.');
     }
 
     if (this.VBCFCPST !== null && (typeof this.VBCFCPST !== 'string' || this.VBCFCPST.trim() === '')) {
-      throw new Error('Valor da BC do ICMS FCP ST (VBCFCPST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS FCP ST (VBCFCPST) deve ser um número não negativo, se informado.');
     }
 
     if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
-      throw new Error('Alíquota do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Alíquota do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.pCredSN !== null && (typeof this.pCredSN !== 'string' || this.pCredSN.trim() === '')) {
-      throw new Error('Percentual do crédito de ICMS (pCredSN) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual do crédito de ICMS (pCredSN) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vCredICMSSN !== null && (typeof this.vCredICMSSN !== 'string' || this.vCredICMSSN.trim() === '')) {
-      throw new Error('Valor do crédito de ICMS (vCredICMSSN) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do crédito de ICMS (vCredICMSSN) deve ser um número não negativo, se informado.');
     }
   }
 

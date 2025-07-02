@@ -17,6 +17,7 @@ import { Total } from "../values-objects/nfe-emitir/total/total.vo";
 import { transp } from "../values-objects/nfe-emitir/transp/transp.vo";
 import { infSolicNFF } from "../values-objects/nfe-emitir/infSolicNFF.vo";
 import { agropecuario } from "../values-objects/nfe-emitir/agropecuario/agropecuario.vo";
+import { DomainError } from "../errors/domain.error";
 
 export interface NFeData {
   ide: Ide;
@@ -136,7 +137,7 @@ export class NFe {
 
     const chaveParcial = cUFFormat + AAMM + cnpjFormat + modeloFormat + serieFormat + nNFFormat + tpEmisFormat + cNFFormat;
     if (chaveParcial.length !== 43) {
-      throw new Error(`Chave parcial deve ter 43 dígitos, mas tem ${chaveParcial.length}`);
+      throw new DomainError(`Chave parcial deve ter 43 dígitos, mas tem ${chaveParcial.length}`);
     }
 
     return chaveParcial;
@@ -144,7 +145,7 @@ export class NFe {
 
   private nfeCalcDigitoVerificador(chave: string): string {
     if (chave.length !== 43) {
-      throw new Error(`A chave de acesso deve ter 43 caracteres, mas tem ${chave.length}`);
+      throw new DomainError(`A chave de acesso deve ter 43 caracteres, mas tem ${chave.length}`);
     }
 
     let soma = 0;
@@ -152,7 +153,7 @@ export class NFe {
     for (let i = chave.length - 1; i >= 0; i--) {
       const digito = parseInt(chave[i], 10);
       if (isNaN(digito)) {
-        throw new Error(`Caractere inválido na posição ${i}: ${chave[i]}`);
+        throw new DomainError(`Caractere inválido na posição ${i}: ${chave[i]}`);
       }
       soma += digito * peso;
       peso = peso === 9 ? 2 : peso + 1;
@@ -164,8 +165,8 @@ export class NFe {
   }
 
   private validarChaveAcesso(chave: string, dados: any): void {
-    if (chave.length !== 44) throw new Error(`Chave de acesso deve ter 44 dígitos, mas tem ${chave.length}`);
-    if (!/^[0-9]{44}$/.test(chave)) throw new Error('Chave de acesso deve conter apenas números');
+    if (chave.length !== 44) throw new DomainError(`Chave de acesso deve ter 44 dígitos, mas tem ${chave.length}`);
+    if (!/^[0-9]{44}$/.test(chave)) throw new DomainError('Chave de acesso deve conter apenas números');
 
     const cUF = chave.substring(0, 2);
     const cnpj = chave.substring(6, 20);
@@ -175,13 +176,13 @@ export class NFe {
     const tpEmis = chave.substring(34, 35);
     const cNF = chave.substring(35, 43);
 
-    if (cUF !== dados.cUF.padStart(2, '0')) throw new Error(`cUF na chave (${cUF}) não corresponde ao original (${dados.cUF})`);
-    if (cnpj !== dados.cnpj.padStart(14, '0')) throw new Error(`CNPJ na chave (${cnpj}) não corresponde ao original (${dados.cnpj})`);
-    if (modelo !== dados.modelo.padStart(2, '0')) throw new Error(`Modelo na chave (${modelo}) não corresponde ao original (${dados.modelo})`);
-    if (serie !== dados.serie.padStart(3, '0')) throw new Error(`Série na chave (${serie}) não corresponde ao original (${dados.serie})`);
-    if (nNF !== dados.nNF.padStart(9, '0')) throw new Error(`nNF na chave (${nNF}) não corresponde ao original (${dados.nNF})`);
-    if (tpEmis !== dados.tpEmis.padStart(1, '0')) throw new Error(`tpEmis na chave (${tpEmis}) não corresponde ao original (${dados.tpEmis})`);
-    if (cNF !== dados.cNF.padStart(8, '0')) throw new Error(`cNF na chave (${cNF}) não corresponde ao original (${dados.cNF})`);
+    if (cUF !== dados.cUF.padStart(2, '0')) throw new DomainError(`cUF na chave (${cUF}) não corresponde ao original (${dados.cUF})`);
+    if (cnpj !== dados.cnpj.padStart(14, '0')) throw new DomainError(`CNPJ na chave (${cnpj}) não corresponde ao original (${dados.cnpj})`);
+    if (modelo !== dados.modelo.padStart(2, '0')) throw new DomainError(`Modelo na chave (${modelo}) não corresponde ao original (${dados.modelo})`);
+    if (serie !== dados.serie.padStart(3, '0')) throw new DomainError(`Série na chave (${serie}) não corresponde ao original (${dados.serie})`);
+    if (nNF !== dados.nNF.padStart(9, '0')) throw new DomainError(`nNF na chave (${nNF}) não corresponde ao original (${dados.nNF})`);
+    if (tpEmis !== dados.tpEmis.padStart(1, '0')) throw new DomainError(`tpEmis na chave (${tpEmis}) não corresponde ao original (${dados.tpEmis})`);
+    if (cNF !== dados.cNF.padStart(8, '0')) throw new DomainError(`cNF na chave (${cNF}) não corresponde ao original (${dados.cNF})`);
   }
 
  

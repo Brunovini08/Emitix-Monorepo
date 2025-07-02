@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -46,49 +48,49 @@ export class ICMS53 {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
     }
 
     if (this.CST === undefined || typeof this.CST !== 'string' || this.CST.trim() === '') {
-      throw new Error('Código de Situação Tributária (CST) do ICMS é obrigatório.');
+      throw new DomainError('Código de Situação Tributária (CST) do ICMS é obrigatório.');
     }
     if (this.CST !== '53') {
-      throw new Error('CST para ICMS53 deve ser obrigatoriamente "53".');
+      throw new DomainError('CST para ICMS53 deve ser obrigatoriamente "53".');
     }
 
     if (typeof this.adRemICMS !== 'number' || this.adRemICMS < 0) {
-      throw new Error('Alíquota ad valorem do ICMS (adRemICMS) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Alíquota ad valorem do ICMS (adRemICMS) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.vICMSMonoOp !== 'number' || this.vICMSMonoOp < 0) {
-      throw new Error('Valor do ICMS da operação (vICMSMonoOp) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS da operação (vICMSMonoOp) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.pDif !== 'number' || this.pDif < 0 || this.pDif > 100) {
-      throw new Error('Percentual do diferimento (pDif) é obrigatório e deve ser um número entre 0 e 100.');
+      throw new DomainError('Percentual do diferimento (pDif) é obrigatório e deve ser um número entre 0 e 100.');
     }
 
     if (typeof this.vICMSMonoDif !== 'number' || this.vICMSMonoDif < 0) {
-      throw new Error('Valor do ICMS diferido (vICMSMonoDif) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS diferido (vICMSMonoDif) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.vICMSMono !== 'number' || this.vICMSMono < 0) {
-      throw new Error('Valor do ICMS monofásico (vICMSMono) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS monofásico (vICMSMono) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.qBCMonoDif !== 'number' || this.qBCMonoDif < 0) {
-      throw new Error('Quantidade tributada diferida (qBCMonoDif) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Quantidade tributada diferida (qBCMonoDif) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.adRemICMSDif !== 'number' || this.adRemICMSDif < 0) {
-      throw new Error('Alíquota ad valorem do ICMS diferido (adRemICMSDif) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Alíquota ad valorem do ICMS diferido (adRemICMSDif) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.qBCMono !== 'number' || this.qBCMono < 0) {
-      throw new Error('Quantidade tributada (qBCMono) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Quantidade tributada (qBCMono) é obrigatória e deve ser um número não negativo.');
     }
   }
 

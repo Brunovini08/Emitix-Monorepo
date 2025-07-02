@@ -11,7 +11,13 @@ export class Rastro {
     dFab: Date
     dVal: Date
     cAgreg: string
-  }) {}
+  }) {
+    this.nLote = data.nLote
+    this.qLote = data.qLote
+    this.dFab = data.dFab
+    this.dVal = data.dVal
+    this.cAgreg = data.cAgreg
+  }
 
   public toJson() {
     return {

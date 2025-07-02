@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class defensivo {
 
   nReceituario: string
@@ -18,12 +20,12 @@ export class defensivo {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.nReceituario.length < 1 || this.nReceituario.length > 30) {
-      throw new Error('O campo nReceituario deve ter entre 1 e 30 caracteres.');
+      throw new DomainError('O campo nReceituario deve ter entre 1 e 30 caracteres.');
     }
   }
 

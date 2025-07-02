@@ -1,3 +1,5 @@
+import { DomainError } from "../errors/domain.error";
+
 export class InutNFe {
   public readonly tpAmb: string;
   public readonly xServ: string;
@@ -50,21 +52,21 @@ export class InutNFe {
   }
 
   private validarChaveAcesso(chave: string): void {
-    if (chave.length !== 44) throw new Error(`Chave de acesso deve ter 44 dígitos, mas tem ${chave.length}`);
-    if (!/^[0-9]{44}$/.test(chave)) throw new Error('Chave de acesso deve conter apenas números');
+    if (chave.length !== 44) throw new DomainError(`Chave de acesso deve ter 44 dígitos, mas tem ${chave.length}`);
+    if (!/^[0-9]{44}$/.test(chave)) throw new DomainError('Chave de acesso deve conter apenas números');
   }
 
   public validateOrThrow() {
-    if (!this.tpAmb) throw new Error('tpAmb é obrigatório');
-    if (!this.xServ) throw new Error('xServ é obrigatório');
-    if (!this.cUF) throw new Error('cUF é obrigatório');
-    if (!this.ano) throw new Error('ano é obrigatório');
-    if (!this.CNPJ) throw new Error('CNPJ é obrigatório');
-    if (!this.mod) throw new Error('mod é obrigatório');
-    if (!this.serie) throw new Error('serie é obrigatório');
-    if (!this.nNFIni) throw new Error('nNFIni é obrigatório');
-    if (!this.nNFFin) throw new Error('nNFFin é obrigatório');
-    if (!this.xJust) throw new Error('xJust é obrigatório');
+    if (!this.tpAmb) throw new DomainError('tpAmb é obrigatório');
+    if (!this.xServ) throw new DomainError('xServ é obrigatório');
+    if (!this.cUF) throw new DomainError('cUF é obrigatório');
+    if (!this.ano) throw new DomainError('ano é obrigatório');
+    if (!this.CNPJ) throw new DomainError('CNPJ é obrigatório');
+    if (!this.mod) throw new DomainError('mod é obrigatório');
+    if (!this.serie) throw new DomainError('serie é obrigatório');
+    if (!this.nNFIni) throw new DomainError('nNFIni é obrigatório');
+    if (!this.nNFFin) throw new DomainError('nNFFin é obrigatório');
+    if (!this.xJust) throw new DomainError('xJust é obrigatório');
   }
 
   private gerarChaveParcial({ cUF, cnpj, modelo, serie, nNFIni, nNFFin, dhEmi }): string {
@@ -83,7 +85,7 @@ export class InutNFe {
 
     const chaveParcial = cUFFormat + AAMM + cnpjFormat + modeloFormat + serieFormat + nNFIniFormat + nNFFinFormat + tipo;
     if (chaveParcial.length !== 43) {
-      throw new Error(`Chave parcial deve ter 43 dígitos, mas tem ${chaveParcial.length}`);
+      throw new DomainError(`Chave parcial deve ter 43 dígitos, mas tem ${chaveParcial.length}`);
     }
 
     return chaveParcial;
@@ -91,7 +93,7 @@ export class InutNFe {
 
   private nfeCalcDigitoVerificador(chave: string): string {
     if (chave.length !== 43) {
-      throw new Error(`A chave de acesso deve ter 43 caracteres, mas tem ${chave.length}`);
+      throw new DomainError(`A chave de acesso deve ter 43 caracteres, mas tem ${chave.length}`);
     }
 
     let soma = 0;
@@ -99,7 +101,7 @@ export class InutNFe {
     for (let i = chave.length - 1; i >= 0; i--) {
       const digito = parseInt(chave[i], 10);
       if (isNaN(digito)) {
-        throw new Error(`Caractere inválido na posição ${i}: ${chave[i]}`);
+        throw new DomainError(`Caractere inválido na posição ${i}: ${chave[i]}`);
       }
       soma += digito * peso;
       peso = peso === 9 ? 2 : peso + 1;

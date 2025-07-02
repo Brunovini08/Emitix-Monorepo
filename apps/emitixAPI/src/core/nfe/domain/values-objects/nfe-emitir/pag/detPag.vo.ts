@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error"
 import type { card } from "./card.vo"
 
 export class detPag {
@@ -25,27 +26,27 @@ export class detPag {
   validateOrThrow() {
     const validIndPag = ['0', '1'];
     if (this.indPag !== undefined && this.indPag !== null && !validIndPag.includes(this.indPag)) {
-      throw new Error(`O campo indPag deve ser um dos seguintes: ${validIndPag.join(', ')}.`);
+      throw new DomainError(`O campo indPag deve ser um dos seguintes: ${validIndPag.join(', ')}.`);
     }
 
     if (this.tPag === undefined || this.tPag === null) {
-      throw new Error('O campo tPag é obrigatório');
+      throw new DomainError('O campo tPag é obrigatório');
     }
     const tPagRegex = /^[0-9]{2}$/;
     if (!tPagRegex.test(this.tPag)) {
-      throw new Error('O campo tPag deve ser um número de 2 dígitos.');
+      throw new DomainError('O campo tPag deve ser um número de 2 dígitos.');
     }
 
     if (this.xPag !== undefined && this.xPag !== null) {
       if (this.xPag.length < 2 || this.xPag.length > 60) {
-        throw new Error('O campo xPag deve ter entre 2 e 60 caracteres.');
+        throw new DomainError('O campo xPag deve ter entre 2 e 60 caracteres.');
       }
     }
 
     // Manual validation for vPag based on tPag
     if (this.tPag !== '90') {
       if (this.vPag === undefined || this.vPag === null) {
-        throw new Error('O campo vPag é obrigatório quando tPag não for 90.');
+        throw new DomainError('O campo vPag é obrigatório quando tPag não for 90.');
       }
     }
 

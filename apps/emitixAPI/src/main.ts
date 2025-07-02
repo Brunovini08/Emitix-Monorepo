@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import { HttpExceptionFilter } from './shared/common/filters/http-exeception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  //SECURITY
   app.enableCors({
     origin: 'http://89.116.74.203:3032',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -18,8 +20,10 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(helmet());
 
+  //SHUTDOWN HOOK
   app.enableShutdownHooks()
   
+  //VALIDATION
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -31,7 +35,11 @@ async function bootstrap() {
       },
     }),
   );
+
+  //VARIABLES
   dotenv.config();
+
+  //SWAGGER
   const config = new DocumentBuilder()
     .setTitle('Emitix')
     .setDescription(
@@ -42,7 +50,6 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  
   await app.listen(3030);
 }
 void bootstrap();

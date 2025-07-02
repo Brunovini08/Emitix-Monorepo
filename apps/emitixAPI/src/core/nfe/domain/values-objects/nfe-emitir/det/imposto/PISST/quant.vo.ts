@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class Quant {
   public readonly qBCProd;
   public readonly vAliqProd;
@@ -12,11 +14,11 @@ export class Quant {
 
   public validateOrThrow() {
     if (typeof this.qBCProd !== 'number' || this.qBCProd < 0) {
-      throw new Error('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.vAliqProd !== 'number' || this.vAliqProd < 0) {
-      throw new Error('Alíquota do PIS ST (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Alíquota do PIS ST (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo.');
     }
   }
 

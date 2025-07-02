@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error";
 import type { Endereco } from "./enderDest.vo";
 
 
@@ -47,40 +48,40 @@ export class Dest {
     const hasIdEstrangeiro = !!this.idEstrangeiro;
 
     if (!hasCnpj && !hasCpf && !hasIdEstrangeiro && this.idEstrangeiro === undefined && this.CNPJ === undefined && this.CPF === undefined) {
-      throw new Error('Destinatário deve ter CNPJ, CPF ou ID Estrangeiro.');
+      throw new DomainError('Destinatário deve ter CNPJ, CPF ou ID Estrangeiro.');
     }
     if (hasCnpj && hasIdEstrangeiro) {
-      throw new Error('Destinatário não pode ter CNPJ e ID Estrangeiro informados simultaneamente.');
+      throw new DomainError('Destinatário não pode ter CNPJ e ID Estrangeiro informados simultaneamente.');
     }
     if (hasCpf && hasIdEstrangeiro) {
-      throw new Error('Destinatário não pode ter CPF e ID Estrangeiro informados simultaneamente.');
+      throw new DomainError('Destinatário não pode ter CPF e ID Estrangeiro informados simultaneamente.');
     }
     if (hasCnpj && hasCpf) {
-      throw new Error('Destinatário não pode ter CNPJ e CPF informados simultaneamente.');
+      throw new DomainError('Destinatário não pode ter CNPJ e CPF informados simultaneamente.');
     }
     if (hasCnpj && this.CNPJ.length !== 14) {
-      throw new Error('CNPJ do destinatário inválido. Deve ter 14 dígitos.');
+      throw new DomainError('CNPJ do destinatário inválido. Deve ter 14 dígitos.');
     }
     if (hasCpf && this.CPF.length !== 11) {
-      throw new Error('CPF do destinatário inválido. Deve ter 11 dígitos.');
+      throw new DomainError('CPF do destinatário inválido. Deve ter 11 dígitos.');
     }
     if (!this.xNome || this.xNome.trim() === '') {
-      throw new Error('Nome/Razão Social (xNome) do destinatário é obrigatório.');
+      throw new DomainError('Nome/Razão Social (xNome) do destinatário é obrigatório.');
     }
 
     if (!['1', '2', '9'].includes(this.indIEDest)) {
-      throw new Error('Indicador de IE (indIEDest) inválido. Valores permitidos: "1", "2", "9".');
+      throw new DomainError('Indicador de IE (indIEDest) inválido. Valores permitidos: "1", "2", "9".');
     }
 
     if (this.indIEDest === '1' && !hasIdEstrangeiro && (!this.IE || this.IE.trim() === '')) {
-      throw new Error('Inscrição Estadual (IE) é obrigatória para destinatário contribuinte de ICMS (indIEDest = 1).');
+      throw new DomainError('Inscrição Estadual (IE) é obrigatória para destinatário contribuinte de ICMS (indIEDest = 1).');
     }
     if (this.indIEDest === '9' && this.IE && this.IE.trim() !== '' && this.IE.toUpperCase() !== 'ISENTO') {
-        throw new Error('Inscrição Estadual (IE) não deve ser informada para destinatário não contribuinte (indIEDest = 9), a menos que seja "ISENTO".');
+        throw new DomainError('Inscrição Estadual (IE) não deve ser informada para destinatário não contribuinte (indIEDest = 9), a menos que seja "ISENTO".');
     }
 
     if (this.email && !this.isValidEmail(this.email)) {
-      throw new Error('Email do destinatário inválido.');
+      throw new DomainError('Email do destinatário inválido.');
     }
 
   }

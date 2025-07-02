@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 import type { BaseCalc } from "./baseCalc.vo";
 import type { Quant } from "./quant.vo";
 
@@ -19,11 +20,11 @@ export class COFINSST {
 
   public validateOrThrow() {
     if (this.baseCalc && this.quant) {
-      throw new Error('COFINSST deve conter apenas baseCalc OU quant, não ambos.');
+      throw new DomainError('COFINSST deve conter apenas baseCalc OU quant, não ambos.');
     }
 
     if (!this.baseCalc && !this.quant) {
-      throw new Error('COFINSST deve conter baseCalc OU quant.');
+      throw new DomainError('COFINSST deve conter baseCalc OU quant.');
     }
 
     if (this.baseCalc) {
@@ -35,11 +36,11 @@ export class COFINSST {
     }
 
     if (typeof this.vCOFINS !== 'number' || this.vCOFINS < 0) {
-      throw new Error('Valor do COFINS ST (vCOFINS) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do COFINS ST (vCOFINS) é obrigatório e deve ser um número não negativo.');
     }
 
     if (this.indSomaCOFINSST !== undefined && !['0', '1'].includes(this.indSomaCOFINSST)) {
-      throw new Error('Indicador de soma do COFINS ST (indSomaCOFINSST) deve ser "0" ou "1", se informado.');
+      throw new DomainError('Indicador de soma do COFINS ST (indSomaCOFINSST) deve ser "0" ou "1", se informado.');
     }
   }
 

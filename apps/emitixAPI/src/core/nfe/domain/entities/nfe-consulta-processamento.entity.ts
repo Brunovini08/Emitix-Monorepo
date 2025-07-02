@@ -1,3 +1,5 @@
+import { DomainError } from "../errors/domain.error";
+
 export class ConsultaProcessamentoNfeEntity {
   tpAmb: string;
   nReq: string;
@@ -16,19 +18,19 @@ export class ConsultaProcessamentoNfeEntity {
 
   private validateOrThrow() {
     if (!this.tpAmb) {
-      throw new Error("tpAmb é obrigatório");
+      throw new DomainError("tpAmb é obrigatório");
     }
     if (!this.nReq) {
-      throw new Error("nReq é obrigatório");	
+      throw new DomainError("nReq é obrigatório");	
     }
     if (!this.versao) {
-      throw new Error("versao é obrigatório");
+      throw new DomainError("versao é obrigatório");
     }
     if (!this.cnpj) {
-      throw new Error("CNPJ é obrigatório");
+      throw new DomainError("CNPJ é obrigatório");
     }
     if (!this.uf) {
-      throw new Error("UF é obrigatório");
+      throw new DomainError("UF é obrigatório");
     }
   }
 

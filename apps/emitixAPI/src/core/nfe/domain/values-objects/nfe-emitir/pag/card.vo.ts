@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class card {
 
   tpIntegra
@@ -24,19 +26,19 @@ export class card {
   validateOrThrow() {
     const validTpIntegra = ['1', '2'];
     if (this.tpIntegra === undefined || this.tpIntegra === null || !validTpIntegra.includes(this.tpIntegra)) {
-      throw new Error(`O campo tpIntegra deve ser um dos seguintes: ${validTpIntegra.join(', ')}.`);
+      throw new DomainError(`O campo tpIntegra deve ser um dos seguintes: ${validTpIntegra.join(', ')}.`);
     }
 
     if (this.tBand !== undefined && this.tBand !== null) {
       const tBandRegex = /^[0-9]{2}$/;
       if (!tBandRegex.test(this.tBand)) {
-        throw new Error('O campo tBand deve ser um número de 2 dígitos.');
+        throw new DomainError('O campo tBand deve ser um número de 2 dígitos.');
       }
     }
 
     if (this.cAut !== undefined && this.cAut !== null) {
       if (this.cAut.length < 1 || this.cAut.length > 128) {
-        throw new Error('O campo cAut deve ter entre 1 e 128 caracteres.');
+        throw new DomainError('O campo cAut deve ter entre 1 e 128 caracteres.');
       }
     }
   }

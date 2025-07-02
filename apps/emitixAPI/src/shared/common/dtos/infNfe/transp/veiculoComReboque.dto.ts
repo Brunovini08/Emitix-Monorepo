@@ -15,5 +15,5 @@ export class veiculoComReboqueDto {
   @ArrayMaxSize(5)
   @ValidateNested()
   @Type(() => TVeiculo)
-  reboque: TVeiculo;
+  reboque: TVeiculo[];
 }

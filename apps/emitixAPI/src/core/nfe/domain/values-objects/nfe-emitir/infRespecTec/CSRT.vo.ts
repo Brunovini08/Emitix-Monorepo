@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class CSRT {
 
   idCSRT
@@ -18,17 +20,17 @@ export class CSRT {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     const idCSRTRegex = /^[0-9]{2}$/;
     if (!idCSRTRegex.test(this.idCSRT)) {
-      throw new Error('O campo idCSRT deve ser exatamente 2 dígitos.');
+      throw new DomainError('O campo idCSRT deve ser exatamente 2 dígitos.');
     }
 
     if (this.hashCSRT.length !== 20) {
-      throw new Error('O campo hashCSRT deve ter exatamente 20 caracteres.');
+      throw new DomainError('O campo hashCSRT deve ter exatamente 20 caracteres.');
     }
   }
 

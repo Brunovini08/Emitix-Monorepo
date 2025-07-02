@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error"
+
 export class retTransp {
 
   vServ
@@ -37,14 +39,14 @@ export class retTransp {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.CFOP !== undefined && this.CFOP !== null) {
       const cfopRegex = /^[1-7]{1}[0-9]{3}$/;
       if (!cfopRegex.test(this.CFOP)) {
-        throw new Error('O campo CFOP deve ser um número de 4 dígitos começando com 1-7.');
+        throw new DomainError('O campo CFOP deve ser um número de 4 dígitos começando com 1-7.');
       }
     }
   }

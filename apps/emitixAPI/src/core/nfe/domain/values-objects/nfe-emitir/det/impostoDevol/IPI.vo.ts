@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class IPI {
   public vIPIDevol
 
@@ -7,7 +9,7 @@ export class IPI {
 
   public validateOrThrow() {
     if (typeof this.vIPIDevol !== 'number' || this.vIPIDevol < 0) {
-      throw new Error('Valor do IPI Devol (vIPIDevol) deve ser um número não negativo.')
+      throw new DomainError('Valor do IPI Devol (vIPIDevol) deve ser um número não negativo.')
     }
   }
 

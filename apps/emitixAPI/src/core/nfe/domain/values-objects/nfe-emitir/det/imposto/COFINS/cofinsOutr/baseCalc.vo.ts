@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class BaseCalc {
   public readonly vBC: number;
   public readonly pCOFINS: number;
@@ -12,11 +14,11 @@ export class BaseCalc {
 
   public validateOrThrow() {
     if (typeof this.vBC !== 'number' || this.vBC < 0) {
-      throw new Error('Valor da BC do COFINS (vBC) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor da BC do COFINS (vBC) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.pCOFINS !== 'number' || this.pCOFINS < 0 || this.pCOFINS > 100) {
-      throw new Error('Alíquota do COFINS (em percentual) (pCOFINS) é obrigatória e deve ser um número entre 0 e 100.');
+      throw new DomainError('Alíquota do COFINS (em percentual) (pCOFINS) é obrigatória e deve ser um número entre 0 e 100.');
     }
   }
 

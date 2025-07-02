@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error";
 import { defensivo } from "./defensivo.vo";
 import { guiaTransito } from "./guiaTransito.vo";
 
@@ -21,15 +22,15 @@ export class agropecuario {
       (this.defensivo === undefined || this.defensivo === null) &&
       (this.guiaTransito === undefined || this.guiaTransito === null)
     ) {
-      throw new Error('At least one of "defensivo" or "guiaTransito" must be provided.');
+      throw new DomainError('At least one of "defensivo" or "guiaTransito" must be provided.');
     }
 
     if (this.defensivo !== undefined && this.defensivo !== null) {
       if (!Array.isArray(this.defensivo)) {
-        throw new Error('O campo defensivo deve ser um array.');
+        throw new DomainError('O campo defensivo deve ser um array.');
       }
       if (this.defensivo.length > 20) {
-        throw new Error('O campo defensivo deve ter no máximo 20 itens.');
+        throw new DomainError('O campo defensivo deve ter no máximo 20 itens.');
       }
       for (const item of this.defensivo) {
         if (typeof item.validateOrThrow === 'function') {

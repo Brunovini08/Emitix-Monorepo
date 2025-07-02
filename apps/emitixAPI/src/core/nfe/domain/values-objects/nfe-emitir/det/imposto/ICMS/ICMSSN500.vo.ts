@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -55,7 +57,7 @@ export class ICMSSN500 {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
@@ -63,53 +65,53 @@ export class ICMSSN500 {
 
     const allowedCSOSN = ['202', '203']; // The DTO uses '202' and '203' for CSOSN, even though the message implies 500. Sticking to DTO for now.
     if (this.CSOSN === undefined || typeof this.CSOSN !== 'string' || !allowedCSOSN.includes(this.CSOSN)) {
-      throw new Error(`
+      throw new DomainError(`
         CSOSN (Código de Situação da Operação – Simples Nacional) é obrigatório e deve ser '202' ou '203' for this context (ICMSSN500).
       `);
     }
 
     if (this.vBCSTRet !== null && (typeof this.vBCSTRet !== 'string' || this.vBCSTRet.trim() === '')) {
-      throw new Error('Valor da BC do ICMS Substituição Tributária retido anteriormente (vBCSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS Substituição Tributária retido anteriormente (vBCSTRet) deve ser um número não negativo, se informado.');
     }
 
     if (this.pST !== null && (typeof this.pST !== 'string' || this.pST.trim() === '')) {
-      throw new Error('Alíquota suportada pelo consumidor final (pST) deve ser um número entre 0 e 100, se informada.');
+      throw new DomainError('Alíquota suportada pelo consumidor final (pST) deve ser um número entre 0 e 100, se informada.');
     }
 
     if (this.vICMSSubstituto !== null && (typeof this.vICMSSubstituto !== 'string' || this.vICMSSubstituto.trim() === '')) {
-      throw new Error('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSubstituto) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSubstituto) deve ser um número não negativo, se informado.');
     }
 
     if (this.vICMSSTRet !== null && (typeof this.vICMSSTRet !== 'string' || this.vICMSSTRet.trim() === '')) {
-      throw new Error('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS Substituição Tributária retido anteriormente (vICMSSTRet) deve ser um número não negativo, se informado.');
     }
 
     if (this.vBCFCPSTRet !== null && (typeof this.vBCFCPSTRet !== 'string' || this.vBCFCPSTRet.trim() === '')) {
-      throw new Error('Valor da BC do ICMS FCP ST retido anteriormente (vBCFCPSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS FCP ST retido anteriormente (vBCFCPSTRet) deve ser um número não negativo, se informado.');
     }
 
     if (this.pFCPSTRet !== null && (typeof this.pFCPSTRet !== 'string' || this.pFCPSTRet.trim() === '')) {
-      throw new Error('Alíquota do ICMS FCP ST retido anteriormente (pFCPSTRet) deve ser um número entre 0 e 100, se informada.');
+      throw new DomainError('Alíquota do ICMS FCP ST retido anteriormente (pFCPSTRet) deve ser um número entre 0 e 100, se informada.');
     }
 
     if (this.vFCPSTRet !== null && (typeof this.vFCPSTRet !== 'string' || this.vFCPSTRet.trim() === '')) {
-      throw new Error('Valor do ICMS FCP ST retido anteriormente (vFCPSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS FCP ST retido anteriormente (vFCPSTRet) deve ser um número não negativo, se informado.');
     }
 
     if (this.pRedBCEfet !== null && (typeof this.pRedBCEfet !== 'string' || this.pRedBCEfet.trim() === '')) {
-      throw new Error('Percentual de redução da BC efetiva (pRedBCEfet) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual de redução da BC efetiva (pRedBCEfet) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vBCEfet !== null && (typeof this.vBCEfet !== 'string' || this.vBCEfet.trim() === '')) {
-      throw new Error('Valor da BC efetiva do ICMS (vBCEfet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC efetiva do ICMS (vBCEfet) deve ser um número não negativo, se informado.');
     }
 
     if (this.pICMSEfet !== null && (typeof this.pICMSEfet !== 'string' || this.pICMSEfet.trim() === '')) {
-      throw new Error('Alíquota do ICMS efetivo (pICMSEfet) deve ser um número entre 0 e 100, se informada.');
+      throw new DomainError('Alíquota do ICMS efetivo (pICMSEfet) deve ser um número entre 0 e 100, se informada.');
     }
 
     if (this.vICMSEfet !== null && (typeof this.vICMSEfet !== 'string' || this.vICMSEfet.trim() === '')) {
-      throw new Error('Valor do ICMS efetivo (vICMSEfet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS efetivo (vICMSEfet) deve ser um número não negativo, se informado.');
     }
   }
 

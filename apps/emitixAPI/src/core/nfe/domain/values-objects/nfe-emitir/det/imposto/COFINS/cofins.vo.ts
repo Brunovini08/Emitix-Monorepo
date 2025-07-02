@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 import type { COFINSAliq } from "./cofinsAliq.vo";
 import type { COFINSNT } from "./cofinsNT.vo";
 import type { COFINSOutr } from "./cofinsOutr/cofinsOutr.vo";
@@ -28,11 +29,11 @@ export class COFINS {
     ].filter(Boolean).length;
 
     if (definedCount === 0) {
-      throw new Error('Pelo menos um dos tipos de COFINS (COFINSAliq, COFINSQtde, COFINSNT, COFINSOutr) deve ser informado.');
+      throw new DomainError('Pelo menos um dos tipos de COFINS (COFINSAliq, COFINSQtde, COFINSNT, COFINSOutr) deve ser informado.');
     }
 
     if (definedCount > 1) {
-      throw new Error('Apenas um dos tipos de COFINS (COFINSAliq, COFINSQtde, COFINSNT, COFINSOutr) pode ser informado.');
+      throw new DomainError('Apenas um dos tipos de COFINS (COFINSAliq, COFINSQtde, COFINSNT, COFINSOutr) pode ser informado.');
     }
 
     if (this.COFINSAliq) {
