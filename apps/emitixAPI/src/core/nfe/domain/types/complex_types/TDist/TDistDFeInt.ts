@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsNotEmptyObject, IsOptional, ValidateNested } from "class-validator";
 import { TAmb } from "../../primitivies_types/TAmb";
 import { Type } from "class-transformer";
 import { TCodUfIBGE } from "../../primitivies_types/TCodUfIBGE";
@@ -15,7 +15,6 @@ export class TDistDFeInt {
   @Type(() => TAmb)
   tpAmb: TAmb
 
-  @IsOptional()
   @IsNotEmpty({
     message: 'O elemento cUFAutor não pode estar vazio'
   })
@@ -30,20 +29,20 @@ export class TDistDFeInt {
   @Type(() => TCpf)
   CPF?: TCpf
 
-  @IsOptional()
+  @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => TDistNSU)
-  distNSU?: TDistNSU
+  distNSU: TDistNSU
 
-  @IsOptional()
+  @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => TDistNSU)
-  ultNSU?: TDistNSU
+  consNSU: TDistNSU
 
-  @IsOptional()
+  @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => TConsChNFe)
-  consChNFe?: TConsChNFe
+  consChNFe: TConsChNFe
 
   @IsNotEmpty({
     message: 'O elemento versao não pode estar vazio'

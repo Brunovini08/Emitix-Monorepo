@@ -6,7 +6,7 @@ import { DistNSU } from "../values-objects/nfe-danfe/distNSU.vo"
 export class NfeDanfeEntity {
     versao: string
     tpAmb: string
-    cUFAuto: string
+    cUFAuto?: string
     CNPJ?: string
     CPF?: string
     distNSU: DistNSU
@@ -16,7 +16,7 @@ export class NfeDanfeEntity {
     constructor(data: {
         versao: string
         tpAmb: string
-        cUFAuto: string
+        cUFAuto?: string
         CNPJ?: string
         CPF?: string
         distNSU: DistNSU
@@ -25,9 +25,9 @@ export class NfeDanfeEntity {
     }) {
         this.versao = data.versao
         this.tpAmb = data.tpAmb
-        this.cUFAuto = data.cUFAuto
-        this.CNPJ = data.CNPJ
-        this.CPF = data.CPF
+        this.cUFAuto = data.cUFAuto || undefined
+        this.CNPJ = data.CNPJ || undefined
+        this.CPF = data.CPF || undefined
         this.distNSU = data.distNSU
         this.consNSU = data.consNSU
         this.consChNFe = data.consChNFe
@@ -37,7 +37,6 @@ export class NfeDanfeEntity {
     private throwOrvalidate () {
         if (!this.versao) throw new DomainError('Versão é obrigatória')
         if (!this.tpAmb) throw new DomainError('tpAmb é obrigatório')
-        if (!this.cUFAuto) throw new DomainError('cUFAuto é obrigatório')
         if (!this.distNSU) throw new DomainError('distNSU é obrigatório')
         if (!this.consNSU) throw new DomainError('consNSU é obrigatório')
         if (!this.consChNFe) throw new DomainError('consChNFe é obrigatório')
