@@ -2,7 +2,7 @@
 
 ## ✅ Tarefas
 
-- [ ] Criar entidades para envio ao SEFAZ
+- [X] Criar entidades para envio ao SEFAZ
 - [ ] Integrar `pino` para logging estruturado
 - [ ] Persistir logs no banco após finalização da emissão
 - [ ] Persistir dados do retorno da SEFAZ (XML, protocolo, status)
@@ -20,4 +20,13 @@
 ---
 
 ## 📈 Progresso diário
+
+### 🟢 02/07/2025
+- [X] Criar entidades para envio ao SEFAZ
+- [X] Criado os Mappers para conversão de DTO para Entidade
+- [X] Iniciado a integração com o `pino`
+- [X] Iniciado a integração com o banco de dados
+- [X] Interfaces da repository criadas
+- [X] Criado o filtro de erros dentro da camada domain e presentation
+- [X] Criado a consulta cadastro na camada application
 

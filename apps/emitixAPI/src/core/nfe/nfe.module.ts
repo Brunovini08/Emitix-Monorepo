@@ -28,13 +28,15 @@ import { NfeConsultaProcessamentoUseCase } from './application/use-cases/nfe-con
 
 @Module({
   controllers: [NfeController],
-  providers: [NfeService, IdLoteService, NotaService, NfeEmitirUseCase,
+  providers: [
+    NfeService, IdLoteService, NotaService, NfeEmitirUseCase,
     NfeInutilizarUseCase, NfeConsultaUseCase, NfeStatusUseCase,
-    NfeConsultaCadastroUseCase, NfeDanfeUseCase, NfeConsultaProcessamentoUseCase, CertificateService,
-    SignedXmlUtil, IdLoteService, SefazXmlBuilderService, NFeEnvioBuilder,
-    NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
-    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen, NfeConsultaProcessamentoBuilder],
+    NfeConsultaCadastroUseCase, NfeDanfeUseCase, NfeConsultaProcessamentoUseCase, 
+    CertificateService, SignedXmlUtil, IdLoteService, SefazXmlBuilderService, 
+    NFeEnvioBuilder, NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
+    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen, NfeConsultaProcessamentoBuilder
+  ],
   imports: [RedisModule, IssuerInvoiceModule, HttpModule],
   exports: [NfeService, IdLoteService],
 })
-export class NfeModule {}
+export class NfeModule { }
