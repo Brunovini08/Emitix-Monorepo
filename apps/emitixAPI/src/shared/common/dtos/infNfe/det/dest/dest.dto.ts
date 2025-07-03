@@ -10,7 +10,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import type { enderDestDto } from './enderDest.dto';
-import type { IIndicadorIEDest } from '../../../../../../core/nfe/domain/interfaces/IIndicadorIEDest';
+import type { IIndicadorIEDest } from '../../../../../../core/nfe/domain/interfaces/nfe-emitir/IIndicadorIEDest';
 import { Type } from 'class-transformer';
 import  { TCnpj } from 'src/core/nfe/domain/types/primitivies_types/TCnpj';
 import  { TCpf } from 'src/core/nfe/domain/types/primitivies_types/TCpf';

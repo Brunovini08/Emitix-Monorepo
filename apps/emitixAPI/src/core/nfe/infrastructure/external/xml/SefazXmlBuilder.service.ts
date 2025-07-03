@@ -9,6 +9,7 @@ import { NfeConsultaProcessamentoBuilder } from "./builders/nfe-consulta-process
 import type { TEnviConsReciNFe } from "src/core/nfe/domain/types/complex_types/TCons/TEnviConsReciNFe";
 import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entities/nfe-consulta-processamento.entity";
 import type { InutNFe } from "src/core/nfe/domain/entities/nfe-inutilizar.entity";
+import { NfeConsultaJsonInterface } from "src/core/nfe/domain/interfaces/nfe-consulta/nfe-consulta-json.interface";
 
 @Injectable()
 export class SefazXmlBuilderService {
@@ -43,11 +44,11 @@ export class SefazXmlBuilderService {
     return this.nfeEnvioBuilder.buildXML(data, chave)
   }
 
-  async buildNFeInutilizar(accessKey: string, objectFormat: InutNFe, versao: string) {
+  async buildNFeInutilizar(accessKey: string, objectFormat: Object, versao: string) {
     return this.nfeInutilizarBuilder.inutilizarNFeXml(accessKey, objectFormat, versao)
   }
 
-  async buildNFeConsulta(data: any, versao: string) {
+  async buildNFeConsulta(data: NfeConsultaJsonInterface, versao: string) {
     return this.nfeConsultaBuilder.consultaNFe(data, versao)
   }
 

@@ -105,7 +105,7 @@ export class NotaService {
       if (result === true) {
         const idLote = await this.idLoteService.generateId(userId);
         if (!idLote) throw new BadRequestException('Id do Lote não vou gerado');
-        const envNfe = await this.enviNFeGen.enviNFeGen(idLote, indSinc, sign.toString())
+        const envNfe = await this.enviNFeGen.enviNFeGen(idLote, sign.toString(), indSinc)
         const envNfeValidate = await validateXmlXsd(envNfe, 8)
         if (envNfeValidate === true) {
           const sendSefaz = new SendSefaz(this.httpService)
@@ -143,7 +143,6 @@ export class NotaService {
       if (String(body.cnpj) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
       const nfeConsultaProcessamento = ConsultaProcessamentoMapper.fromDto(body)
       const xml = await this.nfeConsultaProcessamento.execute(nfeConsultaProcessamento);
-      console.log(xml)
       const result = await validateXmlXsd(xml, 1);
       if (result === true) {
         const xmlString = String(xml);
@@ -180,7 +179,28 @@ export class NotaService {
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(body.inutNFe.infInut.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
       const inutNFe = NfeInutilizarMapper.fromDto(body.inutNFe.infInut);
-      const xml = await this.nfeInutilizarUseCase.execute(inutNFe);
+      const inutNFeJson = inutNFe.toJSON()
+      const xml = await this.nfeInutilizarUseCase.execute(inutNFeJson);
+      const sign = await this.signedXmlUtil.signXml(xml, file, certPassword, inutNFeJson.nfeChaveAcesso, 'infInut');
+      const result = await validateXmlXsd(sign, 2);
+      if (result === true) {
+        const idLote = await this.idLoteService.generateId(String(body.inutNFe.infInut.CNPJ));
+        if (!idLote) throw new BadRequestException('Id do Lote não vou gerado');
+       
+          const sendSefaz = new SendSefaz(this.httpService)
+          const response = await firstValueFrom(sendSefaz.sendSefazRequest(
+            '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+            sign,
+            String(inutNFe.cUF),
+            String(inutNFe.tpAmb),
+            nUrl,
+            cert,
+            privateKey,
+            typeDocument,
+          ))
+          return response
+
+      }
     } catch (error) {
       console.error(error);
       throw error; // Lança o erro para que o chamador possa tratá-lo adequadamente
@@ -189,34 +209,36 @@ export class NotaService {
 
   async consultaNFe(
     body: TEnvConsSitNfe,
-    cert: any,
-    privateKey: any,
+    file: any,
+    certPassword: any,
     nUrl: number,
     typeDocument: string,
   ) {
-    // const valide = validateCertificate(cert);
-    // if (valide === 'Certificado ainda não é válido.')
-    //   throw new BadRequestException('Certificado ainda não é válido.');
-    // else if (valide === 'Certificado expirado.')
-    //   throw new BadRequestException('Certificado expirado.');
-    // else if (valide === 'Certificado é valido') {
-    //   const xml = await this.nfeBuildService.consultaNFe(body);
-    //   const xmlString = String(xml);
-    //   const result = await validateXmlXsd(xmlString, 3);
-    //   if (result === true) {
-    //     const envXml = await sendSefazRequest(
-    //       xml,
-    //       String(body.consSitNFe.uf),
-    //       String(body.consSitNFe.tpAmb),
-    //       nUrl,
-    //       cert,
-    //       privateKey,
-    //       typeDocument,
-    //     );
-    //     return envXml.data;
-    //   }
-    //   return result;
-    // }
+    try {
+      const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
+      if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
+      const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
+      if (String(body.CNPJ)!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const xml = await this.nfeConsultaUseCase.execute(body);
+      const result = await validateXmlXsd(xml, 3);
+      if (result === true) {
+        const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          xml,
+          String(body.consSitNFe.uf),
+          String(body.consSitNFe.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return envXml;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async statusServico(

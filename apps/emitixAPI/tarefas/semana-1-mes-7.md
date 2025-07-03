@@ -8,7 +8,8 @@
 - [ ] Persistir dados do retorno da SEFAZ (XML, protocolo, status)
 - [ ] Criar testes unitários para entidades de domínio
 - [ ] Criar testes unitários para serviços da camada `application`
-
+- [ ] Terminar a implementação da application e infrastructure das rotas da nfe
+- [ ] Criar testes unitários para rotas da nfe
 ---
 
 ## 🔽 Prioridades
