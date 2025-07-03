@@ -27,6 +27,8 @@ export class NFeStatusBuilder {
       }
     };
 
-    return Promise.resolve(parser.build(xmlData));
+    const xml = parser.build(xmlData);
+    console.log(xml)
+    return xml
   } 
 }

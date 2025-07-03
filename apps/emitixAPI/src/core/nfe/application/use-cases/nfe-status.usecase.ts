@@ -13,9 +13,8 @@ export class NfeStatusUseCase {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data): Promise<string> {
-    console.log(data)
-    const xml = await this.nfeXmlBuilder.buildNFeStatus(data, data.consStatServ.versao)
+  async execute(data, versao: string): Promise<string> {
+    const xml = await this.nfeXmlBuilder.buildNFeStatus(data, versao)
     return xml
   }
 }

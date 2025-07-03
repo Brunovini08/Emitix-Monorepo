@@ -29,6 +29,7 @@ import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-p
 import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
 import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-status-json.interface';
 import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consulta.mapper';
+import { NfeStatusMapper } from '../../domain/mappers/nfe-status/nfe-status.mapper';
 
 @Injectable()
 export class NotaService {
@@ -257,7 +258,9 @@ export class NotaService {
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(body.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeStatusUseCase.execute(body);
+      const statusNfe = NfeStatusMapper.fromDto(body);
+      const statusNfeJson = statusNfe.toJSON()
+      const xml = await this.nfeStatusUseCase.execute(statusNfeJson.data, statusNfeJson.versao);
       const result = await validateXmlXsd(xml, 4);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)

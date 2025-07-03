@@ -44,7 +44,9 @@ export class NfeConsultaStatusEntity {
         }
 
         return {
-            consStatServ: consStatServ,
+            data: {
+                consStatServ: consStatServ
+            },
             versao: this.versao
         }
     }
