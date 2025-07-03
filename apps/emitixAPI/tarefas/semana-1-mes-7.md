@@ -31,3 +31,14 @@
 - [X] Criado o filtro de erros dentro da camada domain e presentation
 - [X] Criado a consulta cadastro na camada application
 
+
+### 🟢 03/07/2025
+- [X] Refatorar a camada de application para melhorar a organização e padronização dos serviços
+- [X] Criar interfaces para as applications das rotas
+- [X] Refatorar os Mappers de algumas entidades pois a lógica estava incorreta
+- [X] Fazer a validação e a filtragem dos erros para o usuário
+- [X] Fazer a rota de Emissão funcionar
+- [X] Fazer a rota de Consulta funcionar
+- [X] Fazer a rota de Consulta de Cadastro funcionar
+- [X] Fazer a rota de Consulta de Status funcionar
+- [X] Fazer a rota de inutilizar funcionar

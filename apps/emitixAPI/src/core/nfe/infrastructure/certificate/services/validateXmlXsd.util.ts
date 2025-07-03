@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { FormatErrorApplicationInterceptor } from 'src/shared/common/utils/format-error/forma-error-application.intercetor';
+import { FormatErrorApplicationInterceptor } from 'src/core/nfe/application/errors/format-error-application.intercetor';
 import { validateXML } from 'xsd-schema-validator';
 
 // Caminho real do seu XSD

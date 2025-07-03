@@ -32,7 +32,7 @@ import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consult
 import { NfeStatusMapper } from '../../domain/mappers/nfe-status/nfe-status.mapper';
 import { NfeConsultaCadastroMapper } from '../../domain/mappers/nfe-consulta-cadastro/nfe-consulta-cadastro.mapper';
 import { NfeDanfeMapper } from '../../domain/mappers/nfe-danfe/nfe-danfe.mapper';
-import { FormatErrorApplicationInterceptor } from 'src/shared/common/utils/format-error/forma-error-application.intercetor';
+import { FormatErrorApplicationInterceptor } from 'src/core/nfe/application/errors/format-error-application.intercetor';
 
 @Injectable()
 export class NotaService {
