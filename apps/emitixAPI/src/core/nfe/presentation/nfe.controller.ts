@@ -21,7 +21,7 @@ import  { TEnvDistDFeInt } from '../domain/types/complex_types/TDist/TEnvDistDFe
 import  { TEnvEvento } from '../domain/types/complex_types/TEvento/TEnvEvento';
 import  TEnvInutNfe from '../domain/types/complex_types/TInut/TEnvInutNfe';
 import  { NFeDto } from '../domain/types/complex_types/TNFe/NFe.dto';
-import type { TEnvConsCad } from '../domain/types/complex_types/TCons/TEnvConsCad';
+import { TEnvConsCad } from '../domain/types/complex_types/TCons/TEnvConsCad';
 import { AppErrorFilter } from './filters/app.error-filter';
 import { Logger } from 'nestjs-pino';
 

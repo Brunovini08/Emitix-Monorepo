@@ -11,6 +11,7 @@ import type { ConsultaProcessamentoNfeEntity } from "src/core/nfe/domain/entitie
 import type { InutNFe } from "src/core/nfe/domain/entities/nfe-inutilizar.entity";
 import { NfeConsultaJsonInterface } from "src/core/nfe/domain/interfaces/nfe-consulta/nfe-consulta-json.interface";
 import { NfeStatusJsonInterface } from "src/core/nfe/domain/interfaces/nfe-status/nfe-status-json.interface";
+import { NfeConsultaCadastroJsonInterface } from "src/core/nfe/domain/interfaces/nfe-consulta-cadastro/nfeConsultaCadastroJson.interface";
 
 @Injectable()
 export class SefazXmlBuilderService {
@@ -57,7 +58,7 @@ export class SefazXmlBuilderService {
     return this.nfeStatusBuilder.statusServico(data, versao)
   }
 
-  async buildNFeConsultaCadastro(data: any, versao: string) {
+  async buildNFeConsultaCadastro(data: NfeConsultaCadastroJsonInterface, versao: string) {
     return this.nfeConsultaCadastroBuilder.consultaCadastro(data, versao)
   }
 

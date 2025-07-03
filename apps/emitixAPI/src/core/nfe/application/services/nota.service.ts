@@ -277,35 +277,37 @@ export class NotaService {
   }
 
   async consultaCadastro(
-    cert: any,
-    privateKey: any,
+    file: Base64,
+    certPassword: any,
     body: TEnvConsCad,
     nUrl: number,
     typeDocument: string,
   ) {
-    // const valide = validateCertificate(cert);
-    // if (valide === 'Certificado ainda não é válido.')
-    //   throw new BadRequestException('Certificado ainda não é válido.');
-    // else if (valide === 'Certificado expirado.')
-    //   throw new BadRequestException('Certificado expirado.');
-    // else if (valide === 'Certificado é valido') {
-    //   const xml = await this.nfeBuildService.consultaCadastro(body);
-    //   const xmlString = String(xml);
-    //   const result = await validateXmlXsd(xmlString, 5);
-    //   if (result === true) {
-    //     const envXml = await sendSefazRequest(
-    //       xml,
-    //       String(body.ConsCad.cUF),
-    //       String(body.ConsCad.tpAmb),
-    //       nUrl,
-    //       cert,
-    //       privateKey,
-    //       typeDocument,
-    //     );
-    //     return envXml.data;
-    //   }
-    //   return result;
-    // }
+    try {
+      const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
+      if (!cert ||!privateKey) throw new BadRequestException('Certificado inválido')
+      const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
+      if (String(String(body.ConsCad.infCons.CNPJ))!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const xml = await this.nfeConsultaCadastroUseCase.execute(body);
+      const result = await validateXmlXsd(xml, 5);
+      if (result === true) {
+        const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          xml,
+          String(body.ConsCad.cUF),
+          String(body.ConsCad.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return envXml;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async distribuicaoDfe(
