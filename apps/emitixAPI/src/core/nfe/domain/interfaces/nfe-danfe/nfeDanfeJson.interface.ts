@@ -5,13 +5,13 @@ export interface NfeDanfeJsonInterface {
         cUFAutor?: string,
         CNPJ?: string,
         CPF?: string,
-        distNSU: {
+        distNSU?: {
             ultNSU: string
         },
-        consNSU: {
+        consNSU?: {
             NSU: string
         },
-        consChNFe: {
+        consChNFe?: {
             chNFe: string
         }
     }

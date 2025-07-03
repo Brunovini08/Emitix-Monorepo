@@ -31,6 +31,8 @@ import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-s
 import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consulta.mapper';
 import { NfeStatusMapper } from '../../domain/mappers/nfe-status/nfe-status.mapper';
 import { NfeConsultaCadastroMapper } from '../../domain/mappers/nfe-consulta-cadastro/nfe-consulta-cadastro.mapper';
+import { NfeDanfeMapper } from '../../domain/mappers/nfe-danfe/nfe-danfe.mapper';
+import { FormatErrorApplicationInterceptor } from 'src/shared/common/utils/format-error/forma-error-application.intercetor';
 
 @Injectable()
 export class NotaService {
@@ -127,6 +129,12 @@ export class NotaService {
           return response
         }
         return envNfeValidate;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -166,7 +174,11 @@ export class NotaService {
         ));
         return envXml;
       } else {
-        console.error(`Erros de validação`, result);
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -209,7 +221,12 @@ export class NotaService {
           typeDocument,
         ))
         return response
-
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -248,6 +265,12 @@ export class NotaService {
           typeDocument,
         ))
         return envXml;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -286,6 +309,12 @@ export class NotaService {
           typeDocument,
         ))
         return envXml;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -324,6 +353,12 @@ export class NotaService {
           typeDocument,
         ))
         return envXml;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
     } catch (error) {
       return {
@@ -335,7 +370,7 @@ export class NotaService {
 
   async distribuicaoDfe(
     file: Base64,
-    certPassword: any,
+    certPassword: string,
     body: TEnvDistDFeInt,
     nUrl: number,
     typeDocument: string,
@@ -345,7 +380,10 @@ export class NotaService {
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(body.distDFeInt.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeDanfeUseCase.execute(body);
+      const distribuicaoDfe = NfeDanfeMapper.fromDto(body);
+      const distribuicaoDfeJson = distribuicaoDfe.toJSON()
+      const xml = await this.nfeDanfeUseCase.execute(distribuicaoDfeJson.distDFeInt, distribuicaoDfeJson.versao);
+      console.log(xml)
       const result = await validateXmlXsd(xml, 6);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)
@@ -360,10 +398,19 @@ export class NotaService {
           typeDocument,
         ))
         return envXml;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        };
       }
+
     } catch (error) {
-      console.error(error);
-      throw error;
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 

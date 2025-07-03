@@ -5,7 +5,7 @@ import { ConsChNFe } from "../../values-objects/nfe-danfe/consChNFe.vo";
 export class ConsChNFeMapper {
     static fromDto(data: TChNFe): ConsChNFe {
         return new ConsChNFe({
-            chNFe: String(data.chNFe)
+            chNFe: String(data)
         })
     }
 }

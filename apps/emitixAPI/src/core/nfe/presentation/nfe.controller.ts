@@ -221,7 +221,7 @@ export class NfeController {
       throw new BadRequestException('Certificado e senha são obrigatórios.');
     }
     try {
-      const xml = await this.nfeService.distribuicaoDfe(body, certificate, password, 0, "55") 
+      const xml = await this.nfeService.distribuicaoDfe(body, certificate, password, 7, "55") 
       res.send(xml)
     } catch (error) {
       console.error(error)

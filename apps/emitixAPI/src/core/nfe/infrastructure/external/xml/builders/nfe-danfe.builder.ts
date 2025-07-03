@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { XMLBuilder } from "fast-xml-parser";
+import { NfeDanfeJsonInterface } from "src/core/nfe/domain/interfaces/nfe-danfe/nfeDanfeJson.interface";
 
 @Injectable()
 export class NFeDanfeBuilder {
   async distribuicaoDfe(
-    dataFormat: any,
+    dataFormat: NfeDanfeJsonInterface,
     versao: string
   ) {
     const parser = new XMLBuilder({
@@ -15,7 +16,7 @@ export class NFeDanfeBuilder {
     const xmlData = {
       distDFeInt: {
         '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
-        '@_versao': String(versao),
+        '@_versao': versao,
         ...dataFormat
       }
     };

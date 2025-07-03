@@ -14,7 +14,7 @@ export class NfeDanfeMapper {
            versao: String(data.distDFeInt.versao),
            CNPJ: data.distDFeInt.CNPJ ? String(data.distDFeInt.CNPJ) : undefined,
            CPF: data.distDFeInt.CPF? String(data.distDFeInt.CPF) : undefined,
-           cUFAuto: data.distDFeInt.cUFAutor ? String(data.distDFeInt.cUFAutor) : undefined,
+           cUFAutor: data.distDFeInt.cUFAutor ? String(data.distDFeInt.cUFAutor) : undefined,
         })
     }
 }
