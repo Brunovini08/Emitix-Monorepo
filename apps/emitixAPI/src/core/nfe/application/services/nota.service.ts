@@ -30,6 +30,7 @@ import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inu
 import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-status-json.interface';
 import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consulta.mapper';
 import { NfeStatusMapper } from '../../domain/mappers/nfe-status/nfe-status.mapper';
+import { NfeConsultaCadastroMapper } from '../../domain/mappers/nfe-consulta-cadastro/nfe-consulta-cadastro.mapper';
 
 @Injectable()
 export class NotaService {
@@ -128,7 +129,10 @@ export class NotaService {
         return envNfeValidate;
       }
     } catch (error) {
-      console.error(error)
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -165,7 +169,10 @@ export class NotaService {
         console.error(`Erros de validação`, result);
       }
     } catch (error) {
-      console.error(error)
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -205,8 +212,10 @@ export class NotaService {
 
       }
     } catch (error) {
-      console.error(error);
-      throw error; // Lança o erro para que o chamador possa tratá-lo adequadamente
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -241,8 +250,10 @@ export class NotaService {
         return envXml;
       }
     } catch (error) {
-      console.error(error);
-      throw error;
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -277,8 +288,10 @@ export class NotaService {
         return envXml;
       }
     } catch (error) {
-      console.error(error);
-      throw error;
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -294,7 +307,9 @@ export class NotaService {
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(String(body.ConsCad.infCons.CNPJ)) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeConsultaCadastroUseCase.execute(body);
+      const consultaCadastro = NfeConsultaCadastroMapper.fromDto(body);
+      const consultaCadastroJson = consultaCadastro.toJSON()
+      const xml = await this.nfeConsultaCadastroUseCase.execute(consultaCadastroJson, consultaCadastroJson.versao);
       const result = await validateXmlXsd(xml, 5);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)
@@ -311,8 +326,10 @@ export class NotaService {
         return envXml;
       }
     } catch (error) {
-      console.error(error);
-      throw error;
+      return {
+        error: error.message,
+        status: 400
+      }
     }
   }
 
@@ -328,7 +345,7 @@ export class NotaService {
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
       if (String(body.distDFeInt.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeConsultaCadastroUseCase.execute(body);
+      const xml = await this.nfeDanfeUseCase.execute(body);
       const result = await validateXmlXsd(xml, 6);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)

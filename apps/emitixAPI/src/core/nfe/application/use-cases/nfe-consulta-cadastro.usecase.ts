@@ -13,8 +13,8 @@ export class NfeConsultaCadastroUseCase {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data): Promise<string> {
-    const xml = await this.nfeXmlBuilder.buildNFeConsultaCadastro(data, data.ConsCad.versao)
+  async execute(data, versao: string): Promise<string> {
+    const xml = await this.nfeXmlBuilder.buildNFeConsultaCadastro(data, versao)
     return xml
   }
 }
