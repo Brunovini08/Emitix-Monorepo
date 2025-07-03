@@ -8,7 +8,8 @@ export class NFeConsultaBuilder {
     dataFormat: NfeConsultaJsonInterface,
     versao: string
   ) {
-
+    
+    console.log(dataFormat)
     const parser = new XMLBuilder({
       ignoreAttributes: false,
       attributeNamePrefix: '@_',

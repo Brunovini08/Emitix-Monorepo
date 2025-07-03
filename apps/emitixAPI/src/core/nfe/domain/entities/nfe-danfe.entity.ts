@@ -9,9 +9,9 @@ export class NfeDanfeEntity {
     cUFAuto?: string
     CNPJ?: string
     CPF?: string
-    distNSU: DistNSU
-    consNSU: ConsNSU
-    consChNFe: ConsChNFe
+    distNSU?: DistNSU
+    consNSU?: ConsNSU
+    consChNFe?: ConsChNFe
 
     constructor(data: {
         versao: string
@@ -19,51 +19,52 @@ export class NfeDanfeEntity {
         cUFAuto?: string
         CNPJ?: string
         CPF?: string
-        distNSU: DistNSU
-        consNSU: ConsNSU
-        consChNFe: ConsChNFe
+        distNSU?: DistNSU
+        consNSU?: ConsNSU
+        consChNFe?: ConsChNFe
     }) {
         this.versao = data.versao
         this.tpAmb = data.tpAmb
         this.cUFAuto = data.cUFAuto || undefined
         this.CNPJ = data.CNPJ || undefined
         this.CPF = data.CPF || undefined
-        this.distNSU = data.distNSU
-        this.consNSU = data.consNSU
-        this.consChNFe = data.consChNFe
+        this.distNSU = data.distNSU || undefined
+        this.consNSU = data.consNSU || undefined
+        this.consChNFe = data.consChNFe || undefined
         this.throwOrvalidate()
     }
 
     private throwOrvalidate () {
         if (!this.versao) throw new DomainError('Versão é obrigatória')
         if (!this.tpAmb) throw new DomainError('tpAmb é obrigatório')
-        if (!this.distNSU) throw new DomainError('distNSU é obrigatório')
-        if (!this.consNSU) throw new DomainError('consNSU é obrigatório')
-        if (!this.consChNFe) throw new DomainError('consChNFe é obrigatório')
         if(!this.CNPJ && !this.CPF) throw new DomainError('CNPJ ou CPF é obrigatório')
         if(this.CNPJ && this.CPF) throw new DomainError('CNPJ e CPF não podem ser informados ao mesmo tempo')
         if(this.CNPJ && this.CNPJ.length !== 14) throw new DomainError('CNPJ inválido')
         if(this.CPF && this.CPF.length !== 11) throw new DomainError('CPF inválido')
+        if(!this.consChNFe && !this.consNSU && !this.distNSU) throw new DomainError('consChNFe, consNSU ou distNSU é obrigatório')
+        if(this.consChNFe && this.consNSU) throw new DomainError('consChNFe e consNSU não podem ser informados ao mesmo tempo')
+        if(this.consChNFe && this.distNSU) throw new DomainError('consChNFe e distNSU não podem ser informados ao mesmo tempo')
+        if(this.consNSU && this.distNSU) throw new DomainError('consNSU e distNSU não podem ser informados ao mesmo tempo')
     }
 
     public toJSON() {
         const distNSU = {
-            ultNSU: this.distNSU.ultNSU
+            ultNSU: this.distNSU?.ultNSU
         }
         const consNSU = {
-            NSU: this.consNSU.NSU
+            NSU: this.consNSU?.NSU
         }
         const consChNFe = {
-            chNFe: this.consChNFe.chNFe
+            chNFe: this.consChNFe?.chNFe
         }
         const distDFeInt = {
             tpAmb: this.tpAmb,
-            cUFAuto: this.cUFAuto,
+            cUFAuto: this.cUFAuto ? this.cUFAuto: undefined,
             CNPJ: this.CNPJ ? this.CNPJ: undefined,
             CPF: this.CPF? this.CPF: undefined,
-            distNSU: distNSU,
-            consNSU: consNSU,
-            consChNFe: consChNFe
+            distNSU: distNSU ? distNSU: undefined ,
+            consNSU: consNSU ? consNSU: undefined,
+            consChNFe: consChNFe ? consChNFe: undefined
         }
 
         return {

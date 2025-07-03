@@ -7,9 +7,9 @@ import { DistNSUMapper } from "./distNSU.mapper";
 export class NfeDanfeMapper {
     static fromDto(data: TEnvDistDFeInt): NfeDanfeEntity{
         return new NfeDanfeEntity({
-           consChNFe: ConsChNFeMapper.fromDto(data.distDFeInt.consChNFe.chNFe),
-           consNSU: ConsNSUMapper.fromDto(data.distDFeInt.consNSU.ultNSU),
-           distNSU: DistNSUMapper.fromDto(data.distDFeInt.distNSU.ultNSU),
+           consChNFe: data?.distDFeInt?.consChNFe?.chNFe? ConsChNFeMapper.fromDto(data.distDFeInt.consChNFe.chNFe) : undefined,
+           consNSU: data?.distDFeInt?.consNSU?.NSU? ConsNSUMapper.fromDto(data.distDFeInt.consNSU?.NSU) : undefined,
+           distNSU: data?.distDFeInt?.distNSU?.ultNSU? DistNSUMapper.fromDto(data.distDFeInt.distNSU?.ultNSU) : undefined,
            tpAmb: String(data.distDFeInt.tpAmb),
            versao: String(data.distDFeInt.versao),
            CNPJ: data.distDFeInt.CNPJ ? String(data.distDFeInt.CNPJ) : undefined,

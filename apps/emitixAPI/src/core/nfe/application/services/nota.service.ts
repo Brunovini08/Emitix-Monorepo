@@ -28,6 +28,7 @@ import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-proce
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
 import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-status-json.interface';
+import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consulta.mapper';
 
 @Injectable()
 export class NotaService {
@@ -120,7 +121,7 @@ export class NotaService {
             privateKey,
             typeDocument
           ));
-          
+
           return response
         }
         return envNfeValidate;
@@ -187,19 +188,19 @@ export class NotaService {
       if (result === true) {
         const idLote = await this.idLoteService.generateId(String(body.inutNFe.infInut.CNPJ));
         if (!idLote) throw new BadRequestException('Id do Lote não vou gerado');
-       
-          const sendSefaz = new SendSefaz(this.httpService)
-          const response = await firstValueFrom(sendSefaz.sendSefazRequest(
-            '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
-            sign,
-            String(inutNFe.cUF),
-            String(inutNFe.tpAmb),
-            nUrl,
-            cert,
-            privateKey,
-            typeDocument,
-          ))
-          return response
+
+        const sendSefaz = new SendSefaz(this.httpService)
+        const response = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          sign,
+          String(inutNFe.cUF),
+          String(inutNFe.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return response
 
       }
     } catch (error) {
@@ -219,8 +220,10 @@ export class NotaService {
       const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
       if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
-      if (String(body.CNPJ)!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
-      const xml = await this.nfeConsultaUseCase.execute(body);
+      if (String(body.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const consultaNfe = NfeConsultaMapper.fromDto(body);
+      const consultaNfeJson = consultaNfe.toJSON()
+      const xml = await this.nfeConsultaUseCase.execute(consultaNfeJson.data, consultaNfeJson.versao);
       const result = await validateXmlXsd(xml, 3);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)
@@ -251,9 +254,9 @@ export class NotaService {
   ) {
     try {
       const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
-      if (!cert ||!privateKey) throw new BadRequestException('Certificado inválido')
+      if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
-      if (String(body.CNPJ)!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      if (String(body.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
       const xml = await this.nfeStatusUseCase.execute(body);
       const result = await validateXmlXsd(xml, 4);
       if (result === true) {
@@ -285,9 +288,9 @@ export class NotaService {
   ) {
     try {
       const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
-      if (!cert ||!privateKey) throw new BadRequestException('Certificado inválido')
+      if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
       const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
-      if (String(String(body.ConsCad.infCons.CNPJ))!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      if (String(String(body.ConsCad.infCons.CNPJ)) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
       const xml = await this.nfeConsultaCadastroUseCase.execute(body);
       const result = await validateXmlXsd(xml, 5);
       if (result === true) {
@@ -311,36 +314,37 @@ export class NotaService {
   }
 
   async distribuicaoDfe(
-    cert: any,
-    privateKey: any,
+    file: Base64,
+    certPassword: any,
     body: TEnvDistDFeInt,
     nUrl: number,
     typeDocument: string,
   ) {
-    // const valide = validateCertificate(cert);
-    // if (valide === 'Certificado ainda não é válido.')
-    //   throw new BadRequestException('Certificado ainda não é válido.');
-    // else if (valide === 'Certificado expirado.')
-    //   throw new BadRequestException('Certificado expirado.');
-    // else if (valide === 'Certificado é valido') {
-    //   const xml = await this.nfeBuildService.distribuicaoDfe(body);
-    //   const xmlString = String(xml);
-    //   const result = await validateXmlXsd(xmlString, 6);
-    //   console.log(result);
-    //   if (result === true) {
-    //     const envXml = await sendSefazRequest(
-    //       xml,
-    //       'AN',
-    //       String(body.distDFeInt.tpAmb),
-    //       nUrl,
-    //       cert,
-    //       privateKey,
-    //       typeDocument,
-    //     );
-    //     return envXml.data;
-    //   }
-    //   return result;
-    // }
+    try {
+      const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
+      if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
+      const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
+      if (String(body.distDFeInt.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const xml = await this.nfeConsultaCadastroUseCase.execute(body);
+      const result = await validateXmlXsd(xml, 6);
+      if (result === true) {
+        const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          xml,
+          String(body.uf),
+          String(body.distDFeInt.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return envXml;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async evento(

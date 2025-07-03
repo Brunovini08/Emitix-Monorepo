@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmptyObject, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsNotEmptyObject, ValidateNested } from "class-validator";
 import { TDistDFeInt } from "./TDistDFeInt";
 
 export class TEnvDistDFeInt {
@@ -7,4 +7,9 @@ export class TEnvDistDFeInt {
   @ValidateNested()
   @Type(() => TDistDFeInt)
   distDFeInt: TDistDFeInt
+
+  @IsNotEmpty({
+    message: 'UF é obrigatório'
+  })
+  uf: string
 }

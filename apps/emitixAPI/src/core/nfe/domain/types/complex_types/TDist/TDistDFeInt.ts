@@ -7,6 +7,7 @@ import { TCpf } from "../../primitivies_types/TCpf";
 import { TDistNSU } from "./TDistNSU";
 import { TConsChNFe } from "../TCons/TConsChNFe";
 import { TVerDistDFe } from "../../primitivies_types/TVerDistDFe";
+import { TConsNSU } from "../TCons/TConsNSU";
 
 export class TDistDFeInt {
   @IsNotEmpty({
@@ -15,11 +16,9 @@ export class TDistDFeInt {
   @Type(() => TAmb)
   tpAmb: TAmb
 
-  @IsNotEmpty({
-    message: 'O elemento cUFAutor não pode estar vazio'
-  })
+  @IsOptional()
   @Type(() => TCodUfIBGE)
-  cUFAutor: TCodUfIBGE
+  cUFAutor?: TCodUfIBGE
 
   @IsOptional()
   @Type(() => TCnpj)
@@ -29,20 +28,20 @@ export class TDistDFeInt {
   @Type(() => TCpf)
   CPF?: TCpf
 
-  @IsNotEmptyObject()
+  @IsOptional()
   @ValidateNested()
   @Type(() => TDistNSU)
-  distNSU: TDistNSU
+  distNSU?: TDistNSU
 
-  @IsNotEmptyObject()
+  @IsOptional()
   @ValidateNested()
   @Type(() => TDistNSU)
-  consNSU: TDistNSU
+  consNSU?: TConsNSU
 
-  @IsNotEmptyObject()
+  @IsOptional()
   @ValidateNested()
   @Type(() => TConsChNFe)
-  consChNFe: TConsChNFe
+  consChNFe?: TConsChNFe
 
   @IsNotEmpty({
     message: 'O elemento versao não pode estar vazio'

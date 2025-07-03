@@ -51,7 +51,9 @@ export class NfeConsultaEntity {
     }
 
     return {
-      data: consSitNFe,
+      data: {
+        consSitNFe: consSitNFe
+      },
       versao: this.versao
     }
   }

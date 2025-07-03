@@ -11,10 +11,8 @@ export class NfeConsultaUseCase {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data): Promise<string> {
-    const nfe = data
-    const versao = "4.00"
-    const xml = await this.nfeXmlBuilder.buildNFeConsulta(nfe, versao)
-     return xml
+  async execute(data, versao: string): Promise<string> {
+    const xml = await this.nfeXmlBuilder.buildNFeConsulta(data, versao)
+    return xml
   }
 }
