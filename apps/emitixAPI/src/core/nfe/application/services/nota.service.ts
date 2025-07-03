@@ -27,6 +27,7 @@ import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
+import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-status-json.interface';
 
 @Injectable()
 export class NotaService {
@@ -209,8 +210,8 @@ export class NotaService {
 
   async consultaNFe(
     body: TEnvConsSitNfe,
-    file: any,
-    certPassword: any,
+    file: Base64,
+    certPassword: string,
     nUrl: number,
     typeDocument: string,
   ) {
@@ -243,27 +244,36 @@ export class NotaService {
 
   async statusServico(
     body: TEnvConsStatServ,
-    cert: any,
-    privateKey: any,
+    file: Base64,
+    certPassword: string,
     nUrl: number,
     typeDocument: string,
   ) {
-    // const xml = await this.nfeBuildService.statusServico(body);
-    // const xmlString = String(xml);
-    // const result = await validateXmlXsd(xmlString, 4);
-    // if (result === true) {
-    //   const envXml = await sendSefazRequest(
-    //     xml,
-    //     String(body.consStatServ.cUF),
-    //     String(body.consStatServ.tpAmb),
-    //     nUrl,
-    //     cert,
-    //     privateKey,
-    //     typeDocument,
-    //   );
-    //   return envXml.data;
-    // }
-    // return result;
+    try {
+      const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
+      if (!cert ||!privateKey) throw new BadRequestException('Certificado inválido')
+      const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
+      if (String(body.CNPJ)!== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const xml = await this.nfeStatusUseCase.execute(body);
+      const result = await validateXmlXsd(xml, 4);
+      if (result === true) {
+        const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          xml,
+          String(body.consStatServ.cUF),
+          String(body.consStatServ.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return envXml;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async consultaCadastro(
