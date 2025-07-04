@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class IBSCBSTot {
   vBCIBSCBS: number;
   gIBS?: {
@@ -57,11 +59,11 @@ export class IBSCBSTot {
 
   validateOrThrow() {
     if (this.vBCIBSCBS === undefined || this.vBCIBSCBS === null) {
-      throw new Error('O campo vBCIBSCBS é obrigatório');
+      throw new DomainError('O campo vBCIBSCBS é obrigatório');
     }
 
     if (this.vBCIBSCBS < 0) {
-      throw new Error('A base de cálculo IBS/CBS não pode ser negativa');
+      throw new DomainError('A base de cálculo IBS/CBS não pode ser negativa');
     }
 
     if (this.gIBS) {
@@ -79,19 +81,19 @@ export class IBSCBSTot {
     const { gIBSUF, gIBSMun, vIBS, vCredPres, vCredPresCondSus } = this.gIBS;
 
     // Validar gIBSUF
-    if (gIBSUF.vDif < 0) throw new Error('vDif do IBS UF não pode ser negativo');
-    if (gIBSUF.vDevTrib < 0) throw new Error('vDevTrib do IBS UF não pode ser negativo');
-    if (gIBSUF.vIBSUF < 0) throw new Error('vIBSUF não pode ser negativo');
+    if (gIBSUF.vDif < 0) throw new DomainError('vDif do IBS UF não pode ser negativo');
+    if (gIBSUF.vDevTrib < 0) throw new DomainError('vDevTrib do IBS UF não pode ser negativo');
+    if (gIBSUF.vIBSUF < 0) throw new DomainError('vIBSUF não pode ser negativo');
 
     // Validar gIBSMun
-    if (gIBSMun.vDif < 0) throw new Error('vDif do IBS Municipal não pode ser negativo');
-    if (gIBSMun.vDevTrib < 0) throw new Error('vDevTrib do IBS Municipal não pode ser negativo');
-    if (gIBSMun.vIBSMun < 0) throw new Error('vIBSMun não pode ser negativo');
+    if (gIBSMun.vDif < 0) throw new DomainError('vDif do IBS Municipal não pode ser negativo');
+    if (gIBSMun.vDevTrib < 0) throw new DomainError('vDevTrib do IBS Municipal não pode ser negativo');
+    if (gIBSMun.vIBSMun < 0) throw new DomainError('vIBSMun não pode ser negativo');
 
     // Validar outros campos
-    if (vIBS < 0) throw new Error('vIBS não pode ser negativo');
-    if (vCredPres < 0) throw new Error('vCredPres não pode ser negativo');
-    if (vCredPresCondSus < 0) throw new Error('vCredPresCondSus não pode ser negativo');
+    if (vIBS < 0) throw new DomainError('vIBS não pode ser negativo');
+    if (vCredPres < 0) throw new DomainError('vCredPres não pode ser negativo');
+    if (vCredPresCondSus < 0) throw new DomainError('vCredPresCondSus não pode ser negativo');
   }
 
   private validateCBS() {
@@ -99,11 +101,11 @@ export class IBSCBSTot {
 
     const { vDif, vDevTrib, vCBS, vCredPres, vCredPresCondSus } = this.gCBS;
 
-    if (vDif < 0) throw new Error('vDif da CBS não pode ser negativo');
-    if (vDevTrib < 0) throw new Error('vDevTrib da CBS não pode ser negativo');
-    if (vCBS < 0) throw new Error('vCBS não pode ser negativo');
-    if (vCredPres < 0) throw new Error('vCredPres da CBS não pode ser negativo');
-    if (vCredPresCondSus < 0) throw new Error('vCredPresCondSus da CBS não pode ser negativo');
+    if (vDif < 0) throw new DomainError('vDif da CBS não pode ser negativo');
+    if (vDevTrib < 0) throw new DomainError('vDevTrib da CBS não pode ser negativo');
+    if (vCBS < 0) throw new DomainError('vCBS não pode ser negativo');
+    if (vCredPres < 0) throw new DomainError('vCredPres da CBS não pode ser negativo');
+    if (vCredPresCondSus < 0) throw new DomainError('vCredPresCondSus da CBS não pode ser negativo');
   }
 
   toJSON() {

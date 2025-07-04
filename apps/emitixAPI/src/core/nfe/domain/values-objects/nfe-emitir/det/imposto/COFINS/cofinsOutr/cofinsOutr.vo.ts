@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 import type { BaseCalc } from "./baseCalc.vo";
 import type { Quant } from "./quant.vo";
 
@@ -23,7 +24,7 @@ export class COFINSOutr {
       '64', '65', '66', '67', '70', '71', '72', '73', '74', '75', '98', '99',
     ];
     if (typeof this.CST !== 'string' || !allowedCST.includes(this.CST)) {
-      throw new Error(`
+      throw new DomainError(`
         Código de Situação Tributária do COFINS (CST) é obrigatório e deve ser um dos seguintes:
         49 - Outras Operações de Saída
         50 - Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno
@@ -53,11 +54,11 @@ export class COFINSOutr {
     }
 
     if (this.baseCalc && this.quant) {
-      throw new Error('COFINSOutr deve conter apenas baseCalc OU quant, não ambos.');
+      throw new DomainError('COFINSOutr deve conter apenas baseCalc OU quant, não ambos.');
     }
 
     if (!this.baseCalc && !this.quant) {
-      throw new Error('COFINSOutr deve conter baseCalc OU quant.');
+      throw new DomainError('COFINSOutr deve conter baseCalc OU quant.');
     }
 
     if (this.baseCalc) {
@@ -69,7 +70,7 @@ export class COFINSOutr {
     }
 
     if (typeof this.vCOFINS !== 'number' || this.vCOFINS < 0) {
-      throw new Error('Valor do COFINS (vCOFINS) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do COFINS (vCOFINS) é obrigatório e deve ser um número não negativo.');
     }
   }
 

@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error"
 import { lacres } from "./lacres.vo"
 
 export class vol {
@@ -34,25 +35,25 @@ export class vol {
     if (this.qVol !== undefined && this.qVol !== null) {
       const qVolRegex = /^[0-9]{1,15}$/;
       if (!qVolRegex.test(this.qVol)) {
-        throw new Error('O campo qVol deve ser um número com 1 a 15 dígitos.');
+        throw new DomainError('O campo qVol deve ser um número com 1 a 15 dígitos.');
       }
     }
 
     if (this.esp !== undefined && this.esp !== null) {
       if (this.esp.length < 1 || this.esp.length > 60) {
-        throw new Error('O campo esp deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo esp deve ter entre 1 e 60 caracteres.');
       }
     }
 
     if (this.marca !== undefined && this.marca !== null) {
       if (this.marca.length < 1 || this.marca.length > 60) {
-        throw new Error('O campo marca deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo marca deve ter entre 1 e 60 caracteres.');
       }
     }
 
     if (this.nVol !== undefined && this.nVol !== null) {
       if (this.nVol.length < 1 || this.nVol.length > 60) {
-        throw new Error('O campo nVol deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo nVol deve ter entre 1 e 60 caracteres.');
       }
     }
 

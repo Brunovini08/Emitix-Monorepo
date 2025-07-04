@@ -1,3 +1,5 @@
+import { DomainError } from "../../errors/domain.error";
+
 export class AutXML {
   public readonly CNPJ?: string; 
   public readonly CPF?: string;  
@@ -17,17 +19,17 @@ export class AutXML {
     const hasCpf = !!this.CPF;
 
     if (!hasCnpj && !hasCpf) {
-      throw new Error('Pessoa autorizada (autXML) deve ter CNPJ ou CPF.');
+      throw new DomainError('Pessoa autorizada (autXML) deve ter CNPJ ou CPF.');
     }
     if (hasCnpj && hasCpf) {
-      throw new Error('Pessoa autorizada (autXML) não pode ter CNPJ e CPF informados simultaneamente.');
+      throw new DomainError('Pessoa autorizada (autXML) não pode ter CNPJ e CPF informados simultaneamente.');
     }
 
     if (hasCnpj && this.CNPJ.length !== 14) {
-      throw new Error('CNPJ da pessoa autorizada inválido. Deve ter 14 dígitos.');
+      throw new DomainError('CNPJ da pessoa autorizada inválido. Deve ter 14 dígitos.');
     }
     if (hasCpf && this.CPF.length !== 11) {
-      throw new Error('CPF da pessoa autorizada inválido. Deve ter 11 dígitos.');
+      throw new DomainError('CPF da pessoa autorizada inválido. Deve ter 11 dígitos.');
     }
   }
 

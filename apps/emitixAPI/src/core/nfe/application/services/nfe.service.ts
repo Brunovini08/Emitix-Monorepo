@@ -81,13 +81,17 @@ export class NfeService {
   }
 
   async consultaCadastro(body: TEnvConsCad, file: Base64, certPassword: string, nUrl: number, typeDocument: string) {
-    return this.notaService.consultaCadastro(
+   try {
+     return this.notaService.consultaCadastro(
       file,
       certPassword,
       body,
       nUrl,
       typeDocument
     )
+   } catch (error) {
+    return error
+   }
   }
 
   async distribuicaoDfe(body: TEnvDistDFeInt, file: Base64, certPassword: string, nUrl: number, typeDocument: string) {
@@ -102,12 +106,10 @@ export class NfeService {
 
   async evento(body: TEnvEvento, file: Base64, certPassword: string, nUrl: number, idUser: string, typeDocument: string) {
     return this.notaService.evento(
-      file,
       certPassword,
       body,
       idUser,
       file,
-      certPassword,
       nUrl,
       typeDocument
     )

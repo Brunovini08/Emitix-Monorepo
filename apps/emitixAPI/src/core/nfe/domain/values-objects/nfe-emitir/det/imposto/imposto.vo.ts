@@ -8,6 +8,7 @@ import type { IPI } from "./IPI/ipi.vo";
 import type { II } from "./II/II.vo";
 import type { ISSQN } from "./ISSQN/ISSQN.vo";
 import type { IBSCBS } from "./IBSCBS/ibscbs.vo";
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 
 export class Impostos {
   public readonly vTotTrib?: string;
@@ -60,22 +61,22 @@ export class Impostos {
   public validateOrThrow() {
     // Validar vTotTrib
     if (this.vTotTrib !== undefined && (typeof this.vTotTrib !== 'string' || Number(this.vTotTrib) < 0)) {
-      throw new Error('Valor Total dos Tributos (vTotTrib) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor Total dos Tributos (vTotTrib) deve ser um número não negativo, se informado.');
     }
 
     // Validar choice: ICMS/ISSQN
     if (this.ICMS && this.ISSQN) {
-      throw new Error('Impostos pode conter ICMS (produtos) ou ISSQN (serviços), mas não ambos.');
+      throw new DomainError('Impostos pode conter ICMS (produtos) ou ISSQN (serviços), mas não ambos.');
     }
 
     // Validar que pelo menos um choice está presente
     if (!this.ICMS && !this.ISSQN) {
-      throw new Error('Impostos deve conter ICMS (produtos) ou ISSQN (serviços).');
+      throw new DomainError('Impostos deve conter ICMS (produtos) ou ISSQN (serviços).');
     }
 
     // Validar IPI (só pode estar presente com ICMS)
     if (this.IPI && !this.ICMS) {
-      throw new Error('IPI só pode estar presente quando ICMS está presente.');
+      throw new DomainError('IPI só pode estar presente quando ICMS está presente.');
     }
     if (this.IPI) {
       this.IPI.validateOrThrow();
@@ -83,7 +84,7 @@ export class Impostos {
 
     // Validar II (só pode estar presente com ICMS)
     if (this.II && !this.ICMS) {
-      throw new Error('II só pode estar presente quando ICMS está presente.');
+      throw new DomainError('II só pode estar presente quando ICMS está presente.');
     }
     if (this.II) {
       this.II.validateOrThrow();

@@ -1,6 +1,7 @@
 import type { RefECF } from "./refECF.vo";
 import type { RefNFP } from "./refNFP.vo";
 import type { RefNF } from "./refNF.vo";
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 
 export class NFref {
   public readonly refNFe?: string;
@@ -28,52 +29,52 @@ export class NFref {
 
   public validateOrThrow(): void {
     if (this.refNFe && this.refNFeSig) {
-      throw new Error('refNFe e refNFeSig não podem ser informados juntos');
+      throw new DomainError('refNFe e refNFeSig não podem ser informados juntos');
     }
     if (this.refNFe && this.refNF) {
-      throw new Error('refNFe e refNF não podem ser informados juntos');
+      throw new DomainError('refNFe e refNF não podem ser informados juntos');
     }
     if (this.refNFe && this.refNFP) {
-      throw new Error('refNFe e refNFP não podem ser informados juntos');
+      throw new DomainError('refNFe e refNFP não podem ser informados juntos');
     }
     if (this.refNFe && this.refCTe) {
-      throw new Error('refNFe e refCTe não podem ser informados juntos');
+      throw new DomainError('refNFe e refCTe não podem ser informados juntos');
     }
     if (this.refNFe && this.refECF) {
-      throw new Error('refNFe e refECF não podem ser informados juntos');
+      throw new DomainError('refNFe e refECF não podem ser informados juntos');
     }
     if (this.refNFeSig && this.refNF) {
-      throw new Error('refNFeSig e refNF não podem ser informados juntos');
+      throw new DomainError('refNFeSig e refNF não podem ser informados juntos');
     }
     if (this.refNFeSig && this.refNFP) {
-      throw new Error('refNFeSig e refNFP não podem ser informados juntos');
+      throw new DomainError('refNFeSig e refNFP não podem ser informados juntos');
     }
     if (this.refNFeSig && this.refCTe) {
-      throw new Error('refNFeSig e refCTe não podem ser informados juntos');
+      throw new DomainError('refNFeSig e refCTe não podem ser informados juntos');
     }
     if (this.refNFeSig && this.refECF) {
-      throw new Error('refNFeSig e refECF não podem ser informados juntos');
+      throw new DomainError('refNFeSig e refECF não podem ser informados juntos');
     }
     if (this.refNF && this.refNFP) {
-      throw new Error('refNF e refNFP não podem ser informados juntos');
+      throw new DomainError('refNF e refNFP não podem ser informados juntos');
     }
     if (this.refNF && this.refCTe) {
-      throw new Error('refNF e refCTe não podem ser informados juntos');
+      throw new DomainError('refNF e refCTe não podem ser informados juntos');
     }
     if (this.refNF && this.refECF) {
-      throw new Error('refNF e refECF não podem ser informados juntos');
+      throw new DomainError('refNF e refECF não podem ser informados juntos');
     }
     if (this.refNFP && this.refCTe) {
-      throw new Error('refNFP e refCTe não podem ser informados juntos');
+      throw new DomainError('refNFP e refCTe não podem ser informados juntos');
     }
     if (this.refNFP && this.refCTe) {
-      throw new Error('refNFP e refCTe não podem ser informados juntos');
+      throw new DomainError('refNFP e refCTe não podem ser informados juntos');
     }
     if (this.refNFP && this.refECF) {
-      throw new Error('refNFP e refECF não podem ser informados juntos');
+      throw new DomainError('refNFP e refECF não podem ser informados juntos');
     }
     if (this.refCTe && this.refECF) {
-      throw new Error('refCTe e refECF não podem ser informados juntos');
+      throw new DomainError('refCTe e refECF não podem ser informados juntos');
     }
   }
 

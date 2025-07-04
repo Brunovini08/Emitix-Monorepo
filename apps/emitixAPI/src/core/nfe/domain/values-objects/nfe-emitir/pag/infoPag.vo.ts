@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class infoPag {
 
   CNPJPag
@@ -16,7 +18,7 @@ export class infoPag {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
   }

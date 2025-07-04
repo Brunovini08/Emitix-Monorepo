@@ -1,15 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { FormatErrorApplicationInterceptor } from 'src/core/nfe/application/errors/format-error-application.intercetor';
 import { validateXML } from 'xsd-schema-validator';
 
 // Caminho real do seu XSD
 const XSD_PATH = [
-  'xsds/nfe_v4.00.xsd', 
-  'xsds/consReciNFe_v4.00.xsd', 
-  "xsds/inutNFe_v4.00.xsd", 
-  "xsds/consSitNFe_v4.00.xsd", 
-  "xsds/consStatServ_v4.00.xsd", 
-  "xsds/consCad_v2.00.xsd", 
+  'xsds/nfe_v4.00.xsd',
+  'xsds/consReciNFe_v4.00.xsd',
+  "xsds/inutNFe_v4.00.xsd",
+  "xsds/consSitNFe_v4.00.xsd",
+  "xsds/consStatServ_v4.00.xsd",
+  "xsds/consCad_v2.00.xsd",
   "xsds/distDFeInt_v1.01.xsd",
   "xsds/envEventoCancNFe_v1.00.xsd",
   "xsds/enviNFe_v4.00.xsd",
@@ -25,39 +26,59 @@ export class ValidateXmlXsdUtil {
   }
 
   async validateXmlXsd(): Promise<boolean | string[]> {
-   try{ 
-    if (!this.xmlString) return ['XML vazio ou inválido'];
-    const result = await validateXML({ file: this.xmlString }, XSD_PATH[this.pathInfo]);
-    if (result.valid) return true;
-    return result.messages;
-   } catch (err) {
-    console.error('Erro ao validar XML:', err);
-    return [`Erro de validação: ${err.message}`];
-   }
+    try {
+      if (!this.xmlString) return ['XML vazio ou inválido'];
+      const result = await validateXML({ file: this.xmlString }, XSD_PATH[this.pathInfo]);
+      if (result.valid) return true;
+      return result.messages;
+    } catch (err) {
+      console.error('Erro ao validar XML:', err);
+      return [`Erro de validação: ${err.message}`];
+    }
   }
 
 }
 
 export const validateXmlXsd = async (xmlString: string, pathInfo: number) => {
   if (!xmlString) {
-    return ['XML vazio ou inválido'];
+    return [{ location: 'xml', error: 'XML vazio ou inválido' }];
   }
 
-  // Criar caminho temporário do XML
   const tempFilePath = path.resolve(__dirname, 'temp-nfe.xml');
 
   try {
-    // Salvar XML no disco
     fs.writeFileSync(tempFilePath, xmlString, { encoding: 'utf-8' });
+
     const result = await validateXML({ file: tempFilePath }, XSD_PATH[pathInfo]);
 
-    // Retornar se é válido ou mensagens de erro
     if (result.valid) return true;
-    return result.messages;
-  } catch (err) {
-    console.error('Erro ao validar XML:', err);
-    return [`Erro de validação: ${err.message}`];
-  } finally {
+
+    return FormatErrorApplicationInterceptor.formatXsdErrors(result.messages);
+  } catch (err: any) {
+    console.error('Erro bruto:', err);
+
+    if (Array.isArray(err?.messages)) {
+      return FormatErrorApplicationInterceptor.formatXsdErrors(err.messages);
+    }
+
+    const raw =
+      typeof err === 'string' ? err :
+        typeof err?.message === 'string' ? err.message :
+          JSON.stringify(err);
+
+    const splitErrors = raw.split('\n').filter(line => line.includes('[error]'));
+    if (splitErrors.length > 0) {
+      return FormatErrorApplicationInterceptor.formatXsdErrors(splitErrors);
+    }
+
+    return [{
+      location: 'internal',
+      error: `Erro desconhecido ao validar XML: ${raw}`
+    }];
+  }
+
+
+  finally {
     try {
       if (fs.existsSync(tempFilePath)) fs.unlinkSync(tempFilePath);
     } catch (cleanupErr) {
@@ -65,3 +86,4 @@ export const validateXmlXsd = async (xmlString: string, pathInfo: number) => {
     }
   }
 };
+

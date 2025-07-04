@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class GCompraGov {
   public readonly tpEnteGov: string;
   public readonly pRedutor: number;
@@ -12,10 +14,10 @@ export class GCompraGov {
 
   public validateOrThrow(): void {
     if (!this.tpEnteGov) {
-      throw new Error('tpEnteGov é obrigatório');
+      throw new DomainError('tpEnteGov é obrigatório');
     }
     if (!this.pRedutor) {
-      throw new Error('pRedutor é obrigatório');
+      throw new DomainError('pRedutor é obrigatório');
     }
   }
 

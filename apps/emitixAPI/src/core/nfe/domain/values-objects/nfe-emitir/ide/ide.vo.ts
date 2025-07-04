@@ -1,5 +1,6 @@
 import type { NFref } from "./nfref/NFref.vo";
 import type { GCompraGov } from "./gCompraGov.vo";
+import { DomainError } from "../../../errors/domain.error";
 
 export class Ide {
   public readonly cUF: string;
@@ -109,18 +110,18 @@ export class Ide {
 
   public validateOrThrow(): void {
     if (this.cUF.length !== 2) {
-      throw new Error('Código da UF (cUF) inválido. Deve ter 2 dígitos.');
+      throw new DomainError('Código da UF (cUF) inválido. Deve ter 2 dígitos.');
     }
     if (this.tpNF !== '0' && this.tpNF !== '1') {
-      throw new Error('Tipo de Operação (tpNF) inválido. Deve ser "0" (Entrada) ou "1" (Saída).');
+      throw new DomainError('Tipo de Operação (tpNF) inválido. Deve ser "0" (Entrada) ou "1" (Saída).');
     }
 
     if (this.tpEmis !== '1') {
       if (this.dhCont === undefined) {
-        throw new Error('Data e Hora de Entrada em Contingência (dhCont) é obrigatório quando tpEmis for diferente de "1".');
+        throw new DomainError('Data e Hora de Entrada em Contingência (dhCont) é obrigatório quando tpEmis for diferente de "1".');
       }
       if (this.xJust === undefined) {
-        throw new Error('Justificativa da Entrada em Contingência (xJust) é obrigatória quando tpEmis for diferente de "1".');
+        throw new DomainError('Justificativa da Entrada em Contingência (xJust) é obrigatória quando tpEmis for diferente de "1".');
       }
       
     }

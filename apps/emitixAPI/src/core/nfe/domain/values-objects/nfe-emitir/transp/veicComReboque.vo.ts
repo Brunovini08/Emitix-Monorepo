@@ -1,3 +1,6 @@
+import { DomainError } from "../../../errors/domain.error";
+import { TVeiculo } from "./tveiculo.vo";
+
 export class veiculoComReboque {
 
   veicTransp
@@ -5,8 +8,8 @@ export class veiculoComReboque {
 
   constructor(
     data: {
-      veicTransp,
-      reboque
+      veicTransp: TVeiculo,
+      reboque: TVeiculo[]
     }
   ) {
     this.veicTransp = data.veicTransp;
@@ -22,10 +25,10 @@ export class veiculoComReboque {
 
     if (this.reboque !== undefined && this.reboque !== null) {
       if (!Array.isArray(this.reboque)) {
-        throw new Error('O campo reboque deve ser um array.');
+        throw new DomainError('O campo reboque deve ser um array.');
       }
       if (this.reboque.length < 0 || this.reboque.length > 5) {
-        throw new Error('O campo reboque deve ter entre 0 e 5 itens.');
+        throw new DomainError('O campo reboque deve ter entre 0 e 5 itens.');
       }
       for (const item of this.reboque) {
         if (typeof item.validateOrThrow === 'function') {

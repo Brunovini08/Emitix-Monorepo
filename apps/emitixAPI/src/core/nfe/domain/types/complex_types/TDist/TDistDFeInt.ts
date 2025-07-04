@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsNotEmptyObject, IsOptional, ValidateNested } from "class-validator";
 import { TAmb } from "../../primitivies_types/TAmb";
 import { Type } from "class-transformer";
 import { TCodUfIBGE } from "../../primitivies_types/TCodUfIBGE";
@@ -7,6 +7,7 @@ import { TCpf } from "../../primitivies_types/TCpf";
 import { TDistNSU } from "./TDistNSU";
 import { TConsChNFe } from "../TCons/TConsChNFe";
 import { TVerDistDFe } from "../../primitivies_types/TVerDistDFe";
+import { TConsNSU } from "../TCons/TConsNSU";
 
 export class TDistDFeInt {
   @IsNotEmpty({
@@ -16,11 +17,8 @@ export class TDistDFeInt {
   tpAmb: TAmb
 
   @IsOptional()
-  @IsNotEmpty({
-    message: 'O elemento cUFAutor não pode estar vazio'
-  })
   @Type(() => TCodUfIBGE)
-  cUFAutor: TCodUfIBGE
+  cUFAutor?: TCodUfIBGE
 
   @IsOptional()
   @Type(() => TCnpj)
@@ -38,7 +36,7 @@ export class TDistDFeInt {
   @IsOptional()
   @ValidateNested()
   @Type(() => TDistNSU)
-  ultNSU?: TDistNSU
+  consNSU?: TConsNSU
 
   @IsOptional()
   @ValidateNested()

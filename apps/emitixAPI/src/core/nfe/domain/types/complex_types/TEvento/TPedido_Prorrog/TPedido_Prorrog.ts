@@ -23,5 +23,5 @@ export class TPedido_Prorrog {
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(990)
-  itemPedido: TItemPedido
+  itemPedido: TItemPedido[]
 }

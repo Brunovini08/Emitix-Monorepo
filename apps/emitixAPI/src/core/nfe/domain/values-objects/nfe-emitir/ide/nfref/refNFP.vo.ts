@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class RefNFP {
   public readonly cUF: string;
   public readonly AAMM: string;
@@ -30,28 +32,28 @@ export class RefNFP {
 
   public validateOrThrow(): void {
     if (!this.cUF) {
-      throw new Error('cUF é obrigatório');
+      throw new DomainError('cUF é obrigatório');
     }
     if (!this.AAMM) {
-      throw new Error('AAMM é obrigatório');
+      throw new DomainError('AAMM é obrigatório');
     }
     if (!this.IE) {
-      throw new Error('IE é obrigatório');
+      throw new DomainError('IE é obrigatório');
     }
     if (!this.mod) {
-      throw new Error('mod é obrigatório');
+      throw new DomainError('mod é obrigatório');
     }
     if (!this.serie) {
-      throw new Error('serie é obrigatório');
+      throw new DomainError('serie é obrigatório');
     }
     if (!this.nNF) {
-      throw new Error('nNF é obrigatório');
+      throw new DomainError('nNF é obrigatório');
     }
     if (!this.CNPJ && !this.CPF) {
-      throw new Error('CNPJ ou CPF é obrigatório');
+      throw new DomainError('CNPJ ou CPF é obrigatório');
     }
     if (this.CNPJ && this.CPF) {
-      throw new Error('CNPJ e CPF não podem ser informados juntos');
+      throw new DomainError('CNPJ e CPF não podem ser informados juntos');
     }
   }
 

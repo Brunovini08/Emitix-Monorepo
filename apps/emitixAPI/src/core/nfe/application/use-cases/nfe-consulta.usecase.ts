@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { SefazXmlBuilderService } from "../../infrastructure/external/xml/SefazXmlBuilder.service";
-import { NFe } from "../../domain/entities/nfe-emitir.entity";
+import { NfeConsultaJsonInterface } from "../../domain/interfaces/nfe-consulta/nfe-consulta-json.interface";
 
 @Injectable()
 export class NfeConsultaUseCase {
@@ -11,10 +11,8 @@ export class NfeConsultaUseCase {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data): Promise<string> {
-    const nfe = data.consReciNFe
-    const versao = "4.00"
-    const xml = await this.nfeXmlBuilder.buildNFeConsulta(nfe, versao)
-     return xml
+  async execute(data, versao: string): Promise<string> {
+    const xml = await this.nfeXmlBuilder.buildNFeConsulta(data, versao)
+    return xml
   }
 }

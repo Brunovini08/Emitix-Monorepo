@@ -7,9 +7,9 @@ import {
   Res,
   UseFilters,
 } from '@nestjs/common';
-import { AuthService } from '../infrastructure/auth.service';
-import { SignUpDto } from '../application/dto/signUpDto';
-import { SignInDto } from '../application/dto/signInDto';
+import { AuthService } from '../application/auth.service';
+import { SignUpDto } from './dto/signUpDto';
+import { SignInDto } from './dto/signInDto';
 import { Request, Response } from 'express';
 import { HttpExceptionFilter } from '../../../shared/common/filters/http-exeception.filter'; // Assuming a common filters directory
 import {ConfigService} from "@nestjs/config"

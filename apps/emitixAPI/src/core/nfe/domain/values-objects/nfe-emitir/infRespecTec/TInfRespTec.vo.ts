@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error";
 import type { CSRT } from "./CSRT.vo";
 
 export class TInfRespTec {
@@ -29,21 +30,21 @@ export class TInfRespTec {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.xContato.length < 2 || this.xContato.length > 60) {
-      throw new Error('Invalid length for xContato. Must be between 2 and 60 characters.');
+      throw new DomainError('Invalid length for xContato. Must be between 2 and 60 characters.');
     }
 
     if (this.email.length < 6 || this.email.length > 60) {
-      throw new Error('Invalid length for email. Must be between 6 and 60 characters.');
+      throw new DomainError('Invalid length for email. Must be between 6 and 60 characters.');
     }
 
     const foneRegex = /^[0-9]{6,14}$/;
     if (!foneRegex.test(this.fone)) {
-      throw new Error('Invalid fone format. Must be 6 to 14 digits.');
+      throw new DomainError('Invalid fone format. Must be 6 to 14 digits.');
     }
 
     if (this.CSRT !== undefined && this.CSRT !== null) {

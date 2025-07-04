@@ -1,3 +1,5 @@
+import { DomainError } from "../../errors/domain.error";
+
 export class Avulsa {
   public readonly CNPJ: string;
   public readonly xOrgao: string;
@@ -40,31 +42,31 @@ export class Avulsa {
 
   public validateOrThrow(): void {
     if (!this.CNPJ || this.CNPJ.length !== 14) {
-      throw new Error('CNPJ do Órgão Emitente é obrigatório');
+      throw new DomainError('CNPJ do Órgão Emitente é obrigatório');
     }
     if (!this.matr || this.matr.trim() === '') {
-      throw new Error('Matrícula do Agente é obrigatória');
+      throw new DomainError('Matrícula do Agente é obrigatória');
     }
     if (!this.xAgente || this.xAgente.trim() === '') {
-      throw new Error('Nome do Agente é obrigatório');
+      throw new DomainError('Nome do Agente é obrigatório');
     }
     if (!this.fone || this.fone.length < 8 || this.fone.length > 15) {
-        throw new Error('Telefone inválido. Deve ter entre 8 e 15 dígitos');
+        throw new DomainError('Telefone inválido. Deve ter entre 8 e 15 dígitos');
     }
     if (!this.UF || this.UF.length !== 2) {
-      throw new Error('UF do Órgão Emitente inválida. Deve ter 2 caracteres');
+      throw new DomainError('UF do Órgão Emitente inválida. Deve ter 2 caracteres');
     }
     if (!this.nDAR || this.nDAR.trim() === '') {
-      throw new Error('Número do Documento de Arrecadação é obrigatório');
+      throw new DomainError('Número do Documento de Arrecadação é obrigatório');
     }
     if (!(this.dEmi instanceof Date) || isNaN(this.dEmi.getTime())) {
-      throw new Error('Data de Emissão do DAR inválida');
+      throw new DomainError('Data de Emissão do DAR inválida');
     }
     if (typeof this.vDAR !== 'number' || this.vDAR < 0) {
-      throw new Error('Valor do DAR inválido. Deve ser um número não negativo');
+      throw new DomainError('Valor do DAR inválido. Deve ser um número não negativo');
     }
     if (!this.repEmi || this.repEmi.trim() === '') {
-      throw new Error('Repartição Fiscal Emitente é obrigatória');
+      throw new DomainError('Repartição Fiscal Emitente é obrigatória');
     }
   }
 

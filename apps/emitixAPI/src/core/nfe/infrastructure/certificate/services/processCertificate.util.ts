@@ -21,6 +21,7 @@ export function loadCertificate(decode: forge.Base64, password: string) {
     }
   });
 
+
   return {
     privateKey,
     cert,

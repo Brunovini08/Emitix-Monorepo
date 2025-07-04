@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class ObsFisco {
   public readonly xTexto;
   public readonly xCampo;
@@ -15,11 +17,11 @@ export class ObsFisco {
 
   public validateOrThrow() {
     if (typeof this.xTexto !== 'string' || this.xTexto.length < 1 || this.xTexto.length > 60) {
-      throw new Error('O campo xTexto é obrigatório e deve ter entre 1 e 60 caracteres.');
+      throw new DomainError('O campo xTexto é obrigatório e deve ter entre 1 e 60 caracteres.');
     }
 
     if (typeof this.xCampo !== 'string' || this.xCampo.length < 1 || this.xCampo.length > 20) {
-      throw new Error('O campo xCampo é obrigatório e deve ter entre 1 e 20 caracteres.');
+      throw new DomainError('O campo xCampo é obrigatório e deve ter entre 1 e 20 caracteres.');
     }
   }
 

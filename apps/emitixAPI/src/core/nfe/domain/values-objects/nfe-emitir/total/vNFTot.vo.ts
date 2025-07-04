@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error";
+
 export class vNFTot {
   vNFTot: number;
 
@@ -7,11 +9,11 @@ export class vNFTot {
 
   validateOrThrow() {
     if (this.vNFTot === undefined || this.vNFTot === null) {
-      throw new Error('O campo vNFTot é obrigatório');
+      throw new DomainError('O campo vNFTot é obrigatório');
     }
 
     if (this.vNFTot < 0) {
-      throw new Error('O valor total da NF não pode ser negativo');
+      throw new DomainError('O valor total da NF não pode ser negativo');
     }
   }
 

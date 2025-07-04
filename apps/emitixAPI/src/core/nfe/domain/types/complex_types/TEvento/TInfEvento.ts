@@ -1,17 +1,11 @@
 import { Type } from "class-transformer";
-import { IsIn, IsNotEmpty, IsOptional, IsString, Matches, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString, Matches, ValidateNested } from "class-validator";
 import { TCOrgaoIBGE } from "../../primitivies_types/TCOrgaoIBGE";
 import { TAmb } from "../../primitivies_types/TAmb";
 import { TCnpjOpc } from "../../primitivies_types/TCnpjOpc";
 import { TCpf } from "../../primitivies_types/TCpf";
 import { TChNFe } from "../../primitivies_types/TChNFe";
 import { TDateTimeUTC } from "../../primitivies_types/TDateTimeUTC";
-import { TCancelamento } from "./TCancelamento/TCancelamento";
-import { TAtorInteressado } from "./TAtorInteressado/TAtorInteressado";
-import { TCarta_Correcao } from "./TCarta_Correcao/TCarta_Correcao";
-import { TEpec } from "./TEpec/TEpec";
-import { TMani_Dest } from "./TMani_dest/TMani_Dest";
-import { TPedido_Prorrog } from "./TPedido_Prorrog/TPedido_Prorrog";
 import { DetEventos } from "./detEventos";
 
 export class TInfEvento {

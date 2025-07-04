@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class PISQtde {
   public readonly CST;
   public readonly qBCProd;
@@ -21,19 +23,19 @@ export class PISQtde {
 
   public validateOrThrow() {
     if (typeof this.CST !== 'string' || this.CST !== '03') {
-      throw new Error('Código de Situação Tributária do PIS (CST) é obrigatório e deve ser "03".');
+      throw new DomainError('Código de Situação Tributária do PIS (CST) é obrigatório e deve ser "03".');
     }
 
     if (typeof this.qBCProd !== 'number' || this.qBCProd < 0) {
-      throw new Error('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Quantidade Vendida (qBCProd) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.vAliqProd !== 'number' || this.vAliqProd < 0) {
-      throw new Error('Alíquota do PIS (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Alíquota do PIS (em reais) (vAliqProd) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.vPIS !== 'number' || this.vPIS < 0) {
-      throw new Error('Valor do PIS (vPIS) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do PIS (vPIS) é obrigatório e deve ser um número não negativo.');
     }
   }
 

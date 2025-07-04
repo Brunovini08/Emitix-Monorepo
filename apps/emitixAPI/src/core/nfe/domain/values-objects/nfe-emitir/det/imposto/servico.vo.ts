@@ -1,3 +1,4 @@
+import { DomainError } from 'src/core/nfe/domain/errors/domain.error';
 import { IPI } from './IPI/ipi.vo';
 import { ISSQN } from './ISSQN/ISSQN.vo';
 
@@ -22,7 +23,7 @@ export class Servico {
     }
 
     if (!this.ISSQN) {
-      throw new Error('O campo ISSQN não pode estar vazio.');
+      throw new DomainError('O campo ISSQN não pode estar vazio.');
     }
     this.ISSQN.validateOrThrow();
   }

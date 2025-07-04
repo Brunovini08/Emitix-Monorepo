@@ -6,7 +6,7 @@ import type { InutNFe } from "src/core/nfe/domain/entities/nfe-inutilizar.entity
 export class NFeInutilizarBuilder {
   async inutilizarNFeXml(
     accessKey: string,
-    objectFormat: InutNFe,
+    objectFormat: Object,
     versao: string
   ) {
     const parser = new XMLBuilder({
@@ -19,7 +19,7 @@ export class NFeInutilizarBuilder {
         '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
         '@_versao': versao,
         infInut: {
-          '@_Id': accessKey,
+          '@_Id': `ID${accessKey}`,
           ...objectFormat
         }
       }

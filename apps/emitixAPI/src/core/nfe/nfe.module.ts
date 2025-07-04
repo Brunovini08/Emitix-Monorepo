@@ -25,16 +25,22 @@ import { SefazXmlBuilderService } from './infrastructure/external/xml/SefazXmlBu
 import { SignedXmlUtil } from './infrastructure/external/xml/sign/signedXml.util';
 import { NfeConsultaProcessamentoBuilder } from './infrastructure/external/xml/builders/nfe-consulta-processamento.builder';
 import { NfeConsultaProcessamentoUseCase } from './application/use-cases/nfe-consulta-processamento.usecase';
+import { NFeEventoBuilder } from './infrastructure/external/xml/builders/nfe-evento.builder';
+import { NfeEventoUsecase } from './application/use-cases/nfe-evento.usecase';
+import { SignedEventXml } from './infrastructure/external/xml/sign/signedEventXML.util';
 
 @Module({
   controllers: [NfeController],
-  providers: [NfeService, IdLoteService, NotaService, NfeEmitirUseCase,
+  providers: [
+    NfeService, IdLoteService, NotaService, NfeEmitirUseCase,
     NfeInutilizarUseCase, NfeConsultaUseCase, NfeStatusUseCase,
-    NfeConsultaCadastroUseCase, NfeDanfeUseCase, NfeConsultaProcessamentoUseCase, CertificateService,
-    SignedXmlUtil, IdLoteService, SefazXmlBuilderService, NFeEnvioBuilder,
-    NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
-    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen, NfeConsultaProcessamentoBuilder],
+    NfeConsultaCadastroUseCase, NfeDanfeUseCase, NfeConsultaProcessamentoUseCase, NfeEventoUsecase,
+    CertificateService, SignedXmlUtil, SignedEventXml, IdLoteService, SefazXmlBuilderService, 
+    NFeEnvioBuilder, NFeInutilizarBuilder, NFeConsultaBuilder, NFeStatusBuilder,
+    NFeConsultaCadastroBuilder, NFeDanfeBuilder, EnviNFeGen, NfeConsultaProcessamentoBuilder,
+    NFeEventoBuilder
+  ],
   imports: [RedisModule, IssuerInvoiceModule, HttpModule],
   exports: [NfeService, IdLoteService],
 })
-export class NfeModule {}
+export class NfeModule { }

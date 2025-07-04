@@ -8,7 +8,6 @@ import { CompraMapper } from './compra.mapper';
 import { EntregaMapper } from './entrega.mapper';
 import { ExportaMapper } from './exporta.mapper';
 import { IdeMapper } from './ide.mapper';
-import { InfAdicMapper } from '../infAdic/infAdic.mapper';
 import { InfIntermedMapper } from './infIntermed.mapper';
 import { InfSolicNFFMapper } from './infSolicNFF.mapper';
 import { TotalMapper } from './total.mapper';
@@ -21,6 +20,7 @@ import { EmitMapper } from './emit/emit.mapper';
 import { InfRespTecMapper } from './infRespecTec/infRespTec.mapper';
 import { PagMapper } from './pag/pag.mapper';
 import { RetiradaMapper } from './retirada.mapper';
+import { InfAdicMapper } from './infAdic/infAdic.mapper';
 
 export class NFeMapper {
   static fromDto(dto: NFeDto): NFe {

@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error"
+
 export class guiaTransito {
 
   tpGuia: string
@@ -22,25 +24,25 @@ export class guiaTransito {
   validateOrThrow() {
     const validTpGuia = ['1', '2', '3', '4', '5', '6', '7'];
     if (this.tpGuia === undefined || this.tpGuia === null || !validTpGuia.includes(this.tpGuia)) {
-      throw new Error(`O campo tpGuia deve ser um dos seguintes valores: ${validTpGuia.join(', ')}.`);
+      throw new DomainError(`O campo tpGuia deve ser um dos seguintes valores: ${validTpGuia.join(', ')}.`);
     }
 
     const requiredFields = ['UFGuia', 'nGuia'];
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.serieGuia !== undefined && this.serieGuia !== null) {
       if (this.serieGuia.length < 1 || this.serieGuia.length > 9) {
-        throw new Error('O campo serieGuia deve ter entre 1 e 9 caracteres.');
+        throw new DomainError('O campo serieGuia deve ter entre 1 e 9 caracteres.');
       }
     }
 
     const nGuiaRegex = /^[0-9]{1,9}$/;
     if (!nGuiaRegex.test(this.nGuia)) {
-      throw new Error('O campo nGuia deve ser um número com 1 a 9 dígitos.');
+      throw new DomainError('O campo nGuia deve ser um número com 1 a 9 dígitos.');
     }
   }
 

@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class RefNF {
   public readonly cUF: string;
   public readonly AAMM: string;
@@ -17,22 +19,22 @@ export class RefNF {
 
   public validateOrThrow(): void {
     if (!this.cUF) {
-      throw new Error('cUF é obrigatório');
+      throw new DomainError('cUF é obrigatório');
     }
     if (!this.AAMM) {
-      throw new Error('AAMM é obrigatório');
+      throw new DomainError('AAMM é obrigatório');
     }
     if (!this.CNPJ) {
-      throw new Error('CNPJ é obrigatório');
+      throw new DomainError('CNPJ é obrigatório');
     }
     if (!this.mod) {
-      throw new Error('mod é obrigatório');
+      throw new DomainError('mod é obrigatório');
     }
     if (!this.serie) {
-      throw new Error('serie é obrigatório');
+      throw new DomainError('serie é obrigatório');
     }
     if (!this.nNF) {
-      throw new Error('nNF é obrigatório');
+      throw new DomainError('nNF é obrigatório');
     }
   }
 

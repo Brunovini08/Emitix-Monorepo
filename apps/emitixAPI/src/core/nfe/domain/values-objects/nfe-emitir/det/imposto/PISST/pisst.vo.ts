@@ -1,5 +1,6 @@
 import type { Quant } from "./quant.vo";
 import type { BaseCalc } from "./baseCalc.vo";
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 
 export class PISST {
   public readonly baseCalc: BaseCalc;
@@ -22,11 +23,11 @@ export class PISST {
     const hasQuant = this.quant !== null;
 
     if (!hasBaseCalc && !hasQuant) {
-      throw new Error('Pelo menos um dos campos "baseCalc" ou "quant" deve ser fornecido.');
+      throw new DomainError('Pelo menos um dos campos "baseCalc" ou "quant" deve ser fornecido.');
     }
 
     if (hasBaseCalc && hasQuant) {
-      throw new Error('Apenas um dos campos "baseCalc" ou "quant" pode ser fornecido.');
+      throw new DomainError('Apenas um dos campos "baseCalc" ou "quant" pode ser fornecido.');
     }
 
     if (this.baseCalc) {

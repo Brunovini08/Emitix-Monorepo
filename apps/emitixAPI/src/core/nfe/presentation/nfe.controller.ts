@@ -7,6 +7,7 @@ import {
   Request,
   BadRequestException,
   UseGuards,
+  UseFilters,
 } from '@nestjs/common';
 import { NfeService } from '../application/services/nfe.service';
 import type { Base64 } from 'node-forge';
@@ -20,10 +21,18 @@ import  { TEnvDistDFeInt } from '../domain/types/complex_types/TDist/TEnvDistDFe
 import  { TEnvEvento } from '../domain/types/complex_types/TEvento/TEnvEvento';
 import  TEnvInutNfe from '../domain/types/complex_types/TInut/TEnvInutNfe';
 import  { NFeDto } from '../domain/types/complex_types/TNFe/NFe.dto';
+import { TEnvConsCad } from '../domain/types/complex_types/TCons/TEnvConsCad';
+import { AppErrorFilter } from './filters/app.error-filter';
+import { Logger } from 'nestjs-pino';
 
 @Controller('nfe')
+@UseFilters(new AppErrorFilter())
 export class NfeController {
-  constructor(private nfeService: NfeService, private issuerInvoiceService: IssuerService) { }
+  constructor(
+    private nfeService: NfeService, 
+    private issuerInvoiceService: IssuerService,
+    private readonly logger: Logger
+  ) { }
 
   @UseGuards(AuthGuard)
   @Post('emitir')
@@ -58,8 +67,10 @@ export class NfeController {
         issuerInvoice,
         "55"
       );
+      this.logger.log(xml)
       res.send(xml)
     } catch (error) {
+      this.logger.error(error)
       throw new BadRequestException(error);
     }
   }
@@ -173,7 +184,7 @@ export class NfeController {
   @UseGuards(AuthGuard)
   @Post('consultacadastro')
   async consultaCadastro(
-    @Body() body,
+    @Body() body: TEnvConsCad,
     @Res() res: Response,
     @Request() req,
     @Headers('password') password: string,
@@ -210,7 +221,7 @@ export class NfeController {
       throw new BadRequestException('Certificado e senha são obrigatórios.');
     }
     try {
-      const xml = await this.nfeService.distribuicaoDfe(body, certificate, password, 0, "55") 
+      const xml = await this.nfeService.distribuicaoDfe(body, certificate, password, 7, "55") 
       res.send(xml)
     } catch (error) {
       console.error(error)

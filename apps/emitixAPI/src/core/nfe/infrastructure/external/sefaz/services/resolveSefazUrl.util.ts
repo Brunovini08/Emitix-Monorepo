@@ -7,7 +7,7 @@ export class ResolveSefazUrl {
       const urls = SEFAZ_CONFIG[uf][typeDocument][tpAmb];
       const url = Object.values(urls)[service];
       const urlName = Object.keys(urls)[service];
-
+      console.log(url)
       if (!url) {
         throw new Error(`URL not found for UF=${uf}, Ambiente=${tpAmb}, Serviço=${service}`);
       }

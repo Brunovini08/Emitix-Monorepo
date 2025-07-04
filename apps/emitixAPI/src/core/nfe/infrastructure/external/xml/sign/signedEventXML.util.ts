@@ -1,29 +1,23 @@
 import { pki, type Base64 } from 'node-forge';
 import { SignedXml } from 'xml-crypto';
-import type { CertificateService } from '../../../certificate/certificate.service';
-import { Injectable } from '@nestjs/common';
+import { CertificateService } from '../../../certificate/certificate.service';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SignedEventXml {
-
-  private readonly privateKey: pki.PrivateKey
-  private readonly certificateService: CertificateService
   constructor(
-    privateKey: pki.PrivateKey,
-    certificateService: CertificateService
+    private readonly certificateService: CertificateService
   ) {
-    this.privateKey = privateKey
-    this.certificateService = certificateService
   }
 
   async signEvent(xml: string, pfxBuffer: Base64, pass: string, chave_acesso: string, tagAssinada: string) {
-    const cert = await this.certificateService.validateCertificate(pfxBuffer, pass)
-    if (!cert || !cert.cert) {
+    const { cert, privateKey } = await this.certificateService.validateCertificate(pfxBuffer, pass)
+    if (!cert || !cert) {
       throw new Error('Certificado não encontrado')
     }
-    const certPem = pki.certificateToPem(cert.cert)
+    const certPem = pki.certificateToPem(cert)
     const sig = new SignedXml({
-      privateKey: pki.privateKeyToPem(this.privateKey),
+      privateKey: pki.privateKeyToPem(privateKey),
       signatureAlgorithm: 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
       canonicalizationAlgorithm: 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315',
       publicCert: certPem,
@@ -53,7 +47,7 @@ export class SignedEventXml {
 
     const xmlWithSignature = xml.slice(0, insertAt) + signatureXml + xml.slice(insertAt);
 
-    return xmlWithSignature;  
+    return xmlWithSignature;
   }
 }
 

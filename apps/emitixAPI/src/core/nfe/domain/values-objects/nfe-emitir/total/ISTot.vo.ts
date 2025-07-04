@@ -3,6 +3,7 @@ import type { ISSQNTot } from "./ISSQNTot.vo";
 import type { retTrib } from "./retTrib.vo";
 import type { IBSCBSTot } from "./IBSCBSTot.vo";
 import type { vNFTot } from "./vNFTot.vo";
+import { DomainError } from "../../../errors/domain.error";
 
 export class Total {
   ICMSTot: ICMSTot;
@@ -32,7 +33,7 @@ export class Total {
 
   validateOrThrow() {
     if (this.ICMSTot === undefined || this.ICMSTot === null) {
-      throw new Error('O campo ICMSTot é obrigatório');
+      throw new DomainError('O campo ICMSTot é obrigatório');
     }
 
     this.ICMSTot.validateOrThrow();
@@ -79,11 +80,11 @@ export class ISTot {
 
   validateOrThrow() {
     if (this.vIS === undefined || this.vIS === null) {
-      throw new Error('O campo vIS é obrigatório');
+      throw new DomainError('O campo vIS é obrigatório');
     }
 
     if (this.vIS < 0) {
-      throw new Error('O valor do Imposto Seletivo não pode ser negativo');
+      throw new DomainError('O valor do Imposto Seletivo não pode ser negativo');
     }
   }
 

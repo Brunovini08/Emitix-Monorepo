@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -49,7 +51,7 @@ export class ICMSSN202 {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
@@ -57,7 +59,7 @@ export class ICMSSN202 {
 
     const allowedCSOSN = ['202', '203'];
     if (this.CSOSN === undefined || typeof this.CSOSN !== 'string' || !allowedCSOSN.includes(this.CSOSN)) {
-      throw new Error(`
+      throw new DomainError(`
         CSOSN (Código de Situação da Operação – Simples Nacional) é obrigatório e deve ser '202' ou '203'.
         202 - Tributada pelo Simples Nacional sem permissão de crédito e com cobrança do ICMS por Substituição Tributária;
         203 - Isenção do ICMS nos Simples Nacional para faixa de receita bruta e com cobrança do ICMS por Substituição Tributária.
@@ -66,7 +68,7 @@ export class ICMSSN202 {
 
     const allowedModBCST = ['0', '1', '2', '3', '4', '5', '6'];
     if (this.modBCST === undefined || typeof this.modBCST !== 'string' || !allowedModBCST.includes(this.modBCST)) {
-      throw new Error(`
+      throw new DomainError(`
         Modalidade de determinação da BC do ICMS ST (modBCST) é obrigatória e deve ser uma das seguintes:
         0 - Preço tabelado ou máximo sugerido; 1 - Lista Negativa (valor); 2 - Lista Positiva (valor); 3 - Lista Neutra (valor);
         4 - Margem Valor Agregado (%); 5 - Pauta (valor); 6 - Valor da Operação.
@@ -74,35 +76,35 @@ export class ICMSSN202 {
     }
 
     if (this.pMVAST !== null && (typeof this.pMVAST !== 'string' || this.pMVAST.trim() === '')) {
-      throw new Error('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual da Margem de Valor Adicionado (pMVAST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.pRedBCST !== null && (typeof this.pRedBCST !== 'string' || this.pRedBCST.trim() === '')) {
-      throw new Error('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual de redução da BC do ICMS ST (pRedBCST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vBCST !== null && (typeof this.vBCST !== 'string' || this.vBCST.trim() === '')) {
-      throw new Error('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS ST (vBCST) deve ser um número não negativo, se informado.');
     }
 
     if (typeof this.pICMSST !== 'string' || this.pICMSST.trim() === '') {
-      throw new Error('Alíquota do ICMS ST (pICMSST) é obrigatória e deve ser um número entre 0 e 100.');
+      throw new DomainError('Alíquota do ICMS ST (pICMSST) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
     if (typeof this.vICMSST !== 'string' || this.vICMSST.trim() === '') {
-      throw new Error('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS ST (vICMSST) é obrigatório e deve ser um número não negativo.');
     }
 
     if (this.vBCFCPST !== null && (typeof this.vBCFCPST !== 'string' || this.vBCFCPST.trim() === '')) {
-      throw new Error('Valor da BC do ICMS FCP (vBCFCPST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do ICMS FCP (vBCFCPST) deve ser um número não negativo, se informado.');
     }
 
     if (this.pFCPST !== null && (typeof this.pFCPST !== 'string' || this.pFCPST.trim() === '')) {
-      throw new Error('Percentual do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Percentual do ICMS FCP ST (pFCPST) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vFCPST !== null && (typeof this.vFCPST !== 'string' || this.vFCPST.trim() === '')) {
-      throw new Error('Valor do ICMS FCP ST (vFCPST) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do ICMS FCP ST (vFCPST) deve ser um número não negativo, se informado.');
     }
   }
 

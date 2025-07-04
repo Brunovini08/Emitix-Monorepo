@@ -1,3 +1,4 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error"
 import type { IPI } from "./IPI.vo"
 
 export class ImpostoDevol {
@@ -15,7 +16,7 @@ export class ImpostoDevol {
 
   public validateOrThrow() {
     if (typeof this.pDevol !== 'number' || this.pDevol < 0) {
-      throw new Error('Percentual de Devolução (pDevol) deve ser um número não negativo.')
+      throw new DomainError('Percentual de Devolução (pDevol) deve ser um número não negativo.')
     }
   }
 

@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error";
 import type { Endereco } from "./endereco.vo";
 
 export class Emit {
@@ -40,27 +41,27 @@ export class Emit {
 
   public validateOrThrow(): void {
     if (!this.CNPJ && !this.CPF) {
-      throw new Error('CNPJ ou CPF do emitente é obrigatório.');
+      throw new DomainError('CNPJ ou CPF do emitente é obrigatório.');
     }
     if (this.CNPJ && this.CPF) {
-      throw new Error('Emitente não pode ter CNPJ e CPF informados simultaneamente.');
+      throw new DomainError('Emitente não pode ter CNPJ e CPF informados simultaneamente.');
     }
 
     if (this.CNPJ && this.CNPJ.length !== 14) {
-      throw new Error('CNPJ do emitente inválido. Deve ter 14 dígitos.');
+      throw new DomainError('CNPJ do emitente inválido. Deve ter 14 dígitos.');
     }
     if (this.CPF && this.CPF.length !== 11) {
-      throw new Error('CPF do emitente inválido. Deve ter 11 dígitos.');
+      throw new DomainError('CPF do emitente inválido. Deve ter 11 dígitos.');
     }
 
     if (!this.xNome || this.xNome.trim() === '') {
-      throw new Error('Nome/Razão Social (xNome) do emitente é obrigatório.');
+      throw new DomainError('Nome/Razão Social (xNome) do emitente é obrigatório.');
     }
     if (!this.IE || this.IE.trim() === '') {
-      throw new Error('Inscrição Estadual (IE) do emitente é obrigatória.');
+      throw new DomainError('Inscrição Estadual (IE) do emitente é obrigatória.');
     }
       if (!this.CRT || !['1', '2', '3'].includes(this.CRT)) {
-      throw new Error('CRT do emitente inválido. Deve ser "1", "2" ou "3".');
+      throw new DomainError('CRT do emitente inválido. Deve ser "1", "2" ou "3".');
     }
 
   }

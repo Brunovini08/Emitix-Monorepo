@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error"
+
 export class ISSQNTot {
   vServ
   vBC
@@ -48,12 +50,12 @@ export class ISSQNTot {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.cRegTrib !== undefined && this.cRegTrib !== null && !cRegTribOptions.includes(this.cRegTrib)) {
-      throw new Error(`O valor de cRegTrib deve ser um dos seguintes: ${cRegTribOptions.join(', ')}.`);
+      throw new DomainError(`O valor de cRegTrib deve ser um dos seguintes: ${cRegTribOptions.join(', ')}.`);
     }
   }
 

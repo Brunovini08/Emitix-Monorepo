@@ -1,3 +1,5 @@
+import { DomainError } from "../../../errors/domain.error"
+
 export class fat {
 
   nFat: string
@@ -22,7 +24,7 @@ export class fat {
   validateOrThrow() {
     if (this.nFat !== undefined && this.nFat !== null) {
       if (this.nFat.length < 1 || this.nFat.length > 60) {
-        throw new Error('O campo nFat deve ter entre 1 e 60 caracteres.');
+        throw new DomainError('O campo nFat deve ter entre 1 e 60 caracteres.');
       }
     }
   }

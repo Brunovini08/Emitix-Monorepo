@@ -11,9 +11,8 @@ export class NfeDanfeUseCase {
     this.nfeXmlBuilder = nfeXmlBuilder
   }
 
-  async execute(data: NFe): Promise<string> {
-    const nfe = data.toJSON()
-    const xml = await this.nfeXmlBuilder.buildNFeDanfe(nfe.NFe, nfe.versao)
-   return xml
+  async execute(data, versao): Promise<string> {
+    const xml = await this.nfeXmlBuilder.buildNFeDanfe(data, versao)
+    return xml
   }
 }

@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class IPINTVO {
   public CST: string;
 
@@ -9,12 +11,12 @@ export class IPINTVO {
 
   validateOrThrow() {
     if (this.CST === undefined || this.CST === null) {
-      throw new Error('CST is required.');
+      throw new DomainError('CST is required.');
     }
 
     const validCSTs = ['01', '02', '03', '04', '05', '51', '52', '53', '54', '55'];
     if (!validCSTs.includes(this.CST)) {
-      throw new Error(`CST must be one of the following values: ${validCSTs.join(', ')}`);
+      throw new DomainError(`CST must be one of the following values: ${validCSTs.join(', ')}`);
     }
   }
 

@@ -1,4 +1,5 @@
 
+import { DomainError } from "../../../errors/domain.error"
 import { retTransp } from "./retTransp.vo"
 import { transporta } from "./transporta.vo"
 import type { TVeiculo } from "./tveiculo.vo"
@@ -41,7 +42,7 @@ export class transp {
   validateOrThrow() {
     const validModFrete = ['0', '1', '2', '3', '4', '9'];
     if (this.modFrete === undefined || this.modFrete === null || !validModFrete.includes(this.modFrete)) {
-      throw new Error(`O campo modFrete deve ser um dos seguintes: ${validModFrete.join(', ')}.`);
+      throw new DomainError(`O campo modFrete deve ser um dos seguintes: ${validModFrete.join(', ')}.`);
     }
 
     if (this.transporta !== undefined && this.transporta !== null) {
@@ -72,22 +73,22 @@ export class transp {
 
     if (this.vagao !== undefined && this.vagao !== null) {
       if (this.vagao.length < 1 || this.vagao.length > 20) {
-        throw new Error('O campo vagao deve ter entre 1 e 20 caracteres.');
+        throw new DomainError('O campo vagao deve ter entre 1 e 20 caracteres.');
       }
     }
 
     if (this.balsa !== undefined && this.balsa !== null) {
       if (this.balsa.length < 1 || this.balsa.length > 20) {
-        throw new Error('O campo balsa deve ter entre 1 e 20 caracteres.');
+        throw new DomainError('O campo balsa deve ter entre 1 e 20 caracteres.');
       }
     }
 
     if (this.vol !== undefined && this.vol !== null) {
       if (!Array.isArray(this.vol)) {
-        throw new Error('O campo vol deve ser um array.');
+        throw new DomainError('O campo vol deve ser um array.');
       }
       if (this.vol.length < 0 || this.vol.length > 5000) {
-        throw new Error('O campo vol deve ter entre 0 e 5000 itens.');
+        throw new DomainError('O campo vol deve ter entre 0 e 5000 itens.');
       }
       for (const item of this.vol) {
         if (typeof item.validateOrThrow === 'function') {

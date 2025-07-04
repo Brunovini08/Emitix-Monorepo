@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 export class deduc {
 
   xDed
@@ -18,12 +20,12 @@ export class deduc {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null) {
-        throw new Error(`O campo ${field} é obrigatório`);
+        throw new DomainError(`O campo ${field} é obrigatório`);
       }
     }
 
     if (this.xDed.length < 1 || this.xDed.length > 60) {
-      throw new Error('O campo xDed deve ter entre 1 e 60 caracteres.');
+      throw new DomainError('O campo xDed deve ter entre 1 e 60 caracteres.');
     }
   }
 

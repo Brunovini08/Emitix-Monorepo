@@ -1,3 +1,5 @@
+import { DomainError } from "../../errors/domain.error"
+
 export class TLocalVO {
   xLgr
   nro
@@ -31,16 +33,16 @@ export class TLocalVO {
 
     for (const field of requiredFields) {
       if (this[field] === undefined || this[field] === null || this[field] === '') {
-        throw new Error(`Valor não informado: ${field}`);
+        throw new DomainError(`Valor não informado: ${field}`);
       }
     }
 
     if (this.cMun.length !== 7 || !/^\d+$/.test(this.cMun)) {
-      throw new Error('Código do município deve ter 7 dígitos e ser numérico.');
+      throw new DomainError('Código do município deve ter 7 dígitos e ser numérico.');
     }
 
     if (this.UF === undefined || this.UF === null) {
-      throw new Error('UF é obrigatório.');
+      throw new DomainError('UF é obrigatório.');
     }
   }
 

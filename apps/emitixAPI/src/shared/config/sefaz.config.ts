@@ -680,6 +680,8 @@ export const SEFAZ_CONFIG = {
           'https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx',
         NFeRetAutorizacao4:
           'https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx',
+        NFeDistribuicaoDFe:
+          'https://homologacao.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx?WSDL'
       },
       '1': {
         NFeInutilizacao4:
@@ -696,6 +698,8 @@ export const SEFAZ_CONFIG = {
           'https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx',
         NFeRetAutorizacao4:
           'https://nfe.fazenda4.sp.gov.br/ws/nferetautorizacao4.asmx',
+        NFeDistribuicaoDFe:
+          'https://www.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx?WSDL'
       },
     },
     '65': {

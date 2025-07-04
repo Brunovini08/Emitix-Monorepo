@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -31,29 +33,29 @@ export class ICMS61 {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
     }
 
     if (this.CST === undefined || typeof this.CST !== 'string' || this.CST.trim() === '') {
-      throw new Error('Código de Situação Tributária (CST) do ICMS é obrigatório.');
+      throw new DomainError('Código de Situação Tributária (CST) do ICMS é obrigatório.');
     }
     if (this.CST !== '61') {
-      throw new Error('CST para ICMS61 deve ser obrigatoriamente "61".');
+      throw new DomainError('CST para ICMS61 deve ser obrigatoriamente "61".');
     }
 
     if (typeof this.qBCMonoRet !== 'number' || this.qBCMonoRet < 0) {
-      throw new Error('Quantidade tributada retida (qBCMonoRet) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Quantidade tributada retida (qBCMonoRet) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.adRemICMSRet !== 'number' || this.adRemICMSRet < 0) {
-      throw new Error('Alíquota ad valorem do ICMS retido (adRemICMSRet) é obrigatória e deve ser um número não negativo.');
+      throw new DomainError('Alíquota ad valorem do ICMS retido (adRemICMSRet) é obrigatória e deve ser um número não negativo.');
     }
 
     if (typeof this.vICMSMonoRet !== 'number' || this.vICMSMonoRet < 0) {
-      throw new Error('Valor do ICMS monofásico retido (vICMSMonoRet) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS monofásico retido (vICMSMonoRet) é obrigatório e deve ser um número não negativo.');
     }
   }
 

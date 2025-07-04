@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmptyObject, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsNotEmptyObject, ValidateNested } from "class-validator";
 import TConsStatServ from "./TConsStatServ";
 
 export default class TEnvConsStatServ {
@@ -7,4 +7,9 @@ export default class TEnvConsStatServ {
   @ValidateNested()
   @Type(() => TConsStatServ)
   consStatServ: TConsStatServ
+
+  @IsNotEmpty({
+    message: "CNPJ é obrigatório"
+  })
+  CNPJ: string
 }

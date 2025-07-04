@@ -1,3 +1,4 @@
+import { DomainError } from "../../../errors/domain.error";
 import type { detPag } from "./detPag.vo";
 
 export class pag {
@@ -17,13 +18,13 @@ export class pag {
 
   validateOrThrow() {
     if (this.detPag === undefined || this.detPag === null) {
-      throw new Error('O campo detPag é obrigatório');
+      throw new DomainError('O campo detPag é obrigatório');
     }
     if (!Array.isArray(this.detPag)) {
-      throw new Error('O campo detPag deve ser um array.');
+      throw new DomainError('O campo detPag deve ser um array.');
     }
     if (this.detPag.length > 100) {
-      throw new Error('O campo detPag deve ter no máximo 100 itens.');
+      throw new DomainError('O campo detPag deve ter no máximo 100 itens.');
     }
     for (const item of this.detPag) {
       if (typeof item.validateOrThrow === 'function') {

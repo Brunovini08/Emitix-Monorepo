@@ -1,3 +1,5 @@
+import { DomainError } from "src/core/nfe/domain/errors/domain.error";
+
 const TorigEnum = {
   NACIONAL: '0',
   ESTRANGEIRA_IMPORTACAO_DIRETA: '1',
@@ -43,42 +45,42 @@ export class ICMSST {
 
   public validateOrThrow() {
     if (this.orig === undefined || !(Object.values(TorigEnum).includes(this.orig))) {
-      throw new Error(`
+      throw new DomainError(`
         Origem da mercadoria (orig) é obrigatória e deve ser um dos seguintes valores:
         ${Object.values(TorigEnum).join(', ')} (0 - Nacional, 1 - Estrangeira - Importação direta, 2 - Estrangeira - Adquirida no mercado interno)
       `);
     }
 
     if (this.CST === undefined || typeof this.CST !== 'string' || this.CST.trim() === '') {
-      throw new Error('Código de Situação Tributária (CST) do ICMS é obrigatório.');
+      throw new DomainError('Código de Situação Tributária (CST) do ICMS é obrigatório.');
     }
 
     if (typeof this.vBCSTRet !== 'number' || this.vBCSTRet < 0) {
-      throw new Error('Valor da BC do ICMS ST retido (vBCSTRet) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor da BC do ICMS ST retido (vBCSTRet) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.pST !== 'number' || this.pST < 0 || this.pST > 100) {
-      throw new Error('Alíquota do ICMS ST (pST) é obrigatória e deve ser um número entre 0 e 100.');
+      throw new DomainError('Alíquota do ICMS ST (pST) é obrigatória e deve ser um número entre 0 e 100.');
     }
 
     if (typeof this.vICMSSubstituto !== 'number' || this.vICMSSubstituto < 0) {
-      throw new Error('Valor do ICMS Substituição Tributária (vICMSSubstituto) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS Substituição Tributária (vICMSSubstituto) é obrigatório e deve ser um número não negativo.');
     }
 
     if (typeof this.vICMSSTRet !== 'number' || this.vICMSSTRet < 0) {
-      throw new Error('Valor do ICMS ST retido (vICMSSTRet) é obrigatório e deve ser um número não negativo.');
+      throw new DomainError('Valor do ICMS ST retido (vICMSSTRet) é obrigatório e deve ser um número não negativo.');
     }
 
     if (this.vBCFCPSTRet !== undefined && (typeof this.vBCFCPSTRet !== 'number' || this.vBCFCPSTRet < 0)) {
-      throw new Error('Valor da BC do FCP ST retido (vBCFCPSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor da BC do FCP ST retido (vBCFCPSTRet) deve ser um número não negativo, se informado.');
     }
 
     if (this.pFCPSTRet !== undefined && (typeof this.pFCPSTRet !== 'number' || this.pFCPSTRet < 0 || this.pFCPSTRet > 100)) {
-      throw new Error('Alíquota do FCP ST retido (pFCPSTRet) deve ser um número entre 0 e 100, se informado.');
+      throw new DomainError('Alíquota do FCP ST retido (pFCPSTRet) deve ser um número entre 0 e 100, se informado.');
     }
 
     if (this.vFCPSTRet !== undefined && (typeof this.vFCPSTRet !== 'number' || this.vFCPSTRet < 0)) {
-      throw new Error('Valor do FCP ST retido (vFCPSTRet) deve ser um número não negativo, se informado.');
+      throw new DomainError('Valor do FCP ST retido (vFCPSTRet) deve ser um número não negativo, se informado.');
     }
   }
 
