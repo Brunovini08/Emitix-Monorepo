@@ -48,5 +48,4 @@ export class TDest {
   @Type(() => TDec_1302)
   vST: TDec_1302
 
-
 }

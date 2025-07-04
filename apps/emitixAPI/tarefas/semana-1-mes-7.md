@@ -54,9 +54,6 @@
 - [] Estruturar melhor os logs da aplicação e como serão salvos no banco
 - [] Criar testes unitários para as entidades (Talvez hoje)
 - [] Criar testes unitários para os usecases (Talvez hoje)
-
-### 🟢 05/07/2025
-
 - [] Analisar e ver quais são todas as tags possíveis de serem usadas na NFCE
 - [] Criar as entidades da NFCE
 - [] Refatorar a camada application da NFCE
