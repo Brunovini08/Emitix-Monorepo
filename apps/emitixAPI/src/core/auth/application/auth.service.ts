@@ -4,8 +4,8 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { SignInDto } from '../application/dto/signInDto';
-import { SignUpDto } from '../application/dto/signUpDto';
+import { SignInDto } from '../presentation/dto/signInDto';
+import { SignUpDto } from '../presentation/dto/signUpDto';
 import  { PrismaService } from 'src/shared/common/prismaConfig/prisma.service';
 import { hashPassword, comparePassword } from 'src/shared/common/utils/auth-utils/cipher';
 import  { CreateToken } from 'src/shared/common/utils/auth-utils/createToken';

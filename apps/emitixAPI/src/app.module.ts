@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './core/auth/infrastructure/auth.module';
+import { AuthModule } from './core/auth/auth.module';
 import { NfeModule } from './core/nfe/nfe.module';
 
 import { ConfigModule } from '@nestjs/config';

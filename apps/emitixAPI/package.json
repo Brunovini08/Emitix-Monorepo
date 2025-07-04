@@ -1,8 +1,8 @@
 {
   "name": "emitixapi",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Criando uma Api de Emissão de NFe e NFCe",
+  "author": "Bruno Vinícius Evaristo Santa Capita",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

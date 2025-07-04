@@ -42,3 +42,22 @@
 - [X] Fazer a rota de Consulta de Cadastro funcionar
 - [X] Fazer a rota de Consulta de Status funcionar
 - [X] Fazer a rota de inutilizar funcionar
+
+### 🟢 04/07/2025
+
+- [] Criar a Entidade do evento
+- [] Criar os Mappers do evento
+- [] Fazer a rota de evento funcionar
+- [] Criar a rota de danfe para gerar o pdf
+- [] Estruturar o salvamento das informações das notas no banco
+- [] Fazer os métodos de salvamento no banco
+- [] Estruturar melhor os logs da aplicação e como serão salvos no banco
+- [] Criar testes unitários para as entidades (Talvez hoje)
+- [] Criar testes unitários para os usecases (Talvez hoje)
+
+### 🟢 05/07/2025
+
+- [] Analisar e ver quais são todas as tags possíveis de serem usadas na NFCE
+- [] Criar as entidades da NFCE
+- [] Refatorar a camada application da NFCE
+- [] Refatorar os builders da NFCE
