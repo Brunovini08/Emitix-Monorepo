@@ -7,7 +7,7 @@ import {
   Res,
   UseFilters,
 } from '@nestjs/common';
-import { AuthService } from '../infrastructure/auth.service';
+import { AuthService } from '../application/auth.service';
 import { SignUpDto } from './dto/signUpDto';
 import { SignInDto } from './dto/signInDto';
 import { Request, Response } from 'express';

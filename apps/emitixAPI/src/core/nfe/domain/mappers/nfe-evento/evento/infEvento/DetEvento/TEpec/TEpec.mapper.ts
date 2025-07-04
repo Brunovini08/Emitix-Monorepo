@@ -1,4 +1,4 @@
-import { DestMapper } from "src/core/nfe/domain/mappers/nfe-emitir/dest/dest.mapper";
+import { DestMapper } from "./Dest.mapper";
 import { TEpec } from "src/core/nfe/domain/types/complex_types/TEvento/TEpec/TEpec";
 import { TEpecVO } from "src/core/nfe/domain/values-objects/nfe-evento/evento/infEvento/detEvento/TEpec/TEpec.vo";
 
