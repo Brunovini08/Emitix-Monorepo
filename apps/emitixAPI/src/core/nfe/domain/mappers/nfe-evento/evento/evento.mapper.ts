@@ -1,12 +1,13 @@
-import { TEvento } from "../../../types/complex_types/TEvento/TEvento";
-import { EventoVO } from "../../../values-objects/nfe-evento/evento/evento.vo";
+import { NFeEventoEntity } from "../../../entities/nfe-evento.entity";
+import { TEnvEvento } from "../../../types/complex_types/TEvento/TEnvEvento";
 import { InfEventoMapper } from "./infEvento/infEvento.mapper";
 
 export class EventoMapper {
-    static fromDto(data: TEvento): EventoVO {
-        return new EventoVO({
-            versao: String(data.versao),
-            infEvento: InfEventoMapper.fromDto(data.infEvento),
+    static fromDto(data: TEnvEvento): NFeEventoEntity {
+        return new NFeEventoEntity({
+            versao: String(data.envEvento.versao),
+            infEvento: InfEventoMapper.fromDto(data.envEvento.evento.infEvento),
+            chaveAcesso: String(data.envEvento.evento.infEvento.chNFe)
         })
     }
 }

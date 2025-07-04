@@ -106,12 +106,10 @@ export class NfeService {
 
   async evento(body: TEnvEvento, file: Base64, certPassword: string, nUrl: number, idUser: string, typeDocument: string) {
     return this.notaService.evento(
-      file,
       certPassword,
       body,
       idUser,
       file,
-      certPassword,
       nUrl,
       typeDocument
     )

@@ -27,12 +27,14 @@ import { firstValueFrom } from 'rxjs';
 import { NfeConsultaProcessamentoUseCase } from '../use-cases/nfe-consulta-processamento.usecase';
 import { ConsultaProcessamentoMapper } from '../../domain/mappers/nfe-consulta-processamento/nfe-consulta-processamento.mapper';
 import { NfeInutilizarMapper } from '../../domain/mappers/nfe-inutilizar/nfe-inutilizar.mapper';
-import { NfeStatusJsonInterface } from '../../domain/interfaces/nfe-status/nfe-status-json.interface';
 import { NfeConsultaMapper } from '../../domain/mappers/nfe-consulta/nfe-consulta.mapper';
 import { NfeStatusMapper } from '../../domain/mappers/nfe-status/nfe-status.mapper';
 import { NfeConsultaCadastroMapper } from '../../domain/mappers/nfe-consulta-cadastro/nfe-consulta-cadastro.mapper';
 import { NfeDanfeMapper } from '../../domain/mappers/nfe-danfe/nfe-danfe.mapper';
-import { FormatErrorApplicationInterceptor } from 'src/core/nfe/application/errors/format-error-application.intercetor';
+import { EventoMapper } from '../../domain/mappers/nfe-evento/evento/evento.mapper';
+import { NfeEventoUsecase } from '../use-cases/nfe-evento.usecase';
+import { NfeEventoJsonInterface } from '../../domain/interfaces/nfe-evento/nfeEventoJson.inteface';
+import { SignedEventXml } from '../../infrastructure/external/xml/sign/signedEventXML.util';
 
 @Injectable()
 export class NotaService {
@@ -44,12 +46,14 @@ export class NotaService {
   private readonly nfeConsultaCadastroUseCase: NfeConsultaCadastroUseCase
   private readonly nfeStatusUseCase: NfeStatusUseCase
   private readonly nfeDanfeUseCase: NfeDanfeUseCase
+  private readonly nfeEventoUseCase: NfeEventoUsecase
 
   private readonly emissionService: EmissionService
 
   private readonly certificateService: CertificateService
 
   private readonly signedXmlUtil: SignedXmlUtil
+  private readonly signedXmlEventoUtil: SignedEventXml
 
   private readonly idLoteService: IdLoteService
 
@@ -71,6 +75,8 @@ export class NotaService {
     idLoteService: IdLoteService,
     httpService: HttpService,
     enviNFeGen: EnviNFeGen,
+    nfeEventoUseCase: NfeEventoUsecase,
+    signedXmlEventoUtil: SignedEventXml,
   ) {
     this.emissionService = emissionService
     this.nfeEmitirUseCase = nfeEmitirUseCase
@@ -85,6 +91,8 @@ export class NotaService {
     this.idLoteService = idLoteService
     this.httpService = httpService
     this.enviNFeGen = enviNFeGen
+    this.nfeEventoUseCase = nfeEventoUseCase
+    this.signedXmlEventoUtil = signedXmlEventoUtil
   }
 
   async emitir(
@@ -383,7 +391,6 @@ export class NotaService {
       const distribuicaoDfe = NfeDanfeMapper.fromDto(body);
       const distribuicaoDfeJson = distribuicaoDfe.toJSON()
       const xml = await this.nfeDanfeUseCase.execute(distribuicaoDfeJson.distDFeInt, distribuicaoDfeJson.versao);
-      console.log(xml)
       const result = await validateXmlXsd(xml, 6);
       if (result === true) {
         const sendSefaz = new SendSefaz(this.httpService)
@@ -415,54 +422,50 @@ export class NotaService {
   }
 
   async evento(
-    cert: any,
-    privateKey: any,
+    certPassword: string,
     body: TEnvEvento,
     idUser: string,
     file: Base64,
-    certPassword: string,
     nUrl: number,
     typeDocument: string,
   ) {
-    // const valide = validateCertificate(cert);
-    // if (valide === 'Certificado ainda não é válido.')
-    //   throw new BadRequestException('Certificado ainda não é válido.');
-    // else if (valide === 'Certificado expirado.')
-    //   throw new BadRequestException('Certificado expirado.');
-    // else if (valide === 'Certificado é valido') {
-    //   const { chNFe, tpEvento, nSeqEvento } = body.envEvento.evento.infEvento;
-    //   const accessIDToEvent = generateAccessKeyToEvent(
-    //     tpEvento,
-    //     chNFe,
-    //     nSeqEvento,
-    //   );
-    //   const xml = await this.nfeBuildService.envioEvento(
-    //     body,
-    //     idUser,
-    //     accessIDToEvent,
-    //   );
-    //   const signed = signedEventXml(
-    //     xml,
-    //     file,
-    //     certPassword,
-    //     accessIDToEvent,
-    //     'infEvento',
-    //   );
-    //   const xmlString = String(signed);
-    //   const result = await validateXmlXsd(xmlString, 7);
-    //   if (result === true) {
-    //     const envXml = await sendSefazRequest(
-    //       signed,
-    //       String(body.envEvento.uf),
-    //       String(body.envEvento.evento.infEvento.tpAmb),
-    //       nUrl,
-    //       cert,
-    //       privateKey,
-    //       typeDocument,
-    //     );
-    //     return envXml.data;
-    //   }
-    //   return result;
+    try {
+      const { cert, privateKey } = await this.certificateService.validateCertificate(file, certPassword)
+      if (!cert || !privateKey) throw new BadRequestException('Certificado inválido')
+      const cnpj = await this.certificateService.extractCnpjFromCertificate(file, certPassword)
+      if (String(body.envEvento.evento.infEvento.CNPJ) !== cnpj) throw new BadRequestException('Cnpj do emitente não é igual ao do certificado')
+      const evento = EventoMapper.fromDto(body);
+      const eventoJson = evento.toJSON() as NfeEventoJsonInterface
+      const xml = await this.nfeEventoUseCase.execute(eventoJson, idUser, eventoJson.chaveAcesso);
+      const sign = await this.signedXmlEventoUtil.signEvent(xml, file, certPassword, eventoJson.chaveAcesso, 'infEvento');
+      console.log(sign)
+      const result = await validateXmlXsd(sign, 7);
+      if (result === true) {
+        const sendSefaz = new SendSefaz(this.httpService)
+        const envXml = await firstValueFrom(sendSefaz.sendSefazRequest(
+          '/home/capita/emitix/apps/emitixAPI/src/config/etc/nginx/ssl/cadeia.pem',
+          sign,
+          String(body.envEvento.uf),
+          String(body.envEvento.evento.infEvento.tpAmb),
+          nUrl,
+          cert,
+          privateKey,
+          typeDocument,
+        ))
+        return envXml;
+      } else {
+        return {
+          message: 'Erro de validação no XML',
+          statusCode: 400,
+          result
+        }
+      }
+    } catch (error) {
+      return {
+        error: error.message,
+        status: 400
+      }
+    }
   }
 }
 

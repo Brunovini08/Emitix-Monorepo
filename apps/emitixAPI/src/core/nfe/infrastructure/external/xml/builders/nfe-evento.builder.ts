@@ -1,8 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { XMLBuilder } from "fast-xml-parser";
-import type { TEnvEvento } from "src/core/nfe/domain/types/complex_types/TEvento/TEnvEvento";
-import type { ExpandObject, XMLBuilderCreateOptions } from "xmlbuilder2/lib/interfaces";
-import type { IdLoteService } from "../../sefaz/services/idLote.service";
+import { IdLoteService } from "../../sefaz/services/idLote.service";
+import { NfeEventoJsonInterface } from "src/core/nfe/domain/interfaces/nfe-evento/nfeEventoJson.inteface";
 
 @Injectable()
 export class NFeEventoBuilder {
@@ -16,9 +15,9 @@ export class NFeEventoBuilder {
   }
 
   async envioEvento(
-    data: XMLBuilderCreateOptions | string | ExpandObject,
+    data: NfeEventoJsonInterface,
     idUser: string,
-    accessIDToEvent: string,
+    chaveAcesso: string,
   ): Promise<string> {
     if (!data) {
       throw new BadRequestException('Dados inválidos');
@@ -26,10 +25,11 @@ export class NFeEventoBuilder {
     if (!idUser) {
       throw new BadRequestException('ID do usuário inválido');
     }
-    if (!accessIDToEvent) {
+    if (!chaveAcesso) {
       throw new BadRequestException('ID de acesso inválido');
     }
-    const dataJson: TEnvEvento = data ? JSON.parse(JSON.stringify(data)) : data;
+    const dataJson = data ? JSON.parse(JSON.stringify(data)) : data;
+    console.log(dataJson.versao)
     const {
       CNPJ,
       CPF,
@@ -41,7 +41,8 @@ export class NFeEventoBuilder {
       verEvento,
       detEvento,
       nSeqEvento,
-    } = dataJson.envEvento.evento.infEvento;
+    } = dataJson.infEvento;
+
 
     const idLote = await this.idLoteService.generateIdEvent(idUser);
 
@@ -66,14 +67,14 @@ export class NFeEventoBuilder {
 
     const root = {
       envEvento: {
-        '@_versao': dataJson.envEvento.versao,
+        '@_versao': dataJson.versao,
         '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
         idLote,
         evento: {
-          '@_versao': dataJson.envEvento.versao,
+          '@_versao': dataJson.versao,
           '@_xmlns': 'http://www.portalfiscal.inf.br/nfe',
           infEvento: {
-            '@_Id': accessIDToEvent,
+            '@_Id': data.id,
             cOrgao,
             tpAmb,
             ...(CNPJ ? { CNPJ } : { CPF }),
@@ -83,7 +84,7 @@ export class NFeEventoBuilder {
             nSeqEvento,
             verEvento,
             detEvento: {
-              '@_versao': dataJson.envEvento.versao,
+              '@_versao': dataJson.versao,
               ...value,
             },
           },
@@ -92,6 +93,9 @@ export class NFeEventoBuilder {
     };
 
     const xml = parser.build(root);
+    console.log({
+      "XML": xml,
+    })
     return xml;
   }
 }

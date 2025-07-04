@@ -1,7 +1,7 @@
 import { DomainError } from "src/core/nfe/domain/errors/domain.error";
 
 export class TCancelamentoVO {
-  descevento: string;
+  descEvento: string;
   nProt: string
   xJust: string;
 
@@ -12,14 +12,14 @@ export class TCancelamentoVO {
       xJust: string
     }
   ) {
-    this.descevento = data.descEvento;
+    this.descEvento = data.descEvento;
     this.nProt = data.nProt;
     this.xJust = data.xJust;
     this.validateOrThrow();
   }
 
   private validateOrThrow() {
-    if (!this.descevento) {
+    if (!this.descEvento) {
       throw new DomainError('O elemento descEvento é obrigatório');
     }
     if (!this.nProt) {
@@ -32,7 +32,7 @@ export class TCancelamentoVO {
 
   public toJSON() {
     return {
-      descevento: this.descevento,
+      descEvento: this.descEvento,
       nProt: this.nProt,
       xJust: this.xJust
     };
