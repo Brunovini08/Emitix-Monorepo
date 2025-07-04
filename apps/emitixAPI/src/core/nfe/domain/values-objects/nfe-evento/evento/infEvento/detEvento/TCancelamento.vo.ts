@@ -6,13 +6,16 @@ export class TCancelamentoVO {
   xJust: string;
 
   constructor(
-    descevento: string,
-    nProt: string,
-    xJust: string
+    data: {
+      descEvento: string,
+      nProt: string,
+      xJust: string
+    }
   ) {
-    this.descevento = descevento;
-    this.nProt = nProt;
-    this.xJust = xJust;
+    this.descevento = data.descEvento;
+    this.nProt = data.nProt;
+    this.xJust = data.xJust;
+    this.validateOrThrow();
   }
 
   private validateOrThrow() {

@@ -8,17 +8,19 @@ export class TAtorInteressadoVO {
   verAplic?: string | undefined;
 
   constructor(
-    versao: string,
+    data: {
+      versao: string,
     descEvento: string,
     cOrgaoAutor: string,
     tpAutor: string,
     verAplic?: string,
+    }
   ) {
-    this.versao = versao;
-    this.descEvento = descEvento;
-    this.cOrgaoAutor = cOrgaoAutor;
-    this.tpAutor = tpAutor;
-    this.verAplic = verAplic ? verAplic : undefined;
+    this.versao = data.versao;
+    this.descEvento = data.descEvento;
+    this.cOrgaoAutor = data.cOrgaoAutor;
+    this.tpAutor = data.tpAutor;
+    this.verAplic = data.verAplic ? data.verAplic : undefined;
     this.validateOrThrow();
   }
 

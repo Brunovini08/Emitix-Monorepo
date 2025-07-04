@@ -5,10 +5,12 @@ export class TCarta_CorrecaoVO {
   descEvento: string;
   xCondUso: string;
 
-  constructor(versao: string, descEvento: string, xCondUso: string) {
-    this.versao = versao;
-    this.descEvento = descEvento;
-    this.xCondUso = xCondUso;
+  constructor(data: {
+    versao: string, descEvento: string, xCondUso: string
+  }) {
+    this.versao = data.versao;
+    this.descEvento = data.descEvento;
+    this.xCondUso = data.xCondUso;
     this.validateOrThrow();
   }
 
